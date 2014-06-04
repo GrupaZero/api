@@ -10,7 +10,9 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "gzero/repository": "dev-master",
+        "illuminate/support": "4.1.*"
     },
     "autoload": {
         "classmap": [

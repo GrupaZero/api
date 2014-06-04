@@ -1,7 +1,7 @@
 <?php
 
 Route::group(
-    array('prefix' => 'api/v1', 'before' => 'auth|admin'),
+    array('prefix' => 'api/v1'),
     function () {
         Route::resource('blocks', 'Gzero\Api\Controllers\BlockController');
         Route::resource('contents', 'Gzero\Api\Controllers\ContentController');
