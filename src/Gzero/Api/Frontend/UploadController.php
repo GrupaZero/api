@@ -1,5 +1,6 @@
-<?php namespace Gzero\Api\Controllers;
+<?php namespace Gzero\Api\Frontend;
 
+use Gzero\Api\ApiController;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Repositories\Upload\UploadRepository;
 use Illuminate\Support\Facades\Response;

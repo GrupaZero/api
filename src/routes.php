@@ -1,13 +1,26 @@
 <?php
 
 Route::group(
-    array('prefix' => 'api/v1'),
+    ['prefix' => 'admin/api/v1', 'before' => 'auth|admin'],
     function () {
-        Route::resource('blocks', 'Gzero\Api\Controllers\BlockController');
-        Route::resource('contents', 'Gzero\Api\Controllers\ContentController');
-        Route::resource('contents.children', 'Gzero\Api\Controllers\ContentController', ['only' => ['index']]);
-        Route::resource('contents.uploads', 'Gzero\Api\Controllers\UploadController');
-        Route::resource('uploads', 'Gzero\Api\Controllers\UploadController');
-        Route::resource('users', 'Gzero\Api\Controllers\UserController');
+        Route::resource('users', 'Gzero\Api\Admin\UserController');
+    }
+);
+
+Route::group(
+    ['prefix' => 'api/v1'],
+    function () {
+        Route::resource('blocks', 'Gzero\Api\Frontend\BlockController');
+        Route::resource('contents', 'Gzero\Api\Frontend\ContentController');
+        Route::resource('contents.children', 'Gzero\Api\Frontend\ContentController', ['only' => ['index']]);
+        Route::resource('contents.uploads', 'Gzero\Api\Frontend\UploadController');
+        Route::resource('uploads', 'Gzero\Api\Frontend\UploadController');
+
+        Route::group(
+            ['before' => 'auth'],
+            function () {
+                Route::resource('users', 'Gzero\Api\Controller\Frontend\UserController');
+            }
+        );
     }
 );
