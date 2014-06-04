@@ -1,5 +1,5 @@
 {
-    "name": "gzero/gzero-api",
+    "name": "gzero/api",
     "description": "Gzero API",
     "keywords": ["laravel", "cms", "api"],
     "license": "MIT",
