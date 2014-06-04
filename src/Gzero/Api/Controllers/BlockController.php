@@ -1,7 +1,7 @@
 <?php namespace Gzero\Api\Controllers;
 
 use Gzero\Api\UrlParamsProcessor;
-use Gzero\Repositories\Block\BlockRepository;
+use Gzero\Repository\BlockRepository;
 
 /**
  * This file is part of the GZERO CMS package.

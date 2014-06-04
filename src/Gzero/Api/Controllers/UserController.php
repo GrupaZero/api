@@ -1,7 +1,7 @@
 <?php namespace Gzero\Api\Controllers;
 
 use Gzero\Api\UrlParamsProcessor;
-use Gzero\Repositories\User\UserRepository;
+use Gzero\Repository\UserRepository;
 use Illuminate\Support\Facades\Response;
 
 /**

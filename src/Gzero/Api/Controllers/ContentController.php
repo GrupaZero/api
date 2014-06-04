@@ -1,7 +1,7 @@
 <?php namespace Gzero\Api\Controllers;
 
 use Gzero\Api\UrlParamsProcessor;
-use Gzero\Repositories\Content\ContentRepository;
+use Gzero\Repository\ContentRepository;
 
 /**
  * This file is part of the GZERO CMS package.
