@@ -1,0 +1,23 @@
+{
+    "name": "gzero/gzero-api",
+    "description": "Gzero API",
+    "keywords": ["laravel", "cms", "api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adrian Skierniewski",
+            "email": "adrian.skierniewski@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "classmap": [
+        ],
+        "psr-4": {
+            "Gzero\\": "src/Gzero"
+        }
+    },
+    "minimum-stability": "dev"
+}

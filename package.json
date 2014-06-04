@@ -1,0 +1,12 @@
+{
+    "author": "GZERO",
+    "name": "GZERO-API",
+    "version": "0.1.0",
+    "apidoc": "This is a description, it will be ignored if parameter apidocFilename exist.",
+    "apidocFilename": "API.md",
+    "devDependencies": {
+        "gulp": "~3.5.0",
+        "gulp-apidoc": "0.0.1",
+        "gulp-watch": "~0.5.2"
+    }
+}
