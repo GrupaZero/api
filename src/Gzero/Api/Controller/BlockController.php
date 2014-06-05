@@ -1,9 +1,7 @@
-<?php namespace Gzero\Api\Frontend;
+<?php namespace Gzero\Api\Controller;
 
-use Gzero\Api\ApiController;
 use Gzero\Api\UrlParamsProcessor;
-use Gzero\Repository\UserRepository;
-use Illuminate\Support\Facades\Response;
+use Gzero\Repository\BlockRepository;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -11,39 +9,40 @@ use Illuminate\Support\Facades\Response;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Class UserController
+ * Class BlockController
  *
  * @package    Gzero\Admin\Controllers\Resource
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
-class UserController extends ApiController {
+class BlockController extends ApiController {
 
-    protected $userRepo;
-    protected $processor;
+    protected
+        $processor,
+        $blockRepo;
 
-    public function __construct(UserRepository $upload, UrlParamsProcessor $processor)
+    public function __construct(BlockRepository $block, UrlParamsProcessor $processor)
     {
-        $this->userRepo  = $upload;
+        $this->blockRepo = $block;
         $this->processor = $processor;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @api           {get} /users Get users list
-     * @apiVersion    0.1.0
-     * @apiName       GetUserList
-     * @apiGroup      User
-     * @apiExample    Example usage:
-     * curl -i http://localhost/api/v1/users
-     * @apiSuccess {Array} data List of users (Array of Objects)
-     * @apiPermission admin
-     * @return \Illuminate\Http\JsonResponse
+     * @api        {get} /bocks Get blocks list
+     * @apiVersion 0.1.0
+     * @apiName    GetBlockList
+     * @apiGroup   Block
+     * @apiExample Example usage:
+     * curl -i http://localhost/api/v1/contents
+     * @apiSuccess {Array} data List of blocks (Array of Objects)
+     * @apiSuccess {Number} total Total count of all elements
+     * @return Response
      */
     public function index()
     {
-
+        return $this->blockRepo->get($this->processor->getPage(), $this->processor->getOrderByParams());
     }
 
     /**
@@ -67,7 +66,16 @@ class UserController extends ApiController {
     }
 
     /**
-     * Display the specified resource.
+     * Display a listing of the resource.
+     *
+     * @api        {get} /blocks/:id Get single block
+     * @apiVersion 0.1.0
+     * @apiName    GetBlock
+     * @apiGroup   Block
+     *
+     * @apiParam {Number} id Content unique ID.
+     *
+     * @apiSuccess {Object[]} translations List of translations (Array of Objects).
      *
      * @param  int $id
      *
@@ -75,7 +83,7 @@ class UserController extends ApiController {
      */
     public function show($id)
     {
-        //
+        return $this->blockRepo->getById($id);
     }
 
     /**

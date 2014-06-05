@@ -1,4 +1,4 @@
-<?php namespace Gzero\Api;
+<?php namespace Gzero\Api\Controller;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
