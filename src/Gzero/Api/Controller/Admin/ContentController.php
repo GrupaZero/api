@@ -1,5 +1,6 @@
-<?php namespace Gzero\Api\Controller;
+<?php namespace Gzero\Api\Controller\Admin;
 
+use Gzero\Api\Controller\ApiController;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Repository\ContentRepository;
 
