@@ -69,7 +69,7 @@ class ContentController extends ApiController {
                 return
                     $this->respondWithSuccess(
                         [
-                            'data' => $this->entitySerializer->toArray($this->contentRepo->getChildren($content, [], $orderBy)),
+                            'data' => $this->contentRepo->getChildren($content, [], $orderBy),
 //                            'total' => $this->contentRepo->getLastTotal()
                         ]
                     );
@@ -80,7 +80,7 @@ class ContentController extends ApiController {
 
         return $this->respondWithSuccess(
             [
-                'data' => $this->contentRepo->getRootContents(30, 0, $orderBy),
+                'data' => $this->contentRepo->getRootContents($orderBy),
 //                'total' => $this->contentRepo->getLastTotal()
             ]
         );
