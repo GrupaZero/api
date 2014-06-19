@@ -49,16 +49,29 @@ class BlockController extends ApiController {
      * @apiExample Example usage:
      * curl -i http://localhost/api/v1/blocks
      * @apiSuccess {Array} data List of blocks (Array of Objects)
-     * @apiSuccess {Number} total Total count of all elements
      * @return Response
      */
     public function index()
     {
-        $block = $this->blockRepo->getAllActive($this->processor->getPage(), $this->processor->getOrderByParams());
-        if (!empty($block)) {
-            return Response::json(['success' => TRUE, 'data' => $this->enSerializer->toArray($block)]);
+        $lang = $this->langRepo->getCurrent();
+        if (!empty($lang)) {
+            $regions = array();
+            $blocks  = $this->blockRepo->getAllActive($lang);
+            foreach ($blocks as $block) {
+                $this->handler->build($block, $lang);
+
+                foreach ($block->getRegions() as $region) {
+                    $regions[$region][] = $block->view;
+                }
+
+            }
+            return $this->respondWithSuccess(
+                [
+                    'data' => $regions,
+                ]
+            );
         }
-        return Response::json(['success' => TRUE, 'data' => NULL]);
+        return $this->respondNotFound();
     }
 
     /**
