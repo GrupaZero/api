@@ -1,36 +1,31 @@
 <?php
 
 Route::group(
-    setMultilangRouting(),
+    ['before' => 'auth'],
     function () {
+        // Admin API
         Route::group(
-            ['before' => 'auth'],
+            ['prefix' => 'api/admin/v1', 'before' => 'isActive'],
             function () {
-                // Admin API
-                Route::group(
-                    ['prefix' => 'api/admin/v1'],
-                    function () {
-                        Route::resource('blocks', 'Gzero\Api\Controller\Admin\BlockController');
-                        Route::resource('contents', 'Gzero\Api\Controller\Admin\ContentController');
-                        Route::resource(
-                            'contents.children',
-                            'Gzero\Api\Controller\Admin\ContentController',
-                            ['only' => ['index', 'show', 'update', 'destroy']]
-                        );
-                        Route::resource('contents.uploads', 'Gzero\Api\Controller\Admin\UploadController');
-                        Route::resource('uploads', 'Gzero\Api\Controller\Admin\UploadController');
-                    }
+                Route::resource('blocks', 'Gzero\Api\Controller\Admin\BlockController');
+                Route::resource('contents', 'Gzero\Api\Controller\Admin\ContentController');
+                Route::resource(
+                    'contents.children',
+                    'Gzero\Api\Controller\Admin\ContentController',
+                    ['only' => ['index', 'show', 'update', 'destroy']]
                 );
+                Route::resource('contents.uploads', 'Gzero\Api\Controller\Admin\UploadController');
+                Route::resource('uploads', 'Gzero\Api\Controller\Admin\UploadController');
             }
         );
-        // Public API
-        Route::group(
-            ['prefix' => 'api/v1'],
-            function () {
-                Route::resource('blocks', 'Gzero\Api\Controller\BlockController', ['only' => ['index', 'show']]);
-                Route::resource('contents', 'Gzero\Api\Controller\ContentController', ['only' => ['index', 'show']]);
-                Route::resource('contents.children', 'Gzero\Api\Controller\ContentController', ['only' => ['index']]);
-            }
-        );
+    }
+);
+// Public API
+Route::group(
+    ['prefix' => 'api/v1', 'before' => 'isActive'],
+    function () {
+        Route::resource('blocks', 'Gzero\Api\Controller\BlockController', ['only' => ['index', 'show']]);
+        Route::resource('contents', 'Gzero\Api\Controller\ContentController', ['only' => ['index', 'show']]);
+        Route::resource('contents.children', 'Gzero\Api\Controller\ContentController', ['only' => ['index']]);
     }
 );

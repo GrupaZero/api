@@ -17,6 +17,19 @@ use Illuminate\Support\ServiceProvider as SP;
  */
 class ServiceProvider extends SP {
 
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerFilters();
+        $this->bindTypes();
+        $this->RegisterDoctrineFilters();
+    }
+
     /**
      * Bootstrap the application events.
      *
@@ -27,12 +40,17 @@ class ServiceProvider extends SP {
         $this->registerRoutes();
     }
 
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
+    protected function registerRoutes()
+    {
+        require_once __DIR__ . '/../../routes.php';
+    }
+
+    protected function registerFilters()
+    {
+        require __DIR__ . '/../../filters.php';
+    }
+
+    private function bindTypes()
     {
         $this->app->bind(
             'Gzero\Api\UrlParamsProcessor',
@@ -42,9 +60,9 @@ class ServiceProvider extends SP {
         );
     }
 
-    private function registerRoutes()
+    public function RegisterDoctrineFilters()
     {
-        require_once __DIR__ . '/../../routes.php';
+        $this->app['doctrine']->getConfiguration()->addFilter("isActive", 'Gzero\Api\IsActiveFilter');
     }
 
 }
