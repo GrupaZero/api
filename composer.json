@@ -14,9 +14,11 @@
         "gzero/repository": "dev-master",
         "illuminate/support": "4.2.*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "4.3.*"
+    },
     "autoload": {
-        "classmap": [
-        ],
+        "classmap": [],
         "psr-4": {
             "Gzero\\": "src/Gzero"
         }
