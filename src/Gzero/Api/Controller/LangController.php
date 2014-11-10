@@ -54,7 +54,7 @@ class LangController extends ApiController {
     public function index()
     {
         // $page    = $this->processor->getPage();
-        $orderBy = $this->processor->getOrderByParams();
+        //$orderBy = $this->processor->getOrderByParams();
         //if ($id) { // content/n/children
         //    $content = $this->langRepo->getById($id);
         //    if (!empty($content)) {
@@ -69,10 +69,10 @@ class LangController extends ApiController {
         //        return $this->respondNotFound();
         //    }
         //}
-
+        $langs = $this->langRepo->getAll()->toArray();
         return $this->respondWithSuccess(
             [
-                'data' => $this->langRepo->getRootContents($orderBy),
+                'data' => $this->entitySerializer->toArray($langs),
                 // 'total' => $this->contentRepo->getLastTotal()
             ]
         );
