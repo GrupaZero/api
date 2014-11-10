@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
+         bootstrap="phpunit.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -11,14 +11,16 @@
          syntaxCheck="false"
         >
     <testsuites>
-        <testsuite name="Package Test Suite">
+        <testsuite name="GZERO API Test Suite">
             <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>
     <filter>
-        <blacklist>
-            <directory>./public</directory>
-            <directory>./vendor</directory>
-        </blacklist>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory suffix=".php">./vendor</directory>
+            </exclude>
+        </whitelist>
     </filter>
 </phpunit>
