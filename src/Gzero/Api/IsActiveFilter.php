@@ -16,6 +16,16 @@ use Doctrine\ORM\Query\Filter\SQLFilter;
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
 class IsActiveFilter extends SQLFilter {
+
+
+    /**
+     * Doctrine isActive filter
+     *
+     * @param ClassMetaData $targetEntity     ClassMetaData object
+     * @param string        $targetTableAlias Table alias
+     *
+     * @return string
+     */
     public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias)
     {
         // Check if the entity implements the LocalAware interface

@@ -19,10 +19,16 @@ use Illuminate\Support\Facades\Response;
  */
 class UploadController extends ApiController {
 
-    protected
-        $uploadRepo,
-        $processor;
+    protected $uploadRepo;
 
+    protected $processor;
+
+    /**
+     * UploadController constructor
+     *
+     * @param UploadRepository   $upload    Upload repository
+     * @param UrlParamsProcessor $processor Url processor
+     */
     public function __construct(UploadRepository $upload, UrlParamsProcessor $processor)
     {
         $this->uploadRepo = $upload;
@@ -44,6 +50,8 @@ class UploadController extends ApiController {
     /**
      * Display a listing of the resource.
      *
+     * @param int|null $id Content Id
+     *
      * @api        {get} /uploads Get upload list
      * @apiVersion 0.1.0
      * @apiName    GetUploadList
@@ -52,11 +60,10 @@ class UploadController extends ApiController {
      * curl -i http://localhost/api/v1/uploads
      * @apiSuccess {Array} data List of uploads (Array of Objects)
      *
-     * @param Int|null $id Content Id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index($id = NULL)
+    public function index($id = null)
     {
         $page    = $this->processor->getPage();
         $orderBy = $this->processor->getOrderByParams();
@@ -99,7 +106,7 @@ class UploadController extends ApiController {
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id Upload id
      *
      * @return Response
      */
@@ -111,9 +118,10 @@ class UploadController extends ApiController {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id Upload id
      *
      * @return Response
+     * @SuppressWarnings("unused")
      */
     public function edit($id)
     {
@@ -123,9 +131,10 @@ class UploadController extends ApiController {
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id Upload id
      *
      * @return Response
+     * @SuppressWarnings("unused")
      */
     public function update($id)
     {
@@ -135,12 +144,13 @@ class UploadController extends ApiController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id Upload id
      *
      * @return Response
+     * @SuppressWarnings("unused")
      */
     public function destroy($id)
     {
         //
     }
-} 
+}

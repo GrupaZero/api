@@ -18,10 +18,16 @@ use Gzero\Repository\ContentRepository;
  */
 class ContentController extends ApiController {
 
-    protected
-        $processor,
-        $contentRepo;
+    protected $processor;
 
+    protected $contentRepo;
+
+    /**
+     * ContentController constructor
+     *
+     * @param ContentRepository  $content   Content repository
+     * @param UrlParamsProcessor $processor Url processor
+     */
     public function __construct(ContentRepository $content, UrlParamsProcessor $processor)
     {
         $this->contentRepo = $content;
@@ -44,6 +50,8 @@ class ContentController extends ApiController {
     /**
      * Display a listing of the resource.
      *
+     * @param int|null $id Content id
+     *
      * @api        {get} /contents Get content list
      * @apiVersion 0.1.0
      * @apiName    GetContentList
@@ -52,11 +60,10 @@ class ContentController extends ApiController {
      * curl -i http://localhost/api/v1/contents
      * @apiSuccess {Array} data List of contents (Array of Objects)
      *
-     * @param null $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index($id = NULL)
+    public function index($id = null)
     {
         $orderBy = $this->processor->getOrderByParams();
         if ($id) { // content/n/children
@@ -104,7 +111,7 @@ class ContentController extends ApiController {
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int|null $id Content id
      *
      * @return Response
      * Display a listing of the resource.
@@ -133,9 +140,10 @@ class ContentController extends ApiController {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id Content id
      *
      * @return Response
+     * @SuppressWarnings("unused")
      */
     public function edit($id)
     {
@@ -145,9 +153,10 @@ class ContentController extends ApiController {
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id Content id
      *
      * @return Response
+     * @SuppressWarnings("unused")
      */
     public function update($id)
     {
@@ -157,9 +166,10 @@ class ContentController extends ApiController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id Content id
      *
      * @return Response
+     * @SuppressWarnings("unused")
      */
     public function destroy($id)
     {

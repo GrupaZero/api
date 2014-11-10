@@ -18,10 +18,16 @@ use Gzero\Repository\BlockRepository;
  */
 class BlockController extends ApiController {
 
-    protected
-        $processor,
-        $blockRepo;
+    protected $processor;
 
+    protected $blockRepo;
+
+    /**
+     * BlockController constructor
+     *
+     * @param BlockRepository    $block     Block repository
+     * @param UrlParamsProcessor $processor Url processor
+     */
     public function __construct(BlockRepository $block, UrlParamsProcessor $processor)
     {
         $this->blockRepo = $block;
@@ -69,6 +75,8 @@ class BlockController extends ApiController {
     /**
      * Display a listing of the resource.
      *
+     * @param int $id Block id
+     *
      * @api        {get} /blocks/:id Get single block
      * @apiVersion 0.1.0
      * @apiName    GetBlock
@@ -78,7 +86,6 @@ class BlockController extends ApiController {
      *
      * @apiSuccess {Object[]} translations List of translations (Array of Objects).
      *
-     * @param  int $id
      *
      * @return Response
      */
@@ -90,9 +97,10 @@ class BlockController extends ApiController {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id Block id
      *
      * @return Response
+     * @SuppressWarnings("unused")
      */
     public function edit($id)
     {
@@ -102,9 +110,10 @@ class BlockController extends ApiController {
     /**
      * Update the specified resource in storage.
      *
-     * @param  int $id
+     * @param int $id Block id
      *
      * @return Response
+     * @SuppressWarnings("unused")
      */
     public function update($id)
     {
@@ -114,12 +123,13 @@ class BlockController extends ApiController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id Block id
      *
      * @return Response
+     * @SuppressWarnings("unused")
      */
     public function destroy($id)
     {
         //
     }
-} 
+}

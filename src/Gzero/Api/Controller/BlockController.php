@@ -5,9 +5,6 @@ use Gzero\Core\BlockHandler;
 use Gzero\Repository\BlockRepository;
 use Gzero\Repository\LangRepository;
 
-
-//use Illuminate\Support\Facades\Response;
-
 /**
  * This file is part of the GZERO CMS package.
  *
@@ -22,11 +19,20 @@ use Gzero\Repository\LangRepository;
  */
 class BlockController extends ApiController {
 
-    protected
-        $processor,
-        $blockRepo,
-        $handler;
+    protected $processor;
 
+    protected $blockRepo;
+
+    protected $handler;
+
+    /**
+     * BlockController constructor
+     *
+     * @param BlockRepository    $block        Block repository
+     * @param BlockHandler       $blockHandler Block handler
+     * @param UrlParamsProcessor $processor    Url processor
+     * @param LangRepository     $lang         Lang entity
+     */
     public function __construct(
         BlockRepository $block,
         BlockHandler $blockHandler,
@@ -55,7 +61,7 @@ class BlockController extends ApiController {
     {
         $lang = $this->langRepo->getCurrent();
         if (!empty($lang)) {
-            $regions = array();
+            $regions = [];
             $blocks  = $this->blockRepo->getAllActive($lang);
             foreach ($blocks as $block) {
                 $this->handler->build($block, $lang);
@@ -77,16 +83,14 @@ class BlockController extends ApiController {
     /**
      * Display a listing of the resource.
      *
+     * @param int $id Block id
+     *
      * @api        {get} /blocks/:id Get single block
      * @apiVersion 0.1.0
      * @apiName    GetBlock
      * @apiGroup   Block
-     *
      * @apiParam {Number} id Block unique ID.
-     *
      * @apiSuccess {Object[]} rendered view in HTML.
-     *
-     * @param  int $id
      *
      * @return Response
      */
@@ -95,7 +99,7 @@ class BlockController extends ApiController {
         $lang  = $this->langRepo->getCurrent();
         $block = $this->blockRepo->getById($id);
 
-        if (!empty($block) and !empty($lang)) {
+        if (!empty($block) && !empty($lang)) {
             $this->handler->build($block, $lang);
 
             return $this->respondWithSuccess(
@@ -106,4 +110,4 @@ class BlockController extends ApiController {
         }
         return $this->respondNotFound();
     }
-} 
+}

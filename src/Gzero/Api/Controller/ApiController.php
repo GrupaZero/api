@@ -4,7 +4,6 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
-
 /**
  * This file is part of the GZERO CMS package.
  *
@@ -24,17 +23,28 @@ class ApiController extends Controller {
      */
     /**
      * @apiDefinePermission user User access rights needed.
-     * Optionally you can write here further informations about the permission.
+     * Optionally you can write here further information about the permission.
      */
 
+    /**
+     * Return response in json format
+     *
+     * @param array $data    Response data
+     * @param int   $code    Response code
+     * @param array $headers HTTP headers
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function respond(Array $data, $code, Array $headers = [])
     {
         return Response::json($data, $code, $headers);
     }
 
     /**
-     * @param array $data
-     * @param array $headers
+     * Return success response in json format
+     *
+     * @param array $data    Response data
+     * @param array $headers HTTP headers
      *
      * @return mixed
      */
@@ -44,8 +54,10 @@ class ApiController extends Controller {
     }
 
     /**
-     * @param string $message
-     * @param array  $headers
+     * Return not found response in json format
+     *
+     * @param string $message Custom message
+     * @param array  $headers HTTP headers
      *
      * @return mixed
      */
@@ -64,7 +76,9 @@ class ApiController extends Controller {
     }
 
     /**
-     * @param string $message
+     * Return not found response in json format
+     *
+     * @param string $message Custom message
      *
      * @return mixed
      */

@@ -26,8 +26,8 @@ class ServiceProvider extends SP {
     public function register()
     {
         $this->registerFilters();
-        $this->bindTypes();
-        $this->RegisterDoctrineFilters();
+        $this->bind();
+        $this->registerDoctrineFilters();
     }
 
     /**
@@ -40,27 +40,47 @@ class ServiceProvider extends SP {
         $this->registerRoutes();
     }
 
+    /**
+     * Add additional file to store routes
+     *
+     * @return void
+     */
     protected function registerRoutes()
     {
         require_once __DIR__ . '/../../routes.php';
     }
 
+    /**
+     * Add additional file to store filters
+     *
+     * @return void
+     */
     protected function registerFilters()
     {
         require __DIR__ . '/../../filters.php';
     }
 
-    private function bindTypes()
+    /**
+     * Bind additional classes
+     *
+     * @return void
+     */
+    private function bind()
     {
         $this->app->bind(
             'Gzero\Api\UrlParamsProcessor',
-            function ($app) {
+            function () {
                 return new UrlParamsProcessor(Input::all());
             }
         );
     }
 
-    public function RegisterDoctrineFilters()
+    /**
+     * Register additional doctrine 2 filter
+     *
+     * @return void
+     */
+    public function registerDoctrineFilters()
     {
         $this->app['doctrine']->getConfiguration()->addFilter("isActive", 'Gzero\Api\IsActiveFilter');
     }

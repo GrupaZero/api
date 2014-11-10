@@ -4,7 +4,6 @@ use Gzero\Repository\ContentRepository;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Core\EntitySerializer;
 
-
 /**
  * This file is part of the GZERO CMS package.
  *
@@ -19,11 +18,19 @@ use Gzero\Core\EntitySerializer;
  */
 class ContentController extends ApiController {
 
-    protected
-        $processor,
-        $contentRepo,
-        $entitySerializer;
+    protected $processor;
 
+    protected $contentRepo;
+
+    protected $entitySerializer;
+
+    /**
+     * ContentController constructor
+     *
+     * @param ContentRepository  $content          Content repo
+     * @param UrlParamsProcessor $processor        Url processor
+     * @param EntitySerializer   $entitySerializer Entity serializer
+     */
     public function __construct(ContentRepository $content, UrlParamsProcessor $processor, EntitySerializer $entitySerializer)
     {
         $this->contentRepo      = $content;
@@ -47,6 +54,8 @@ class ContentController extends ApiController {
     /**
      * Display a listing of the resource.
      *
+     * @param int|null $id Content id
+     *
      * @api        {get} /contents Get content list
      * @apiVersion 0.1.0
      * @apiName    GetContentList
@@ -55,13 +64,11 @@ class ContentController extends ApiController {
      * curl -i http://localhost/api/v1/contents
      * @apiSuccess {Array} data List of contents (Array of Objects)
      *
-     * @param null $id
-     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index($id = NULL)
+    public function index($id = null)
     {
-        $page    = $this->processor->getPage();
+        // $page    = $this->processor->getPage();
         $orderBy = $this->processor->getOrderByParams();
         if ($id) { // content/n/children
             $content = $this->contentRepo->getById($id);
@@ -70,7 +77,7 @@ class ContentController extends ApiController {
                     $this->respondWithSuccess(
                         [
                             'data' => $this->contentRepo->getChildren($content, [], $orderBy),
-//                            'total' => $this->contentRepo->getLastTotal()
+                            // 'total' => $this->contentRepo->getLastTotal()
                         ]
                     );
             } else {
@@ -81,7 +88,7 @@ class ContentController extends ApiController {
         return $this->respondWithSuccess(
             [
                 'data' => $this->contentRepo->getRootContents($orderBy),
-//                'total' => $this->contentRepo->getLastTotal()
+                // 'total' => $this->contentRepo->getLastTotal()
             ]
         );
     }
@@ -89,10 +96,7 @@ class ContentController extends ApiController {
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     *
-     * @return Response
-     * Display a listing of the resource.
+     * @param int $id Content id
      *
      * @api                 {get} /contents/:id Get single content
      * @apiVersion          0.1.0
@@ -104,6 +108,7 @@ class ContentController extends ApiController {
      * @apiParam {Number} id Content unique ID.
      * @apiSuccessStructure Content
      *
+     * @return Response
      */
     public function show($id)
     {
