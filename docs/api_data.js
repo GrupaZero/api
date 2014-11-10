@@ -1432,8 +1432,8 @@ define({ api: [
   },
   {
     "type": "get",
-    "url": "/langs/:id",
-    "title": "Get single lang",
+    "url": "/langs/:code",
+    "title": "Get single",
     "version": "0.1.0",
     "name": "GetLang",
     "group": "Lang",
@@ -1441,7 +1441,7 @@ define({ api: [
     "examples": [
       {
         "title": "         Example usage:",
-        "content": "curl -i http://localhost/api/v1/langs/123\n"
+        "content": "curl -i http://api.example.com/v1/langs/en\n"
       }
     ],
     "parameter": {
@@ -1449,10 +1449,10 @@ define({ api: [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
-            "field": "id",
+            "type": "String",
+            "field": "code",
             "optional": false,
-            "description": "<p>Lang unique ID.</p>"
+            "description": "<p>Lang unique code.</p>"
           }
         ]
       }
@@ -1503,7 +1503,7 @@ define({ api: [
     "examples": [
       {
         "title": "Example usage:",
-        "content": "curl -i http://localhost/api/v1/langs\n"
+        "content": "curl -i http://api.example.com/v1/langs\n"
       }
     ],
     "success": {

@@ -5,7 +5,7 @@ Route::group(
     function () {
         // Admin API
         Route::group(
-            ['prefix' => 'api/v1/admin', 'before' => 'isActive'],
+            ['domain' => 'api.' . Request::server('SERVER_NAME'), 'prefix' => 'v1/admin', 'before' => 'isActive'],
             function () {
                 Route::resource('blocks', 'Gzero\Api\Controller\Admin\BlockController');
                 Route::resource('contents', 'Gzero\Api\Controller\Admin\ContentController');
@@ -22,7 +22,7 @@ Route::group(
 );
 // Public API
 Route::group(
-    ['prefix' => 'api/v1', 'before' => 'isActive'],
+    ['domain' => 'api.' . Request::server('SERVER_NAME'), 'prefix' => 'v1', 'before' => 'isActive'],
     function () {
         Route::resource('blocks', 'Gzero\Api\Controller\BlockController', ['only' => ['index', 'show']]);
         Route::resource('contents', 'Gzero\Api\Controller\ContentController', ['only' => ['index', 'show']]);

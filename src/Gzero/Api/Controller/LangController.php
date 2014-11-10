@@ -46,7 +46,7 @@ class LangController extends ApiController {
      * @apiName    GetLangList
      * @apiGroup   Lang
      * @apiExample Example usage:
-     * curl -i http://localhost/api/v1/langs
+     * curl -i http://api.example.com/v1/langs
      * @apiSuccess {Array} data List of langs (Array of Objects)
      *
      * @return \Illuminate\Http\JsonResponse
@@ -83,14 +83,14 @@ class LangController extends ApiController {
      *
      * @param int $code Lang code
      *
-     * @api                 {get} /langs/:id Get single lang
+     * @api                 {get} /langs/:code Get single
      * @apiVersion          0.1.0
      * @apiName             GetLang
      * @apiGroup            Lang
      * @apiDescription      Using this function, you can get a single lang
      * @apiExample          Example usage:
-     * curl -i http://localhost/api/v1/langs/123
-     * @apiParam {Number} id Lang unique ID.
+     * curl -i http://api.example.com/v1/langs/en
+     * @apiParam {String} code Lang unique code.
      * @apiSuccessStructure Lang
      *
      * @return Response
