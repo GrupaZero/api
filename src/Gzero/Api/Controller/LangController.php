@@ -41,7 +41,7 @@ class LangController extends ApiController {
     /**
      * Display a listing of the resource.
      *
-     * @api        {get} /langs Get langs list
+     * @api        {get} /langs Get list
      * @apiVersion 0.1.0
      * @apiName    GetLangList
      * @apiGroup   Lang

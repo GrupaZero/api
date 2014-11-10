@@ -1496,7 +1496,7 @@ define({ api: [
   {
     "type": "get",
     "url": "/langs",
-    "title": "Get langs list",
+    "title": "Get list",
     "version": "0.1.0",
     "name": "GetLangList",
     "group": "Lang",
