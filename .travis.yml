@@ -12,9 +12,9 @@ before_script:
 
 script:
  - mkdir -p build/logs
+ - ./vendor/bin/phpmd src/ text phpmd.xml
+ - ./vendor/bin/phpcs --standard=ruleset.xml src/ -n # -n no warnings
  - phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
-  - ./vendor/bin/phpmd src/ text phpmd.xml
-  - ./vendor/bin/phpcs --standard=ruleset.xml src/ -n # -n no warnings
   - php vendor/bin/coveralls -v
