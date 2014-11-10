@@ -37,7 +37,7 @@ class ApiController extends Controller {
      */
     public function respond(Array $data, $code, Array $headers = [])
     {
-        return Response::json($data, $code, $headers);
+        return Response::json($data, $code, array_merge($this->getDefaultHeaders(), $headers));
     }
 
     /**
@@ -94,5 +94,17 @@ class ApiController extends Controller {
             SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR,
             $message
         );
+    }
+
+    /**
+     * Returns default headers for api
+     *
+     * @return array
+     */
+    private function getDefaultHeaders()
+    {
+        return [
+            'Access-Control-Allow-Origin' => 'http://' . preg_replace('/^api./', '', \Request::getHTTPHost())
+        ];
     }
 }
