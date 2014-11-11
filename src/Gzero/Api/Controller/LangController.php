@@ -3,6 +3,7 @@
 use Gzero\Repository\LangRepository;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Core\EntitySerializer;
+use JMS\Serializer\SerializerBuilder;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -18,23 +19,25 @@ use Gzero\Core\EntitySerializer;
  */
 class LangController extends ApiController {
 
-    protected $processor;
-
+    /**
+     * @var LangRepository
+     */
     protected $langRepo;
 
+    /**
+     * @var EntitySerializer
+     */
     protected $entitySerializer;
 
     /**
      * ContentController constructor
      *
-     * @param LangRepository     $lang             Content repo
-     * @param UrlParamsProcessor $processor        Url processor
-     * @param EntitySerializer   $entitySerializer Entity serializer
+     * @param LangRepository   $lang             Content repo
+     * @param EntitySerializer $entitySerializer Entity serializer
      */
-    public function __construct(LangRepository $lang, UrlParamsProcessor $processor, EntitySerializer $entitySerializer)
+    public function __construct(LangRepository $lang, EntitySerializer $entitySerializer)
     {
         $this->langRepo         = $lang;
-        $this->processor        = $processor;
         $this->entitySerializer = $entitySerializer;
     }
 
@@ -53,27 +56,11 @@ class LangController extends ApiController {
      */
     public function index()
     {
-        // $page    = $this->processor->getPage();
-        //$orderBy = $this->processor->getOrderByParams();
-        //if ($id) { // content/n/children
-        //    $content = $this->langRepo->getById($id);
-        //    if (!empty($content)) {
-        //        return
-        //            $this->respondWithSuccess(
-        //                [
-        //                    'data' => $this->langRepo->getChildren($content, [], $orderBy),
-        //                    // 'total' => $this->contentRepo->getLastTotal()
-        //                ]
-        //            );
-        //    } else {
-        //        return $this->respondNotFound();
-        //    }
-        //}
         $langs = $this->langRepo->getAll()->toArray();
         return $this->respondWithSuccess(
             [
-                'data' => $this->entitySerializer->toArray($langs),
-                // 'total' => $this->contentRepo->getLastTotal()
+                'total' => count($langs),
+                'data'  => $this->entitySerializer->toArray($langs)
             ]
         );
     }
