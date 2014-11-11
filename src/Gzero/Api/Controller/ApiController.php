@@ -30,13 +30,13 @@ class ApiController extends Controller {
     /**
      * Return response in json format
      *
-     * @param array $data    Response data
+     * @param mixed $data    Response data
      * @param int   $code    Response code
      * @param array $headers HTTP headers
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respond(Array $data, $code, Array $headers = [])
+    public function respond($data, $code, Array $headers = [])
     {
         $serializer = App::make('JMS\Serializer\Serializer');
         return Response::make($serializer->serialize($data, 'json'), $code, array_merge($this->getDefaultHeaders(), $headers));
@@ -50,7 +50,7 @@ class ApiController extends Controller {
      *
      * @return mixed
      */
-    public function respondWithSuccess(Array $data, Array $headers = [])
+    public function respondWithSuccess($data, Array $headers = [])
     {
         return $this->respond($data, SymfonyResponse::HTTP_ACCEPTED, $headers);
     }

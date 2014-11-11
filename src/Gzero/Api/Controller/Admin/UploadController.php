@@ -36,30 +36,9 @@ class UploadController extends ApiController {
     }
 
     /**
-     * @api            {get} /contents/:id/uploads Get uploads by content
-     * @apiVersion     0.1.0
-     * @apiName        GetContentUploadList
-     * @apiGroup       Upload
-     * @apiDescription Getting uploads for specific content
-     * @apiExample     Example usage:
-     * curl -i http://localhost/api/v1/contents/1/uploads
-     * @apiParam {Number} id Content unique ID.
-     * @apiSuccess {Array} data List of uploads (Array of Objects)
-     * @apiSuccess {Number} total Total count of all elements
-     */
-    /**
      * Display a listing of the resource.
      *
      * @param int|null $id Content Id
-     *
-     * @api        {get} /uploads Get upload list
-     * @apiVersion 0.1.0
-     * @apiName    GetUploadList
-     * @apiGroup   Upload
-     * @apiExample Example usage:
-     * curl -i http://localhost/api/v1/uploads
-     * @apiSuccess {Array} data List of uploads (Array of Objects)
-     *
      *
      * @return \Illuminate\Http\JsonResponse
      */

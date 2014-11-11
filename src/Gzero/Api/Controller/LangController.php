@@ -44,13 +44,15 @@ class LangController extends ApiController {
     /**
      * Display a listing of the resource.
      *
-     * @api        {get} /langs Get list
-     * @apiVersion 0.1.0
-     * @apiName    GetLangList
-     * @apiGroup   Lang
-     * @apiExample Example usage:
+     * @api                 {get} /langs Read collection of languages
+     * @apiVersion          0.1.0
+     * @apiName             GetLangList
+     * @apiGroup            Language
+     * @apiDescription      Read all languages
+     * @apiSuccess {Integer} count Number of all langs
+     * @apiSuccess {Array} data Collection of langs (Array of Objects)
+     * @apiExample          Example usage:
      * curl -i http://api.example.com/v1/langs
-     * @apiSuccess {Array} data List of langs (Array of Objects)
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -70,15 +72,15 @@ class LangController extends ApiController {
      *
      * @param int $code Lang code
      *
-     * @api                 {get} /langs/:code Get single
+     * @api                 {get} /langs/:code Read single language
      * @apiVersion          0.1.0
      * @apiName             GetLang
-     * @apiGroup            Lang
-     * @apiDescription      Using this function, you can get a single lang
+     * @apiGroup            Language
+     * @apiDescription      Read a single language by passing lang code
+     * @apiParam {String} code Lang unique code
+     * @apiSuccessStructure Lang
      * @apiExample          Example usage:
      * curl -i http://api.example.com/v1/langs/en
-     * @apiParam {String} code Lang unique code.
-     * @apiSuccessStructure Lang
      *
      * @return Response
      */
@@ -89,11 +91,7 @@ class LangController extends ApiController {
             return $this->respondNotFound();
         }
 
-        return $this->respondWithSuccess(
-            [
-                'data' => $lang
-            ]
-        );
+        return $this->respondWithSuccess($lang);
     }
 
 }
@@ -102,6 +100,6 @@ class LangController extends ApiController {
  * @apiDefineSuccessStructure Lang
  * @apiSuccess {String} code Lang code
  * @apiSuccess {String} i18n Lang i18n code
- * @apiSuccess {Boolean} isEnabled Flag if language is enabled
- * @apiSuccess {Boolean} isDefault Flag if language is default
+ * @apiSuccess {Boolean} is_enabled Flag if language is enabled
+ * @apiSuccess {Boolean} is_default Flag if language is default
  */
