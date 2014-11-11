@@ -1,6 +1,7 @@
 <?php namespace Gzero\Api\Controller;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
@@ -37,7 +38,8 @@ class ApiController extends Controller {
      */
     public function respond(Array $data, $code, Array $headers = [])
     {
-        return Response::json($data, $code, array_merge($this->getDefaultHeaders(), $headers));
+        $serializer = App::make('JMS\Serializer\Serializer');
+        return Response::make($serializer->serialize($data, 'json'), $code, array_merge($this->getDefaultHeaders(), $headers));
     }
 
     /**
@@ -104,6 +106,7 @@ class ApiController extends Controller {
     private function getDefaultHeaders()
     {
         return [
+            'Content-Type'                => 'application/json',
             'Access-Control-Allow-Origin' => 'http://' . preg_replace('/^api./', '', \Request::getHTTPHost())
         ];
     }

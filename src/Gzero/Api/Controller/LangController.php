@@ -1,9 +1,9 @@
 <?php namespace Gzero\Api\Controller;
 
 use Gzero\Repository\LangRepository;
-use Gzero\Api\UrlParamsProcessor;
 use Gzero\Core\EntitySerializer;
-use JMS\Serializer\SerializerBuilder;
+use Illuminate\Support\Collection;
+use JMS\Serializer\Serializer;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -27,18 +27,18 @@ class LangController extends ApiController {
     /**
      * @var EntitySerializer
      */
-    protected $entitySerializer;
+    protected $serializer;
 
     /**
      * ContentController constructor
      *
-     * @param LangRepository   $lang             Content repo
-     * @param EntitySerializer $entitySerializer Entity serializer
+     * @param LangRepository $lang       Content repo
+     * @param Serializer     $serializer Entity serializer
      */
-    public function __construct(LangRepository $lang, EntitySerializer $entitySerializer)
+    public function __construct(LangRepository $lang, Serializer $serializer)
     {
-        $this->langRepo         = $lang;
-        $this->entitySerializer = $entitySerializer;
+        $this->langRepo   = $lang;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -56,11 +56,11 @@ class LangController extends ApiController {
      */
     public function index()
     {
-        $langs = $this->langRepo->getAll()->toArray();
+        $langs = $this->langRepo->getAll();
         return $this->respondWithSuccess(
             [
                 'total' => count($langs),
-                'data'  => $this->entitySerializer->toArray($langs)
+                'data'  => $langs->getValues()
             ]
         );
     }
@@ -91,7 +91,7 @@ class LangController extends ApiController {
 
         return $this->respondWithSuccess(
             [
-                'data' => $this->entitySerializer->toArray($lang)
+                'data' => $lang
             ]
         );
     }

@@ -1,7 +1,9 @@
 <?php namespace Gzero\Api;
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\ServiceProvider as SP;
+use JMS\Serializer\SerializerBuilder;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -71,6 +73,22 @@ class ServiceProvider extends SP {
             'Gzero\Api\UrlParamsProcessor',
             function () {
                 return new UrlParamsProcessor(Input::all());
+            }
+        );
+
+        // Registering JMS annotations
+        AnnotationRegistry::registerAutoloadNamespace(
+            'JMS\Serializer\Annotation',
+            __DIR__ . '/../../../vendor/jms/serializer/src'
+        );
+
+        $this->app->singleton(
+            'JMS\Serializer\Serializer',
+            function () {
+                return SerializerBuilder::create()
+                    ->setCacheDir(storage_path())
+                    ->setDebug(true)
+                    ->build();
             }
         );
     }
