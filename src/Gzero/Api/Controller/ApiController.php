@@ -107,7 +107,10 @@ class ApiController extends Controller {
     {
         return [
             'Content-Type'                => 'application/json',
-            'Access-Control-Allow-Origin' => 'http://' . preg_replace('/^api./', '', \Request::getHTTPHost())
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Origin, Content-Type, Accept, Authorization, X-Requested-With',
+            'Access-Control-Allow-Credentials' => true
         ];
     }
 }

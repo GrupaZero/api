@@ -26,7 +26,7 @@ Route::group(
     function () {
         Route::resource('langs', 'Gzero\Api\Controller\LangController', ['only' => ['index', 'show']]);
         Route::resource('blocks', 'Gzero\Api\Controller\BlockController', ['only' => ['index', 'show']]);
-        Route::resource('contents', 'Gzero\Api\Controller\ContentController', ['only' => ['index', 'show']]);
+        Route::resource('contents', 'Gzero\Api\Controller\ContentController', ['only' => ['index', 'store', 'show']]);
         Route::resource('contents.children', 'Gzero\Api\Controller\ContentController', ['only' => ['index']]);
     }
 );

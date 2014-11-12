@@ -1,5 +1,9 @@
 <?php namespace Gzero\Api\Controller;
 
+use Gzero\Entity\Content;
+use Gzero\Entity\ContentTranslation;
+use Gzero\Entity\ContentType;
+use Gzero\Entity\Lang;
 use Gzero\Repository\ContentRepository;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Core\EntitySerializer;
@@ -89,6 +93,31 @@ class ContentController extends ApiController {
             [
                 'data' => $this->contentRepo->getRootContents($orderBy),
                 // 'total' => $this->contentRepo->getLastTotal()
+            ]
+        );
+    }
+
+    public function store()
+    {
+        /* @TODO
+         * First ugly version of creation, need to be moved to ContentRepository
+         */
+        $input   = \Input::all();
+        $type    = \Doctrine::find('Gzero\Entity\ContentType', 'category');
+        $content = new Content($type);
+        $content->setActive(true);
+        $lang        = \Doctrine::find('Gzero\Entity\Lang', $input['lang']['code']);
+        $translation = new ContentTranslation($content, $lang);
+        $translation->setUrl($input['title']);
+        $translation->setTitle($input['title']);
+        $content->addTranslation($translation);
+        \Doctrine::persist($content);
+        \Doctrine::flush();
+
+        return $this->respondWithSuccess(
+            [
+                'success' => true,
+                'input'   => $input
             ]
         );
     }
