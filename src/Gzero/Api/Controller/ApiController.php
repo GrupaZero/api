@@ -39,7 +39,7 @@ class ApiController extends Controller {
     public function respond($data, $code, Array $headers = [])
     {
         $serializer = App::make('JMS\Serializer\Serializer');
-        return Response::make($serializer->serialize($data, 'json'), $code, array_merge($this->getDefaultHeaders(), $headers));
+        return Response::make($serializer->serialize($data, 'json'), $code, $headers);
     }
 
     /**
@@ -96,21 +96,5 @@ class ApiController extends Controller {
             SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR,
             $message
         );
-    }
-
-    /**
-     * Returns default headers for api
-     *
-     * @return array
-     */
-    private function getDefaultHeaders()
-    {
-        return [
-            'Content-Type'                => 'application/json',
-            'Access-Control-Allow-Origin' => '*',
-            'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers' => 'Origin, Content-Type, Accept, Authorization, X-Requested-With',
-            'Access-Control-Allow-Credentials' => true
-        ];
     }
 }

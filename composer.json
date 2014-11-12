@@ -14,7 +14,8 @@
         "gzero/core": "dev-master",
         "gzero/repository": "dev-master",
         "illuminate/support": "4.2.*",
-        "jms/serializer": "~0.17@dev"
+        "jms/serializer": "~0.17@dev",
+        "barryvdh/laravel-cors": "0.2.x"
     },
     "require-dev": {
         "fzaninotto/faker": "v1.3.0",
