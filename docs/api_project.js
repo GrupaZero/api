@@ -5,6 +5,6 @@ define({
   "url": "http://api.example.com/v1",
   "generator": {
     "version": "0.6.0",
-    "time": "2014-11-11T15:51:29.318Z"
+    "time": "2014-11-12T09:52:17.117Z"
   }
 });

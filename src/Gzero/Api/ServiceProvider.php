@@ -75,13 +75,7 @@ class ServiceProvider extends SP {
                 return new UrlParamsProcessor(Input::all());
             }
         );
-
-        // Registering JMS annotations
-        AnnotationRegistry::registerAutoloadNamespace(
-            'JMS\Serializer\Annotation',
-            __DIR__ . '/../../../vendor/jms/serializer/src'
-        );
-
+        
         $this->app->singleton(
             'JMS\Serializer\Serializer',
             function () {
