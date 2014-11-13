@@ -22,7 +22,7 @@ Route::group(
 );
 // Public API
 Route::group(
-    ['domain' => 'api.' . Request::server('SERVER_NAME'), 'prefix' => 'v1', 'before' => 'isActive'],
+    ['domain' => 'api.' . Config::get('gzero.domain'), 'prefix' => 'v1', 'before' => 'isActive'],
     function () {
         Route::resource('langs', 'Gzero\Api\Controller\LangController', ['only' => ['index', 'show']]);
         Route::resource('blocks', 'Gzero\Api\Controller\BlockController', ['only' => ['index', 'show']]);
