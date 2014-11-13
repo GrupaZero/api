@@ -5,7 +5,7 @@ Route::group(
     function () {
         // Admin API
         Route::group(
-            ['domain' => 'api.' . Request::server('SERVER_NAME'), 'prefix' => 'v1/admin', 'before' => 'isActive'],
+            ['domain' => 'api.' . Config::get('gzero.domain'), 'prefix' => 'v1/admin', 'before' => 'isActive'],
             function () {
                 Route::resource('blocks', 'Gzero\Api\Controller\Admin\BlockController');
                 Route::resource('contents', 'Gzero\Api\Controller\Admin\ContentController');
