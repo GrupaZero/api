@@ -73,8 +73,8 @@ class ContentController extends ApiController {
                 return
                     $this->respondWithSuccess(
                         [
-                            'data'  => $this->contentRepo->getChildren($content, $page, $orderBy)->toArray(),
-                            'total' => $this->contentRepo->getLastTotal()
+                            'data'  => $this->contentRepo->getChildren($content, $page, $orderBy)->toArray()
+                            //'total' => $this->contentRepo->getLastTotal()
                         ]
                     );
             } else {
@@ -83,7 +83,8 @@ class ContentController extends ApiController {
         }
         return $this->respondWithSuccess(
             [
-                'data' => $this->contentRepo->getCategoriesTree($orderBy)->toArray(),
+                'data' => $this->contentRepo->getRootContents($orderBy)
+                //'data' => $this->contentRepo->getCategoriesTree($orderBy)->toArray(),
             ]
         );
     }
@@ -99,13 +100,46 @@ class ContentController extends ApiController {
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stores newly created content in database
      *
-     * @return Response
+     * @api        {post} /contents Stores newly created content i DB
+     * @apiVersion 0.1.0
+     * @apiName    PostContentList
+     * @apiGroup   AdminContent
+     * @apiExample Example usage:
+     * curl -i http://localhost/api/v1/admin/contents
+     * @apiSuccess {Array} data Success and input data
+     *
+     *  @return \Illuminate\Http\JsonResponse
      */
     public function store()
     {
-        //
+        $input   = \Input::all();
+        $type    = \Doctrine::find('Gzero\Entity\ContentType', 'category');
+        if(empty($type))
+            return $this->respondWithInternalError('Content type does not exist');
+
+        $content = new Content($type);
+        $content->setActive(true);
+
+        $lang        = \Doctrine::find('Gzero\Entity\Lang', $input['lang']['code']);
+        if(empty($lang))
+            return $this->respondWithInternalError('Language does not exist');
+
+        $translation = new ContentTranslation($content, $lang);
+        $translation->setUrl($input['title']);
+        $translation->setTitle($input['title']);
+        $translation->setActive(true);
+        $content->addTranslation($translation);
+        \Doctrine::persist($content);
+        \Doctrine::flush();
+
+        return $this->respondWithSuccess(
+            [
+                'success' => true,
+                'input'   => $input
+            ]
+        );
     }
 
     /**

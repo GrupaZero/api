@@ -98,53 +98,6 @@ class ContentController extends ApiController {
     }
 
     /**
-     * Stores newly created content in database
-     *
-     * @api        {post} /contents Stores newly created content i DB
-     * @apiVersion 0.1.0
-     * @apiName    PostContentList
-     * @apiGroup   Content
-     * @apiExample Example usage:
-     * curl -i http://localhost/api/v1/contents
-     * @apiSuccess {Array} data Success and input data
-     *
-     *  @return \Illuminate\Http\JsonResponse
-     */
-    public function store()
-    {
-        /* @TODO
-         * First ugly version of creation, need to be moved to ContentRepository
-         */
-        $input   = \Input::all();
-        $type    = \Doctrine::find('Gzero\Entity\ContentType', 'category');
-        if(empty($type))
-            return $this->respondWithInternalError('Content type does not exist');
-
-        $content = new Content($type);
-        $content->setActive(true);
-
-        $lang        = \Doctrine::find('Gzero\Entity\Lang', $input['lang']['code']);
-        if(empty($lang))
-            return $this->respondWithInternalError('Language does not exist');
-
-        $translation = new ContentTranslation($content, $lang);
-        $translation->setUrl($input['title']);
-        $translation->setTitle($input['title']);
-        $translation->setActive(true);
-        $content->addTranslation($translation);
-        \Doctrine::persist($content);
-        \Doctrine::flush();
-
-        return $this->respondWithSuccess(
-            [
-                'success' => true,
-                'input'   => $input
-            ]
-        );
-    }
-
-
-    /**
      * Display the specified resource.
      *
      * @param int $id Content id
