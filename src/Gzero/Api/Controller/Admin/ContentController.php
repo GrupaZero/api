@@ -2,6 +2,8 @@
 
 use Gzero\Api\Controller\ApiController;
 use Gzero\Api\UrlParamsProcessor;
+use Gzero\Entity\Content;
+use Gzero\Entity\ContentTranslation;
 use Gzero\Repository\ContentRepository;
 
 /**

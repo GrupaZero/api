@@ -1,9 +1,5 @@
 <?php namespace Gzero\Api\Controller;
 
-use Gzero\Entity\Content;
-use Gzero\Entity\ContentTranslation;
-use Gzero\Entity\ContentType;
-use Gzero\Entity\Lang;
 use Gzero\Repository\ContentRepository;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Core\EntitySerializer;
