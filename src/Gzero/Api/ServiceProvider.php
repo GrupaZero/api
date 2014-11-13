@@ -28,6 +28,7 @@ class ServiceProvider extends SP {
     public function register()
     {
         $this->registerFilters();
+        $this->registerApiErrorHandler();
         $this->bind();
         $this->registerDoctrineFilters();
     }
@@ -75,7 +76,7 @@ class ServiceProvider extends SP {
                 return new UrlParamsProcessor(Input::all());
             }
         );
-        
+
         $this->app->singleton(
             'JMS\Serializer\Serializer',
             function () {
@@ -95,6 +96,23 @@ class ServiceProvider extends SP {
     public function registerDoctrineFilters()
     {
         $this->app['doctrine']->getConfiguration()->addFilter("isActive", 'Gzero\Api\IsActiveFilter');
+    }
+
+    /**
+     * Register api error handler to return json on exceptions
+     *
+     * @return void
+     */
+    protected function registerApiErrorHandler()
+    {
+        $this->app->error(
+            function ($exception) {
+                // Api errors returned in json format
+                if (preg_match('/^api\./', \Request::getHost())) {
+                    return \Response::json(['error' => $exception->getMessage()], 500);
+                }
+            }
+        );
     }
 
 }
