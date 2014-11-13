@@ -81,10 +81,11 @@ class ApiController extends Controller {
      * Return not found response in json format
      *
      * @param string $message Custom message
+     * @param array  $headers HTTP headers
      *
      * @return mixed
      */
-    public function respondWithInternalError($message = 'Internal Server Error!')
+    public function respondWithInternalError($message = 'Internal Server Error!', Array $headers = [])
     {
         return $this->respond(
             [
@@ -94,7 +95,7 @@ class ApiController extends Controller {
                 ]
             ],
             SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR,
-            $message
+            $headers
         );
     }
 }
