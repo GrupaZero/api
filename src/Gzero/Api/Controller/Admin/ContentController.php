@@ -144,15 +144,15 @@ class ContentController extends ApiController {
         );
     }
 
-    public function show($id)
-    {
-        $content = $this->contentRepository->getById($id);
-        if ($content) {
-            $this->contentRepository->loadThumb($content);
-            return $this->respondWithSuccess($content->toArray());
-        }
-        return $this->respondNotFound();
-    }
+    //public function show($id)
+    //{
+    //    $content = $this->contentRepository->getById($id);
+    //    if ($content) {
+    //        $this->contentRepository->loadThumb($content);
+    //        return $this->respondWithSuccess($content->toArray());
+    //    }
+    //    return $this->respondNotFound();
+    //}
 
     /**
      * Show the form for editing the specified resource.
