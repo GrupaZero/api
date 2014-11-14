@@ -1,8 +1,11 @@
 <?php namespace Gzero\Api;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Gzero\Repository\Collection;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\ServiceProvider as SP;
+use JMS\Serializer\Context;
+use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
 
 /**
@@ -80,9 +83,26 @@ class ServiceProvider extends SP {
         $this->app->singleton(
             'JMS\Serializer\Serializer',
             function () {
+                /**
+                 * We create serializer and set some default configuration
+                 * @SuppressWarnings("unused")
+                 */
                 return SerializerBuilder::create()
                     ->setCacheDir(storage_path())
                     ->setDebug(true)
+                    ->addDefaultHandlers()
+                    ->configureHandlers(
+                        function (HandlerRegistry $registry) {
+                            $registry->registerHandler(
+                                'serialization',
+                                'Gzero\Repository\Collection',
+                                'json',
+                                function ($visitor, Collection $collection, array $type, Context $context) {
+                                    return $visitor->visitArray($collection->toArray(), $type, $context);
+                                }
+                            );
+                        }
+                    )
                     ->build();
             }
         );

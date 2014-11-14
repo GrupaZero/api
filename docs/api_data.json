@@ -248,7 +248,7 @@
     "type": "",
     "url": "",
     "version": "0.0.0",
-    "filename": "src/Gzero/Api/Controller/ContentController.php"
+    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php"
   },
   {
     "success": {
@@ -408,189 +408,7 @@
     "type": "",
     "url": "",
     "version": "0.0.0",
-    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php"
-  },
-  {
-    "type": "get",
-    "url": "/contents/:id",
-    "title": "Get single content",
-    "version": "0.1.0",
-    "name": "GetContent",
-    "group": "Content",
-    "description": "<p>Using this function, you can get a single content</p>",
-    "examples": [
-      {
-        "title": "         Example usage:",
-        "content": "curl -i http://localhost/api/v1/contents/123\n"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "field": "id",
-            "optional": false,
-            "description": "<p>Content unique ID.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "field": "id",
-            "optional": false,
-            "description": "<p>Content id</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "field": "rating",
-            "optional": false,
-            "description": "<p>Content rating</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "field": "visits",
-            "optional": false,
-            "description": "<p>Content visit counter</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "field": "translations",
-            "optional": false,
-            "description": "<p>List of translations (Array of Objects)</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "field": "translations.lang_id",
-            "optional": false,
-            "description": "<p>Language id</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "field": "translations.url",
-            "optional": false,
-            "description": "<p>Translation url</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "field": "translations.title",
-            "optional": false,
-            "description": "<p>Title</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "field": "translations.body",
-            "optional": false,
-            "description": "<p>Body</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "field": "translations.seo_title",
-            "optional": false,
-            "description": "<p>SEO title</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "field": "translations.seo_description",
-            "optional": false,
-            "description": "<p>SEO description</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "field": "translations.is_active",
-            "optional": false,
-            "description": "<p>Is translation active</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "field": "translations.created_at",
-            "optional": false,
-            "description": "<p>Creation date of translation</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "field": "translations.updated_at",
-            "optional": false,
-            "description": "<p>Update date of translation</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "field": "is_on_home",
-            "optional": false,
-            "description": "<p>Home page flag</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "field": "is_comment_allowed",
-            "optional": false,
-            "description": "<p>Is comment allowed flag</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "field": "is_promoted",
-            "optional": false,
-            "description": "<p>Is promoted flag</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "field": "is_sticky",
-            "optional": false,
-            "description": "<p>Is sticky flag</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "field": "is_active",
-            "optional": false,
-            "description": "<p>Is content active flag</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "field": "published_at",
-            "optional": false,
-            "description": "<p>Date of publication</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "field": "created_at",
-            "optional": false,
-            "description": "<p>Creation date</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "field": "updated_at",
-            "optional": false,
-            "description": "<p>Update date</p>"
-          }
-        ]
-      }
-    },
-    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php"
+    "filename": "src/Gzero/Api/Controller/ContentController.php"
   },
   {
     "type": "get",
@@ -954,56 +772,7 @@
         ]
       }
     },
-    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php"
-  },
-  {
-    "type": "get",
-    "url": "/contents/:id/children",
-    "title": "Get content list of children",
-    "version": "0.1.0",
-    "name": "GetContentChildrenList",
-    "group": "Content",
-    "description": "<p>Because the contents are stored using a tree structure. We have to pull out a list for the specific node</p>",
-    "examples": [
-      {
-        "title": "    Example usage:",
-        "content": "curl -i http://localhost/api/v1/contents/1/children\n"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "field": "id",
-            "optional": false,
-            "description": "<p>Content unique ID.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "field": "data",
-            "optional": false,
-            "description": "<p>List of contents (Array of Objects)</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "field": "total",
-            "optional": false,
-            "description": "<p>Total count of all elements</p>"
-          }
-        ]
-      }
-    },
-    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php"
+    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php"
   },
   {
     "type": "get",
@@ -1105,30 +874,38 @@
   },
   {
     "type": "get",
-    "url": "/contents",
-    "title": "Get content list",
+    "url": "/admin/contents",
+    "title": "Read collection of root contents",
     "version": "0.1.0",
     "name": "GetContentList",
     "group": "Content",
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "curl -i http://localhost/api/v1/contents\n"
-      }
-    ],
+    "description": "<p>Read root contents</p>",
     "success": {
       "fields": {
         "Success 200": [
           {
             "group": "Success 200",
+            "type": "Integer",
+            "field": "count",
+            "optional": false,
+            "description": "<p>Number of all langs</p>"
+          },
+          {
+            "group": "Success 200",
             "type": "Array",
             "field": "data",
             "optional": false,
-            "description": "<p>List of contents (Array of Objects)</p>"
+            "description": "<p>Collection of contents (Array of Objects)</p>"
           }
         ]
       }
     },
+    "examples": [
+      {
+        "title": "         Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/contents\n"
+      }
+    ],
     "filename": "src/Gzero/Api/Controller/Admin/ContentController.php"
   },
   {
@@ -1157,7 +934,7 @@
         ]
       }
     },
-    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php"
+    "filename": "src/Gzero/Api/Controller/ContentController.php"
   },
   {
     "type": "get",
@@ -1185,7 +962,7 @@
         ]
       }
     },
-    "filename": "src/Gzero/Api/Controller/ContentController.php"
+    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php"
   },
   {
     "success": {

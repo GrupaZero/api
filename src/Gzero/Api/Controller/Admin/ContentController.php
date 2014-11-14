@@ -5,6 +5,7 @@ use Gzero\Api\UrlParamsProcessor;
 use Gzero\Entity\Content;
 use Gzero\Entity\ContentTranslation;
 use Gzero\Repository\ContentRepository;
+use Gzero\Repository\LangRepository;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -22,46 +23,37 @@ class ContentController extends ApiController {
 
     protected $processor;
 
-    protected $contentRepo;
+    protected $contentRepository;
 
     /**
      * ContentController constructor
      *
-     * @param ContentRepository  $content   Content repository
-     * @param UrlParamsProcessor $processor Url processor
+     * @param LangRepository     $langRepository Lang repository
+     * @param ContentRepository  $content        Content repository
+     * @param UrlParamsProcessor $processor      Url processor
      */
-    public function __construct(ContentRepository $content, UrlParamsProcessor $processor)
+    public function __construct(LangRepository $langRepository, ContentRepository $content, UrlParamsProcessor $processor)
     {
-        $this->contentRepo = $content;
-        $this->processor   = $processor;
+        parent::__construct($langRepository);
+        $this->contentRepository = $content;
+        $this->processor         = $processor;
     }
 
-    /**
-     * @api            {get} /contents/:id/children Get content list of children
-     * @apiVersion     0.1.0
-     * @apiName        GetContentChildrenList
-     * @apiGroup       Content
-     * @apiDescription Because the contents are stored using a tree structure. We have to pull out a list for the specific node
-     * @apiExample     Example usage:
-     * curl -i http://localhost/api/v1/contents/1/children
-     * @apiParam {Number} id Content unique ID.
-     * @apiSuccess {Array} data List of contents (Array of Objects)
-     * @apiSuccess {Number} total Total count of all elements
-     */
 
     /**
      * Display a listing of the resource.
      *
-     * @param int|null $id Content id
+     * @param int|null $id Id used for nested resources
      *
-     * @api        {get} /contents Get content list
-     * @apiVersion 0.1.0
-     * @apiName    GetContentList
-     * @apiGroup   Content
-     * @apiExample Example usage:
-     * curl -i http://localhost/api/v1/contents
-     * @apiSuccess {Array} data List of contents (Array of Objects)
-     *
+     * @api                 {get} /admin/contents Read collection of root contents
+     * @apiVersion          0.1.0
+     * @apiName             GetContentList
+     * @apiGroup            Content
+     * @apiDescription      Read root contents
+     * @apiSuccess {Integer} count Number of all langs
+     * @apiSuccess {Array} data Collection of contents (Array of Objects)
+     * @apiExample          Example usage:
+     * curl -i http://api.example.com/v1/admin/contents
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -69,13 +61,18 @@ class ContentController extends ApiController {
     {
         $orderBy = $this->processor->getOrderByParams();
         if ($id) { // content/n/children
-            $content = $this->contentRepo->getById($id);
+            $content = $this->contentRepository->getById($id);
             $page    = $this->processor->getPage();
             if (!empty($content)) {
                 return
                     $this->respondWithSuccess(
                         [
-                            'data'  => $this->contentRepo->getChildren($content, $page, $orderBy)->toArray()
+                            'data' => $this->contentRepository->getChildren(
+                                $content,
+                                $this->getRequestLang(),
+                                $page,
+                                $orderBy
+                            )->toArray()
                             //'total' => $this->contentRepo->getLastTotal()
                         ]
                     );
@@ -83,10 +80,11 @@ class ContentController extends ApiController {
                 return $this->respondNotFound();
             }
         }
+        $results = $this->contentRepository->getRootContents($this->getRequestLang(), $orderBy);
         return $this->respondWithSuccess(
             [
-                'data' => $this->contentRepo->getRootContents($orderBy)
-                //'data' => $this->contentRepo->getCategoriesTree($orderBy)->toArray(),
+                'total' => $results->getTotal(),
+                'data'  => $results
             ]
         );
     }
@@ -112,21 +110,23 @@ class ContentController extends ApiController {
      * curl -i http://localhost/api/v1/admin/contents
      * @apiSuccess {Array} data Success and input data
      *
-     *  @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store()
     {
-        $input   = \Input::all();
-        $type    = \Doctrine::find('Gzero\Entity\ContentType', 'category');
-        if(empty($type))
+        $input = \Input::all();
+        $type  = \Doctrine::find('Gzero\Entity\ContentType', 'category');
+        if (empty($type)) {
             return $this->respondWithInternalError('Content type does not exist');
+        }
 
         $content = new Content($type);
         $content->setActive(true);
 
-        $lang        = \Doctrine::find('Gzero\Entity\Lang', $input['lang']['code']);
-        if(empty($lang))
+        $lang = \Doctrine::find('Gzero\Entity\Lang', $input['lang']['code']);
+        if (empty($lang)) {
             return $this->respondWithInternalError('Language does not exist');
+        }
 
         $translation = new ContentTranslation($content, $lang);
         $translation->setUrl($input['title']);
@@ -144,30 +144,11 @@ class ContentController extends ApiController {
         );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int|null $id Content id
-     *
-     * @return Response
-     * Display a listing of the resource.
-     *
-     * @api                 {get} /contents/:id Get single content
-     * @apiVersion          0.1.0
-     * @apiName             GetContent
-     * @apiGroup            Content
-     * @apiDescription      Using this function, you can get a single content
-     * @apiExample          Example usage:
-     * curl -i http://localhost/api/v1/contents/123
-     * @apiParam {Number} id Content unique ID.
-     * @apiSuccessStructure Content
-     *
-     */
     public function show($id)
     {
-        $content = $this->contentRepo->getById($id);
+        $content = $this->contentRepository->getById($id);
         if ($content) {
-            $this->contentRepo->loadThumb($content);
+            $this->contentRepository->loadThumb($content);
             return $this->respondWithSuccess($content->toArray());
         }
         return $this->respondNotFound();

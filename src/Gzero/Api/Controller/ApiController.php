@@ -1,7 +1,9 @@
 <?php namespace Gzero\Api\Controller;
 
+use Gzero\Repository\LangRepository;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
@@ -18,6 +20,18 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
 class ApiController extends Controller {
+
+    protected $langRepository;
+
+    /**
+     * ApiController constructor
+     *
+     * @param LangRepository $langRepository Lang repository
+     */
+    public function __construct(LangRepository $langRepository)
+    {
+        $this->langRepository = $langRepository;
+    }
     /**
      * @apiDefinePermission admin Admin access rights needed.
      * These permissions allow you to view inactive contents
@@ -36,10 +50,10 @@ class ApiController extends Controller {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respond($data, $code, Array $headers = [])
+    protected function respond($data, $code, Array $headers = [])
     {
         $serializer = App::make('JMS\Serializer\Serializer');
-        return Response::make($serializer->serialize($data, 'json'), $code, $headers);
+        return Response::make($serializer->serialize($data, 'json'), $code, array_merge($this->defaultHeaders(), $headers));
     }
 
     /**
@@ -50,7 +64,7 @@ class ApiController extends Controller {
      *
      * @return mixed
      */
-    public function respondWithSuccess($data, Array $headers = [])
+    protected function respondWithSuccess($data, Array $headers = [])
     {
         return $this->respond($data, SymfonyResponse::HTTP_ACCEPTED, $headers);
     }
@@ -63,7 +77,7 @@ class ApiController extends Controller {
      *
      * @return mixed
      */
-    public function respondNotFound($message = 'Not found!', Array $headers = [])
+    protected function respondNotFound($message = 'Not found!', Array $headers = [])
     {
         return $this->respond(
             [
@@ -85,7 +99,7 @@ class ApiController extends Controller {
      *
      * @return mixed
      */
-    public function respondWithInternalError($message = 'Internal Server Error!', Array $headers = [])
+    protected function respondWithInternalError($message = 'Internal Server Error!', Array $headers = [])
     {
         return $this->respond(
             [
@@ -97,5 +111,32 @@ class ApiController extends Controller {
             SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR,
             $headers
         );
+    }
+
+    /**
+     * Return lang entity from current request
+     *
+     * @return mixed
+     */
+    protected function getRequestLang()
+    {
+        $lang = Input::get('lang');
+        if ($lang) {
+            return $this->langRepository->getByCode($lang);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Default headers for api response
+     *
+     * @return array
+     */
+    protected function defaultHeaders()
+    {
+        return [
+            'Content-Type' => 'application/json'
+        ];
     }
 }
