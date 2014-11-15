@@ -60,6 +60,7 @@ class ContentController extends ApiController {
     public function index($id = null)
     {
         $orderBy = $this->processor->getOrderByParams();
+        $filters = $this->processor->getFilterParams();
         if ($id) { // content/n/children
             $content = $this->contentRepository->getById($id);
             $page    = $this->processor->getPage();
@@ -80,7 +81,7 @@ class ContentController extends ApiController {
                 return $this->respondNotFound();
             }
         }
-        $results = $this->contentRepository->getRootContents($this->getRequestLang(), $orderBy);
+        $results = $this->contentRepository->getRootContents($this->getRequestLang(), $filters, $orderBy, 1, 2);
         return $this->respondWithSuccess(
             [
                 'total' => $results->getTotal(),
