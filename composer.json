@@ -15,7 +15,8 @@
         "gzero/repository": "dev-master",
         "illuminate/support": "4.2.*",
         "jms/serializer": "~0.17@dev",
-        "barryvdh/laravel-cors": "0.2.x"
+        "barryvdh/laravel-cors": "0.2.x",
+        "league/fractal": "0.10.0"
     },
     "require-dev": {
         "fzaninotto/faker": "v1.3.0",
