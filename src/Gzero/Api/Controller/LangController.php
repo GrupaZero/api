@@ -3,7 +3,6 @@
 use Gzero\Repository\LangRepository;
 use Gzero\Core\EntitySerializer;
 use Illuminate\Support\Collection;
-use JMS\Serializer\Serializer;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -25,20 +24,13 @@ class LangController extends ApiController {
     protected $langRepo;
 
     /**
-     * @var EntitySerializer
-     */
-    protected $serializer;
-
-    /**
      * ContentController constructor
      *
-     * @param LangRepository $lang       Content repo
-     * @param Serializer     $serializer Entity serializer
+     * @param LangRepository $lang Content repo
      */
-    public function __construct(LangRepository $lang, Serializer $serializer)
+    public function __construct(LangRepository $lang)
     {
-        $this->langRepo   = $lang;
-        $this->serializer = $serializer;
+        $this->langRepo = $lang;
     }
 
     /**
