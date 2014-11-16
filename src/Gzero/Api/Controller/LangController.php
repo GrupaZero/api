@@ -61,8 +61,8 @@ class LangController extends ApiController {
         $langs = $this->langRepo->getAll();
         return $this->respondWithSuccess(
             [
-                'total' => count($langs),
-                'data'  => $langs->getValues()
+                'total' => $langs->count(),
+                'data'  => $langs
             ]
         );
     }
@@ -90,7 +90,6 @@ class LangController extends ApiController {
         if (empty($lang)) {
             return $this->respondNotFound();
         }
-
         return $this->respondWithSuccess($lang);
     }
 

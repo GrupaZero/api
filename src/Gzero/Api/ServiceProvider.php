@@ -1,12 +1,14 @@
 <?php namespace Gzero\Api;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use Gzero\Repository\Collection;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\ServiceProvider as SP;
 use JMS\Serializer\Context;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
+use League\Fractal\Manager;
+use League\Fractal\Serializer\ArraySerializer;
+use League\Fractal\Serializer\JsonApiSerializer;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -21,7 +23,6 @@ use JMS\Serializer\SerializerBuilder;
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
 class ServiceProvider extends SP {
-
 
     /**
      * Register the service provider.
@@ -80,30 +81,12 @@ class ServiceProvider extends SP {
             }
         );
 
-        $this->app->singleton(
-            'JMS\Serializer\Serializer',
+        $this->app->bind(
+            'League\Fractal\Manager',
             function () {
-                /**
-                 * We create serializer and set some default configuration
-                 * @SuppressWarnings("unused")
-                 */
-                return SerializerBuilder::create()
-                    ->setCacheDir(storage_path())
-                    ->setDebug(true)
-                    ->addDefaultHandlers()
-                    ->configureHandlers(
-                        function (HandlerRegistry $registry) {
-                            $registry->registerHandler(
-                                'serialization',
-                                'Gzero\Repository\Collection',
-                                'json',
-                                function ($visitor, Collection $collection, array $type, Context $context) {
-                                    return $visitor->visitArray($collection->toArray(), $type, $context);
-                                }
-                            );
-                        }
-                    )
-                    ->build();
+                $manager = new Manager();
+                $manager->setSerializer(new JsonApiSerializer());
+                return $manager;
             }
         );
     }

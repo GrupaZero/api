@@ -1,11 +1,15 @@
 <?php namespace Gzero\Api\Controller\Admin;
 
 use Gzero\Api\Controller\ApiController;
+use Gzero\Api\Transformer\ContentTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Entity\Content;
 use Gzero\Entity\ContentTranslation;
 use Gzero\Repository\ContentRepository;
 use Gzero\Repository\LangRepository;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
+
 
 /**
  * This file is part of the GZERO CMS package.
@@ -23,6 +27,8 @@ class ContentController extends ApiController {
 
     protected $processor;
 
+    protected $transformer;
+
     protected $contentRepository;
 
     /**
@@ -31,12 +37,18 @@ class ContentController extends ApiController {
      * @param LangRepository     $langRepository Lang repository
      * @param ContentRepository  $content        Content repository
      * @param UrlParamsProcessor $processor      Url processor
+     * @param Manager            $transformer    Entity transformer
      */
-    public function __construct(LangRepository $langRepository, ContentRepository $content, UrlParamsProcessor $processor)
-    {
+    public function __construct(
+        LangRepository $langRepository,
+        ContentRepository $content,
+        UrlParamsProcessor $processor,
+        Manager $transformer
+    ) {
         parent::__construct($langRepository);
         $this->contentRepository = $content;
         $this->processor         = $processor;
+        $this->transformer       = $transformer;
     }
 
 
@@ -81,13 +93,10 @@ class ContentController extends ApiController {
                 return $this->respondNotFound();
             }
         }
-        $results = $this->contentRepository->getRootContents($this->getRequestLang(), $filters, $orderBy, 1, 2);
-        return $this->respondWithSuccess(
-            [
-                'total' => $results->getTotal(),
-                'data'  => $results
-            ]
-        );
+        $results  = $this->contentRepository->getRootContents($filters, $orderBy, 1, 2);
+        $resource = new Collection($results, new ContentTransformer);
+        $resource->setMetaValue('total', 10);
+        return $this->respondWithSuccess($this->transformer->createData($resource)->toArray());
     }
 
     /**
@@ -144,16 +153,6 @@ class ContentController extends ApiController {
             ]
         );
     }
-
-    //public function show($id)
-    //{
-    //    $content = $this->contentRepository->getById($id);
-    //    if ($content) {
-    //        $this->contentRepository->loadThumb($content);
-    //        return $this->respondWithSuccess($content->toArray());
-    //    }
-    //    return $this->respondNotFound();
-    //}
 
     /**
      * Show the form for editing the specified resource.

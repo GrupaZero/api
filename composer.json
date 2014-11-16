@@ -14,7 +14,6 @@
         "gzero/core": "dev-master",
         "gzero/repository": "dev-master",
         "illuminate/support": "4.2.*",
-        "jms/serializer": "~0.17@dev",
         "barryvdh/laravel-cors": "0.2.x",
         "league/fractal": "0.10.0"
     },

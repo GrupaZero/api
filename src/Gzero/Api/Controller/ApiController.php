@@ -2,7 +2,6 @@
 
 use Gzero\Repository\LangRepository;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
@@ -52,8 +51,7 @@ class ApiController extends Controller {
      */
     protected function respond($data, $code, Array $headers = [])
     {
-        $serializer = App::make('JMS\Serializer\Serializer');
-        return Response::make($serializer->serialize($data, 'json'), $code, array_merge($this->defaultHeaders(), $headers));
+        return Response::json($data, $code, array_merge($this->defaultHeaders(), $headers));
     }
 
     /**
