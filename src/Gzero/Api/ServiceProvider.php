@@ -3,12 +3,8 @@
 use Gzero\Repository\Collection;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\ServiceProvider as SP;
-use JMS\Serializer\Context;
-use JMS\Serializer\Handler\HandlerRegistry;
-use JMS\Serializer\SerializerBuilder;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\ArraySerializer;
-use League\Fractal\Serializer\JsonApiSerializer;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -34,7 +30,6 @@ class ServiceProvider extends SP {
         $this->registerFilters();
         $this->registerApiErrorHandler();
         $this->bind();
-        $this->registerDoctrineFilters();
     }
 
     /**
@@ -85,20 +80,10 @@ class ServiceProvider extends SP {
             'League\Fractal\Manager',
             function () {
                 $manager = new Manager();
-                $manager->setSerializer(new JsonApiSerializer());
+                $manager->setSerializer(new ArraySerializer());
                 return $manager;
             }
         );
-    }
-
-    /**
-     * Register additional doctrine 2 filter
-     *
-     * @return void
-     */
-    public function registerDoctrineFilters()
-    {
-        $this->app['doctrine']->getConfiguration()->addFilter("isActive", 'Gzero\Api\IsActiveFilter');
     }
 
     /**
