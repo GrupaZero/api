@@ -23,6 +23,7 @@ class ContentTransformer extends TransformerAbstract {
      * @var array
      */
     protected $defaultIncludes = [
+        'route',
         'translations'
     ];
 
@@ -61,5 +62,19 @@ class ContentTransformer extends TransformerAbstract {
         $translations = $content->translations;
 
         return $this->collection($translations, new ContentTranslationTransformer());
+    }
+
+    /**
+     * Include Translations
+     *
+     * @param Content $content Translation
+     *
+     * @return League\Fractal\ItemResource
+     */
+    public function includeRoute(Content $content)
+    {
+        $route = $content->route;
+
+        return $this->item($route, new RouteTransformer());
     }
 }
