@@ -8,6 +8,7 @@ use Gzero\Entity\ContentTranslation;
 use Gzero\Repository\ContentRepository;
 use Gzero\Repository\LangRepository;
 use League\Fractal\Manager;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Resource\Collection;
 
 /**
@@ -92,9 +93,10 @@ class ContentController extends ApiController {
                 return $this->respondNotFound();
             }
         }
-        $results  = $this->contentRepository->getRootContents($filters, $orderBy, 1, 2);
-        $resource = new Collection($results, new ContentTransformer);
-        $resource->setMetaValue('total', 10);
+
+        $paginator = $this->contentRepository->getRootContents($filters, $orderBy, \Input::get('page'));
+        $resource  = new Collection($paginator->getCollection(), new ContentTransformer);
+        $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
         return $this->respondWithSuccess($this->transformer->createData($resource)->toArray());
     }
 

@@ -42,7 +42,7 @@ class ContentTransformer extends TransformerAbstract {
         }
         return [
             'id'        => (int) $content['id'],
-            'category'  => $content['typeName'],
+            //'category'  => $content['typeName'],
             'weight'    => (int) $content['weight'],
             'isActive'  => (bool) $content['isActive'],
             'createdAt' => $content['createdAt'],
