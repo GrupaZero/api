@@ -10,7 +10,6 @@ use Gzero\Repository\LangRepository;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 
-
 /**
  * This file is part of the GZERO CMS package.
  *

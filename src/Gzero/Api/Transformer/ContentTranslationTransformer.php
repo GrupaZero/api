@@ -31,11 +31,11 @@ class ContentTranslationTransformer extends TransformerAbstract {
             $translation = $translation->toArray();
         }
         return [
-            'id'        => $translation['id'],
+            'id'        => (int) $translation['id'],
             'lang'      => $translation['langCode'],
             'title'     => $translation['title'],
             'body'      => $translation['body'],
-            'isActive'  => $translation['isActive'],
+            'isActive'  => (int) $translation['isActive'],
             'createdAt' => $translation['createdAt'],
             'updatedAt' => $translation['updatedAt'],
         ];

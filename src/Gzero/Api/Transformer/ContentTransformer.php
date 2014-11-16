@@ -1,6 +1,6 @@
 <?php namespace Gzero\Api\Transformer;
 
-use Gzero\Entity\Content;
+use Gzero\Model\Content;
 use League\Fractal\TransformerAbstract;
 
 /**
@@ -22,7 +22,9 @@ class ContentTransformer extends TransformerAbstract {
      *
      * @var array
      */
-    protected $defaultIncludes = [];
+    protected $defaultIncludes = [
+        'translations'
+    ];
 
     /**
      * Transforms content entity
@@ -38,12 +40,26 @@ class ContentTransformer extends TransformerAbstract {
             $content = $content->toArray();
         }
         return [
-            'id'        => $content['id'],
+            'id'        => (int) $content['id'],
             'category'  => $content['typeName'],
-            'weight'    => $content['weight'],
-            'isActive'  => $content['isActive'],
+            'weight'    => (int) $content['weight'],
+            'isActive'  => (bool) $content['isActive'],
             'createdAt' => $content['createdAt'],
             'updatedAt' => $content['updatedAt']
         ];
+    }
+
+    /**
+     * Include Translations
+     *
+     * @param Content $content Translation
+     *
+     * @return League\Fractal\ItemResource
+     */
+    public function includeTranslations(Content $content)
+    {
+        $translations = $content->translations;
+
+        return $this->collection($translations, new ContentTranslationTransformer());
     }
 }
