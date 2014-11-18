@@ -7,9 +7,6 @@ use Gzero\Entity\Content;
 use Gzero\Entity\ContentTranslation;
 use Gzero\Repository\ContentRepository;
 use Gzero\Repository\LangRepository;
-use League\Fractal\Manager;
-use League\Fractal\Pagination\IlluminatePaginatorAdapter;
-use League\Fractal\Resource\Collection;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -27,8 +24,6 @@ class ContentController extends ApiController {
 
     protected $processor;
 
-    protected $transformer;
-
     protected $contentRepository;
 
     /**
@@ -37,18 +32,15 @@ class ContentController extends ApiController {
      * @param LangRepository     $langRepository Lang repository
      * @param ContentRepository  $content        Content repository
      * @param UrlParamsProcessor $processor      Url processor
-     * @param Manager            $transformer    Entity transformer
      */
     public function __construct(
         LangRepository $langRepository,
         ContentRepository $content,
-        UrlParamsProcessor $processor,
-        Manager $transformer
+        UrlParamsProcessor $processor
     ) {
         parent::__construct($langRepository);
         $this->contentRepository = $content;
         $this->processor         = $processor;
-        $this->transformer       = $transformer;
     }
 
 
@@ -73,31 +65,29 @@ class ContentController extends ApiController {
     {
         $orderBy = $this->processor->getOrderByParams();
         $filters = $this->processor->getFilterParams();
+        $page    = $this->processor->getPage();
         if ($id) { // content/n/children
             $content = $this->contentRepository->getById($id);
-            $page    = $this->processor->getPage();
             if (!empty($content)) {
-                return
-                    $this->respondWithSuccess(
-                        [
-                            'data' => $this->contentRepository->getChildren(
-                                $content,
-                                $this->getRequestLang(),
-                                $page,
-                                $orderBy
-                            )->toArray()
-                            //'total' => $this->contentRepo->getLastTotal()
-                        ]
-                    );
+                return null;
+                //    $this->respondWithSuccess(
+                //        [
+                //            'data' => $this->contentRepository->getChildren(
+                //                $content,
+                //                $this->getRequestLang(),
+                //                $page,
+                //                $orderBy
+                //            )->toArray()
+                //            //'total' => $this->contentRepo->getLastTotal()
+                //        ]
+                //    );
             } else {
                 return $this->respondNotFound();
             }
         }
 
-        $paginator = $this->contentRepository->getRootContents($filters, $orderBy, \Input::get('page'));
-        $resource  = new Collection($paginator->getCollection(), new ContentTransformer);
-        $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
-        return $this->respondWithSuccess($this->transformer->createData($resource)->toArray());
+        $results = $this->contentRepository->getRootContents($filters, $orderBy, $page);
+        return $this->respondWithSuccess($results, new ContentTransformer);
     }
 
     /**
@@ -151,7 +141,8 @@ class ContentController extends ApiController {
             [
                 'success' => true,
                 'input'   => $input
-            ]
+            ],
+            new ContentTransformer
         );
     }
 

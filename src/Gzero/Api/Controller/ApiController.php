@@ -1,9 +1,14 @@
 <?php namespace Gzero\Api\Controller;
 
 use Gzero\Repository\LangRepository;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Collection as EloquentCollection;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
+use League\Fractal\TransformerAbstract;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 /**
@@ -19,6 +24,8 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
 class ApiController extends Controller {
+
+    protected $transformer;
 
     protected $langRepository;
 
@@ -43,28 +50,60 @@ class ApiController extends Controller {
     /**
      * Return response in json format
      *
-     * @param mixed $data    Response data
-     * @param int   $code    Response code
-     * @param array $headers HTTP headers
+     * @param mixed               $data        Response data
+     * @param int                 $code        Response code
+     * @param TransformerAbstract $transformer Transformer class
+     * @param array               $headers     HTTP headers
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respond($data, $code, Array $headers = [])
+    protected function respond($data, $code, TransformerAbstract $transformer, Array $headers = [])
     {
-        return Response::json($data, $code, array_merge($this->defaultHeaders(), $headers));
+        if ($data instanceof Paginator) {
+            $resource = new Collection($data->getCollection(), $transformer);
+            return Response::json(
+                [
+                    'total'       => $data->getTotal(),
+                    'perPage'     => $data->getPerPage(),
+                    'currentPage' => $data->getCurrentPage(),
+                    'lastPage'    => $data->getLastPage(),
+                    'link'        => \URL::full(),
+                    'data'        => $this->getSerializer()->createData($resource)->toArray()
+                ],
+                $code,
+                array_merge($this->defaultHeaders(), $headers)
+            );
+        } elseif ($data instanceof EloquentCollection) {
+            $resource = new Collection($data, $transformer);
+            return Response::json(
+                [
+                    'data' => $this->getSerializer()->createData($resource)->toArray()
+                ],
+                $code,
+                array_merge($this->defaultHeaders(), $headers)
+            );
+        } else {
+            $resource = new Item($data, $transformer);
+            return Response::json(
+                $this->getSerializer()->createData($resource)->toArray(),
+                $code,
+                array_merge($this->defaultHeaders(), $headers)
+            );
+        }
     }
 
     /**
      * Return success response in json format
      *
-     * @param array $data    Response data
-     * @param array $headers HTTP headers
+     * @param array               $data        Response data
+     * @param TransformerAbstract $transformer Transformer class
+     * @param array               $headers     HTTP Header
      *
      * @return mixed
      */
-    protected function respondWithSuccess($data, Array $headers = [])
+    protected function respondWithSuccess($data, TransformerAbstract $transformer, Array $headers = [])
     {
-        return $this->respond($data, SymfonyResponse::HTTP_ACCEPTED, $headers);
+        return $this->respond($data, SymfonyResponse::HTTP_ACCEPTED, $transformer, $headers);
     }
 
     /**
@@ -109,6 +148,16 @@ class ApiController extends Controller {
             SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR,
             $headers
         );
+    }
+
+    /**
+     * Get serializer
+     *
+     * @return \League\Fractal\Manager
+     */
+    protected function getSerializer()
+    {
+        return \App::make('League\Fractal\Manager');
     }
 
     /**

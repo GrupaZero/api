@@ -1,5 +1,6 @@
 <?php namespace Gzero\Api\Controller;
 
+use Gzero\Api\Transformer\LangTransformer;
 use Gzero\Repository\LangRepository;
 use Gzero\Core\EntitySerializer;
 use Illuminate\Support\Collection;
@@ -50,13 +51,7 @@ class LangController extends ApiController {
      */
     public function index()
     {
-        $langs = $this->langRepo->getAll();
-        return $this->respondWithSuccess(
-            [
-                'total' => $langs->count(),
-                'data'  => $langs
-            ]
-        );
+        return $this->respondWithSuccess($this->langRepo->getAll(), new LangTransformer);
     }
 
     /**
@@ -82,7 +77,7 @@ class LangController extends ApiController {
         if (empty($lang)) {
             return $this->respondNotFound();
         }
-        return $this->respondWithSuccess($lang);
+        return $this->respondWithSuccess($lang, new LangTransformer);
     }
 
 }

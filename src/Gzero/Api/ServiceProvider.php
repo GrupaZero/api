@@ -4,7 +4,6 @@ use Gzero\Repository\Collection;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\ServiceProvider as SP;
 use League\Fractal\Manager;
-use League\Fractal\Serializer\ArraySerializer;
 
 /**
  * This file is part of the GZERO CMS package.
