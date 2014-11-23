@@ -63,12 +63,14 @@ class ApiController extends Controller {
             $resource = new Collection($data->getCollection(), $transformer);
             return Response::json(
                 [
-                    'total'       => $data->getTotal(),
-                    'perPage'     => $data->getPerPage(),
-                    'currentPage' => $data->getCurrentPage(),
-                    'lastPage'    => $data->getLastPage(),
-                    'link'        => \URL::full(),
-                    'data'        => $this->getSerializer()->createData($resource)->toArray()
+                    'meta' => [
+                        'total'       => $data->getTotal(),
+                        'perPage'     => $data->getPerPage(),
+                        'currentPage' => $data->getCurrentPage(),
+                        'lastPage'    => $data->getLastPage(),
+                        'link'        => \URL::full()
+                    ],
+                    'data' => $this->getSerializer()->createData($resource)->toArray()
                 ],
                 $code,
                 array_merge($this->defaultHeaders(), $headers)
