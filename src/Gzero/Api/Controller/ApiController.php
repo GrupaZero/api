@@ -1,9 +1,8 @@
 <?php namespace Gzero\Api\Controller;
 
-use Gzero\Repository\LangRepository;
+use Gzero\Api\UrlParamsProcessor;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Collection as EloquentCollection;
 use League\Fractal\Resource\Collection;
@@ -27,16 +26,16 @@ class ApiController extends Controller {
 
     protected $transformer;
 
-    protected $langRepository;
+    protected $processor;
 
     /**
      * ApiController constructor
      *
-     * @param LangRepository $langRepository Lang repository
+     * @param UrlParamsProcessor $processor Url processor
      */
-    public function __construct(LangRepository $langRepository)
+    public function __construct(UrlParamsProcessor $processor)
     {
-        $this->langRepository = $langRepository;
+        $this->processor = $processor;
     }
     /**
      * @apiDefinePermission admin Admin access rights needed.
@@ -50,6 +49,20 @@ class ApiController extends Controller {
     /**
      * Return response in json format
      *
+     * @param mixed $data    Response data
+     * @param int   $code    Response code
+     * @param array $headers HTTP headers
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respond($data, $code, Array $headers = [])
+    {
+        return Response::json($data, $code, array_merge($this->defaultHeaders(), $headers));
+    }
+
+    /**
+     * Return transformed response in json format
+     *
      * @param mixed               $data        Response data
      * @param int                 $code        Response code
      * @param TransformerAbstract $transformer Transformer class
@@ -57,39 +70,40 @@ class ApiController extends Controller {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respond($data, $code, TransformerAbstract $transformer, Array $headers = [])
+    protected function respondTransformer($data, $code, TransformerAbstract $transformer, Array $headers = [])
     {
-        if ($data instanceof Paginator) {
+        if ($data instanceof Paginator) { // If we have paginated collection
             $resource = new Collection($data->getCollection(), $transformer);
-            return Response::json(
+            return $this->respond(
                 [
-                    'meta' => [
+                    'meta'   => [
                         'total'       => $data->getTotal(),
                         'perPage'     => $data->getPerPage(),
                         'currentPage' => $data->getCurrentPage(),
                         'lastPage'    => $data->getLastPage(),
                         'link'        => \URL::full()
                     ],
-                    'data' => $this->getSerializer()->createData($resource)->toArray()
+                    'params' => $this->processor->getProcessedFields(),
+                    'data'   => $this->getSerializer()->createData($resource)->toArray()
                 ],
                 $code,
-                array_merge($this->defaultHeaders(), $headers)
+                $headers
             );
-        } elseif ($data instanceof EloquentCollection) {
+        } elseif ($data instanceof EloquentCollection) { // Collection without pagination
             $resource = new Collection($data, $transformer);
-            return Response::json(
+            return $this->respond(
                 [
                     'data' => $this->getSerializer()->createData($resource)->toArray()
                 ],
                 $code,
-                array_merge($this->defaultHeaders(), $headers)
+                $headers
             );
-        } else {
+        } else { // Single entity
             $resource = new Item($data, $transformer);
-            return Response::json(
+            return $this->respond(
                 $this->getSerializer()->createData($resource)->toArray(),
                 $code,
-                array_merge($this->defaultHeaders(), $headers)
+                $headers
             );
         }
     }
@@ -97,15 +111,41 @@ class ApiController extends Controller {
     /**
      * Return success response in json format
      *
-     * @param array               $data        Response data
-     * @param TransformerAbstract $transformer Transformer class
-     * @param array               $headers     HTTP Header
+     * @param array|EloquentCollection $data        Response data
+     * @param TransformerAbstract      $transformer Transformer class
+     * @param array                    $headers     HTTP Header
      *
      * @return mixed
      */
     protected function respondWithSuccess($data, TransformerAbstract $transformer, Array $headers = [])
     {
-        return $this->respond($data, SymfonyResponse::HTTP_ACCEPTED, $transformer, $headers);
+        return $this->respondTransformer($data, SymfonyResponse::HTTP_ACCEPTED, $transformer, $headers);
+    }
+
+    /**
+     * Return server error response in json format
+     *
+     * @param string $message Custom error message
+     * @param int    $code    Error code
+     * @param array  $headers HTTP headers
+     *
+     * @return mixed
+     */
+    protected function respondWithError(
+        $message = 'Internal Server Error!',
+        $code = SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR,
+        Array $headers = []
+    ) {
+        return $this->respond(
+            [
+                'error' => [
+                    'code'    => 500,
+                    'message' => $message
+                ]
+            ],
+            $code,
+            $headers
+        );
     }
 
     /**
@@ -131,28 +171,6 @@ class ApiController extends Controller {
     }
 
     /**
-     * Return not found response in json format
-     *
-     * @param string $message Custom message
-     * @param array  $headers HTTP headers
-     *
-     * @return mixed
-     */
-    protected function respondWithInternalError($message = 'Internal Server Error!', Array $headers = [])
-    {
-        return $this->respond(
-            [
-                'error' => [
-                    'code'    => 500,
-                    'message' => $message
-                ]
-            ],
-            SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR,
-            $headers
-        );
-    }
-
-    /**
      * Get serializer
      *
      * @return \League\Fractal\Manager
@@ -163,29 +181,12 @@ class ApiController extends Controller {
     }
 
     /**
-     * Return lang entity from current request
-     *
-     * @return mixed
-     */
-    protected function getRequestLang()
-    {
-        $lang = Input::get('lang');
-        if ($lang) {
-            return $this->langRepository->getByCode($lang);
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Default headers for api response
      *
      * @return array
      */
     protected function defaultHeaders()
     {
-        return [
-            'Content-Type' => 'application/json'
-        ];
+        return [];
     }
 }

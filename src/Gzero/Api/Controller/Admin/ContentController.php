@@ -6,7 +6,6 @@ use Gzero\Api\UrlParamsProcessor;
 use Gzero\Entity\Content;
 use Gzero\Entity\ContentTranslation;
 use Gzero\Repository\ContentRepository;
-use Gzero\Repository\LangRepository;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -22,25 +21,18 @@ use Gzero\Repository\LangRepository;
  */
 class ContentController extends ApiController {
 
-    protected $processor;
-
     protected $contentRepository;
 
     /**
      * ContentController constructor
      *
-     * @param LangRepository     $langRepository Lang repository
-     * @param ContentRepository  $content        Content repository
-     * @param UrlParamsProcessor $processor      Url processor
+     * @param UrlParamsProcessor $processor Url processor
+     * @param ContentRepository  $content   Content repository
      */
-    public function __construct(
-        LangRepository $langRepository,
-        ContentRepository $content,
-        UrlParamsProcessor $processor
-    ) {
-        parent::__construct($langRepository);
+    public function __construct(UrlParamsProcessor $processor, ContentRepository $content)
+    {
+        parent::__construct($processor);
         $this->contentRepository = $content;
-        $this->processor         = $processor;
     }
 
 
@@ -118,7 +110,7 @@ class ContentController extends ApiController {
         $input = \Input::all();
         $type  = \Doctrine::find('Gzero\Entity\ContentType', 'category');
         if (empty($type)) {
-            return $this->respondWithInternalError('Content type does not exist');
+            return $this->respondWithError('Content type does not exist');
         }
 
         $content = new Content($type);
@@ -126,7 +118,7 @@ class ContentController extends ApiController {
 
         $lang = \Doctrine::find('Gzero\Entity\Lang', $input['lang']['code']);
         if (empty($lang)) {
-            return $this->respondWithInternalError('Language does not exist');
+            return $this->respondWithError('Language does not exist');
         }
 
         $translation = new ContentTranslation($content, $lang);

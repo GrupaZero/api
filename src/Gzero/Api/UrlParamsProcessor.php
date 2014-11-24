@@ -37,7 +37,7 @@ class UrlParamsProcessor {
      */
     public function getPage()
     {
-        return $this->page;
+        return (int) $this->page;
     }
 
     /**
@@ -61,6 +61,20 @@ class UrlParamsProcessor {
     }
 
     /**
+     * Returns array with all processed fields
+     *
+     * @return array
+     */
+    public function getProcessedFields()
+    {
+        return [
+            'page'    => $this->getPage(),
+            'filer'   => $this->filter,
+            'orderBy' => $this->orderBy
+        ];
+    }
+
+    /**
      * Process params
      *
      * @param array $input Array with parameters to process
@@ -77,7 +91,7 @@ class UrlParamsProcessor {
         $input = $this->processPageParams($input);
         foreach ($input as $key => $param) {
             if (!in_array($key, ['sort', 'page'], true)) {
-                $this->filter[$key] = $param;
+                $this->filter[$key] = (is_numeric($param)) ? (float) $param : $param;
             }
         }
     }
