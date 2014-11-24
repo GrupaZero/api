@@ -81,7 +81,7 @@ class ApiController extends Controller {
                         'perPage'     => $data->getPerPage(),
                         'currentPage' => $data->getCurrentPage(),
                         'lastPage'    => $data->getLastPage(),
-                        'link'        => \URL::full()
+                        'link'        => \URL::current()
                     ],
                     'params' => $this->processor->getProcessedFields(),
                     'data'   => $this->getSerializer()->createData($resource)->toArray()
