@@ -48,7 +48,7 @@ class RouteTransformer extends AbstractTransformer {
      *
      * @param Route $route Translation
      *
-     * @return League\Fractal\ItemResource
+     * @return \League\Fractal\ItemResource
      */
     public function includeTranslations($route)
     {

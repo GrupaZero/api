@@ -1,5 +1,7 @@
 <?php namespace Gzero\Api\Transformer;
 
+use Gzero\Entity\Lang;
+
 /**
  * This file is part of the GZERO CMS package.
  *

@@ -61,23 +61,12 @@ class ContentController extends ApiController {
         if ($id) { // content/n/children
             $content = $this->contentRepository->getById($id);
             if (!empty($content)) {
-                return null;
-                //    $this->respondWithSuccess(
-                //        [
-                //            'data' => $this->contentRepository->getChildren(
-                //                $content,
-                //                $this->getRequestLang(),
-                //                $page,
-                //                $orderBy
-                //            )->toArray()
-                //            //'total' => $this->contentRepo->getLastTotal()
-                //        ]
-                //    );
+                $results = $this->contentRepository->getChildren($content, $filters, $orderBy, $page);
+                return $this->respondWithSuccess($results, new ContentTransformer);
             } else {
                 return $this->respondNotFound();
             }
         }
-
         $results = $this->contentRepository->getRootContents($filters, $orderBy, $page);
         return $this->respondWithSuccess($results, new ContentTransformer);
     }

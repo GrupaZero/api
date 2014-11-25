@@ -52,7 +52,7 @@ class ContentTransformer extends AbstractTransformer {
      *
      * @param Content $content Translation
      *
-     * @return League\Fractal\ItemResource
+     * @return \League\Fractal\ItemResource
      */
     public function includeTranslations(Content $content)
     {
@@ -65,7 +65,7 @@ class ContentTransformer extends AbstractTransformer {
      *
      * @param Content $content Translation
      *
-     * @return League\Fractal\ItemResource
+     * @return \League\Fractal\ItemResource
      */
     public function includeRoute(Content $content)
     {

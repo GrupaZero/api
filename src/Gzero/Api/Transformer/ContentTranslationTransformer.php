@@ -1,6 +1,6 @@
 <?php namespace Gzero\Api\Transformer;
 
-use League\Fractal\TransformerAbstract;
+use Gzero\Entity\ContentTranslation;
 
 /**
  * This file is part of the GZERO CMS package.
