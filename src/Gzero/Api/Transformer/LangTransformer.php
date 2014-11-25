@@ -1,8 +1,5 @@
 <?php namespace Gzero\Api\Transformer;
 
-use Gzero\Model\Lang;
-use League\Fractal\TransformerAbstract;
-
 /**
  * This file is part of the GZERO CMS package.
  *
@@ -15,7 +12,7 @@ use League\Fractal\TransformerAbstract;
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
-class LangTransformer extends TransformerAbstract {
+class LangTransformer extends AbstractTransformer {
 
     /**
      * Transforms content entity
@@ -27,9 +24,7 @@ class LangTransformer extends TransformerAbstract {
      */
     public function transform($lang)
     {
-        if (is_object($lang) && $lang instanceof Lang) {
-            $lang = $lang->toArray();
-        }
+        $lang = $this->entityToArray('\Gzero\Entity\Lang', $lang);
         return [
             'code'      => $lang['code'],
             'i18n'      => $lang['i18n'],

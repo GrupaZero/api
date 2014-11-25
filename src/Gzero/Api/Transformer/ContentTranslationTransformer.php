@@ -1,6 +1,5 @@
 <?php namespace Gzero\Api\Transformer;
 
-use Gzero\Entity\ContentTranslation;
 use League\Fractal\TransformerAbstract;
 
 /**
@@ -15,7 +14,7 @@ use League\Fractal\TransformerAbstract;
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
-class ContentTranslationTransformer extends TransformerAbstract {
+class ContentTranslationTransformer extends AbstractTransformer {
 
     /**
      * Transforms content entity
@@ -27,9 +26,7 @@ class ContentTranslationTransformer extends TransformerAbstract {
      */
     public function transform($translation)
     {
-        if (is_object($translation) && get_class($translation) == '\Gzero\Model\ContentTranslation') {
-            $translation = $translation->toArray();
-        }
+        $translation = $this->entityToArray('\Gzero\Entity\ContentTranslation', $translation);
         return [
             'id'        => (int) $translation['id'],
             'lang'      => $translation['langCode'],

@@ -14,7 +14,7 @@
         "gzero/core": "dev-master",
         "gzero/repository": "dev-master",
         "illuminate/support": "4.2.*",
-        "barryvdh/laravel-cors": "0.2.x",
+        "barryvdh/laravel-cors": "0.2.3",
         "league/fractal": "0.10.0"
     },
     "require-dev": {

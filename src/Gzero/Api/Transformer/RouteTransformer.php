@@ -1,7 +1,6 @@
 <?php namespace Gzero\Api\Transformer;
 
-use Gzero\Model\Route;
-use League\Fractal\TransformerAbstract;
+use Gzero\Entity\Route;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -15,7 +14,7 @@ use League\Fractal\TransformerAbstract;
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
-class RouteTransformer extends TransformerAbstract {
+class RouteTransformer extends AbstractTransformer {
 
     /**
      * List of resources to automatically include
@@ -36,9 +35,7 @@ class RouteTransformer extends TransformerAbstract {
      */
     public function transform($route)
     {
-        if (is_object($route) && get_class($route) == '\Gzero\Model\Route') {
-            $route = $route->toArray();
-        }
+        $route = $this->entityToArray('\Gzero\Entity\Route', $route);
         return [
             'id'        => (int) $route['id'],
             'createdAt' => $route['createdAt'],
@@ -53,10 +50,9 @@ class RouteTransformer extends TransformerAbstract {
      *
      * @return League\Fractal\ItemResource
      */
-    public function includeTranslations(Route $route)
+    public function includeTranslations($route)
     {
         $translations = $route->translations;
-
         return $this->collection($translations, new RouteTranslationTransformer());
     }
 }

@@ -1,7 +1,6 @@
 <?php namespace Gzero\Api\Transformer;
 
 use Gzero\Entity\RouteTranslation;
-use League\Fractal\TransformerAbstract;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -15,7 +14,7 @@ use League\Fractal\TransformerAbstract;
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
-class RouteTranslationTransformer extends TransformerAbstract {
+class RouteTranslationTransformer extends AbstractTransformer {
 
     /**
      * Transforms content entity
@@ -27,9 +26,7 @@ class RouteTranslationTransformer extends TransformerAbstract {
      */
     public function transform($translation)
     {
-        if (is_object($translation) && get_class($translation) == '\Gzero\Model\RouteTranslation') {
-            $translation = $translation->toArray();
-        }
+        $translation = $this->entityToArray('\Gzero\Entity\RouteTranslation', $translation);
         return [
             'id'        => (int) $translation['id'],
             'lang'      => $translation['langCode'],

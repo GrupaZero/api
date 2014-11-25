@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "749c30284230d79ef8f7f473232573c3",
+    "hash": "0b07fe849fbc6ad9ce8659dc4c7dee26",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -100,12 +100,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/core.git",
-                "reference": "97171026eda2b5d57f62fcd9c72ccde77f2461f0"
+                "reference": "a9ea911c76150d5d0fc9d6ea19fdd52050695225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/core/zipball/97171026eda2b5d57f62fcd9c72ccde77f2461f0",
-                "reference": "97171026eda2b5d57f62fcd9c72ccde77f2461f0",
+                "url": "https://api.github.com/repos/GrupaZero/core/zipball/a9ea911c76150d5d0fc9d6ea19fdd52050695225",
+                "reference": "a9ea911c76150d5d0fc9d6ea19fdd52050695225",
                 "shasum": ""
             },
             "require": {
@@ -130,7 +130,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2014-11-16 16:03:29"
+            "time": "2014-11-25 15:50:56"
         },
         {
             "name": "gzero/entity",
@@ -139,12 +139,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/entity.git",
-                "reference": "0e3f22016ca95beaeec3b7c39e39895a4a137505"
+                "reference": "54e76b38f9f0785d6cdd35e0b11fca4c4a977dca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/0e3f22016ca95beaeec3b7c39e39895a4a137505",
-                "reference": "0e3f22016ca95beaeec3b7c39e39895a4a137505",
+                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/54e76b38f9f0785d6cdd35e0b11fca4c4a977dca",
+                "reference": "54e76b38f9f0785d6cdd35e0b11fca4c4a977dca",
                 "shasum": ""
             },
             "require": {
@@ -169,7 +169,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2014-11-16 15:32:12"
+            "time": "2014-11-25 15:50:56"
         },
         {
             "name": "gzero/repository",
@@ -178,12 +178,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/repository.git",
-                "reference": "ad2209e5039983c37a5d4a86d1aa7db5bdaa7d43"
+                "reference": "4af470d41d7b4ac7b9b8ec43fbf2ea9767696ffe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/ad2209e5039983c37a5d4a86d1aa7db5bdaa7d43",
-                "reference": "ad2209e5039983c37a5d4a86d1aa7db5bdaa7d43",
+                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/4af470d41d7b4ac7b9b8ec43fbf2ea9767696ffe",
+                "reference": "4af470d41d7b4ac7b9b8ec43fbf2ea9767696ffe",
                 "shasum": ""
             },
             "require": {
@@ -209,7 +209,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2014-11-16 14:46:42"
+            "time": "2014-11-25 15:50:56"
         },
         {
             "name": "illuminate/support",

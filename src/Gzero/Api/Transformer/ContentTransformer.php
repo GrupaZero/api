@@ -1,7 +1,6 @@
 <?php namespace Gzero\Api\Transformer;
 
-use Gzero\Model\Content;
-use League\Fractal\TransformerAbstract;
+use Gzero\Entity\Content;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -15,7 +14,7 @@ use League\Fractal\TransformerAbstract;
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
-class ContentTransformer extends TransformerAbstract {
+class ContentTransformer extends AbstractTransformer {
 
     /**
      * List of resources to automatically include
@@ -37,9 +36,7 @@ class ContentTransformer extends TransformerAbstract {
      */
     public function transform($content)
     {
-        if (is_object($content) && get_class($content) == '\Gzero\Model\Content') {
-            $content = $content->toArray();
-        }
+        $content = $this->entityToArray('\Gzero\Entity\Content', $content);
         return [
             'id'        => (int) $content['id'],
             //'category'  => $content['typeName'],
@@ -60,7 +57,6 @@ class ContentTransformer extends TransformerAbstract {
     public function includeTranslations(Content $content)
     {
         $translations = $content->translations;
-
         return $this->collection($translations, new ContentTranslationTransformer());
     }
 
@@ -74,7 +70,6 @@ class ContentTransformer extends TransformerAbstract {
     public function includeRoute(Content $content)
     {
         $route = $content->route;
-
-        return $this->item($route, new RouteTransformer());
+        return (!empty($route)) ? $this->item($route, new RouteTransformer()) : null;
     }
 }
