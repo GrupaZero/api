@@ -100,12 +100,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/core.git",
-                "reference": "a9ea911c76150d5d0fc9d6ea19fdd52050695225"
+                "reference": "c43a32ec6a246d521ea74ec4b511a601f0eca727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/core/zipball/a9ea911c76150d5d0fc9d6ea19fdd52050695225",
-                "reference": "a9ea911c76150d5d0fc9d6ea19fdd52050695225",
+                "url": "https://api.github.com/repos/GrupaZero/core/zipball/c43a32ec6a246d521ea74ec4b511a601f0eca727",
+                "reference": "c43a32ec6a246d521ea74ec4b511a601f0eca727",
                 "shasum": ""
             },
             "require": {
@@ -130,7 +130,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2014-11-25 15:50:56"
+            "time": "2014-11-25 17:06:36"
         },
         {
             "name": "gzero/entity",
@@ -139,12 +139,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/entity.git",
-                "reference": "54e76b38f9f0785d6cdd35e0b11fca4c4a977dca"
+                "reference": "31580110abb1c9db2f422c751dffcc15977bb0b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/54e76b38f9f0785d6cdd35e0b11fca4c4a977dca",
-                "reference": "54e76b38f9f0785d6cdd35e0b11fca4c4a977dca",
+                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/31580110abb1c9db2f422c751dffcc15977bb0b4",
+                "reference": "31580110abb1c9db2f422c751dffcc15977bb0b4",
                 "shasum": ""
             },
             "require": {
@@ -169,7 +169,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2014-11-25 15:50:56"
+            "time": "2014-11-25 16:53:14"
         },
         {
             "name": "gzero/repository",
@@ -178,12 +178,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/repository.git",
-                "reference": "4af470d41d7b4ac7b9b8ec43fbf2ea9767696ffe"
+                "reference": "5285956ccfff481c279f5ffa441125440d3f3085"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/4af470d41d7b4ac7b9b8ec43fbf2ea9767696ffe",
-                "reference": "4af470d41d7b4ac7b9b8ec43fbf2ea9767696ffe",
+                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/5285956ccfff481c279f5ffa441125440d3f3085",
+                "reference": "5285956ccfff481c279f5ffa441125440d3f3085",
                 "shasum": ""
             },
             "require": {
@@ -196,7 +196,7 @@
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Gzero\\Entity": ""
+                    "Gzero\\Repository": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -209,7 +209,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2014-11-25 15:50:56"
+            "time": "2014-11-26 14:27:17"
         },
         {
             "name": "illuminate/support",
