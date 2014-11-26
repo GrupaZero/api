@@ -1,5 +1,7 @@
 <?php namespace Gzero\Api;
 
+use Gzero\Repository\BaseRepository;
+
 /**
  * This file is part of the GZERO CMS package.
  *
@@ -15,6 +17,8 @@
 class UrlParamsProcessor {
 
     private $page = 1;
+
+    private $perPage = BaseRepository::ITEMS_PER_PAGE; // Default value from repository
 
     private $filter = [];
 
@@ -38,6 +42,16 @@ class UrlParamsProcessor {
     public function getPage()
     {
         return (int) $this->page;
+    }
+
+    /**
+     * Returns page number
+     *
+     * @return int
+     */
+    public function getPerPage()
+    {
+        return (int) $this->perPage;
     }
 
     /**
@@ -69,6 +83,7 @@ class UrlParamsProcessor {
     {
         return [
             'page'    => $this->getPage(),
+            'perPage' => $this->getPerPage(),
             'filer'   => $this->filter,
             'orderBy' => $this->orderBy
         ];
@@ -90,7 +105,7 @@ class UrlParamsProcessor {
         }
         $input = $this->processPageParams($input);
         foreach ($input as $key => $param) {
-            if (!in_array($key, ['sort', 'page'], true)) {
+            if (!in_array($key, ['sort', 'page', 'perPage'], true)) {
                 $this->filter[$key] = (is_numeric($param)) ? (float) $param : $param;
             }
         }
@@ -123,7 +138,9 @@ class UrlParamsProcessor {
     {
         if (!empty($input['page']) && is_numeric($input['page'])) {
             $this->page = $input['page'];
-            return $input;
+        }
+        if (!empty($input['perPage']) && is_numeric($input['perPage'])) {
+            $this->perPage = $input['perPage'];
         }
         return $input;
     }

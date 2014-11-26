@@ -58,16 +58,17 @@ class ContentController extends ApiController {
         $orderBy = $this->processor->getOrderByParams();
         $filters = $this->processor->getFilterParams();
         $page    = $this->processor->getPage();
-        if ($id) { // content/n/children
+        $perPage = $this->processor->getPerPage();
+        if ($id) { // content/id/children
             $content = $this->contentRepository->getById($id);
             if (!empty($content)) {
-                $results = $this->contentRepository->getChildren($content, $filters, $orderBy, $page);
+                $results = $this->contentRepository->getChildren($content, $filters, $orderBy, $page, $perPage);
                 return $this->respondWithSuccess($results, new ContentTransformer);
             } else {
                 return $this->respondNotFound();
             }
         }
-        $results = $this->contentRepository->getRootContents($filters, $orderBy, $page);
+        $results = $this->contentRepository->getRootContents($filters, $orderBy, $page, $perPage);
         return $this->respondWithSuccess($results, new ContentTransformer);
     }
 
