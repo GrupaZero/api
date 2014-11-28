@@ -1,9 +1,8 @@
-<?php namespace Gzero\Api\Controller;
+<?php namespace Gzero\Api\Controller\Admin;
 
+use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\LangTransformer;
 use Gzero\Repository\LangRepository;
-use Gzero\Core\EntitySerializer;
-use Illuminate\Support\Collection;
 
 /**
  * This file is part of the GZERO CMS package.
