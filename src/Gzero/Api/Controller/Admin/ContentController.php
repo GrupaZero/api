@@ -3,6 +3,7 @@
 use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\ContentTransformer;
 use Gzero\Api\UrlParamsProcessor;
+use Gzero\Api\Validator\ContentValidator;
 use Gzero\Entity\Content;
 use Gzero\Entity\ContentTranslation;
 use Gzero\Repository\ContentRepository;
@@ -59,6 +60,7 @@ class ContentController extends ApiController {
         $filters = $this->processor->getFilterParams();
         $page    = $this->processor->getPage();
         $perPage = $this->processor->getPerPage();
+        ContentValidator::make('filter', $filters)->validate();
         if ($id) { // content/id/children
             $content = $this->contentRepository->getById($id);
             if (!empty($content)) {
@@ -68,7 +70,7 @@ class ContentController extends ApiController {
                 return $this->respondNotFound();
             }
         }
-        $results = $this->contentRepository->getRootContents($filters, $orderBy, $page, $perPage);
+        $results = $this->contentRepository->getContents($filters, $orderBy, $page, $perPage);
         return $this->respondWithSuccess($results, new ContentTransformer);
     }
 

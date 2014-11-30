@@ -1,7 +1,7 @@
 <?php namespace Gzero\Api;
 
-use Gzero\Repository\Collection;
-use Gzero\Repository\RepositoryException;
+use Gzero\Core\Exception;
+use Gzero\Validator\ValidationException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\ServiceProvider as SP;
 use League\Fractal\Manager;
@@ -94,16 +94,28 @@ class ServiceProvider extends SP {
     protected function registerApiErrorHandler()
     {
         $this->app->error(
-            function (\Gzero\Core\Exception $exception) {
+            function (Exception $exception) {
                 // Api errors returned in json format
-                if (preg_match('/^api\./', \Request::getHost())) {
-                    return \Response::json(
-                        [
-                            'code'    => $exception->getCode(),
-                            'message' => $exception->getMessage()
-                        ],
-                        500
-                    );
+                if ($exception instanceof ValidationException) {
+                    if (preg_match('/^api\./', \Request::getHost())) {
+                        return \Response::json(
+                            [
+                                'code'     => 500,
+                                'messages' => $exception->getErrors()
+                            ],
+                            500
+                        );
+                    }
+                } else {
+                    if (preg_match('/^api\./', \Request::getHost())) {
+                        return \Response::json(
+                            [
+                                'code'    => $exception->getCode(),
+                                'message' => $exception->getMessage()
+                            ],
+                            500
+                        );
+                    }
                 }
             }
         );
