@@ -22,7 +22,15 @@ use Gzero\Repository\ContentRepository;
  */
 class ContentController extends ApiController {
 
-    protected $contentRepository;
+    /**
+     * @var ContentRepository
+     */
+    protected $repository;
+
+    /**
+     * @var ContentValidator
+     */
+    protected $validator;
 
     /**
      * ContentController constructor
@@ -33,7 +41,8 @@ class ContentController extends ApiController {
     public function __construct(UrlParamsProcessor $processor, ContentRepository $content)
     {
         parent::__construct($processor);
-        $this->contentRepository = $content;
+        $this->validator  = new ContentValidator(\Input::all());
+        $this->repository = $content;
     }
 
 
@@ -56,21 +65,29 @@ class ContentController extends ApiController {
      */
     public function index($id = null)
     {
-        $orderBy = $this->processor->getOrderByParams();
-        $filters = $this->processor->getFilterParams();
-        $page    = $this->processor->getPage();
-        $perPage = $this->processor->getPerPage();
-        ContentValidator::make('filter', $filters)->validate();
+        $input  = $this->validator->validate('list');
+        $params = $this->processor->process($input)->getProcessedFields();
         if ($id) { // content/id/children
-            $content = $this->contentRepository->getById($id);
+            $content = $this->repository->getById($id);
             if (!empty($content)) {
-                $results = $this->contentRepository->getChildren($content, $filters, $orderBy, $page, $perPage);
+                $results = $this->repository->getChildren(
+                    $content,
+                    $params['filter'],
+                    $params['orderBy'],
+                    $params['page'],
+                    $params['perPage']
+                );
                 return $this->respondWithSuccess($results, new ContentTransformer);
             } else {
                 return $this->respondNotFound();
             }
         }
-        $results = $this->contentRepository->getContents($filters, $orderBy, $page, $perPage);
+        $results = $this->repository->getContents(
+            $params['filter'],
+            $params['orderBy'],
+            $params['page'],
+            $params['perPage']
+        );
         return $this->respondWithSuccess($results, new ContentTransformer);
     }
 
@@ -149,7 +166,7 @@ class ContentController extends ApiController {
     public function show($id)
     {
         if ($id) {
-            $content = $this->contentRepository->getById($id);
+            $content = $this->repository->getById($id);
             if (!empty($content)) {
                 return $this->respondWithSuccess($content, new ContentTransformer);
             }

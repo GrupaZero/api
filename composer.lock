@@ -178,12 +178,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/repository.git",
-                "reference": "7e6734462381c9d27e2bda226b3e80aea1031e08"
+                "reference": "33693ed5a54801a8441077ae28c3d2408b0abbd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/7e6734462381c9d27e2bda226b3e80aea1031e08",
-                "reference": "7e6734462381c9d27e2bda226b3e80aea1031e08",
+                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/33693ed5a54801a8441077ae28c3d2408b0abbd3",
+                "reference": "33693ed5a54801a8441077ae28c3d2408b0abbd3",
                 "shasum": ""
             },
             "require": {
@@ -209,7 +209,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2014-11-30 18:24:51"
+            "time": "2014-12-01 16:54:34"
         },
         {
             "name": "gzero/validator",
@@ -218,12 +218,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/Validator.git",
-                "reference": "408f4a8f337cd6dbcd9bfd7630e99ba4ce6110b1"
+                "reference": "9c40a8de4e3f4be90e92c1216edfa2abaebaa4de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/Validator/zipball/408f4a8f337cd6dbcd9bfd7630e99ba4ce6110b1",
-                "reference": "408f4a8f337cd6dbcd9bfd7630e99ba4ce6110b1",
+                "url": "https://api.github.com/repos/GrupaZero/Validator/zipball/9c40a8de4e3f4be90e92c1216edfa2abaebaa4de",
+                "reference": "9c40a8de4e3f4be90e92c1216edfa2abaebaa4de",
                 "shasum": ""
             },
             "require": {
@@ -253,7 +253,7 @@
                 "laravel",
                 "validator"
             ],
-            "time": "2014-11-30 18:37:54"
+            "time": "2014-12-01 16:54:34"
         },
         {
             "name": "illuminate/support",

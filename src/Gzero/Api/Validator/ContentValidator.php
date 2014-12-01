@@ -20,11 +20,17 @@ class ContentValidator extends AbstractValidator {
      * @var array
      */
     protected $rules = [
-        'filter' => [
+        'list'   => [
             'lang'     => 'required',
-            'type'     => '',
-            'parentId' => '',
+            'page'     => 'numeric',
+            'perPage'  => 'numeric',
+            'type'     => 'in:content,category',
+            'parentId' => 'numeric',
+            'level'    => '',
             'title'    => ''
+        ],
+        'create' => [
+            'lang' => 'required'
         ]
     ];
 

@@ -24,15 +24,6 @@ class UrlParamsProcessor {
 
     private $orderBy = [];
 
-    /**
-     * UrlParamsProcessor constructor
-     *
-     * @param array $input Array with parameters to process
-     */
-    public function __construct(Array $input)
-    {
-        $this->process($input);
-    }
 
     /**
      * Returns page number
@@ -84,7 +75,7 @@ class UrlParamsProcessor {
         return [
             'page'    => $this->getPage(),
             'perPage' => $this->getPerPage(),
-            'filer'   => $this->filter,
+            'filter'  => $this->filter,
             'orderBy' => $this->orderBy
         ];
     }
@@ -94,9 +85,9 @@ class UrlParamsProcessor {
      *
      * @param array $input Array with parameters to process
      *
-     * @return void
+     * @return $this
      */
-    private function process(Array $input)
+    public function process(Array $input)
     {
         if (!empty($input['sort'])) {
             foreach (explode(',', $input['sort']) as $sort) {
@@ -109,6 +100,7 @@ class UrlParamsProcessor {
                 $this->filter[$key] = (is_numeric($param)) ? (float) $param : $param;
             }
         }
+        return $this;
     }
 
     /**

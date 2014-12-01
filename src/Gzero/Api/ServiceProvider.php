@@ -70,13 +70,6 @@ class ServiceProvider extends SP {
     private function bind()
     {
         $this->app->bind(
-            'Gzero\Api\UrlParamsProcessor',
-            function () {
-                return new UrlParamsProcessor(Input::all());
-            }
-        );
-
-        $this->app->bind(
             'League\Fractal\Manager',
             function () {
                 $manager = new Manager();
