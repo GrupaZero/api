@@ -131,6 +131,33 @@ class ContentController extends ApiController {
     }
 
     /**
+     * Display a specified resource.
+     *
+     * @param int $id Id of the resource
+     *
+     * @api                 {get} /admin/contents/{id} Get specified content
+     * @apiVersion          0.1.0
+     * @apiName             GetContent
+     * @apiGroup            Content
+     * @apiDescription      Get specified content
+     * @apiSuccess {Array} selected content(Array of Objects)
+     * @apiExample          Example usage:
+     * curl -i http://api.example.com/v1/admin/contents/123
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id)
+    {
+        if ($id) {
+            $content = $this->contentRepository->getById($id);
+            if (!empty($content)) {
+                return $this->respondWithSuccess($content, new ContentTransformer);
+            }
+        }
+        return $this->respondNotFound();
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param int $id Content id
