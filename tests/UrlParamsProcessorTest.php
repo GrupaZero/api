@@ -67,7 +67,7 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
             [
                 'page'    => 3,
                 'perPage' => 21,
-                'filer'   => [
+                'filter'   => [
                     'lang'  => 'en',
                     'test2' => 'test2'
                 ],
@@ -85,7 +85,7 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
      */
     protected function initClass()
     {
-        return new UrlParamsProcessor(
+        return (new UrlParamsProcessor())->process(
             [
                 'sort'    => '-test1,test2,test3',
                 'page'    => 3,
