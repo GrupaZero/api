@@ -116,35 +116,14 @@ class ContentController extends ApiController {
      */
     public function store()
     {
-        $input = \Input::all();
-        $type  = \Doctrine::find('Gzero\Entity\ContentType', 'category');
-        if (empty($type)) {
-            return $this->respondWithError('Content type does not exist');
-        }
+        $input   = \Input::all();
+        $content = new Content();
+        $content->type = $input['type'];
+        $content->isActive = $input['isActive'];
+        $content->save();
 
-        $content = new Content($type);
-        $content->setActive(true);
+        return $this->respondWithSuccess($content, new ContentTransformer);
 
-        $lang = \Doctrine::find('Gzero\Entity\Lang', $input['lang']['code']);
-        if (empty($lang)) {
-            return $this->respondWithError('Language does not exist');
-        }
-
-        $translation = new ContentTranslation($content, $lang);
-        $translation->setUrl($input['title']);
-        $translation->setTitle($input['title']);
-        $translation->setActive(true);
-        $content->addTranslation($translation);
-        \Doctrine::persist($content);
-        \Doctrine::flush();
-
-        return $this->respondWithSuccess(
-            [
-                'success' => true,
-                'input'   => $input
-            ],
-            new ContentTransformer
-        );
     }
 
     /**

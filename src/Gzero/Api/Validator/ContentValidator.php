@@ -26,6 +26,7 @@ class ContentValidator extends AbstractValidator {
             'perPage'  => 'numeric',
             'type'     => 'in:content,category',
             'parentId' => 'numeric',
+            'sort'    => '',
             'level'    => '',
             'title'    => ''
         ],
