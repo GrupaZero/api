@@ -116,11 +116,13 @@ class ContentController extends ApiController {
      */
     public function store()
     {
-        $input   = \Input::all();
+        $input   = $this->validator->validate('create');
         $content = new Content();
-        $content->type = $input['type'];
-        $content->isActive = $input['isActive'];
+        $content->fill($input);
+        $translation = new ContentTranslation();
+        $translation->fill($input['translations']);
         $content->save();
+        $content->translations()->save($translation);
 
         return $this->respondWithSuccess($content, new ContentTransformer);
 

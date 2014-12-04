@@ -26,12 +26,14 @@ class ContentValidator extends AbstractValidator {
             'perPage'  => 'numeric',
             'type'     => 'in:content,category',
             'parentId' => 'numeric',
-            'sort'    => '',
+            'sort'     => '',
             'level'    => '',
             'title'    => ''
         ],
         'create' => [
-            'lang' => 'required'
+            'type'         => 'required|in:content,category',
+            'isActive'     => '',
+            'translations' => ''
         ]
     ];
 
