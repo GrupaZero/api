@@ -21,7 +21,7 @@ class ContentValidator extends AbstractValidator {
      */
     protected $rules = [
         'list'   => [
-            'lang'     => 'required_with:title|in:pl,en',
+            'lang'     => 'required_with:title,sort|in:pl,en',
             'page'     => 'numeric',
             'perPage'  => 'numeric',
             'type'     => 'in:content,category',
