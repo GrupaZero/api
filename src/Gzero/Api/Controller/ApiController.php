@@ -24,8 +24,9 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
  */
 class ApiController extends Controller {
 
-    protected $transformer;
-
+    /**
+     * @var UrlParamsProcessor
+     */
     protected $processor;
 
     /**
@@ -111,9 +112,9 @@ class ApiController extends Controller {
     /**
      * Return success response in json format
      *
-     * @param array|EloquentCollection $data        Response data
-     * @param TransformerAbstract      $transformer Transformer class
-     * @param array                    $headers     HTTP Header
+     * @param mixed               $data        Response data
+     * @param TransformerAbstract $transformer Transformer class
+     * @param array               $headers     HTTP Header
      *
      * @return mixed
      */

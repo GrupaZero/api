@@ -92,16 +92,6 @@ class ContentController extends ApiController {
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Stores newly created content in database
      *
      * @api        {post} /contents Stores newly created content i DB
@@ -153,19 +143,6 @@ class ContentController extends ApiController {
             }
         }
         return $this->respondNotFound();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id Content id
-     *
-     * @return Response
-     * @SuppressWarnings("unused")
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
