@@ -112,11 +112,19 @@ class UrlParamsProcessor {
      */
     private function processOrderByParams($sort)
     {
-        if (substr($sort, 0, 1) == '-') {
-            $this->orderBy[substr($sort, 1)] = 'DESC';
+        $direction = (substr($sort, 0, 1) == '-') ? 'DESC' : 'ASC';
+        $relation  = null;
+        if (preg_match('|\.|', $sort)) {
+            $temp     = explode('.', preg_replace('|^-|', '', $sort));
+            $field    = array_pop($temp);
+            $relation = trim(implode('.', $temp), '.');
         } else {
-            $this->orderBy[$sort] = 'ASC';
+            $field = (substr($sort, 0, 1) == '-') ? substr($sort, 1) : $sort;
         }
+        $this->orderBy[$field] = [
+            'direction' => $direction,
+            'relation'  => $relation
+        ];
     }
 
     /**
