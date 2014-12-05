@@ -39,7 +39,7 @@ class ContentTransformer extends AbstractTransformer {
         $content = $this->entityToArray('\Gzero\Entity\Content', $content);
         return [
             'id'        => (int) $content['id'],
-            //'category'  => $content['typeName'],
+            'type'      => $content['type'],
             'weight'    => (int) $content['weight'],
             'isActive'  => (bool) $content['isActive'],
             'createdAt' => $content['createdAt'],
