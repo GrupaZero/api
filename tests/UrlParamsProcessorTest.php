@@ -68,7 +68,23 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
      */
     public function can_process_sort_params()
     {
-        $this->assertEquals($this->processor->getOrderByParams(), ['test1' => 'DESC', 'test2' => 'ASC', 'test3' => 'ASC']);
+        $this->assertEquals(
+            $this->processor->getOrderByParams(),
+            [
+                'test1' => [
+                    'direction' => 'DESC',
+                    'relation'  => null
+                ],
+                'test2' => [
+                    'direction' => 'ASC',
+                    'relation'  => null
+                ],
+                'test3' => [
+                    'direction' => 'ASC',
+                    'relation'  => null
+                ]
+            ]
+        );
     }
 
     /**
@@ -94,9 +110,18 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
                     ]
                 ],
                 'orderBy' => [
-                    'test1' => 'DESC',
-                    'test2' => 'ASC',
-                    'test3' => 'ASC'
+                    'test1' => [
+                        'direction' => 'DESC',
+                        'relation'  => null
+                    ],
+                    'test2' => [
+                        'direction' => 'ASC',
+                        'relation'  => null
+                    ],
+                    'test3' => [
+                        'direction' => 'ASC',
+                        'relation'  => null
+                    ]
                 ]
             ]
         );
