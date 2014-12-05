@@ -37,7 +37,21 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
      */
     public function can_filter_params()
     {
-        $this->assertEquals($this->processor->getFilterParams(), ['lang' => 'en', 'test2' => 'test2']);
+        $this->assertEquals(
+            $this->processor->getFilterParams(),
+            [
+                'lang'  => [
+                    'value'     => 'en',
+                    'operation' => '=',
+                    'relation'  => null
+                ],
+                'test2' => [
+                    'value'     => 'test2',
+                    'operation' => '=',
+                    'relation'  => null
+                ]
+            ]
+        );
     }
 
     /**
@@ -67,9 +81,17 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
             [
                 'page'    => 3,
                 'perPage' => 21,
-                'filter'   => [
-                    'lang'  => 'en',
-                    'test2' => 'test2'
+                'filter'  => [
+                    'lang'  => [
+                        'value'     => 'en',
+                        'operation' => '=',
+                        'relation'  => null
+                    ],
+                    'test2' => [
+                        'value'     => 'test2',
+                        'operation' => '=',
+                        'relation'  => null
+                    ]
                 ],
                 'orderBy' => [
                     'test1' => 'DESC',
