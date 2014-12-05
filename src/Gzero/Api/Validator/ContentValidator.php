@@ -1,7 +1,6 @@
 <?php namespace Gzero\Api\Validator;
 
 use Gzero\Validator\AbstractValidator;
-use Illuminate\Support\Facades\Config;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -22,15 +21,15 @@ class ContentValidator extends AbstractValidator {
      */
     protected $rules = [
         'list'   => [
-            'lang'     => 'required_with:title,sort|in:pl,en',
-            'page'     => 'numeric',
-            'perPage'  => 'numeric',
-            'type'     => 'in:content,category',
-            'parentId' => 'numeric',
-            'isActive' => 'boolean',
-            'sort'     => '',
-            'level'    => '',
-            'title'    => ''
+            'lang'               => 'required_with:translations_title,sort|in:pl,en',
+            'page'               => 'numeric',
+            'perPage'            => 'numeric',
+            'type'               => 'in:content,category',
+            'parentId'           => 'numeric',
+            'isActive'           => 'boolean',
+            'sort'               => '',
+            'level'              => '',
+            'translations_title' => ''
         ],
         'create' => [
             'type'         => 'required|in:content,category',
