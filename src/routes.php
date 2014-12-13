@@ -9,7 +9,6 @@ Route::group(
             function () {
                 Route::resource('langs', 'Gzero\Api\Controller\Admin\LangController', ['only' => ['index', 'show']]);
                 Route::resource('blocks', 'Gzero\Api\Controller\Admin\BlockController');
-                Route::get('contents/{contents}/descendants', 'Gzero\Api\Controller\Admin\ContentController@getDescendants');
                 Route::resource('contents', 'Gzero\Api\Controller\Admin\ContentController');
                 Route::resource(
                     'contents.children',

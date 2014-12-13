@@ -170,36 +170,6 @@ class ContentController extends ApiController {
     {
         //
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @param int|null $id Id used for nested resources
-     *
-     * @api                 {get} /admin/contents/{contents}/descendants Read collection of descendants of specified content
-     * @apiVersion          0.1.0
-     * @apiName             GetDescendantsList
-     * @apiGroup            Content
-     * @apiDescription      Read descendants of specified content
-     * @apiSuccess {Integer} count Number of all contents
-     * @apiSuccess {Array} data Collection of contents (Array of Objects)
-     * @apiExample          Example usage:
-     * curl -i http://api.example.com/v1/admin/contents/123/descendants
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function getDescendants($id)
-    {
-        $input   = $this->validator->validate('list');
-        $params  = $this->processor->process($input)->getProcessedFields();
-        $content = $this->repository->getById($id);
-        $results = $this->repository->getDescendants(
-            $content,
-            $params['filter'],
-            $params['orderBy']
-        );
-        return $this->respondWithSuccess($results, new ContentTransformer);
-    }
 }
 
 /**

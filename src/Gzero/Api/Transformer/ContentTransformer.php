@@ -42,6 +42,7 @@ class ContentTransformer extends AbstractTransformer {
             'type'      => $content['type'],
             'weight'    => (int) $content['weight'],
             'isActive'  => (bool) $content['isActive'],
+            'path'      => $this->buildPath($content['path']),
             'createdAt' => $content['createdAt'],
             'updatedAt' => $content['updatedAt']
         ];
@@ -71,5 +72,23 @@ class ContentTransformer extends AbstractTransformer {
     {
         $route = $content->route;
         return (!empty($route)) ? $this->item($route, new RouteTransformer()) : null;
+    }
+
+    /**
+     * Returns array of path ids as integers
+     *
+     * @param $path string to extract
+     *
+     * @return Array extracted path
+     */
+    private function buildPath($path)
+    {
+        $result = [];
+        foreach (explode('/', $path) as $value) {
+            if (!empty($value)) {
+                $result[] = (int) $value;
+            }
+        }
+        return $result;
     }
 }
