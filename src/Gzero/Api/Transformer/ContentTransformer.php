@@ -77,7 +77,7 @@ class ContentTransformer extends AbstractTransformer {
     /**
      * Returns array of path ids as integers
      *
-     * @param $path
+     * @param Content $path path to explode
      *
      * @return Array extracted path
      */
