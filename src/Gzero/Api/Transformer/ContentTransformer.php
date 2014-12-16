@@ -23,6 +23,7 @@ class ContentTransformer extends AbstractTransformer {
      */
     protected $defaultIncludes = [
         'route',
+        'author',
         'translations'
     ];
 
@@ -64,7 +65,7 @@ class ContentTransformer extends AbstractTransformer {
     /**
      * Include Translations
      *
-     * @param Content $content Translation
+     * @param Content $content Route
      *
      * @return \League\Fractal\ItemResource
      */
@@ -72,6 +73,19 @@ class ContentTransformer extends AbstractTransformer {
     {
         $route = $content->route;
         return (!empty($route)) ? $this->item($route, new RouteTransformer()) : null;
+    }
+
+    /**
+     * Include Author
+     *
+     * @param Content $content User
+     *
+     * @return \League\Fractal\ItemResource
+     */
+    public function includeAuthor(Content $content)
+    {
+        $author = $content->author;
+        return (!empty($author)) ? $this->item($author, new UserTransformer()) : null;
     }
 
     /**
