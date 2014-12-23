@@ -39,10 +39,10 @@ class ContentController extends ApiController {
      * @param UrlParamsProcessor $processor Url processor
      * @param ContentRepository  $content   Content repository
      */
-    public function __construct(UrlParamsProcessor $processor, ContentRepository $content)
+    public function __construct(UrlParamsProcessor $processor, ContentRepository $content, ContentValidator $validator)
     {
         parent::__construct($processor);
-        $this->validator  = new ContentValidator(\Input::all());
+        $this->validator  = $validator->setData(\Input::all());
         $this->repository = $content;
     }
 
