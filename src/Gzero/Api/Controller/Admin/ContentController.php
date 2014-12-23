@@ -148,7 +148,7 @@ class ContentController extends ApiController {
         $content = $this->repository->getById($id);
         if (!empty($content)) {
             $input   = $this->validator->validate('update');
-            $content = $this->repository->update($input, Auth::user());
+            $content = $this->repository->update($content, $input, Auth::user());
             return $this->respondWithSuccess($content, new ContentTransformer);
         }
         return $this->respondNotFound();
