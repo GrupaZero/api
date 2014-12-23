@@ -8,6 +8,7 @@ use Gzero\Entity\Content;
 use Gzero\Entity\ContentTranslation;
 use Gzero\Entity\User;
 use Gzero\Repository\ContentRepository;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -109,7 +110,7 @@ class ContentController extends ApiController {
     public function store()
     {
         $input   = $this->validator->validate('create');
-        $content = $this->repository->create($input, User::find(1));
+        $content = $this->repository->create($input, Auth::user());
         return $this->respondWithSuccess($content, new ContentTransformer);
     }
 
