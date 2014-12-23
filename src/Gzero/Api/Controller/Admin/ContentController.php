@@ -38,6 +38,7 @@ class ContentController extends ApiController {
      *
      * @param UrlParamsProcessor $processor Url processor
      * @param ContentRepository  $content   Content repository
+     * @param ContentValidator   $validator Content validator
      */
     public function __construct(UrlParamsProcessor $processor, ContentRepository $content, ContentValidator $validator)
     {
