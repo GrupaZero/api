@@ -32,11 +32,11 @@ class ContentValidator extends AbstractValidator {
             'translations_title' => ''
         ],
         'create' => [
-            'langCode' => 'required_with:title,body',
-            'type'     => 'required|in:content,category',
-            'isActive' => '',
-            'title'    => '',
-            'body'     => ''
+            'type'                  => 'required|in:content,category',
+            'isActive'              => '',
+            'translations_langCode' => 'required|in:pl,en',
+            'translations_title'    => '',
+            'translations_body'     => ''
         ]
     ];
 
