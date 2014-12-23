@@ -124,6 +124,19 @@ class ApiController extends Controller {
     }
 
     /**
+     * Return simple success response in json format
+     *
+     * @param mixed $data    Response data
+     * @param array $headers HTTP Header
+     *
+     * @return mixed
+     */
+    protected function respondWithSimpleSuccess($data, Array $headers = [])
+    {
+        return $this->respond($data, SymfonyResponse::HTTP_ACCEPTED, $headers);
+    }
+
+    /**
      * Return server error response in json format
      *
      * @param string $message Custom error message

@@ -4,9 +4,6 @@ use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\ContentTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\ContentValidator;
-use Gzero\Entity\Content;
-use Gzero\Entity\ContentTranslation;
-use Gzero\Entity\User;
 use Gzero\Repository\ContentRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -132,11 +129,9 @@ class ContentController extends ApiController {
      */
     public function show($id)
     {
-        if ($id) {
-            $content = $this->repository->getById($id);
-            if (!empty($content)) {
-                return $this->respondWithSuccess($content, new ContentTransformer);
-            }
+        $content = $this->repository->getById($id);
+        if (!empty($content)) {
+            return $this->respondWithSuccess($content, new ContentTransformer);
         }
         return $this->respondNotFound();
     }
@@ -146,12 +141,17 @@ class ContentController extends ApiController {
      *
      * @param int $id Content id
      *
-     * @return Response
-     * @SuppressWarnings("unused")
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update($id)
     {
-        //
+        $content = $this->repository->getById($id);
+        if (!empty($content)) {
+            $input   = $this->validator->validate('update');
+            $content = $this->repository->update($input, Auth::user());
+            return $this->respondWithSuccess($content, new ContentTransformer);
+        }
+        return $this->respondNotFound();
     }
 
     /**
@@ -159,12 +159,16 @@ class ContentController extends ApiController {
      *
      * @param int $id Content id
      *
-     * @return Response
-     * @SuppressWarnings("unused")
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $content = $this->repository->getById($id);
+        if (!empty($content)) {
+            $this->repository->delete($content);
+            return $this->respondWithSimpleSuccess(['success' => true]);
+        }
+        return $this->respondNotFound();
     }
 }
 
