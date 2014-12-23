@@ -6,6 +6,7 @@ use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\ContentValidator;
 use Gzero\Entity\Content;
 use Gzero\Entity\ContentTranslation;
+use Gzero\Entity\User;
 use Gzero\Repository\ContentRepository;
 
 /**
@@ -107,15 +108,8 @@ class ContentController extends ApiController {
     public function store()
     {
         $input   = $this->validator->validate('create');
-        $content = new Content();
-        $content->fill($input);
-        $translation = new ContentTranslation();
-        $translation->fill($input['translations']);
-        $content->save();
-        $content->translations()->save($translation);
-
+        $content = $this->repository->create($input, User::find(1));
         return $this->respondWithSuccess($content, new ContentTransformer);
-
     }
 
     /**
