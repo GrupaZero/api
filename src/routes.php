@@ -15,6 +15,11 @@ Route::group(
                     'Gzero\Api\Controller\Admin\ContentController',
                     ['only' => ['index', 'show', 'update', 'destroy']]
                 );
+                Route::resource(
+                    'contents.translations',
+                    'Gzero\Api\Controller\Admin\ContentTranslationController',
+                    ['only' => 'index']
+                );
                 Route::resource('contents.uploads', 'Gzero\Api\Controller\Admin\UploadController');
                 Route::resource('uploads', 'Gzero\Api\Controller\Admin\UploadController');
             }
