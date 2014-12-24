@@ -21,22 +21,21 @@ class ContentValidator extends AbstractValidator {
      */
     protected $rules = [
         'list'   => [
-            'lang'               => 'required_with:translations_title,sort|in:pl,en',
-            'page'               => 'numeric',
-            'perPage'            => 'numeric',
-            'type'               => 'in:content,category',
-            'parentId'           => 'numeric',
-            'isActive'           => 'boolean',
-            'sort'               => '',
-            'level'              => '',
-            'translations_title' => ''
+            'lang'     => 'required_with:translations_title,sort|in:pl,en',
+            'page'     => 'numeric',
+            'perPage'  => 'numeric',
+            'type'     => 'in:content,category',
+            'parentId' => 'numeric',
+            'isActive' => 'boolean',
+            'sort'     => '',
+            'level'    => ''
         ],
         'create' => [
             'type'                  => 'required|in:content,category',
             'isActive'              => '',
-            'translations_langCode' => 'required|in:pl,en',
-            'translations_title'    => '',
-            'translations_body'     => ''
+            'translations.langCode' => 'required|in:pl,en',
+            'translations.title'    => '',
+            'translations.body'     => ''
         ],
         'update' => [
             'parentId' => '',
@@ -49,6 +48,6 @@ class ContentValidator extends AbstractValidator {
      * @var array
      */
     protected $filters = [
-        'title' => 'trim'
+        'translations.title' => 'trim'
     ];
 }
