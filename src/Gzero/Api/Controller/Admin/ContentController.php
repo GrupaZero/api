@@ -54,7 +54,7 @@ class ContentController extends ApiController {
      * @api                 {get} /admin/contents Read collection of root contents
      * @apiVersion          0.1.0
      * @apiName             GetContentList
-     * @apiGroup            Content
+     * @apiGroup            AdminContent
      * @apiDescription      Read root contents
      * @apiSuccess {Integer} count Number of all contents
      * @apiSuccess {Array} data Collection of contents (Array of Objects)
@@ -92,35 +92,15 @@ class ContentController extends ApiController {
     }
 
     /**
-     * Stores newly created content in database
-     *
-     * @api        {post} /contents Stores newly created content i DB
-     * @apiVersion 0.1.0
-     * @apiName    PostContentList
-     * @apiGroup   AdminContent
-     * @apiExample Example usage:
-     * curl -i http://localhost/api/v1/admin/contents
-     * @apiSuccess {Array} data Success and input data
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function store()
-    {
-        $input   = $this->validator->validate('create');
-        $content = $this->repository->create($input, Auth::user());
-        return $this->respondWithSuccess($content, new ContentTransformer);
-    }
-
-    /**
      * Display a specified resource.
      *
      * @param int $id Id of the resource
      *
-     * @api                 {get} /admin/contents/{id} Get specified content
+     * @api                 {get} /admin/contents/{id} Get the specified content from database
      * @apiVersion          0.1.0
      * @apiName             GetContent
-     * @apiGroup            Content
-     * @apiDescription      Get specified content
+     * @apiGroup            AdminContent
+     * @apiDescription      Get the specified content from database
      * @apiSuccess {Array} selected content(Array of Objects)
      * @apiExample          Example usage:
      * curl -i http://api.example.com/v1/admin/contents/123
@@ -137,9 +117,39 @@ class ContentController extends ApiController {
     }
 
     /**
-     * Update the specified resource in storage.
+     * Stores newly created content in database.
+     *
+     * @api                 {post} /contents Stores newly created content in database
+     * @apiVersion          0.1.0
+     * @apiName             PostContent
+     * @apiGroup            AdminContent
+     * @apiDescription      Stores newly created content in database
+     * @apiSuccess {Array} data Success and input data
+     * @apiExample          Example usage:
+     * curl -i http://api.example.com/api/v1/admin/contents
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store()
+    {
+        $input   = $this->validator->validate('create');
+        $content = $this->repository->create($input, Auth::user());
+        return $this->respondWithSuccess($content, new ContentTransformer);
+    }
+
+    /**
+     * Update the specified resource in database.
      *
      * @param int $id Content id
+     *
+     * @api                 {put} /contents Updates the specified content in database
+     * @apiVersion          0.1.0
+     * @apiName             PutContent
+     * @apiGroup            AdminContent
+     * @apiDescription      Updates the specified content in database
+     * @apiSuccess {Array} data Success and input data
+     * @apiExample          Example usage:
+     * curl -i http://api.example.com/api/v1/admin/contents
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -155,9 +165,18 @@ class ContentController extends ApiController {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from database.
      *
      * @param int $id Content id
+     *
+     * @api                 {delete} /contents Removes the specified content from database
+     * @apiVersion          0.1.0
+     * @apiName             DeleteContent
+     * @apiGroup            AdminContent
+     * @apiDescription      Updates the specified content from database
+     * @apiSuccess {Array} data Success and input data
+     * @apiExample          Example usage:
+     * curl -i http://api.example.com/api/v1/admin/contents
      *
      * @return \Illuminate\Http\JsonResponse
      */
