@@ -928,48 +928,6 @@
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "translations.langCode",
-            "description": "<p>Language code</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "translations.title",
-            "description": "<p>Title</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "translations.body",
-            "description": "<p>Body</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "translations.isActive",
-            "description": "<p>Is active flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "translations.createdAt",
-            "description": "<p>Creation date of translation</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "translations.updatedAt",
-            "description": "<p>Update date of translation</p> "
           }
         ]
       },

@@ -210,7 +210,6 @@ class ContentController extends ApiController {
  * @apiPermission       admin
  * @apiDescription      Updates the specified content in database
  * @apiUse              Content
- * @apiUse              ContentTranslationCollection
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/api/v1/admin/contents
