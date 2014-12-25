@@ -20,13 +20,26 @@ class ContentTranslationValidator extends AbstractValidator {
      * @var array
      */
     protected $rules = [
-        'list' => [
+        'list'   => [
             'langCode' => 'in:pl,en',
             'page'     => 'numeric',
             'perPage'  => 'numeric',
             'isActive' => 'boolean',
             'sort'     => '',
             'level'    => ''
+        ],
+        'create' => [
+            'langCode' => 'required|in:pl,en',
+            'isActive' => '',
+            'title'    => '',
+            'body'     => ''
         ]
+    ];
+
+    /**
+     * @var array
+     */
+    protected $filters = [
+        'title' => 'trim'
     ];
 }
