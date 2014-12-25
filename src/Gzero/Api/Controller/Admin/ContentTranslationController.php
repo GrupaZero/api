@@ -3,7 +3,7 @@
 use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\ContentTranslationTransformer;
 use Gzero\Api\UrlParamsProcessor;
-use Gzero\Api\Validator\ContentValidator;
+use Gzero\Api\Validator\ContentTranslationValidator;
 use Gzero\Repository\ContentRepository;
 
 /**
@@ -33,11 +33,11 @@ class ContentTranslationController extends ApiController {
     /**
      * ContentController constructor
      *
-     * @param UrlParamsProcessor $processor Url processor
-     * @param ContentRepository  $content   Content repository
-     * @param ContentValidator   $validator Content validator
+     * @param UrlParamsProcessor          $processor Url processor
+     * @param ContentRepository           $content   Content repository
+     * @param ContentTranslationValidator $validator Content validator
      */
-    public function __construct(UrlParamsProcessor $processor, ContentRepository $content, ContentValidator $validator)
+    public function __construct(UrlParamsProcessor $processor, ContentRepository $content, ContentTranslationValidator $validator)
     {
         parent::__construct($processor);
         $this->validator  = $validator->setData(\Input::all());
