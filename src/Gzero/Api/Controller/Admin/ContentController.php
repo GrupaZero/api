@@ -45,21 +45,10 @@ class ContentController extends ApiController {
         $this->repository = $content;
     }
 
-
     /**
      * Display a listing of the resource.
      *
      * @param int|null $id Id used for nested resources
-     *
-     * @api                 {get} /admin/contents Read collection of root contents
-     * @apiVersion          0.1.0
-     * @apiName             GetContentList
-     * @apiGroup            AdminContent
-     * @apiDescription      Read root contents
-     * @apiSuccess {Integer} count Number of all contents
-     * @apiSuccess {Array} data Collection of contents (Array of Objects)
-     * @apiExample          Example usage:
-     * curl -i http://api.example.com/v1/admin/contents
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -96,15 +85,6 @@ class ContentController extends ApiController {
      *
      * @param int $id Id of the resource
      *
-     * @api                 {get} /admin/contents/{id} Get the specified content from database
-     * @apiVersion          0.1.0
-     * @apiName             GetContent
-     * @apiGroup            AdminContent
-     * @apiDescription      Get the specified content from database
-     * @apiSuccess {Array} selected content(Array of Objects)
-     * @apiExample          Example usage:
-     * curl -i http://api.example.com/v1/admin/contents/123
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
@@ -119,15 +99,6 @@ class ContentController extends ApiController {
     /**
      * Stores newly created content in database.
      *
-     * @api                 {post} /contents Stores newly created content in database
-     * @apiVersion          0.1.0
-     * @apiName             PostContent
-     * @apiGroup            AdminContent
-     * @apiDescription      Stores newly created content in database
-     * @apiSuccess {Array} data Success and input data
-     * @apiExample          Example usage:
-     * curl -i http://api.example.com/api/v1/admin/contents
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store()
@@ -141,15 +112,6 @@ class ContentController extends ApiController {
      * Update the specified resource in database.
      *
      * @param int $id Content id
-     *
-     * @api                 {put} /contents Updates the specified content in database
-     * @apiVersion          0.1.0
-     * @apiName             PutContent
-     * @apiGroup            AdminContent
-     * @apiDescription      Updates the specified content in database
-     * @apiSuccess {Array} data Success and input data
-     * @apiExample          Example usage:
-     * curl -i http://api.example.com/api/v1/admin/contents
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -169,15 +131,6 @@ class ContentController extends ApiController {
      *
      * @param int $id Content id
      *
-     * @api                 {delete} /contents Removes the specified content from database
-     * @apiVersion          0.1.0
-     * @apiName             DeleteContent
-     * @apiGroup            AdminContent
-     * @apiDescription      Updates the specified content from database
-     * @apiSuccess {Array} data Success and input data
-     * @apiExample          Example usage:
-     * curl -i http://api.example.com/api/v1/admin/contents
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
@@ -191,27 +144,219 @@ class ContentController extends ApiController {
     }
 }
 
+/*
+|--------------------------------------------------------------------------
+| START API DOCS
+|--------------------------------------------------------------------------
+*/
 /**
- * @apiDefineSuccessStructure Content
+ * @api                 {get} /admin/contents 1. GET collection of root entities
+ * @apiVersion          0.1.0
+ * @apiName             GetContentList
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiDescription      Get root contents
+ * @apiUse              Meta
+ * @apiUse              Params
+ * @apiUse              ContentCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/contents
+ */
+/**
+ * @api                 {get} /admin/contents/:id/children 2. GET collection of entities
+ * @apiVersion          0.1.0
+ * @apiName             GetContentChildrenList
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiParam {Number} id The Content ID
+ * @apiDescription      Get children contents
+ * @apiUse              Meta
+ * @apiUse              Params
+ * @apiUse              ContentCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/contents/1/children
+ */
+/**
+ * @api                 {get} /admin/contents/{id} 3. GET single entity
+ * @apiVersion          0.1.0
+ * @apiName             GetContent
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiDescription      Get the specified content from database
+ * @apiUse              Content
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/contents/123
+ */
+/**
+ * @api                 {post} /contents 4. POST newly created entity
+ * @apiVersion          0.1.0
+ * @apiName             PostContent
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiDescription      Stores newly created content in database
+ * @apiUse              Content
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/api/v1/admin/contents
+ */
+/**
+ * @api                 {put} /contents 5. PUT the specified entity
+ * @apiVersion          0.1.0
+ * @apiName             PutContent
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiDescription      Updates the specified content in database
+ * @apiUse              Content
+ * @apiUse              ContentTranslationCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/api/v1/admin/contents
+ */
+/**
+ * @api                 {delete} /contents 6. DELETE the specified entity
+ * @apiVersion          0.1.0
+ * @apiName             DeleteContent
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiDescription      Updates the specified content from database
+ * @apiSuccess {Boolean} success Success flag
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/api/v1/admin/contents
+ * @apiSuccessExample   Success-Response:
+ * HTTP/1.1 200 OK
+ * {"success":true}
+ */
+
+/**
+ * @apiDefine           Content
  * @apiSuccess {Number} id Content id
  * @apiSuccess {Number} rating Content rating
  * @apiSuccess {Number} visits Content visit counter
- * @apiSuccess {Object[]} translations List of translations (Array of Objects)
- * @apiSuccess {Number} translations.lang_id Language id
- * @apiSuccess {String} translations.url Translation url
- * @apiSuccess {String} translations.title Title
- * @apiSuccess {String} translations.body Body
- * @apiSuccess {String} translations.seo_title SEO title
- * @apiSuccess {String} translations.seo_description SEO description
- * @apiSuccess {Boolean} translations.is_active Is translation active
- * @apiSuccess {Date} translations.created_at Creation date of translation
- * @apiSuccess {Date} translations.updated_at Update date of translation
- * @apiSuccess {Boolean} is_on_home Home page flag
- * @apiSuccess {Boolean} is_comment_allowed Is comment allowed flag
- * @apiSuccess {Boolean} is_promoted Is promoted flag
- * @apiSuccess {Boolean} is_sticky Is sticky flag
- * @apiSuccess {Boolean} is_active Is content active flag
- * @apiSuccess {Date} published_at Date of publication
- * @apiSuccess {Date} created_at Creation date
- * @apiSuccess {Date} updated_at Update date
+ * @apiSuccess {Array} path Tree path for this node
+ * @apiSuccess {Object} route Route for this Content
+ * @apiSuccess {Object} author Author of this Content
+ * @apiSuccess {Array} translations List of active translations (Array of Objects)
+ * @apiSuccess {Boolean} isOnHome Home page flag
+ * @apiSuccess {Boolean} isCommentAllowed Is comment allowed flag
+ * @apiSuccess {Boolean} isPromoted Is promoted flag
+ * @apiSuccess {Boolean} isSticky Is sticky flag
+ * @apiSuccess {Boolean} isActive Is content active flag
+ * @apiSuccess {Date} publishedAt Date of publication
+ * @apiSuccess {Date} createdAt Creation date
+ * @apiSuccess {Date} updatedAt Update date
+ *
+ * @apiSuccessExample   Success-Response:
+ * HTTP/1.1 200 OK
+ *{
+ *   "id": 1,
+ *   "type": "category",
+ *   "weight": 3,
+ *   "isActive": false,
+ *   "path": [
+ *       1
+ *   ],
+ *   "createdAt": "2014-12-23T13:28:23+0000",
+ *   "updatedAt": "2014-12-23T13:28:23+0000",
+ *   "route": {
+ *       "id": 1,
+ *       "createdAt": "2014-12-23T13:28:23+0000",
+ *       "updatedAt": "2014-12-23T13:28:23+0000",
+ *       "translations": [
+ *           {
+ *               "id": 1,
+ *               "lang": "en",
+ *               "url": "occaecati",
+ *               "isActive": 1,
+ *               "createdAt": "2014-12-23T13:28:23+0000",
+ *               "updatedAt": "2014-12-23T13:28:23+0000"
+ *           },
+ *           {
+ *               "id": 2,
+ *               "lang": "pl",
+ *               "url": "non",
+ *               "isActive": 1,
+ *               "createdAt": "2014-12-23T13:28:23+0000",
+ *               "updatedAt": "2014-12-23T13:28:23+0000"
+ *           }
+ *       ]
+ *   },
+ *   "author": {
+ *       "id": 1,
+ *       "email": "a@a.pl",
+ *       "firstName": "John",
+ *       "lastName": "Doe"
+ *   },
+ *   "translations": [
+ *       {
+ *           "id": 1,
+ *           "lang": "en",
+ *           "title": "Example title",
+ *           "body": "Example body",
+ *           "isActive": 1,
+ *           "createdAt": "2014-12-23T13:28:23+0000",
+ *           "updatedAt": "2014-12-23T13:28:23+0000"
+ *       },
+ *       {
+ *           "id": 2,
+ *           "lang": "pl",
+ *           "title": "title",
+ *           "body": "Example body",
+ *           "isActive": 1,
+ *           "createdAt": "2014-12-23T13:28:23+0000",
+ *           "updatedAt": "2014-12-23T13:28:23+0000"
+ *       }
+ *   ]
+ *}
  */
+
+/**
+ * @apiDefine           ContentCollection
+ * @apiSuccess {Array[]} data Array of Contents
+ * @apiSuccess {Number} data.id Content id
+ * @apiSuccess {Number} data.rating Content rating
+ * @apiSuccess {Number} data.visits Content visit counter
+ * @apiSuccess {Array} data.path Tree path for this node
+ * @apiSuccess {Object} data.route Route for this Content
+ * @apiSuccess {Object} data.author Author of this Content
+ * @apiSuccess {Array} data.translations List of active translations (Array of Objects)
+ * @apiSuccess {Boolean} data.isOnHome Home page flag
+ * @apiSuccess {Boolean} data.isCommentAllowed Is comment allowed flag
+ * @apiSuccess {Boolean} data.isPromoted Is promoted flag
+ * @apiSuccess {Boolean} data.isSticky Is sticky flag
+ * @apiSuccess {Boolean} data.isActive Is content active flag
+ * @apiSuccess {Date} data.publishedAt Date of publication
+ * @apiSuccess {Date} data.createdAt Creation date
+ * @apiSuccess {Date} data.updatedAt Update date
+ *
+ * @apiSuccessExample   Success-Response:
+ * HTTP/1.1 200 OK
+ *{
+ *        "meta": {
+ *        "total": 75,
+ *        "perPage": 20,
+ *        "currentPage": 1,
+ *        "lastPage": 4,
+ *        "link": "http://api.gzero.dev:8000/v1/admin/contents"
+ *    },
+ *    "params": {
+ *        "page": 1,
+ *        "perPage": 20,
+ *        "filter": [],
+ *        "orderBy": []
+ *    },
+ *    "data": [
+ *        {Content},
+ *        ...
+ *    ]
+ *}
+ */
+
+/*
+|--------------------------------------------------------------------------
+| END API DOCS
+|--------------------------------------------------------------------------
+*/

@@ -38,14 +38,6 @@ class ApiController extends Controller {
     {
         $this->processor = $processor;
     }
-    /**
-     * @apiDefinePermission admin Admin access rights needed.
-     * These permissions allow you to view inactive contents
-     */
-    /**
-     * @apiDefinePermission user User access rights needed.
-     * Optionally you can write here further information about the permission.
-     */
 
     /**
      * Return response in json format
@@ -204,3 +196,31 @@ class ApiController extends Controller {
         return [];
     }
 }
+
+/**
+ * @apiDefine admin Admin access rights needed.
+ * These permissions is needed for access to all admin api methods
+ */
+/**
+ * @apiDefine user User access rights needed.
+ * Optionally you can write here further information about the permission.
+ */
+
+/**
+ * @apiDefine Meta
+ * @apiSuccess {Object[]} meta Meta data for current request
+ * @apiSuccess {Integer} meta.total Total number elements
+ * @apiSuccess {Integer} meta.perPage Number of elements per page
+ * @apiSuccess {Integer} meta.currentPage Current page number
+ * @apiSuccess {Integer} meta.lastPage Last page number
+ * @apiSuccess {String} meta.link Link for this resource
+ */
+
+/**
+ * @apiDefine Params
+ * @apiSuccess {Object[]} params Params passed for current request
+ * @apiSuccess {Integer} params.page Page parameter
+ * @apiSuccess {Integer} params.perPage Per page parameter
+ * @apiSuccess {Array[]} params.filter Array of filter params
+ * @apiSuccess {Array[]} params.orderBy Array of sort params
+ */

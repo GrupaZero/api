@@ -36,16 +36,6 @@ class LangController extends ApiController {
     /**
      * Display a listing of the resource.
      *
-     * @api                 {get} /langs Read collection of languages
-     * @apiVersion          0.1.0
-     * @apiName             GetLangList
-     * @apiGroup            Language
-     * @apiDescription      Read all languages
-     * @apiSuccess {Integer} count Number of all langs
-     * @apiSuccess {Array} data Collection of langs (Array of Objects)
-     * @apiExample          Example usage:
-     * curl -i http://api.example.com/v1/langs
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -57,16 +47,6 @@ class LangController extends ApiController {
      * Display the specified resource.
      *
      * @param int $code Lang code
-     *
-     * @api                 {get} /langs/:code Read single language
-     * @apiVersion          0.1.0
-     * @apiName             GetLang
-     * @apiGroup            Language
-     * @apiDescription      Read a single language by passing lang code
-     * @apiParam {String} code Lang unique code
-     * @apiSuccessStructure Lang
-     * @apiExample          Example usage:
-     * curl -i http://api.example.com/v1/langs/en
      *
      * @return Response
      */
@@ -81,10 +61,84 @@ class LangController extends ApiController {
 
 }
 
+/*
+|--------------------------------------------------------------------------
+| START API DOCS
+|--------------------------------------------------------------------------
+*/
+
 /**
- * @apiDefineSuccessStructure Lang
+ * @api                 {get} /langs 1. GET collection of entities
+ * @apiVersion          0.1.0
+ * @apiName             GetLangList
+ * @apiGroup            Language
+ * @apiPermission       admin
+ * @apiDescription      Get all languages
+ * @apiUse              LangCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/langs
+ * @apiSuccessExample   Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "data": [
+ *            {
+ *              "code": "en",
+ *              "i18n": "en_US",
+ *              "isEnabled": false,
+ *              "isDefault": true
+ *            },
+ *            {
+ *              "code": "pl",
+ *              "i18n": "pl_PL",
+ *              "isEnabled": false,
+ *              "isDefault": false
+ *            }
+ *       ]
+ *     }
+ */
+
+/**
+ * @api                 {get} /langs/:code 2. GET single entity
+ * @apiVersion          0.1.0
+ * @apiName             GetLang
+ * @apiGroup            Language
+ * @apiPermission       admin
+ * @apiDescription      Get a single language by passing lang code
+ * @apiParam {String}   code Lang unique code
+ * @apiUse              Lang
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/langs/en
+ * @apiSuccessExample   Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "code": "en",
+ *       "i18n": "en_US",
+ *       "isEnabled": false,
+ *       "isDefault": true
+ *     }
+ */
+
+/**
+ * @apiDefine Lang
  * @apiSuccess {String} code Lang code
  * @apiSuccess {String} i18n Lang i18n code
  * @apiSuccess {Boolean} is_enabled Flag if language is enabled
  * @apiSuccess {Boolean} is_default Flag if language is default
  */
+
+/**
+ * @apiDefine LangCollection
+ * @apiSuccess {Array[]} data Array of Languages
+ * @apiSuccess {String} data.code Lang code
+ * @apiSuccess {String} data.i18n Lang i18n code
+ * @apiSuccess {Boolean} data.is_enabled Flag if language is enabled
+ * @apiSuccess {Boolean} data.is_default Flag if language is default
+ */
+
+/*
+|--------------------------------------------------------------------------
+| END API DOCS
+|--------------------------------------------------------------------------
+*/

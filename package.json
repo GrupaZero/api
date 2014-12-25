@@ -7,6 +7,6 @@
         "url": "http://api.example.com/v1"
     },
     "devDependencies": {
-        "apidoc": "0.6.0"
+        "apidoc": "0.12.0"
     }
 }

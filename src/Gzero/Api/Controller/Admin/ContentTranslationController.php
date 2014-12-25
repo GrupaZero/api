@@ -49,16 +49,6 @@ class ContentTranslationController extends ApiController {
      *
      * @param int|null $id Id used for nested resources
      *
-     * @api                 {get} /admin/contents/:id/translations Read collection of all translations
-     * @apiVersion          0.1.0
-     * @apiName             GetContentTranslationsList
-     * @apiGroup            Content
-     * @apiDescription      Read all content translations
-     * @apiSuccess {Integer} count Number of all content translations
-     * @apiSuccess {Array} data Collection of content translations (Array of Objects)
-     * @apiExample          Example usage:
-     * curl -i http://api.example.com/v1/admin/contents/1/translations
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index($id)
@@ -80,3 +70,26 @@ class ContentTranslationController extends ApiController {
         }
     }
 }
+
+/*
+|--------------------------------------------------------------------------
+| START API DOCS
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * @apiDefine ContentTranslationCollection
+ * @apiSuccess {Array[]} translations List of active translations (Array of Objects)
+ * @apiSuccess {Number} translations.langCode Language code
+ * @apiSuccess {String} translations.title Title
+ * @apiSuccess {String} translations.body Body
+ * @apiSuccess {Boolean} translations.isActive Is active flag
+ * @apiSuccess {Date} translations.createdAt Creation date of translation
+ * @apiSuccess {Date} translations.updatedAt Update date of translation
+ */
+
+/*
+|--------------------------------------------------------------------------
+| END API DOCS
+|--------------------------------------------------------------------------
+*/
