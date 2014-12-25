@@ -111,7 +111,7 @@ class ContentTranslationController extends ApiController {
     /**
      * Gets Content entity by id
      *
-     * @param $id int content id
+     * @param int $id content id
      *
      * @return \Gzero\Entity\Content
      */
