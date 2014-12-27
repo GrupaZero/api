@@ -31,7 +31,7 @@ class ContentTranslationValidator extends AbstractValidator {
         'create' => [
             'langCode' => 'required|in:pl,en',
             'isActive' => '',
-            'title'    => '',
+            'title'    => 'required',
             'body'     => ''
         ]
     ];
