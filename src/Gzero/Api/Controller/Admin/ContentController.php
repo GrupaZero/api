@@ -95,26 +95,27 @@ class ContentController extends ApiController {
         if ($id) { // Single tree
             $content = $this->repository->getById($id);
             if (!empty($content)) {
-                $results = $this->repository->getDescendants(
-                    $content,
-                    $params['filter'],
-                    $params['orderBy'],
-                    true
+                return $this->respondWithSuccess(
+                    $this->repository->getTree(
+                        $content,
+                        $params['filter'],
+                        $params['orderBy']
+                    ),
+                    new ContentTransformer
                 );
-                return $this->respondWithSuccess($results, new ContentTransformer);
             } else {
                 return $this->respondNotFound();
             }
         }
         // All trees
-        $results = $this->repository->getContents(
-            $params['filter'],
-            $params['orderBy'],
-            $params['page'],
-            $params['perPage']
-        );
-
-        return $this->respondWithSuccess($results, new ContentTransformer);
+        return 'TODO';
+        //$results = $this->repository->getContents(
+        //    $params['filter'],
+        //    $params['orderBy'],
+        //    $params['page'],
+        //    $params['perPage']
+        //);
+        //return $this->respondWithSuccess($results, new ContentTransformer);
     }
 
     /**
