@@ -21,7 +21,9 @@ class ContentValidator extends AbstractValidator {
      */
     protected $rules = [
         'tree'   => [
-            'isActive' => 'boolean'
+            'lang'     => 'required_with:sort|in:pl,en',
+            'isActive' => 'boolean',
+            'sort'     => ''
         ],
         'list'   => [
             'lang'     => 'required_with:translations_title,sort|in:pl,en',
