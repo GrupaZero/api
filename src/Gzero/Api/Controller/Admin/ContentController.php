@@ -81,6 +81,43 @@ class ContentController extends ApiController {
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param int|null $id Id used for nested resources
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function indexTree($id = null)
+    {
+        $input  = $this->validator->validate('tree');
+        $params = $this->processor->process($input)->getProcessedFields();
+        $this->getSerializer()->parseIncludes('children'); // We need to enable children include to return tree from api
+        if ($id) { // Single tree
+            $content = $this->repository->getById($id);
+            if (!empty($content)) {
+                $results = $this->repository->getDescendants(
+                    $content,
+                    $params['filter'],
+                    $params['orderBy'],
+                    true
+                );
+                return $this->respondWithSuccess($results, new ContentTransformer);
+            } else {
+                return $this->respondNotFound();
+            }
+        }
+        // All trees
+        $results = $this->repository->getContents(
+            $params['filter'],
+            $params['orderBy'],
+            $params['page'],
+            $params['perPage']
+        );
+
+        return $this->respondWithSuccess($results, new ContentTransformer);
+    }
+
+    /**
      * Display a specified resource.
      *
      * @param int $id Id of the resource
