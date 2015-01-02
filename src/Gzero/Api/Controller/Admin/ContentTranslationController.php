@@ -109,6 +109,40 @@ class ContentTranslationController extends ApiController {
     }
 
     /**
+     * Each translations update always creates new record in database, for history revision
+     *
+     * @param int $id            Id of the content
+     * @param int $translationId Id of the content translation
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update($id, $translationId)
+    {
+        return $this->store($id);
+    }
+
+    /**
+     * Remove the specified resource from database.
+     *
+     * @param int $id            Id of the content
+     * @param int $translationId Id of the content translation
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($id, $translationId)
+    {
+        $content = $this->getContent($id);
+        if (!empty($content)) {
+            $translation = $this->repository->getContentTranslationById($content, $translationId);
+            if (!empty($translation)) {
+                $this->repository->deleteTranslation($translation);
+                return $this->respondWithSimpleSuccess(['success' => true]);
+            }
+        }
+        return $this->respondNotFound();
+    }
+
+    /**
      * Gets Content entity by id
      *
      * @param int $id content id
