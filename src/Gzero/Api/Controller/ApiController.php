@@ -5,6 +5,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Collection as EloquentCollection;
+use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
@@ -28,6 +29,11 @@ class ApiController extends Controller {
      * @var UrlParamsProcessor
      */
     protected $processor;
+
+    /**
+     * @var Manager
+     */
+    protected $serializer;
 
     /**
      * ApiController constructor
@@ -183,7 +189,10 @@ class ApiController extends Controller {
      */
     protected function getSerializer()
     {
-        return \App::make('League\Fractal\Manager');
+        if (!isset($this->serializer)) {
+            $this->serializer = \App::make('League\Fractal\Manager');
+        }
+        return $this->serializer;
     }
 
     /**

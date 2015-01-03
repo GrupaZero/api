@@ -20,6 +20,12 @@ class ContentValidator extends AbstractValidator {
      * @var array
      */
     protected $rules = [
+        'tree'   => [
+            'lang'     => 'required_with:sort|in:pl,en',
+            'weight'   => 'numeric',
+            'isActive' => 'boolean',
+            'sort'     => ''
+        ],
         'list'   => [
             'lang'     => 'required_with:translations_title,sort|in:pl,en',
             'page'     => 'numeric',

@@ -28,6 +28,15 @@ class ContentTransformer extends AbstractTransformer {
     ];
 
     /**
+     * List of resources possible to include
+     *
+     * @var array
+     */
+    protected $availableIncludes = [
+        'children',
+    ];
+
+    /**
      * Transforms content entity
      *
      * @param Content|Array $content Content entity
@@ -47,6 +56,24 @@ class ContentTransformer extends AbstractTransformer {
             'createdAt' => $content['createdAt'],
             'updatedAt' => $content['updatedAt']
         ];
+    }
+
+    /**
+     * Include Children
+     *
+     * @param Content $content Translation
+     *
+     * @return \League\Fractal\ItemResource
+     */
+    public function includeChildren(Content $content)
+    {
+        if ($content->isChildrenLoaded()) {
+            $children    = $content->getRelation('children'); // We don't want LAZY LOADING !
+            $transformer = new ContentTransformer();
+            // We must pass children include as default because of recursion availableIncludes not working
+            $transformer->setDefaultIncludes(array_merge($transformer->getDefaultIncludes(), ['children']));
+            return $this->collection($children, $transformer);
+        }
     }
 
     /**
