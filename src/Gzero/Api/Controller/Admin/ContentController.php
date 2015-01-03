@@ -108,14 +108,33 @@ class ContentController extends ApiController {
             }
         }
         // All trees
-        return 'TODO';
-        //$results = $this->repository->getContents(
-        //    $params['filter'],
-        //    $params['orderBy'],
-        //    $params['page'],
-        //    $params['perPage']
-        //);
-        //return $this->respondWithSuccess($results, new ContentTransformer);
+        $roots = $this->repository->getRoots(
+            [
+                'type' => [
+                    'value'    => 'category',
+                    'relation' => null
+                ]
+            ],
+            $params['orderBy']
+        );
+        $roots->transform(
+            function ($item) use ($params) {
+                return $this->repository->getTree(
+                    $item,
+                    [
+                        'type' => [
+                            'value'    => 'category',
+                            'relation' => null
+                        ]
+                    ],
+                    $params['orderBy']
+                );
+            }
+        );
+        return $this->respondWithSuccess(
+            $roots,
+            new ContentTransformer
+        );
     }
 
     /**
@@ -234,7 +253,7 @@ class ContentController extends ApiController {
  * @apiName             PostContent
  * @apiGroup            Content
  * @apiPermission       admin
- * @apiDescription      Stores newly created content in database
+ * @apiDescription      Store newly created content in database
  * @apiUse              Content
  *
  * @apiExample          Example usage:
@@ -246,7 +265,7 @@ class ContentController extends ApiController {
  * @apiName             PutContent
  * @apiGroup            Content
  * @apiPermission       admin
- * @apiDescription      Updates the specified content in database
+ * @apiDescription      Update the specified content in database
  * @apiUse              Content
  *
  * @apiExample          Example usage:
@@ -258,7 +277,7 @@ class ContentController extends ApiController {
  * @apiName             DeleteContent
  * @apiGroup            Content
  * @apiPermission       admin
- * @apiDescription      Updates the specified content from database
+ * @apiDescription      Delete the specified content from database
  * @apiSuccess {Boolean} success Success flag
  *
  * @apiExample          Example usage:

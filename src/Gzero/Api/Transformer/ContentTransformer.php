@@ -67,11 +67,13 @@ class ContentTransformer extends AbstractTransformer {
      */
     public function includeChildren(Content $content)
     {
-        $children    = $content->children; // Attention to LAZY LOADING !
-        $transformer = new ContentTransformer();
-        // We must pass children include as default because of recursion availableIncludes not working
-        $transformer->setDefaultIncludes(array_merge($transformer->getDefaultIncludes(), ['children']));
-        return $this->collection($children, $transformer);
+        if ($content->isChildrenLoaded()) {
+            $children    = $content->getRelation('children'); // We don't want LAZY LOADING !
+            $transformer = new ContentTransformer();
+            // We must pass children include as default because of recursion availableIncludes not working
+            $transformer->setDefaultIncludes(array_merge($transformer->getDefaultIncludes(), ['children']));
+            return $this->collection($children, $transformer);
+        }
     }
 
     /**
