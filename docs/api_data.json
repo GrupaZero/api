@@ -1,8 +1,8 @@
 [
   {
     "type": "delete",
-    "url": "/admin/contents",
-    "title": "8. DELETE the specified entity",
+    "url": "/contents",
+    "title": "6. DELETE the specified entity",
     "version": "0.1.0",
     "name": "DeleteContent",
     "group": "Content",
@@ -13,7 +13,7 @@
         "description": "<p>These permissions is needed for access to all admin api methods</p> "
       }
     ],
-    "description": "<p>Delete the specified content from database</p> ",
+    "description": "<p>Updates the specified content from database</p> ",
     "success": {
       "fields": {
         "Success 200": [
@@ -46,8 +46,8 @@
   },
   {
     "type": "get",
-    "url": "/admin/contents/:id",
-    "title": "5. GET single entity",
+    "url": "/admin/contents/{id}",
+    "title": "3. GET single entity",
     "version": "0.1.0",
     "name": "GetContent",
     "group": "Content",
@@ -181,7 +181,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"occaecati\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n}",
           "type": "json"
         }
       ]
@@ -190,7 +190,7 @@
   {
     "type": "get",
     "url": "/admin/contents/:id/children",
-    "title": "4. GET collection of entities",
+    "title": "2. GET collection of entities",
     "version": "0.1.0",
     "name": "GetContentChildrenList",
     "group": "Content",
@@ -429,169 +429,6 @@
   },
   {
     "type": "get",
-    "url": "/admin/contents/tree/:id",
-    "title": "3. GET tree for single root entity",
-    "version": "0.1.0",
-    "name": "GetContentChildrenTree",
-    "group": "Content",
-    "permission": [
-      {
-        "name": "admin",
-        "title": "Admin access rights needed.",
-        "description": "<p>These permissions is needed for access to all admin api methods</p> "
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Content ID</p> "
-          }
-        ]
-      }
-    },
-    "description": "<p>Get content with children as tree</p> ",
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "curl -i http://api.example.com/v1/admin/contents/tree/1",
-        "type": "json"
-      }
-    ],
-    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php",
-    "groupTitle": "",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Content id</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "rating",
-            "description": "<p>Content rating</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "visits",
-            "description": "<p>Content visit counter</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "children",
-            "description": "<p>List of children (Array of Objects)</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isOnHome",
-            "description": "<p>Home page flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isCommentAllowed",
-            "description": "<p>Is comment allowed flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isPromoted",
-            "description": "<p>Is promoted flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isSticky",
-            "description": "<p>Is sticky flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isActive",
-            "description": "<p>Is content active flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "publishedAt",
-            "description": "<p>Date of publication</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "createdAt",
-            "description": "<p>Creation date</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "updatedAt",
-            "description": "<p>Update date</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n   \"children\": [\n       {Content},\n       ...\n   ]\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
     "url": "/admin/contents",
     "title": "1. GET collection of root entities",
     "version": "0.1.0",
@@ -818,12 +655,363 @@
     }
   },
   {
+    "type": "post",
+    "url": "/contents",
+    "title": "4. POST newly created entity",
+    "version": "0.1.0",
+    "name": "PostContent",
+    "group": "Content",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "description": "<p>Stores newly created content in database</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/api/v1/admin/contents",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Content id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "rating",
+            "description": "<p>Content rating</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "visits",
+            "description": "<p>Content visit counter</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "path",
+            "description": "<p>Tree path for this node</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "route",
+            "description": "<p>Route for this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "author",
+            "description": "<p>Author of this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isOnHome",
+            "description": "<p>Home page flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isCommentAllowed",
+            "description": "<p>Is comment allowed flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isPromoted",
+            "description": "<p>Is promoted flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isSticky",
+            "description": "<p>Is sticky flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is content active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "publishedAt",
+            "description": "<p>Date of publication</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"occaecati\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/contents",
+    "title": "5. PUT the specified entity",
+    "version": "0.1.0",
+    "name": "PutContent",
+    "group": "Content",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "description": "<p>Updates the specified content in database</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/api/v1/admin/contents",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Content id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "rating",
+            "description": "<p>Content rating</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "visits",
+            "description": "<p>Content visit counter</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "path",
+            "description": "<p>Tree path for this node</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "route",
+            "description": "<p>Route for this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "author",
+            "description": "<p>Author of this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isOnHome",
+            "description": "<p>Home page flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isCommentAllowed",
+            "description": "<p>Is comment allowed flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isPromoted",
+            "description": "<p>Is promoted flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isSticky",
+            "description": "<p>Is sticky flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is content active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "publishedAt",
+            "description": "<p>Date of publication</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"occaecati\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/admin/contents/:id/translations/:id",
+    "title": "5. DELETE the specified entity",
+    "version": "0.1.0",
+    "name": "DeleteContentTranslation",
+    "group": "Content_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Content ID</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "translationId",
+            "description": "<p>The ContentTranslations ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Deletes the specified content translation from database</p> ",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Success flag</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"success\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/contents/1/translations/1",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
+    "groupTitle": "Content_Translations"
+  },
+  {
     "type": "get",
     "url": "/admin/contents/:id/translations/:id",
-    "title": "8. GET single translation entity",
+    "title": "2. GET single entity",
     "version": "0.1.0",
     "name": "GetContentTranslation",
-    "group": "Content",
+    "group": "Content_Translations",
     "permission": [
       {
         "name": "admin",
@@ -860,7 +1048,7 @@
       }
     ],
     "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
-    "groupTitle": "",
+    "groupTitle": "Content_Translations",
     "success": {
       "fields": {
         "Success 200": [
@@ -926,161 +1114,11 @@
   },
   {
     "type": "get",
-    "url": "/admin/contents/tree",
-    "title": "2. GET trees for all root entities",
-    "version": "0.1.0",
-    "name": "GetContentTree",
-    "group": "Content",
-    "permission": [
-      {
-        "name": "admin",
-        "title": "Admin access rights needed.",
-        "description": "<p>These permissions is needed for access to all admin api methods</p> "
-      }
-    ],
-    "description": "<p>Get all root contents with children as tree</p> ",
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "curl -i http://api.example.com/v1/admin/contents/tree",
-        "type": "json"
-      }
-    ],
-    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php",
-    "groupTitle": "",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Content id</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "rating",
-            "description": "<p>Content rating</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "visits",
-            "description": "<p>Content visit counter</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "children",
-            "description": "<p>List of children (Array of Objects)</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isOnHome",
-            "description": "<p>Home page flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isCommentAllowed",
-            "description": "<p>Is comment allowed flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isPromoted",
-            "description": "<p>Is promoted flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isSticky",
-            "description": "<p>Is sticky flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isActive",
-            "description": "<p>Is content active flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "publishedAt",
-            "description": "<p>Date of publication</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "createdAt",
-            "description": "<p>Creation date</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "updatedAt",
-            "description": "<p>Update date</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n   \"children\": [\n       {Content},\n       ...\n   ]\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
     "url": "/admin/contents/:id/translations",
-    "title": "7. GET collection of translations",
+    "title": "1. GET collection of translations",
     "version": "0.1.0",
     "name": "GetTranslationList",
-    "group": "Content",
+    "group": "Content_Translations",
     "permission": [
       {
         "name": "admin",
@@ -1110,7 +1148,7 @@
       }
     ],
     "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
-    "groupTitle": "",
+    "groupTitle": "Content_Translations",
     "success": {
       "fields": {
         "Success 200": [
@@ -1253,154 +1291,11 @@
   },
   {
     "type": "post",
-    "url": "/admin/contents",
-    "title": "6. POST newly created entity",
-    "version": "0.1.0",
-    "name": "PostContent",
-    "group": "Content",
-    "permission": [
-      {
-        "name": "admin",
-        "title": "Admin access rights needed.",
-        "description": "<p>These permissions is needed for access to all admin api methods</p> "
-      }
-    ],
-    "description": "<p>Store newly created content in database</p> ",
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "curl -i http://api.example.com/api/v1/admin/contents",
-        "type": "json"
-      }
-    ],
-    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php",
-    "groupTitle": "",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Content id</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "rating",
-            "description": "<p>Content rating</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "visits",
-            "description": "<p>Content visit counter</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isOnHome",
-            "description": "<p>Home page flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isCommentAllowed",
-            "description": "<p>Is comment allowed flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isPromoted",
-            "description": "<p>Is promoted flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isSticky",
-            "description": "<p>Is sticky flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isActive",
-            "description": "<p>Is content active flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "publishedAt",
-            "description": "<p>Date of publication</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "createdAt",
-            "description": "<p>Creation date</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "updatedAt",
-            "description": "<p>Update date</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "post",
     "url": "/admin/contents/:id/translations",
-    "title": "9. POST newly created translation",
+    "title": "3. POST newly created entity",
     "version": "0.1.0",
     "name": "PostContentTranslation",
-    "group": "Content",
+    "group": "Content_Translations",
     "permission": [
       {
         "name": "admin",
@@ -1430,7 +1325,7 @@
       }
     ],
     "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
-    "groupTitle": "",
+    "groupTitle": "Content_Translations",
     "success": {
       "fields": {
         "Success 200": [
@@ -1496,11 +1391,11 @@
   },
   {
     "type": "put",
-    "url": "/admin/contents",
-    "title": "7. PUT the specified entity",
+    "url": "/admin/contents/:id/translations",
+    "title": "4. PUT newly created revision",
     "version": "0.1.0",
-    "name": "PutContent",
-    "group": "Content",
+    "name": "PutContentTranslation",
+    "group": "Content_Translations",
     "permission": [
       {
         "name": "admin",
@@ -1508,16 +1403,29 @@
         "description": "<p>These permissions is needed for access to all admin api methods</p> "
       }
     ],
-    "description": "<p>Update the specified content in database</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Content ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Each translations update always creates new record in database, for history revision</p> ",
     "examples": [
       {
         "title": "Example usage:",
-        "content": "curl -i http://api.example.com/api/v1/admin/contents",
+        "content": "curl -i http://api.example.com/api/v1/admin/contents/1/translations",
         "type": "json"
       }
     ],
-    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php",
-    "groupTitle": "",
+    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
+    "groupTitle": "Content_Translations",
     "success": {
       "fields": {
         "Success 200": [
@@ -1526,112 +1434,56 @@
             "type": "Number",
             "optional": false,
             "field": "id",
-            "description": "<p>Content id</p> "
+            "description": "<p>ContentTranslation id</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
-            "field": "rating",
-            "description": "<p>Content rating</p> "
+            "field": "lang",
+            "description": "<p>Language code</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "String",
             "optional": false,
-            "field": "visits",
-            "description": "<p>Content visit counter</p> "
+            "field": "title",
+            "description": "<p>Title</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "String",
             "optional": false,
-            "field": "path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isOnHome",
-            "description": "<p>Home page flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isCommentAllowed",
-            "description": "<p>Is comment allowed flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isPromoted",
-            "description": "<p>Is promoted flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isSticky",
-            "description": "<p>Is sticky flag</p> "
+            "field": "body",
+            "description": "<p>Body</p> "
           },
           {
             "group": "Success 200",
             "type": "Boolean",
             "optional": false,
             "field": "isActive",
-            "description": "<p>Is content active flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "publishedAt",
-            "description": "<p>Date of publication</p> "
+            "description": "<p>Is active flag</p> "
           },
           {
             "group": "Success 200",
             "type": "Date",
             "optional": false,
             "field": "createdAt",
-            "description": "<p>Creation date</p> "
+            "description": "<p>Creation date of translation</p> "
           },
           {
             "group": "Success 200",
             "type": "Date",
             "optional": false,
             "field": "updatedAt",
-            "description": "<p>Update date</p> "
+            "description": "<p>Update date of translation</p> "
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": 1,\n  \"createdAt\": \"2014-12-24T10:57:39+0000\",\n  \"updatedAt\": \"2014-12-24T10:57:39+0000\"\n}",
           "type": "json"
         }
       ]
