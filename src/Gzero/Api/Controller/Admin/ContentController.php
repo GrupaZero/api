@@ -221,7 +221,32 @@ class ContentController extends ApiController {
  * curl -i http://api.example.com/v1/admin/contents
  */
 /**
- * @api                 {get} /admin/contents/:id/children 2. GET collection of entities
+ * @api                 {get} /admin/contents/tree 2. GET trees for all root entities
+ * @apiVersion          0.1.0
+ * @apiName             GetContentTree
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiDescription      Get all root contents with children as tree
+ * @apiUse              ContentTree
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/contents/tree
+ */
+/**
+ * @api                 {get} /admin/contents/tree/:id 3. GET tree for single root entity
+ * @apiVersion          0.1.0
+ * @apiName             GetContentChildrenTree
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiParam {Number} id The Content ID
+ * @apiDescription      Get content with children as tree
+ * @apiUse              ContentTree
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/contents/tree/1
+ */
+/**
+ * @api                 {get} /admin/contents/:id/children 4. GET collection of entities
  * @apiVersion          0.1.0
  * @apiName             GetContentChildrenList
  * @apiGroup            Content
@@ -236,7 +261,7 @@ class ContentController extends ApiController {
  * curl -i http://api.example.com/v1/admin/contents/1/children
  */
 /**
- * @api                 {get} /admin/contents/{id} 3. GET single entity
+ * @api                 {get} /admin/contents/:id 5. GET single entity
  * @apiVersion          0.1.0
  * @apiName             GetContent
  * @apiGroup            Content
@@ -248,7 +273,7 @@ class ContentController extends ApiController {
  * curl -i http://api.example.com/v1/admin/contents/123
  */
 /**
- * @api                 {post} /contents 4. POST newly created entity
+ * @api                 {post} /admin/contents 6. POST newly created entity
  * @apiVersion          0.1.0
  * @apiName             PostContent
  * @apiGroup            Content
@@ -260,7 +285,7 @@ class ContentController extends ApiController {
  * curl -i http://api.example.com/api/v1/admin/contents
  */
 /**
- * @api                 {put} /contents 5. PUT the specified entity
+ * @api                 {put} /admin/contents 7. PUT the specified entity
  * @apiVersion          0.1.0
  * @apiName             PutContent
  * @apiGroup            Content
@@ -272,7 +297,7 @@ class ContentController extends ApiController {
  * curl -i http://api.example.com/api/v1/admin/contents
  */
 /**
- * @api                 {delete} /contents 6. DELETE the specified entity
+ * @api                 {delete} /admin/contents 8. DELETE the specified entity
  * @apiVersion          0.1.0
  * @apiName             DeleteContent
  * @apiGroup            Content
@@ -325,7 +350,7 @@ class ContentController extends ApiController {
  *           {
  *               "id": 1,
  *               "lang": "en",
- *               "url": "occaecati",
+ *               "url": "example-url",
  *               "isActive": 1,
  *               "createdAt": "2014-12-23T13:28:23+0000",
  *               "updatedAt": "2014-12-23T13:28:23+0000"
@@ -366,6 +391,92 @@ class ContentController extends ApiController {
  *           "updatedAt": "2014-12-23T13:28:23+0000"
  *       }
  *   ]
+ *}
+ */
+/**
+ * @apiDefine           ContentTree
+ * @apiSuccess {Number} id Content id
+ * @apiSuccess {Number} rating Content rating
+ * @apiSuccess {Number} visits Content visit counter
+ * @apiSuccess {Array} path Tree path for this node
+ * @apiSuccess {Object} route Route for this Content
+ * @apiSuccess {Object} author Author of this Content
+ * @apiSuccess {Array} translations List of active translations (Array of Objects)
+ * @apiSuccess {Array} children List of children (Array of Objects)
+ * @apiSuccess {Boolean} isOnHome Home page flag
+ * @apiSuccess {Boolean} isCommentAllowed Is comment allowed flag
+ * @apiSuccess {Boolean} isPromoted Is promoted flag
+ * @apiSuccess {Boolean} isSticky Is sticky flag
+ * @apiSuccess {Boolean} isActive Is content active flag
+ * @apiSuccess {Date} publishedAt Date of publication
+ * @apiSuccess {Date} createdAt Creation date
+ * @apiSuccess {Date} updatedAt Update date
+ *
+ * @apiSuccessExample   Success-Response:
+ * HTTP/1.1 200 OK
+ *{
+ *   "id": 1,
+ *   "type": "category",
+ *   "weight": 3,
+ *   "isActive": false,
+ *   "path": [
+ *       1
+ *   ],
+ *   "createdAt": "2014-12-23T13:28:23+0000",
+ *   "updatedAt": "2014-12-23T13:28:23+0000",
+ *   "route": {
+ *       "id": 1,
+ *       "createdAt": "2014-12-23T13:28:23+0000",
+ *       "updatedAt": "2014-12-23T13:28:23+0000",
+ *       "translations": [
+ *           {
+ *               "id": 1,
+ *               "lang": "en",
+ *               "url": "example-url",
+ *               "isActive": 1,
+ *               "createdAt": "2014-12-23T13:28:23+0000",
+ *               "updatedAt": "2014-12-23T13:28:23+0000"
+ *           },
+ *           {
+ *               "id": 2,
+ *               "lang": "pl",
+ *               "url": "non",
+ *               "isActive": 1,
+ *               "createdAt": "2014-12-23T13:28:23+0000",
+ *               "updatedAt": "2014-12-23T13:28:23+0000"
+ *           }
+ *       ]
+ *   },
+ *   "author": {
+ *       "id": 1,
+ *       "email": "a@a.pl",
+ *       "firstName": "John",
+ *       "lastName": "Doe"
+ *   },
+ *   "translations": [
+ *       {
+ *           "id": 1,
+ *           "lang": "en",
+ *           "title": "Example title",
+ *           "body": "Example body",
+ *           "isActive": 1,
+ *           "createdAt": "2014-12-23T13:28:23+0000",
+ *           "updatedAt": "2014-12-23T13:28:23+0000"
+ *       },
+ *       {
+ *           "id": 2,
+ *           "lang": "pl",
+ *           "title": "title",
+ *           "body": "Example body",
+ *           "isActive": 1,
+ *           "createdAt": "2014-12-23T13:28:23+0000",
+ *           "updatedAt": "2014-12-23T13:28:23+0000"
+ *       }
+ *   ]
+ *    "children": [
+ *        {Content},
+ *        ...
+ *    ]
  *}
  */
 
