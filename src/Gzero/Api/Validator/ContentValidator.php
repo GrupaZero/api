@@ -22,6 +22,7 @@ class ContentValidator extends AbstractValidator {
     protected $rules = [
         'tree'   => [
             'lang'     => 'required_with:sort|in:pl,en',
+            'weight'   => 'numeric',
             'isActive' => 'boolean',
             'sort'     => ''
         ],
