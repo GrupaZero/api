@@ -111,12 +111,11 @@ class ContentTranslationController extends ApiController {
     /**
      * Each translations update always creates new record in database, for history revision
      *
-     * @param int $id            Id of the content
-     * @param int $translationId Id of the content translation
+     * @param int $id Id of the content
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update($id, $translationId)
+    public function update($id)
     {
         return $this->store($id);
     }
@@ -161,10 +160,10 @@ class ContentTranslationController extends ApiController {
 |--------------------------------------------------------------------------
 */
 /**
- * @api                 {get} /admin/contents/:id/translations 7. GET collection of translations
+ * @api                 {get} /admin/contents/:id/translations 1. GET collection of translations
  * @apiVersion          0.1.0
  * @apiName             GetTranslationList
- * @apiGroup            Content
+ * @apiGroup            Content Translations
  * @apiPermission       admin
  * @apiParam {Number} id The Content ID
  * @apiDescription      Get collection of translation for specified content entity
@@ -176,10 +175,10 @@ class ContentTranslationController extends ApiController {
  * curl -i http://api.example.com/v1/admin/contents/1/translations
  */
 /**
- * @api                 {get} /admin/contents/:id/translations/:id 8. GET single translation entity
+ * @api                 {get} /admin/contents/:id/translations/:id 2. GET single entity
  * @apiVersion          0.1.0
  * @apiName             GetContentTranslation
- * @apiGroup            Content
+ * @apiGroup            Content Translations
  * @apiPermission       admin
  * @apiParam {Number} id The Content ID
  * @apiParam {Number} translationId The ContentTranslations ID
@@ -190,10 +189,10 @@ class ContentTranslationController extends ApiController {
  * curl -i http://api.example.com/v1/admin/contents/1/translations/1
  */
 /**
- * @api                 {post} /admin/contents/:id/translations 9. POST newly created translation
+ * @api                 {post} /admin/contents/:id/translations 3. POST newly created entity
  * @apiVersion          0.1.0
  * @apiName             PostContentTranslation
- * @apiGroup            Content
+ * @apiGroup            Content Translations
  * @apiPermission       admin
  * @apiParam {Number} id The Content ID
  * @apiDescription      Stores newly created content translation in database
@@ -201,6 +200,36 @@ class ContentTranslationController extends ApiController {
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/api/v1/admin/contents/1/translations
+ */
+/**
+ * @api                 {put} /admin/contents/:id/translations 4. PUT newly created revision
+ * @apiVersion          0.1.0
+ * @apiName             PutContentTranslation
+ * @apiGroup            Content Translations
+ * @apiPermission       admin
+ * @apiParam {Number} id The Content ID
+ * @apiDescription      Each translations update always creates new record in database, for history revision
+ * @apiUse              ContentTranslation
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/api/v1/admin/contents/1/translations
+ */
+/**
+ * @api                 {delete} /admin/contents/:id/translations/:id  5. DELETE the specified entity
+ * @apiVersion          0.1.0
+ * @apiName             DeleteContentTranslation
+ * @apiGroup            Content Translations
+ * @apiPermission       admin
+ * @apiParam {Number} id The Content ID
+ * @apiParam {Number} translationId The ContentTranslations ID
+ * @apiDescription      Deletes the specified content translation from database
+ * @apiSuccess {Boolean} success Success flag
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/contents/1/translations/1
+ * @apiSuccessExample   Success-Response:
+ * HTTP/1.1 200 OK
+ * {"success":true}
  */
 
 /**

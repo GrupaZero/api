@@ -655,290 +655,6 @@ define({ "api": [
     }
   },
   {
-    "type": "get",
-    "url": "/admin/contents/:id/translations/:id",
-    "title": "8. GET single translation entity",
-    "version": "0.1.0",
-    "name": "GetContentTranslation",
-    "group": "Content",
-    "permission": [
-      {
-        "name": "admin",
-        "title": "Admin access rights needed.",
-        "description": "<p>These permissions is needed for access to all admin api methods</p> "
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Content ID</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "translationId",
-            "description": "<p>The ContentTranslations ID</p> "
-          }
-        ]
-      }
-    },
-    "description": "<p>Get the specified content translation from database</p> ",
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "curl -i http://api.example.com/v1/admin/contents/1/translations/1",
-        "type": "json"
-      }
-    ],
-    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
-    "groupTitle": "",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>ContentTranslation id</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "lang",
-            "description": "<p>Language code</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "title",
-            "description": "<p>Title</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "body",
-            "description": "<p>Body</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isActive",
-            "description": "<p>Is active flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "createdAt",
-            "description": "<p>Creation date of translation</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "updatedAt",
-            "description": "<p>Update date of translation</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": 1,\n  \"createdAt\": \"2014-12-24T10:57:39+0000\",\n  \"updatedAt\": \"2014-12-24T10:57:39+0000\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "get",
-    "url": "/admin/contents/:id/translations",
-    "title": "7. GET collection of translations",
-    "version": "0.1.0",
-    "name": "GetTranslationList",
-    "group": "Content",
-    "permission": [
-      {
-        "name": "admin",
-        "title": "Admin access rights needed.",
-        "description": "<p>These permissions is needed for access to all admin api methods</p> "
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Content ID</p> "
-          }
-        ]
-      }
-    },
-    "description": "<p>Get collection of translation for specified content entity</p> ",
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "curl -i http://api.example.com/v1/admin/contents/1/translations",
-        "type": "json"
-      }
-    ],
-    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
-    "groupTitle": "",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "meta",
-            "description": "<p>Meta data for current request</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Integer",
-            "optional": false,
-            "field": "meta.total",
-            "description": "<p>Total number elements</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Integer",
-            "optional": false,
-            "field": "meta.perPage",
-            "description": "<p>Number of elements per page</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Integer",
-            "optional": false,
-            "field": "meta.currentPage",
-            "description": "<p>Current page number</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Integer",
-            "optional": false,
-            "field": "meta.lastPage",
-            "description": "<p>Last page number</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "meta.link",
-            "description": "<p>Link for this resource</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "params",
-            "description": "<p>Params passed for current request</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Integer",
-            "optional": false,
-            "field": "params.page",
-            "description": "<p>Page parameter</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Integer",
-            "optional": false,
-            "field": "params.perPage",
-            "description": "<p>Per page parameter</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[]",
-            "optional": false,
-            "field": "params.filter",
-            "description": "<p>Array of filter params</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[]",
-            "optional": false,
-            "field": "params.orderBy",
-            "description": "<p>Array of sort params</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Array[]",
-            "optional": false,
-            "field": "translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "lang",
-            "description": "<p>Language code</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "title",
-            "description": "<p>Title</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "body",
-            "description": "<p>Body</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isActive",
-            "description": "<p>Is active flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "createdAt",
-            "description": "<p>Creation date of translation</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "updatedAt",
-            "description": "<p>Update date of translation</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n       \"meta\": {\n       \"total\": 4,\n       \"perPage\": 20,\n       \"currentPage\": 1,\n       \"lastPage\": 1,\n       \"link\": \"http://api.gzero.dev:8000/v1/admin/contents/1/translations\"\n   },\n   \"params\": {\n       \"page\": 1,\n       \"perPage\": 20,\n       \"filter\": [],\n       \"orderBy\": []\n   },\n   \"data\": [\n       {ContentTranslations},\n       ...\n   ]\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
     "type": "post",
     "url": "/contents",
     "title": "4. POST newly created entity",
@@ -1082,106 +798,6 @@ define({ "api": [
     }
   },
   {
-    "type": "post",
-    "url": "/admin/contents/:id/translations",
-    "title": "9. POST newly created translation",
-    "version": "0.1.0",
-    "name": "PostContentTranslation",
-    "group": "Content",
-    "permission": [
-      {
-        "name": "admin",
-        "title": "Admin access rights needed.",
-        "description": "<p>These permissions is needed for access to all admin api methods</p> "
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>The Content ID</p> "
-          }
-        ]
-      }
-    },
-    "description": "<p>Stores newly created content translation in database</p> ",
-    "examples": [
-      {
-        "title": "Example usage:",
-        "content": "curl -i http://api.example.com/api/v1/admin/contents/1/translations",
-        "type": "json"
-      }
-    ],
-    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
-    "groupTitle": "",
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>ContentTranslation id</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "lang",
-            "description": "<p>Language code</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "title",
-            "description": "<p>Title</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "body",
-            "description": "<p>Body</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Boolean",
-            "optional": false,
-            "field": "isActive",
-            "description": "<p>Is active flag</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "createdAt",
-            "description": "<p>Creation date of translation</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "Date",
-            "optional": false,
-            "field": "updatedAt",
-            "description": "<p>Update date of translation</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": 1,\n  \"createdAt\": \"2014-12-24T10:57:39+0000\",\n  \"updatedAt\": \"2014-12-24T10:57:39+0000\"\n}",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
     "type": "put",
     "url": "/contents",
     "title": "5. PUT the specified entity",
@@ -1319,6 +935,555 @@ define({ "api": [
         {
           "title": "Success-Response:",
           "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"occaecati\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/admin/contents/:id/translations/:id",
+    "title": "5. DELETE the specified entity",
+    "version": "0.1.0",
+    "name": "DeleteContentTranslation",
+    "group": "Content_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Content ID</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "translationId",
+            "description": "<p>The ContentTranslations ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Deletes the specified content translation from database</p> ",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Success flag</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"success\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/contents/1/translations/1",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
+    "groupTitle": "Content_Translations"
+  },
+  {
+    "type": "get",
+    "url": "/admin/contents/:id/translations/:id",
+    "title": "2. GET single entity",
+    "version": "0.1.0",
+    "name": "GetContentTranslation",
+    "group": "Content_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Content ID</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "translationId",
+            "description": "<p>The ContentTranslations ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Get the specified content translation from database</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/contents/1/translations/1",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
+    "groupTitle": "Content_Translations",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ContentTranslation id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "lang",
+            "description": "<p>Language code</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Title</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date of translation</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date of translation</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": 1,\n  \"createdAt\": \"2014-12-24T10:57:39+0000\",\n  \"updatedAt\": \"2014-12-24T10:57:39+0000\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/admin/contents/:id/translations",
+    "title": "1. GET collection of translations",
+    "version": "0.1.0",
+    "name": "GetTranslationList",
+    "group": "Content_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Content ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Get collection of translation for specified content entity</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/contents/1/translations",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
+    "groupTitle": "Content_Translations",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "meta",
+            "description": "<p>Meta data for current request</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.total",
+            "description": "<p>Total number elements</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.perPage",
+            "description": "<p>Number of elements per page</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.currentPage",
+            "description": "<p>Current page number</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.lastPage",
+            "description": "<p>Last page number</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "meta.link",
+            "description": "<p>Link for this resource</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "params",
+            "description": "<p>Params passed for current request</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "params.page",
+            "description": "<p>Page parameter</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "params.perPage",
+            "description": "<p>Per page parameter</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "params.filter",
+            "description": "<p>Array of filter params</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "params.orderBy",
+            "description": "<p>Array of sort params</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "lang",
+            "description": "<p>Language code</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Title</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date of translation</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date of translation</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n       \"meta\": {\n       \"total\": 4,\n       \"perPage\": 20,\n       \"currentPage\": 1,\n       \"lastPage\": 1,\n       \"link\": \"http://api.gzero.dev:8000/v1/admin/contents/1/translations\"\n   },\n   \"params\": {\n       \"page\": 1,\n       \"perPage\": 20,\n       \"filter\": [],\n       \"orderBy\": []\n   },\n   \"data\": [\n       {ContentTranslations},\n       ...\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/admin/contents/:id/translations",
+    "title": "3. POST newly created entity",
+    "version": "0.1.0",
+    "name": "PostContentTranslation",
+    "group": "Content_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Content ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Stores newly created content translation in database</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/api/v1/admin/contents/1/translations",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
+    "groupTitle": "Content_Translations",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ContentTranslation id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "lang",
+            "description": "<p>Language code</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Title</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date of translation</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date of translation</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": 1,\n  \"createdAt\": \"2014-12-24T10:57:39+0000\",\n  \"updatedAt\": \"2014-12-24T10:57:39+0000\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/admin/contents/:id/translations",
+    "title": "4. PUT newly created revision",
+    "version": "0.1.0",
+    "name": "PutContentTranslation",
+    "group": "Content_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Content ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Each translations update always creates new record in database, for history revision</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/api/v1/admin/contents/1/translations",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/ContentTranslationController.php",
+    "groupTitle": "Content_Translations",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ContentTranslation id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "lang",
+            "description": "<p>Language code</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Title</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date of translation</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date of translation</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": 1,\n  \"createdAt\": \"2014-12-24T10:57:39+0000\",\n  \"updatedAt\": \"2014-12-24T10:57:39+0000\"\n}",
           "type": "json"
         }
       ]
