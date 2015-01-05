@@ -27,7 +27,7 @@ class ContentValidator extends AbstractValidator {
             'sort'     => ''
         ],
         'list'   => [
-            'lang'     => 'required_with:translations_title,sort|in:pl,en',
+            'lang'     => 'required_with:sort|in:pl,en',
             'page'     => 'numeric',
             'perPage'  => 'numeric',
             'type'     => 'in:content,category',
