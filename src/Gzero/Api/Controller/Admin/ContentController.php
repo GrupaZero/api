@@ -32,7 +32,7 @@ class ContentController extends ApiController {
     protected $validator;
 
     /**
-     * ContentController constructor
+     * ContentController constructor.
      *
      * @param UrlParamsProcessor $processor Url processor
      * @param ContentRepository  $content   Content repository
@@ -81,7 +81,7 @@ class ContentController extends ApiController {
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource as nested tree.
      *
      * @param int|null $id Id used for nested resources
      *
