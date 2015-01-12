@@ -158,7 +158,7 @@ class ContentController extends ApiController {
     }
 
     /**
-     * Update the specified resource in database.
+     * Updates the specified resource in the database.
      *
      * @param int $id Content id
      *
