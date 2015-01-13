@@ -176,7 +176,7 @@ class ContentController extends ApiController {
     }
 
     /**
-     * Remove the specified resource from database.
+     * Removes the specified resource from database.
      *
      * @param int $id Content id
      *
