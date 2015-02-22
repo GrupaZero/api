@@ -108,13 +108,10 @@ class ContentController extends ApiController {
             }
         }
         // All trees
-        $params['filter'] = array_merge(['type' => ['value' => 'category', 'relation' => null]], $params['filter']);
-
+        //$params['filter'] = array_merge(['type' => ['value' => 'category', 'relation' => null]], $params['filter']);
         $nodes = $this->repository->getContents(
             $params['filter'],
-            [
-                'level' => ['direction' => 'ASC', 'relation' => null]
-            ],
+            $params['orderBy'],
             null
         );
 
