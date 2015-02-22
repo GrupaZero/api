@@ -110,21 +110,16 @@ class ContentController extends ApiController {
         // All trees
         $params['filter'] = array_merge(['type' => ['value' => 'category', 'relation' => null]], $params['filter']);
 
-        $roots = $this->repository->getRoots(
+        $nodes = $this->repository->getContents(
             $params['filter'],
-            $params['orderBy']
+            [
+                'level' => ['direction' => 'ASC', 'relation' => null]
+            ],
+            null
         );
-        $roots->transform(
-            function ($item) use ($params) {
-                return $this->repository->getTree(
-                    $item,
-                    $params['filter'],
-                    $params['orderBy']
-                );
-            }
-        );
+
         return $this->respondWithSuccess(
-            $roots,
+            $this->repository->buildTree($nodes),
             new ContentTransformer
         );
     }
