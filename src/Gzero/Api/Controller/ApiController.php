@@ -71,6 +71,16 @@ class ApiController extends Controller {
      */
     protected function respondTransformer($data, $code, TransformerAbstract $transformer, Array $headers = [])
     {
+        if ($data === null) { // If we have empty result
+            return $this->respond(
+                [
+                    'data' => []
+                ],
+                $code,
+                $headers
+            );
+        }
+
         if ($data instanceof Paginator) { // If we have paginated collection
             $resource = new Collection($data->getCollection(), $transformer);
             return $this->respond(

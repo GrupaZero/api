@@ -90,7 +90,7 @@ class ContentTransformer extends AbstractTransformer {
     }
 
     /**
-     * Include Translations
+     * Include Route
      *
      * @param Content $content Route
      *
