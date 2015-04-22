@@ -31,6 +31,7 @@ class ContentTranslationTransformer extends AbstractTransformer {
             'id'        => (int) $translation['id'],
             'lang'      => $translation['langCode'],
             'title'     => $translation['title'],
+            'teaser'    => $translation['teaser'],
             'body'      => $translation['body'],
             'isActive'  => (int) $translation['isActive'],
             'createdAt' => $translation['createdAt'],
