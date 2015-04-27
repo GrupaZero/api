@@ -40,16 +40,21 @@ class ContentValidator extends AbstractValidator {
         'create' => [
             'type'                  => 'required|in:content,category',
             'parentId'              => 'numeric',
-            'isActive'              => '',
+            'isOnHome'              => 'boolean',
+            'isCommentAllowed'      => 'boolean',
+            'isPromoted'            => 'boolean',
+            'isSticky'              => 'boolean',
+            'isActive'              => 'boolean',
+            'publishedAt'           => 'date|date_format:Y-m-d H:i:s',
             'translations.langCode' => 'required|in:pl,en',
             'translations.title'    => 'required',
             'translations.teaser'   => '',
             'translations.body'     => ''
         ],
         'update' => [
-            'parentId' => '',
-            'weight'   => '',
-            'isActive' => '',
+            'parentId' => 'numeric',
+            'weight'   => 'numeric',
+            'isActive' => 'boolean',
         ]
     ];
 
