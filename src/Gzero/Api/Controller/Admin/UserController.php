@@ -60,7 +60,7 @@ class UserController extends ApiController {
     /**
      * Display the specified resource.
      *
-     * @param $id User ID
+     * @param int $id user id
      *
      * @return Response
      */
