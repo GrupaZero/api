@@ -11,7 +11,7 @@ use Gzero\Validator\AbstractValidator;
  * Class ContentParamsValidator
  *
  * @package    Gzero\Api\Validator
- * @author     Adrian Skierniewski <urbanowiczmateusz89@gmail.com.com>
+ * @author     Mateusz Urbanowicz <urbanowiczmateusz89@gmail.com>
  * @copyright  Copyright (c) 2015, Mateusz Urbanowicz
  */
 class UserValidator extends AbstractValidator {
@@ -21,16 +21,11 @@ class UserValidator extends AbstractValidator {
      */
     protected $rules = [
         'list' => [
-            'page'     => 'numeric',
-            'perPage'  => 'numeric',
-            'sort'     => '',
+            'page'    => 'numeric',
+            'perPage' => 'numeric',
+            'sort'    => '',
         ],
     ];
 
-    /**
-     * @var array
-     */
-    protected $filters = [
-        'title' => 'trim'
-    ];
 }
+?>
