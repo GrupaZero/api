@@ -8,7 +8,7 @@ use Gzero\Entity\Route;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Class ContentTransformer
+ * Class RouteTransformer
  *
  * @package    Gzero\Api\Transformer
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>

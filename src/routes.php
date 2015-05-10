@@ -5,12 +5,12 @@ Route::group(
     function () {
         // Admin API
         Route::group(
-            ['domain' => 'api.' . Config::get('gzero.domain'), 'prefix' => 'v1/admin', 'before' => 'isActive'],
+            ['domain' => 'api.' . Config::get('gzero.domain'), 'prefix' => 'v1/admin'],
             function () {
                 // Langs
                 Route::resource('langs', 'Gzero\Api\Controller\Admin\LangController', ['only' => ['index', 'show']]);
                 // Blocks
-                Route::resource('blocks', 'Gzero\Api\Controller\Admin\BlockController');
+                //Route::resource('blocks', 'Gzero\Api\Controller\Admin\BlockController');
                 // Contents
                 Route::get('contents/tree/{id?}', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexTree']);
                 Route::resource('contents', 'Gzero\Api\Controller\Admin\ContentController');
@@ -24,16 +24,16 @@ Route::group(
                     'Gzero\Api\Controller\Admin\ContentTranslationController',
                     ['only' => ['index', 'show', 'store', 'update', 'destroy']]
                 );
-                Route::resource('contents.uploads', 'Gzero\Api\Controller\Admin\UploadController');
+                //Route::resource('contents.uploads', 'Gzero\Api\Controller\Admin\UploadController');
                 // Uploads
-                Route::resource('uploads', 'Gzero\Api\Controller\Admin\UploadController');
+                //Route::resource('uploads', 'Gzero\Api\Controller\Admin\UploadController');
             }
         );
     }
 );
 //// Public API
 //Route::group(
-//    ['domain' => 'api.' . Config::get('gzero.domain'), 'prefix' => 'v1', 'before' => 'isActive'],
+//    ['domain' => 'api.' . Config::get('gzero.domain'), 'prefix' => 'v1'],
 //    function () {
 //        Route::resource('blocks', 'Gzero\Api\Controller\BlockController', ['only' => ['index', 'show']]);
 //        Route::resource('contents', 'Gzero\Api\Controller\ContentController', ['only' => ['index', 'show']]);
