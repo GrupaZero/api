@@ -48,7 +48,7 @@ class UserController extends ApiController {
     {
         $input   = $this->validator->validate('list');
         $params  = $this->processor->process($input)->getProcessedFields();
-        $results = $this->userRepo->retrieveUsers(
+        $results = $this->userRepo->getUsers(
             $params['filter'],
             $params['orderBy'],
             $params['page'],
@@ -66,7 +66,7 @@ class UserController extends ApiController {
      */
     public function show($id)
     {
-        $user = $this->userRepo->retrieveById($id);
+        $user = $this->userRepo->getById($id);
         if (empty($user)) {
             return $this->respondNotFound();
         } else {
