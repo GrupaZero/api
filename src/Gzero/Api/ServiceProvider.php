@@ -2,7 +2,6 @@
 
 use Gzero\Core\Exception;
 use Gzero\Validator\ValidationException;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\ServiceProvider as SP;
 use League\Fractal\Manager;
 

@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Class BaseController
+ * Class ApiController
  *
  * @package    Gzero\Admin\Controllers\Resource
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>

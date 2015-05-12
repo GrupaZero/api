@@ -26,7 +26,7 @@ class ContentTranslationController extends ApiController {
     protected $repository;
 
     /**
-     * @var ContentValidator
+     * @var ContentTranslationValidator
      */
     protected $validator;
 
