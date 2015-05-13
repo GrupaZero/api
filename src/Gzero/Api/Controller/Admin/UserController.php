@@ -74,5 +74,23 @@ class UserController extends ApiController {
         }
     }
 
+    /**
+     * Remove the specified user from database.
+     *
+     * @param int $id Id of the user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($id)
+    {
+        $user = $this->userRepo->getById($id);
+
+        if (!empty($user)) {
+            $user->delete();
+            return $this->respondWithSimpleSuccess(['success' => true]);
+        }
+        return $this->respondNotFound();
+    }
+
 
 }
