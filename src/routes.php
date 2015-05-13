@@ -27,6 +27,8 @@ Route::group(
                 //Route::resource('contents.uploads', 'Gzero\Api\Controller\Admin\UploadController');
                 // Uploads
                 //Route::resource('uploads', 'Gzero\Api\Controller\Admin\UploadController');
+                // Users
+                Route::resource('users', 'Gzero\Api\Controller\Admin\UserController');
             }
         );
     }
