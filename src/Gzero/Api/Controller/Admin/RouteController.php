@@ -20,6 +20,7 @@ use Gzero\Core\Exception;
  * @copyright  Copyright (c) 2015, Adrian Skierniewski
  */
 class RouteController extends ApiController {
+
     /**
      * @var ContentRepository
      */
