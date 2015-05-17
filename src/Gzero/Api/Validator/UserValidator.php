@@ -20,11 +20,16 @@ class UserValidator extends AbstractValidator {
      * @var array
      */
     protected $rules = [
-        'list' => [
+        'list'   => [
             'page'    => 'numeric',
             'perPage' => 'numeric',
             'sort'    => '',
         ],
+        'update' => [
+            'email' => 'required|email',
+            'firstName' => 'required',
+            'lastName' => 'required'
+        ]
     ];
 
 }

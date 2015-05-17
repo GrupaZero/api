@@ -92,5 +92,23 @@ class UserController extends ApiController {
         return $this->respondNotFound();
     }
 
+    /**
+     * Updates the specified resource in the database.
+     *
+     * @param int $id User id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update($id)
+    {
+        $user = $this->userRepo->getById($id);
+        if (!empty($user)) {
+            $input = $this->validator->validate('update');
+            $user  = $this->userRepo->update($user, $input);
+            return $this->respondWithSuccess($user, new UserTransformer());
+        }
+        return $this->respondNotFound();
+    }
+
 
 }
