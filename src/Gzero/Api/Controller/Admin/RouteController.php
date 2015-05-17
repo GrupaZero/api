@@ -55,11 +55,11 @@ class RouteController extends ApiController {
      */
     public function store($contentId)
     {
-        $content = $this->getContent($contentId);
+        $content = $this->repository->getById($contentId);
         if (!empty($content)) {
             if ($content->type != 'category') {
                 $input = $this->validator->validate('create');
-                $route = $this->repository->createRoute($input['langCode'], $input['url']);
+                $route = $this->repository->createRoute($content, $input['langCode'], $input['url']);
                 return $this->respondWithSuccess($route, new RouteTransformer);
             } else {
                 // TODO categories children route update
