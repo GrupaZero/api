@@ -1254,6 +1254,85 @@ define({ "api": [
     }
   },
   {
+    "type": "post",
+    "url": "/admin/contents/:id/route",
+    "title": "1. POST newly created route",
+    "version": "0.1.0",
+    "name": "PostRoute",
+    "group": "Content_Route",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Content ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Stores newly created route for specified content entity in database.</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/api/v1/admin/contents/1/route",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/RouteController.php",
+    "groupTitle": "Content_Route",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ContentRoute id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date of route</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date of route</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"createdAt\": \"2015-05-16T13:58:36+0000\",\n  \"updatedAt\": \"2015-05-16T13:58:36+0000\",\n  \"translations\": [\n     {\n         \"id\": 45,\n         \"lang\": \"en\",\n         \"url\": \"about-us\",\n         \"isActive\": 1,\n         \"createdAt\": \"2015-05-16T13:58:36+0000\",\n         \"updatedAt\": \"2015-05-16T13:58:36+0000\"\n     },\n     {\n         \"id\": 46,\n         \"lang\": \"pl\",\n         \"url\": \"o-nas\",\n         \"isActive\": 1,\n         \"createdAt\": \"2015-05-16T13:58:36+0000\",\n         \"updatedAt\": \"2015-05-16T13:58:36+0000\"\n     }\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
     "type": "delete",
     "url": "/admin/contents/:id/translations/:id",
     "title": "5. DELETE the specified entity",
