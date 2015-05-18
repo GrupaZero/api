@@ -71,12 +71,23 @@ class ContentController extends ApiController {
                 return $this->respondNotFound();
             }
         }
-        $results = $this->repository->getContents(
-            $params['filter'],
-            $params['orderBy'],
-            $params['page'],
-            $params['perPage']
-        );
+        if (array_key_exists('trashed', $params['filter'])) {
+            unset($params['filter']['trashed']);    //i unset this, couse BaseRepository::handleFilterCriteria will tread this
+            // like normal search condition, any better place to deal with this exception ?
+            $results = $this->repository->getDeletedContents(
+                $params['filter'],
+                $params['orderBy'],
+                $params['page'],
+                $params['perPage']
+            );
+        } else {
+            $results = $this->repository->getContents(
+                $params['filter'],
+                $params['orderBy'],
+                $params['page'],
+                $params['perPage']
+            );
+        }
         return $this->respondWithSuccess($results, new ContentTransformer);
     }
 
