@@ -71,12 +71,33 @@ class ContentController extends ApiController {
                 return $this->respondNotFound();
             }
         }
+
         $results = $this->repository->getContents(
             $params['filter'],
             $params['orderBy'],
             $params['page'],
             $params['perPage']
         );
+
+        return $this->respondWithSuccess($results, new ContentTransformer);
+    }
+
+    /**
+     * Display list of soft deleted contents
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function indexOfDeleted(){
+        $input  = $this->validator->validate('list');
+        $params = $this->processor->process($input)->getProcessedFields();
+
+        $results = $this->repository->getDeletedContents(
+            $params['filter'],
+            $params['orderBy'],
+            $params['page'],
+            $params['perPage']
+        );
+
         return $this->respondWithSuccess($results, new ContentTransformer);
     }
 

@@ -35,7 +35,8 @@ class ContentValidator extends AbstractValidator {
             'parentId' => 'numeric',
             'isActive' => 'boolean',
             'sort'     => '',
-            'level'    => ''
+            'level'    => '',
+            'trashed'  => ''
         ],
         'create' => [
             'type'                  => 'required|in:content,category',

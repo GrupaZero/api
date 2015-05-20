@@ -13,6 +13,7 @@ Route::group(
                 //Route::resource('blocks', 'Gzero\Api\Controller\Admin\BlockController');
                 // Contents
                 Route::get('contents/tree/{id?}', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexTree']);
+                Route::get('contents/deleted', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexOfDeleted']);
                 Route::resource('contents', 'Gzero\Api\Controller\Admin\ContentController');
                 Route::resource(
                     'contents.children',
