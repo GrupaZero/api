@@ -87,7 +87,8 @@ class ContentController extends ApiController {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function indexOfDeleted(){
+    public function indexOfDeleted()
+    {
         $input  = $this->validator->validate('list');
         $params = $this->processor->process($input)->getProcessedFields();
 
