@@ -53,9 +53,14 @@ class ContentValidator extends AbstractValidator {
             'translations.body'     => ''
         ],
         'update' => [
-            'parentId' => 'numeric',
-            'weight'   => 'numeric',
-            'isActive' => 'boolean',
+            'parentId'         => 'numeric',
+            'weight'           => 'numeric',
+            'isActive'         => 'boolean',
+            'isOnHome'         => 'boolean',
+            'isCommentAllowed' => 'boolean',
+            'isPromoted'       => 'boolean',
+            'isSticky'         => 'boolean',
+            'publishedAt'      => 'date|date_format:Y-m-d H:i:s',
         ]
     ];
 

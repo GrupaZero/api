@@ -48,13 +48,19 @@ class ContentTransformer extends AbstractTransformer {
     {
         $content = $this->entityToArray('\Gzero\Entity\Content', $content);
         return [
-            'id'        => (int) $content['id'],
-            'type'      => $content['type'],
-            'weight'    => (int) $content['weight'],
-            'isActive'  => (bool) $content['isActive'],
-            'path'      => $this->buildPath($content['path']),
-            'createdAt' => $content['createdAt'],
-            'updatedAt' => $content['updatedAt']
+            'id'               => (int) $content['id'],
+            'type'             => $content['type'],
+            'weight'           => (int) $content['weight'],
+            'isActive'         => (bool) $content['isActive'],
+            'isActive'         => (bool) $content['isActive'],
+            'isOnHome'         => (bool) $content['isOnHome'],
+            'isCommentAllowed' => (bool) $content['isCommentAllowed'],
+            'isPromoted'       => (bool) $content['isPromoted'],
+            'isSticky'         => (bool) $content['isSticky'],
+            'path'             => $this->buildPath($content['path']),
+            'publishedAt'      => $content['publishedAt'],
+            'createdAt'        => $content['createdAt'],
+            'updatedAt'        => $content['updatedAt']
         ];
     }
 
