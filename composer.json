@@ -11,9 +11,9 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "gzero/core": "dev-laravel5",
-        "gzero/repository": "dev-laravel5",
-        "gzero/validator": "dev-laravel5",
+        "gzero/core": "dev-master",
+        "gzero/repository": "dev-master",
+        "gzero/validator": "dev-master",
         "illuminate/support": "5.0.*",
         "illuminate/routing": "5.0.*",
         "illuminate/pagination": "5.0.*",
