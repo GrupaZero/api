@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6e7744c635e05b6430440cc9f97bbd6a",
+    "hash": "56471859780969629a2455343d936be7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -223,17 +223,17 @@
         },
         {
             "name": "gzero/core",
-            "version": "dev-laravel5",
+            "version": "dev-master",
             "target-dir": "Gzero/Core",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/core.git",
-                "reference": "fa7d6f4d5c1cfc2adb98cb36836a6ca786f30af6"
+                "reference": "7fc755e226b266b99c5156651c9d9503b2a839d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/core/zipball/fa7d6f4d5c1cfc2adb98cb36836a6ca786f30af6",
-                "reference": "fa7d6f4d5c1cfc2adb98cb36836a6ca786f30af6",
+                "url": "https://api.github.com/repos/GrupaZero/core/zipball/7fc755e226b266b99c5156651c9d9503b2a839d5",
+                "reference": "7fc755e226b266b99c5156651c9d9503b2a839d5",
                 "shasum": ""
             },
             "require": {
@@ -256,11 +256,11 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2015-05-23 07:22:49"
+            "time": "2015-05-23 16:01:25"
         },
         {
             "name": "gzero/entity",
-            "version": "dev-laravel5",
+            "version": "dev-master",
             "target-dir": "Gzero/Entity",
             "source": {
                 "type": "git",
@@ -297,21 +297,21 @@
         },
         {
             "name": "gzero/repository",
-            "version": "dev-laravel5",
+            "version": "dev-master",
             "target-dir": "Gzero/Repository",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/repository.git",
-                "reference": "31e28528fbb747d1409f44e52faba3fac671fdfb"
+                "reference": "e275545553a9498320b663883d634a16f2cc411c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/31e28528fbb747d1409f44e52faba3fac671fdfb",
-                "reference": "31e28528fbb747d1409f44e52faba3fac671fdfb",
+                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/e275545553a9498320b663883d634a16f2cc411c",
+                "reference": "e275545553a9498320b663883d634a16f2cc411c",
                 "shasum": ""
             },
             "require": {
-                "gzero/entity": "dev-laravel5",
+                "gzero/entity": "dev-master",
                 "illuminate/database": "5.0.*",
                 "illuminate/events": "5.0.*",
                 "php": ">=5.4.0"
@@ -332,11 +332,11 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2015-05-23 11:05:17"
+            "time": "2015-05-23 19:20:14"
         },
         {
             "name": "gzero/validator",
-            "version": "dev-laravel5",
+            "version": "dev-master",
             "target-dir": "Gzero/Validator",
             "source": {
                 "type": "git",
