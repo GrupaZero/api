@@ -1,7 +1,7 @@
 <?php namespace Gzero\Api\Controller;
 
 use Gzero\Api\UrlParamsProcessor;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Collection as EloquentCollection;
@@ -81,15 +81,15 @@ class ApiController extends Controller {
             );
         }
 
-        if ($data instanceof Paginator) { // If we have paginated collection
-            $resource = new Collection($data->getCollection(), $transformer);
+        if ($data instanceof LengthAwarePaginator) { // If we have paginated collection
+            $resource = new Collection($data->items(), $transformer);
             return $this->respond(
                 [
                     'meta'   => [
-                        'total'       => $data->getTotal(),
-                        'perPage'     => $data->getPerPage(),
-                        'currentPage' => $data->getCurrentPage(),
-                        'lastPage'    => $data->getLastPage(),
+                        'total'       => $data->total(),
+                        'perPage'     => $data->perPage(),
+                        'currentPage' => $data->currentPage(),
+                        'lastPage'    => $data->lastPage(),
                         'link'        => \URL::current()
                     ],
                     'params' => $this->processor->getProcessedFields(),

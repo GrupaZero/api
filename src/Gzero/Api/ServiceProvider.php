@@ -85,32 +85,8 @@ class ServiceProvider extends SP {
      */
     protected function registerApiErrorHandler()
     {
-        $this->app->error(
-            function (Exception $exception) {
-                // Api errors returned in json format
-                if ($exception instanceof ValidationException) {
-                    if (preg_match('/^api\./', \Request::getHost())) {
-                        return \Response::json(
-                            [
-                                'code'     => 500,
-                                'messages' => $exception->getErrors()
-                            ],
-                            500
-                        );
-                    }
-                } else {
-                    if (preg_match('/^api\./', \Request::getHost())) {
-                        return \Response::json(
-                            [
-                                'code'    => $exception->getCode(),
-                                'message' => $exception->getMessage()
-                            ],
-                            500
-                        );
-                    }
-                }
-            }
-        );
+        // TODO We need to think, if we want to register api error handler here
+        //$this->app['Illuminate\Contracts\Debug\ExceptionHandler'];
     }
 
 }
