@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
+        "gzero/validator": "dev-laravel5",
         "barryvdh/laravel-cors": "0.5.*@dev",
         "league/fractal": "0.12.0"
     },
