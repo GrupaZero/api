@@ -11,12 +11,6 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "gzero/core": "dev-laravel5",
-        "gzero/repository": "dev-laravel5",
-        "gzero/validator": "dev-laravel5",
-        "illuminate/support": "5.0.*",
-        "illuminate/routing": "5.0.*",
-        "illuminate/pagination": "5.0.*",
         "barryvdh/laravel-cors": "0.5.*@dev",
         "league/fractal": "0.12.0"
     },
