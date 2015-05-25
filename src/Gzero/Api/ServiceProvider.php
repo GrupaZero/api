@@ -1,9 +1,7 @@
 <?php namespace Gzero\Api;
 
-use Gzero\Core\Exception;
-use Gzero\Validator\ValidationException;
-use Illuminate\Support\ServiceProvider as SP;
 use League\Fractal\Manager;
+use Gzero\Core\AbstractServiceProvider;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -17,7 +15,23 @@ use League\Fractal\Manager;
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
-class ServiceProvider extends SP {
+class ServiceProvider extends AbstractServiceProvider {
+
+    /**
+     * List of additional providers
+     *
+     * @var array
+     */
+    protected $providers = [
+        'Barryvdh\Cors\CorsServiceProvider'
+    ];
+
+    /**
+     * List of service providers aliases
+     *
+     * @var array
+     */
+    protected $aliases = [];
 
     /**
      * Register the service provider.
@@ -26,6 +40,7 @@ class ServiceProvider extends SP {
      */
     public function register()
     {
+        parent::register();
         $this->registerFilters();
         $this->registerApiErrorHandler();
         $this->bind();
