@@ -24,6 +24,7 @@ class ContentTransformer extends AbstractTransformer {
     protected $defaultIncludes = [
         'route',
         'author',
+        'children',
         'translations'
     ];
 
@@ -32,9 +33,7 @@ class ContentTransformer extends AbstractTransformer {
      *
      * @var array
      */
-    protected $availableIncludes = [
-        'children',
-    ];
+    protected $availableIncludes = [];
 
     /**
      * Transforms content entity
@@ -52,7 +51,6 @@ class ContentTransformer extends AbstractTransformer {
             'type'             => $content['type'],
             'weight'           => (int) $content['weight'],
             'isActive'         => (bool) $content['isActive'],
-            'isActive'         => (bool) $content['isActive'],
             'isOnHome'         => (bool) $content['isOnHome'],
             'isCommentAllowed' => (bool) $content['isCommentAllowed'],
             'isPromoted'       => (bool) $content['isPromoted'],
@@ -69,13 +67,14 @@ class ContentTransformer extends AbstractTransformer {
      *
      * @param Content $content Translation
      *
-     * @return \League\Fractal\ItemResource
+     * @return \League\Fractal\ItemResource|null
      */
     public function includeChildren(Content $content)
     {
         if ($content->isChildrenLoaded()) {
             return $this->collection($content->children, new ContentTransformer()); // We don't want LAZY LOADING !
         }
+        return null;
     }
 
     /**
