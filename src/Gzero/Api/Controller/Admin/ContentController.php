@@ -200,6 +200,8 @@ class ContentController extends ApiController {
      */
     public function destroy($id, $forceDelete = false)
     {
+        $forceDelete = filter_var($forceDelete, FILTER_VALIDATE_BOOLEAN);
+
         $content = $forceDelete ? $this->repository->getDeletedById($id) : $this->repository->getById($id);
 
         if (!empty($content)) {
