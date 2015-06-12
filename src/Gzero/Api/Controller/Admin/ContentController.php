@@ -192,9 +192,9 @@ class ContentController extends ApiController {
     /**
      * Removes the specified resource from database.
      *
-     * @param bool $forceDelete if true use forceDelete
-     *
      * @param int  $id          Content id
+     *
+     * @param bool $forceDelete if true use forceDelete
      *
      * @return \Illuminate\Http\JsonResponse
      */
