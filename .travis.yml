@@ -7,7 +7,6 @@ php:
 before_script:
   - curl -s http://getcomposer.org/installer | php
   - composer self-update
-  - composer require satooshi/php-coveralls:dev-master --dev --no-progress --prefer-source --no-interaction
   - php composer.phar install --dev --no-interaction
 
 script:
