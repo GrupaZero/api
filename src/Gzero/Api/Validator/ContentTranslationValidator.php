@@ -29,11 +29,13 @@ class ContentTranslationValidator extends AbstractValidator {
             'level'    => ''
         ],
         'create' => [
-            'langCode' => 'required|in:pl,en',
-            'isActive' => '',
-            'title'    => 'required',
-            'teaser'   => '',
-            'body'     => ''
+            'langCode'       => 'required|in:pl,en',
+            'isActive'       => '',
+            'title'          => 'required',
+            'teaser'         => '',
+            'body'           => '',
+            'seoTitle'       => '',
+            'seoDescription' => '',
         ]
     ];
 
@@ -41,6 +43,8 @@ class ContentTranslationValidator extends AbstractValidator {
      * @var array
      */
     protected $filters = [
-        'title' => 'trim'
+        'title'          => 'trim',
+        'seoTitle'       => 'trim',
+        'seoDescription' => 'trim'
     ];
 }

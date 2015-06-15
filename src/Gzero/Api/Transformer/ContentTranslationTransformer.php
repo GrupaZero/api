@@ -28,14 +28,16 @@ class ContentTranslationTransformer extends AbstractTransformer {
     {
         $translation = $this->entityToArray('\Gzero\Entity\ContentTranslation', $translation);
         return [
-            'id'        => (int) $translation['id'],
-            'lang'      => $translation['langCode'],
-            'title'     => $translation['title'],
-            'teaser'    => $translation['teaser'],
-            'body'      => $translation['body'],
-            'isActive'  => (int) $translation['isActive'],
-            'createdAt' => $translation['createdAt'],
-            'updatedAt' => $translation['updatedAt'],
+            'id'             => (int) $translation['id'],
+            'lang'           => $translation['langCode'],
+            'title'          => $translation['title'],
+            'teaser'         => $translation['teaser'],
+            'body'           => $translation['body'],
+            'seoTitle'       => $translation['seoTitle'],
+            'seoDescription' => $translation['seoDescription'],
+            'isActive'       => (int) $translation['isActive'],
+            'createdAt'      => $translation['createdAt'],
+            'updatedAt'      => $translation['updatedAt'],
         ];
     }
 }
