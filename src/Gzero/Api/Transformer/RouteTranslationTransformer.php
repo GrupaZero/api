@@ -29,7 +29,8 @@ class RouteTranslationTransformer extends AbstractTransformer {
         $translation = $this->entityToArray('\Gzero\Entity\RouteTranslation', $translation);
         return [
             'id'        => (int) $translation['id'],
-            'lang'      => $translation['langCode'],
+            'lang'      => $translation['langCode'], // TODO: remove this line after updating admin package to use langCode field
+            'langCode'  => $translation['langCode'],
             'url'       => $translation['url'],
             'isActive'  => (int) $translation['isActive'],
             'createdAt' => $translation['createdAt'],
