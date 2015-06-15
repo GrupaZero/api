@@ -192,19 +192,46 @@ class ContentController extends ApiController {
     /**
      * Removes the specified resource from database.
      *
-     * @param int $id Content id
+     * @param int  $id          Content id
+     *
+     * @param bool $forceDelete if true use forceDelete
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy($id, $forceDelete = false)
     {
-        $content = $this->repository->getById($id);
+        $forceDelete = filter_var($forceDelete, FILTER_VALIDATE_BOOLEAN);
+
+        $content = $forceDelete ? $this->repository->getDeletedById($id) : $this->repository->getById($id);
+
         if (!empty($content)) {
-            $this->repository->delete($content);
+            if ($forceDelete) {
+                $this->repository->forceDelete($content);
+            } else {
+                $this->repository->delete($content);
+            }
             return $this->respondWithSimpleSuccess(['success' => true]);
         }
         return $this->respondNotFound();
     }
+
+    /**
+     * Restore soft deleted content
+     *
+     * @param int $id Content id
+     *
+     * @return mixed
+     */
+    public function restore($id)
+    {
+        $content = $this->repository->getDeletedById($id);
+        if (!empty($content)) {
+            $content->restore();
+            return $this->respondWithSimpleSuccess(['success' => true]);
+        }
+        return $this->respondNotFound();
+    }
+
 }
 
 /*
