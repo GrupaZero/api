@@ -30,8 +30,6 @@ class ContentTranslationTransformer extends AbstractTransformer {
         return [
             'id'             => (int) $translation['id'],
             'lang'           => $translation['langCode'],
-            // TODO: remove line above after updating admin package to use langCode field
-            'langCode'       => $translation['langCode'],
             'title'          => $translation['title'],
             'teaser'         => $translation['teaser'],
             'body'           => $translation['body'],
