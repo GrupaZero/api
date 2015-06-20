@@ -40,16 +40,8 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(
             $this->processor->getFilterParams(),
             [
-                'lang'  => [
-                    'value'     => 'en',
-                    'operation' => '=',
-                    'relation'  => null
-                ],
-                'test2' => [
-                    'value'     => 'test2',
-                    'operation' => '=',
-                    'relation'  => null
-                ]
+                ['lang', '=', 'en'],
+                ['test2', '=', 'test2']
             ]
         );
     }
@@ -71,18 +63,9 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(
             $this->processor->getOrderByParams(),
             [
-                'test1' => [
-                    'direction' => 'DESC',
-                    'relation'  => null
-                ],
-                'test2' => [
-                    'direction' => 'ASC',
-                    'relation'  => null
-                ],
-                'test3' => [
-                    'direction' => 'ASC',
-                    'relation'  => null
-                ]
+                ['test1', 'DESC'],
+                ['test2', 'ASC'],
+                ['test3', 'ASC'],
             ]
         );
     }
@@ -98,30 +81,13 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
                 'page'    => 3,
                 'perPage' => 21,
                 'filter'  => [
-                    'lang'  => [
-                        'value'     => 'en',
-                        'operation' => '=',
-                        'relation'  => null
-                    ],
-                    'test2' => [
-                        'value'     => 'test2',
-                        'operation' => '=',
-                        'relation'  => null
-                    ]
+                    ['lang', '=', 'en'],
+                    ['test2', '=', 'test2']
                 ],
                 'orderBy' => [
-                    'test1' => [
-                        'direction' => 'DESC',
-                        'relation'  => null
-                    ],
-                    'test2' => [
-                        'direction' => 'ASC',
-                        'relation'  => null
-                    ],
-                    'test3' => [
-                        'direction' => 'ASC',
-                        'relation'  => null
-                    ]
+                    ['test1', 'DESC'],
+                    ['test2', 'ASC'],
+                    ['test3', 'ASC'],
                 ]
             ]
         );
