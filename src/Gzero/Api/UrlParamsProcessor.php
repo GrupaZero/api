@@ -121,9 +121,9 @@ class UrlParamsProcessor {
         } else {
             $field = (substr($sort, 0, 1) == '-') ? substr($sort, 1) : $sort;
         }
-        $this->orderBy[$field] = [
-            'direction' => $direction,
-            'relation'  => $relation
+        $this->orderBy[] = [
+            $field,
+            $direction
         ];
     }
 
@@ -156,18 +156,18 @@ class UrlParamsProcessor {
     private function processFilterParams($key, $param)
     {
         if (preg_match('|_|', $key)) {
-            $temp                           = explode('_', $key);
-            $this->filter[array_pop($temp)] = [
-                'value'     => (is_numeric($param)) ? (float) $param : $param,
-                'operation' => '=',
-                'relation'  => trim(implode('.', $temp), '.')
+            $temp           = explode('_', $key);
+            $this->filter[] = [
+                trim(implode('.', $temp), '.'),
+                '=',
+                (is_numeric($param)) ? (float) $param : $param
             ];
 
         } else {
-            $this->filter[$key] = [
-                'value'     => (is_numeric($param)) ? (float) $param : $param,
-                'operation' => '=',
-                'relation'  => null
+            $this->filter[] = [
+                $key,
+                '=',
+                (is_numeric($param)) ? (float) $param : $param
             ];
         }
     }

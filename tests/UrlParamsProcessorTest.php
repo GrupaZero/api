@@ -104,7 +104,7 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
                 'page'    => 3,
                 'perPage' => 21,
                 'lang'    => 'en',
-                'test2'   => 'test2'
+                'test2'   => 'test2',
             ]
         );
     }

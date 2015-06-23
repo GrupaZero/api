@@ -42,6 +42,7 @@ class ApiController extends Controller {
      */
     public function __construct(UrlParamsProcessor $processor)
     {
+        \Carbon\Carbon::setToStringFormat('Y-m-d h:m:s');
         $this->processor = $processor;
     }
 
