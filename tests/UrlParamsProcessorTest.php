@@ -41,7 +41,8 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
             $this->processor->getFilterParams(),
             [
                 ['lang', '=', 'en'],
-                ['test2', '=', 'test2']
+                ['test2', '=', 'test2'],
+                ['translation.langCode', '=', 'en']
             ]
         );
     }
@@ -82,7 +83,8 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
                 'perPage' => 21,
                 'filter'  => [
                     ['lang', '=', 'en'],
-                    ['test2', '=', 'test2']
+                    ['test2', '=', 'test2'],
+                    ['translation.langCode', '=', 'en']
                 ],
                 'orderBy' => [
                     ['test1', 'DESC'],
@@ -100,11 +102,12 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
     {
         return (new UrlParamsProcessor())->process(
             [
-                'sort'    => '-test1,test2,test3',
-                'page'    => 3,
-                'perPage' => 21,
-                'lang'    => 'en',
-                'test2'   => 'test2',
+                'sort'                 => '-test1,test2,test3',
+                'page'                 => 3,
+                'perPage'              => 21,
+                'lang'                 => 'en',
+                'test2'                => 'test2',
+                'translation.langCode' => 'en'
             ]
         );
     }

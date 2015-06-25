@@ -148,20 +148,10 @@ class UrlParamsProcessor {
      */
     private function processFilterParams($key, $param)
     {
-        if (preg_match('|_|', $key)) {
-            $temp           = explode('_', $key);
-            $this->filter[] = [
-                trim(implode('.', $temp), '.'),
-                '=',
-                (is_numeric($param)) ? (float) $param : $param
-            ];
-
-        } else {
-            $this->filter[] = [
-                $key,
-                '=',
-                (is_numeric($param)) ? (float) $param : $param
-            ];
-        }
+        $this->filter[] = [
+            $key,
+            '=',
+            (is_numeric($param)) ? (float) $param : $param
+        ];
     }
 }
