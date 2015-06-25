@@ -112,18 +112,11 @@ class UrlParamsProcessor {
      */
     private function processOrderByParams($sort)
     {
-        $direction = (substr($sort, 0, 1) == '-') ? 'DESC' : 'ASC';
-        $relation  = null;
-        if (preg_match('|\.|', $sort)) {
-            $temp     = explode('.', preg_replace('|^-|', '', $sort));
-            $field    = array_pop($temp);
-            $relation = trim(implode('.', $temp), '.');
-        } else {
-            $field = (substr($sort, 0, 1) == '-') ? substr($sort, 1) : $sort;
-        }
-        $this->orderBy[$field] = [
-            'direction' => $direction,
-            'relation'  => $relation
+        $direction       = (substr($sort, 0, 1) == '-') ? 'DESC' : 'ASC';
+        $field           = (substr($sort, 0, 1) == '-') ? substr($sort, 1) : $sort;
+        $this->orderBy[] = [
+            $field,
+            $direction
         ];
     }
 
@@ -155,20 +148,10 @@ class UrlParamsProcessor {
      */
     private function processFilterParams($key, $param)
     {
-        if (preg_match('|_|', $key)) {
-            $temp                           = explode('_', $key);
-            $this->filter[array_pop($temp)] = [
-                'value'     => (is_numeric($param)) ? (float) $param : $param,
-                'operation' => '=',
-                'relation'  => trim(implode('.', $temp), '.')
-            ];
-
-        } else {
-            $this->filter[$key] = [
-                'value'     => (is_numeric($param)) ? (float) $param : $param,
-                'operation' => '=',
-                'relation'  => null
-            ];
-        }
+        $this->filter[] = [
+            $key,
+            '=',
+            (is_numeric($param)) ? (float) $param : $param
+        ];
     }
 }
