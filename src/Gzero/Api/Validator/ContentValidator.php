@@ -39,18 +39,20 @@ class ContentValidator extends AbstractValidator {
             'trashed'  => ''
         ],
         'create' => [
-            'type'                  => 'required|in:content,category',
-            'parentId'              => 'numeric',
-            'isOnHome'              => 'boolean',
-            'isCommentAllowed'      => 'boolean',
-            'isPromoted'            => 'boolean',
-            'isSticky'              => 'boolean',
-            'isActive'              => 'boolean',
-            'publishedAt'           => 'date|date_format:Y-m-d H:i:s',
-            'translations.langCode' => 'required|in:pl,en',
-            'translations.title'    => 'required',
-            'translations.teaser'   => '',
-            'translations.body'     => ''
+            'type'                        => 'required|in:content,category',
+            'parentId'                    => 'numeric',
+            'isOnHome'                    => 'boolean',
+            'isCommentAllowed'            => 'boolean',
+            'isPromoted'                  => 'boolean',
+            'isSticky'                    => 'boolean',
+            'isActive'                    => 'boolean',
+            'publishedAt'                 => 'date|date_format:Y-m-d H:i:s',
+            'translations.langCode'       => 'required|in:pl,en',
+            'translations.title'          => 'required',
+            'translations.teaser'         => '',
+            'translations.body'           => '',
+            'translations.seoTitle'       => '',
+            'translations.seoDescription' => ''
         ],
         'update' => [
             'parentId'         => 'numeric',
