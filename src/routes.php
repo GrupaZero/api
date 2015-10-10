@@ -37,6 +37,11 @@ group(
                 //resource('uploads', 'Gzero\Api\Controller\Admin\UploadController');
                 // Users
                 resource('users', 'Gzero\Api\Controller\Admin\UserController');
+                resource(
+                    'options',
+                    'Gzero\Api\Controller\Admin\OptionController',
+                    ['only' => ['index', 'show', 'update']]
+                );
             }
         );
     }

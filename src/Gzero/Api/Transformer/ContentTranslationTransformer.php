@@ -17,7 +17,7 @@ use Gzero\Entity\ContentTranslation;
 class ContentTranslationTransformer extends AbstractTransformer {
 
     /**
-     * Transforms content entity
+     * Transforms content translation entity
      *
      * @param ContentTranslation|Array $translation Content entity
      *
