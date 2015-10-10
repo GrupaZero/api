@@ -8,7 +8,7 @@ use Gzero\Validator\AbstractValidator;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Class ContentParamsValidator
+ * Class OptionValidator
  *
  * @package    Gzero\Api\Validator
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
