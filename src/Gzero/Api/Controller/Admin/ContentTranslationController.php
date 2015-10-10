@@ -31,7 +31,7 @@ class ContentTranslationController extends ApiController {
     protected $validator;
 
     /**
-     * ContentController constructor
+     * ContentTranslationController constructor
      *
      * @param UrlParamsProcessor          $processor Url processor
      * @param ContentRepository           $content   Content repository

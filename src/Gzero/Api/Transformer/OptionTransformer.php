@@ -1,6 +1,6 @@
 <?php namespace Gzero\Api\Transformer;
 
-use Gzero\Entity\Lang;
+use Gzero\Entity\Option;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -14,24 +14,19 @@ use Gzero\Entity\Lang;
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
-class LangTransformer extends AbstractTransformer {
+class OptionTransformer extends AbstractTransformer {
 
     /**
-     * Transforms lang entity
+     * Transforms option entity
      *
-     * @param Lang|Array $lang Content entity
+     * @param Array $option Content entity
      *
      * @throws \Exception Test
      * @return array
      */
-    public function transform($lang)
+    public function transform($option)
     {
-        $lang = $this->entityToArray('\Gzero\Entity\Lang', $lang);
-        return [
-            'code'      => $lang['code'],
-            'i18n'      => $lang['i18n'],
-            'isEnabled' => (bool) $lang['isEnabled'],
-            'isDefault' => (bool) $lang['isDefault']
-        ];
+        $option = $this->entityToArray('\Gzero\Entity\Option', $option);
+        return $option;
     }
 }

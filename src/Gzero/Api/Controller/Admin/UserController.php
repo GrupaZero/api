@@ -26,11 +26,11 @@ class UserController extends ApiController {
     protected $userRepo;
 
     /**
-     * ContentController constructor.
+     * UserController constructor.
      *
      * @param UrlParamsProcessor $processor Url processor
-     * @param ContentRepository  $content   Content repository
-     * @param ContentValidator   $validator Content validator
+     * @param UserRepository     $content   Content repository
+     * @param UserValidator      $validator Content validator
      */
     public function __construct(UrlParamsProcessor $processor, UserRepository $content, UserValidator $validator)
     {

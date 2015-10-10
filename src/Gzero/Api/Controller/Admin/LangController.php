@@ -24,7 +24,7 @@ class LangController extends ApiController {
     protected $langRepo;
 
     /**
-     * ContentController constructor
+     * LangController constructor
      *
      * @param LangRepository $lang Content repo
      */
