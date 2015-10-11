@@ -12,9 +12,9 @@
     "require": {
         "php": ">=5.5.9",
         "gzero/core": "dev-master",
+        "gzero/entity": "dev-master",
         "gzero/repository": "dev-master",
         "gzero/validator": "dev-master",
-        "illuminate/support": "5.1.*",
         "illuminate/routing": "5.1.*",
         "illuminate/pagination": "5.1.*",
         "barryvdh/laravel-cors": "0.6.0",
@@ -34,5 +34,5 @@
             "Gzero\\": "src/Gzero"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }

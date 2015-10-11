@@ -40,6 +40,7 @@
         <exclude name="Squiz.PHP.DisallowInlineIf"/>
         <!-- Passing new as argument to function -->
         <exclude name="Squiz.Objects.ObjectInstantiation"/>
+        <exclude name="Squiz.PHP.ForbiddenFunctions"/>
     </rule>
     <rule ref="Generic.Files.LineLength">
         <properties>
@@ -64,7 +65,7 @@
     <rule ref="Generic.Metrics.NestingLevel"/>
     <rule ref="Generic.PHP.DeprecatedFunctions"/>
     <rule ref="Generic.PHP.DisallowShortOpenTag"/>
-    <rule ref="Generic.PHP.ForbiddenFunctions"/>
+    <!--<rule ref="Generic.PHP.ForbiddenFunctions"/>-->
     <rule ref="Generic.PHP.NoSilencedErrors"/>
     <rule ref="Generic.Strings.UnnecessaryStringConcat"/>
     <rule ref="Generic.WhiteSpace.ScopeIndent"/>
