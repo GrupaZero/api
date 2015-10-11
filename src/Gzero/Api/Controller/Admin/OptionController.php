@@ -33,8 +33,8 @@ class OptionController extends ApiController {
     /**
      * OptionController constructor
      *
-     * @param OptionRepository $option Content repo
-     * @param OptionValidator  $validator
+     * @param OptionRepository $option    Option repo
+     * @param OptionValidator  $validator validator
      */
     public function __construct(OptionRepository $option, OptionValidator $validator)
     {
