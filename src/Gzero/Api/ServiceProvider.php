@@ -63,7 +63,7 @@ class ServiceProvider extends AbstractServiceProvider {
      */
     protected function registerRoutes()
     {
-        require_once __DIR__ . '/../../routes.php';
+        require __DIR__ . '/../../routes.php';
     }
 
     /**
