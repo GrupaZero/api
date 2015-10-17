@@ -5,6 +5,7 @@ use Gzero\Api\Transformer\OptionCategoryTransformer;
 use Gzero\Api\Transformer\OptionTransformer;
 use Gzero\Api\Validator\OptionValidator;
 use Gzero\Repository\OptionRepository;
+use Gzero\Repository\RepositoryException;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -61,12 +62,12 @@ class OptionController extends ApiController {
      */
     public function show($key)
     {
-        $option = $this->optionRepo->getOptions($key);
-        if (!empty($option)) {
+        try {
+            $option = $this->optionRepo->getOptions($key);
             return $this->respondWithSuccess($option, new OptionTransformer);
-
+        } catch (RepositoryException $e) {
+            return $this->respondWithError($e->getMessage());
         }
-        return $this->respondNotFound();
     }
 
     /**
@@ -80,9 +81,13 @@ class OptionController extends ApiController {
      */
     public function update($categoryKey)
     {
-        $input  = $this->validator->validate('update');
-        $option = $this->optionRepo->updateOrCreateOption($categoryKey, $input['key'], $input['value']);
-        return $this->respondWithSuccess($option, new OptionTransformer);
+        $input = $this->validator->validate('update');
+        try {
+            $option = $this->optionRepo->updateOrCreateOption($categoryKey, $input['key'], $input['value']);
+            return $this->respondWithSuccess($option, new OptionTransformer);
+        } catch (RepositoryException $e) {
+            return $this->respondWithError($e->getMessage());
+        }
     }
 
 }
