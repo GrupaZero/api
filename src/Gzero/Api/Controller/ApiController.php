@@ -128,7 +128,7 @@ class ApiController extends Controller {
      */
     protected function respondWithSuccess($data, TransformerAbstract $transformer, Array $headers = [])
     {
-        return $this->respondTransformer($data, SymfonyResponse::HTTP_ACCEPTED, $transformer, $headers);
+        return $this->respondTransformer($data, SymfonyResponse::HTTP_OK, $transformer, $headers);
     }
 
     /**
@@ -141,7 +141,7 @@ class ApiController extends Controller {
      */
     protected function respondWithSimpleSuccess($data, Array $headers = [])
     {
-        return $this->respond($data, SymfonyResponse::HTTP_ACCEPTED, $headers);
+        return $this->respond($data, SymfonyResponse::HTTP_OK, $headers);
     }
 
     /**
