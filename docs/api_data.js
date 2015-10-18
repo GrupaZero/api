@@ -19,7 +19,7 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "success",
             "description": "<p>Success flag</p> "
@@ -73,105 +73,105 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>Content id</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "rating",
             "description": "<p>Content rating</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "visits",
             "description": "<p>Content visit counter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "path",
             "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "route",
             "description": "<p>Route for this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "author",
             "description": "<p>Author of this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "translations",
             "description": "<p>List of active translations (Array of Objects)</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isOnHome",
             "description": "<p>Home page flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isCommentAllowed",
             "description": "<p>Is comment allowed flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isPromoted",
             "description": "<p>Is promoted flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isSticky",
             "description": "<p>Is sticky flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isActive",
             "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "publishedAt",
             "description": "<p>Date of publication</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "createdAt",
             "description": "<p>Creation date</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
@@ -206,7 +206,7 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>The Content ID</p> "
@@ -229,189 +229,189 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Object[]",
+            "type": "<p>Object[]</p> ",
             "optional": false,
             "field": "meta",
             "description": "<p>Meta data for current request</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.total",
             "description": "<p>Total number elements</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.perPage",
             "description": "<p>Number of elements per page</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.currentPage",
             "description": "<p>Current page number</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.lastPage",
             "description": "<p>Last page number</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "meta.link",
             "description": "<p>Link for this resource</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object[]",
+            "type": "<p>Object[]</p> ",
             "optional": false,
             "field": "params",
             "description": "<p>Params passed for current request</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "params.page",
             "description": "<p>Page parameter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "params.perPage",
             "description": "<p>Per page parameter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array[]",
+            "type": "<p>Array[]</p> ",
             "optional": false,
             "field": "params.filter",
             "description": "<p>Array of filter params</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array[]",
+            "type": "<p>Array[]</p> ",
             "optional": false,
             "field": "params.orderBy",
             "description": "<p>Array of sort params</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array[]",
+            "type": "<p>Array[]</p> ",
             "optional": false,
             "field": "data",
             "description": "<p>Array of Contents</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "data.id",
             "description": "<p>Content id</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "data.rating",
             "description": "<p>Content rating</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "data.visits",
             "description": "<p>Content visit counter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "data.path",
             "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "data.route",
             "description": "<p>Route for this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "data.author",
             "description": "<p>Author of this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "data.translations",
             "description": "<p>List of active translations (Array of Objects)</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.isOnHome",
             "description": "<p>Home page flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.isCommentAllowed",
             "description": "<p>Is comment allowed flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.isPromoted",
             "description": "<p>Is promoted flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.isSticky",
             "description": "<p>Is sticky flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.isActive",
             "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "data.publishedAt",
             "description": "<p>Date of publication</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "data.createdAt",
             "description": "<p>Creation date</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "data.updatedAt",
             "description": "<p>Update date</p> "
@@ -446,7 +446,7 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>The Content ID</p> "
@@ -469,112 +469,112 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>Content id</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "rating",
             "description": "<p>Content rating</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "visits",
             "description": "<p>Content visit counter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "path",
             "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "route",
             "description": "<p>Route for this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "author",
             "description": "<p>Author of this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "translations",
             "description": "<p>List of active translations (Array of Objects)</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "children",
             "description": "<p>List of children (Array of Objects)</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isOnHome",
             "description": "<p>Home page flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isCommentAllowed",
             "description": "<p>Is comment allowed flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isPromoted",
             "description": "<p>Is promoted flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isSticky",
             "description": "<p>Is sticky flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isActive",
             "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "publishedAt",
             "description": "<p>Date of publication</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "createdAt",
             "description": "<p>Creation date</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
@@ -619,189 +619,189 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Object[]",
+            "type": "<p>Object[]</p> ",
             "optional": false,
             "field": "meta",
             "description": "<p>Meta data for current request</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.total",
             "description": "<p>Total number elements</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.perPage",
             "description": "<p>Number of elements per page</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.currentPage",
             "description": "<p>Current page number</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.lastPage",
             "description": "<p>Last page number</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "meta.link",
             "description": "<p>Link for this resource</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object[]",
+            "type": "<p>Object[]</p> ",
             "optional": false,
             "field": "params",
             "description": "<p>Params passed for current request</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "params.page",
             "description": "<p>Page parameter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "params.perPage",
             "description": "<p>Per page parameter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array[]",
+            "type": "<p>Array[]</p> ",
             "optional": false,
             "field": "params.filter",
             "description": "<p>Array of filter params</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array[]",
+            "type": "<p>Array[]</p> ",
             "optional": false,
             "field": "params.orderBy",
             "description": "<p>Array of sort params</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array[]",
+            "type": "<p>Array[]</p> ",
             "optional": false,
             "field": "data",
             "description": "<p>Array of Contents</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "data.id",
             "description": "<p>Content id</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "data.rating",
             "description": "<p>Content rating</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "data.visits",
             "description": "<p>Content visit counter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "data.path",
             "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "data.route",
             "description": "<p>Route for this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "data.author",
             "description": "<p>Author of this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "data.translations",
             "description": "<p>List of active translations (Array of Objects)</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.isOnHome",
             "description": "<p>Home page flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.isCommentAllowed",
             "description": "<p>Is comment allowed flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.isPromoted",
             "description": "<p>Is promoted flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.isSticky",
             "description": "<p>Is sticky flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.isActive",
             "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "data.publishedAt",
             "description": "<p>Date of publication</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "data.createdAt",
             "description": "<p>Creation date</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "data.updatedAt",
             "description": "<p>Update date</p> "
@@ -846,112 +846,112 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>Content id</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "rating",
             "description": "<p>Content rating</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "visits",
             "description": "<p>Content visit counter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "path",
             "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "route",
             "description": "<p>Route for this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "author",
             "description": "<p>Author of this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "translations",
             "description": "<p>List of active translations (Array of Objects)</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "children",
             "description": "<p>List of children (Array of Objects)</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isOnHome",
             "description": "<p>Home page flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isCommentAllowed",
             "description": "<p>Is comment allowed flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isPromoted",
             "description": "<p>Is promoted flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isSticky",
             "description": "<p>Is sticky flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isActive",
             "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "publishedAt",
             "description": "<p>Date of publication</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "createdAt",
             "description": "<p>Creation date</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
@@ -996,105 +996,105 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>Content id</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "rating",
             "description": "<p>Content rating</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "visits",
             "description": "<p>Content visit counter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "path",
             "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "route",
             "description": "<p>Route for this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "author",
             "description": "<p>Author of this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "translations",
             "description": "<p>List of active translations (Array of Objects)</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isOnHome",
             "description": "<p>Home page flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isCommentAllowed",
             "description": "<p>Is comment allowed flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isPromoted",
             "description": "<p>Is promoted flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isSticky",
             "description": "<p>Is sticky flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isActive",
             "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "publishedAt",
             "description": "<p>Date of publication</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "createdAt",
             "description": "<p>Creation date</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
@@ -1139,105 +1139,105 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>Content id</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "rating",
             "description": "<p>Content rating</p> "
           },
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "visits",
             "description": "<p>Content visit counter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "path",
             "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "route",
             "description": "<p>Route for this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object",
+            "type": "<p>Object</p> ",
             "optional": false,
             "field": "author",
             "description": "<p>Author of this Content</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "translations",
             "description": "<p>List of active translations (Array of Objects)</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isOnHome",
             "description": "<p>Home page flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isCommentAllowed",
             "description": "<p>Is comment allowed flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isPromoted",
             "description": "<p>Is promoted flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isSticky",
             "description": "<p>Is sticky flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isActive",
             "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "publishedAt",
             "description": "<p>Date of publication</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "createdAt",
             "description": "<p>Creation date</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
@@ -1272,7 +1272,7 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>The Content ID</p> "
@@ -1295,28 +1295,28 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>ContentRoute id</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "createdAt",
             "description": "<p>Creation date of route</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date of route</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array",
+            "type": "<p>Array</p> ",
             "optional": false,
             "field": "translations",
             "description": "<p>List of active translations (Array of Objects)</p> "
@@ -1351,14 +1351,14 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>The Content ID</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "translationId",
             "description": "<p>The ContentTranslations ID</p> "
@@ -1372,7 +1372,7 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "success",
             "description": "<p>Success flag</p> "
@@ -1416,14 +1416,14 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>The Content ID</p> "
           },
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "translationId",
             "description": "<p>The ContentTranslations ID</p> "
@@ -1446,49 +1446,49 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>ContentTranslation id</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "lang",
             "description": "<p>Language code</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "title",
             "description": "<p>Title</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "body",
             "description": "<p>Body</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isActive",
             "description": "<p>Is active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "createdAt",
             "description": "<p>Creation date of translation</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date of translation</p> "
@@ -1523,7 +1523,7 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>The Content ID</p> "
@@ -1546,126 +1546,126 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Object[]",
+            "type": "<p>Object[]</p> ",
             "optional": false,
             "field": "meta",
             "description": "<p>Meta data for current request</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.total",
             "description": "<p>Total number elements</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.perPage",
             "description": "<p>Number of elements per page</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.currentPage",
             "description": "<p>Current page number</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "meta.lastPage",
             "description": "<p>Last page number</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "meta.link",
             "description": "<p>Link for this resource</p> "
           },
           {
             "group": "Success 200",
-            "type": "Object[]",
+            "type": "<p>Object[]</p> ",
             "optional": false,
             "field": "params",
             "description": "<p>Params passed for current request</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "params.page",
             "description": "<p>Page parameter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Integer",
+            "type": "<p>Integer</p> ",
             "optional": false,
             "field": "params.perPage",
             "description": "<p>Per page parameter</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array[]",
+            "type": "<p>Array[]</p> ",
             "optional": false,
             "field": "params.filter",
             "description": "<p>Array of filter params</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array[]",
+            "type": "<p>Array[]</p> ",
             "optional": false,
             "field": "params.orderBy",
             "description": "<p>Array of sort params</p> "
           },
           {
             "group": "Success 200",
-            "type": "Array[]",
+            "type": "<p>Array[]</p> ",
             "optional": false,
             "field": "translations",
             "description": "<p>List of active translations (Array of Objects)</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "lang",
             "description": "<p>Language code</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "title",
             "description": "<p>Title</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "body",
             "description": "<p>Body</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isActive",
             "description": "<p>Is active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "createdAt",
             "description": "<p>Creation date of translation</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date of translation</p> "
@@ -1700,7 +1700,7 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>The Content ID</p> "
@@ -1723,49 +1723,49 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>ContentTranslation id</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "lang",
             "description": "<p>Language code</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "title",
             "description": "<p>Title</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "body",
             "description": "<p>Body</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isActive",
             "description": "<p>Is active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "createdAt",
             "description": "<p>Creation date of translation</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date of translation</p> "
@@ -1800,7 +1800,7 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>The Content ID</p> "
@@ -1823,49 +1823,49 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Number",
+            "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
             "description": "<p>ContentTranslation id</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "lang",
             "description": "<p>Language code</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "title",
             "description": "<p>Title</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "body",
             "description": "<p>Body</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "isActive",
             "description": "<p>Is active flag</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "createdAt",
             "description": "<p>Creation date of translation</p> "
           },
           {
             "group": "Success 200",
-            "type": "Date",
+            "type": "<p>Date</p> ",
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date of translation</p> "
@@ -1901,7 +1901,7 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "code",
             "description": "<p>Lang unique code</p> "
@@ -1928,28 +1928,28 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "code",
             "description": "<p>Lang code</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "i18n",
             "description": "<p>Lang i18n code</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "is_enabled",
             "description": "<p>Flag if language is enabled</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "is_default",
             "description": "<p>Flag if language is default</p> "
@@ -1994,35 +1994,35 @@ define({ "api": [
         "Success 200": [
           {
             "group": "Success 200",
-            "type": "Array[]",
+            "type": "<p>Array[]</p> ",
             "optional": false,
             "field": "data",
             "description": "<p>Array of Languages</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "data.code",
             "description": "<p>Lang code</p> "
           },
           {
             "group": "Success 200",
-            "type": "String",
+            "type": "<p>String</p> ",
             "optional": false,
             "field": "data.i18n",
             "description": "<p>Lang i18n code</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.is_enabled",
             "description": "<p>Flag if language is enabled</p> "
           },
           {
             "group": "Success 200",
-            "type": "Boolean",
+            "type": "<p>Boolean</p> ",
             "optional": false,
             "field": "data.is_default",
             "description": "<p>Flag if language is default</p> "
@@ -2032,5 +2032,115 @@ define({ "api": [
     },
     "filename": "src/Gzero/Api/Controller/Admin/LangController.php",
     "groupTitle": "Language"
+  },
+  {
+    "type": "get",
+    "url": "/options",
+    "title": "1. GET collection of categories",
+    "version": "0.1.0",
+    "name": "GetOptionCategories",
+    "group": "Options",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "description": "<p>Get all option categories</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/options",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"data\": [\n       {\n         \"key\": \"general\"\n       },\n       {\n         \"key\": \"seo\"\n       }\n  ]\n}",
+          "type": "json"
+        }
+      ],
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Array[]</p> ",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Array of all options categories</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.key",
+            "description": "<p>option key</p> "
+          }
+        ]
+      }
+    },
+    "filename": "src/Gzero/Api/Controller/Admin/OptionController.php",
+    "groupTitle": "Options"
+  },
+  {
+    "type": "get",
+    "url": "/options/:category",
+    "title": "2. GET category options",
+    "version": "0.1.0",
+    "name": "GetOptions",
+    "group": "Options",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "description": "<p>Get all options within the given category</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "key",
+            "description": "<p>category unique key</p> "
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/options/general",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"defaultPageSize\": {\n    \"en\": 5,\n    \"pl\": 5\n  },\n  \"siteDesc\": {\n    \"en\": \"Content management system.\",\n    \"pl\": \"Content management system.\"\n  }\n  \"siteName\": {\n    \"en\": \"G-ZERO CMS\",\n    \"pl\": \"G-ZERO CMS\"\n  },\n}",
+          "type": "json"
+        }
+      ],
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>obj</p> ",
+            "optional": false,
+            "field": "data",
+            "description": "<p>obj of all options in category</p> "
+          }
+        ]
+      }
+    },
+    "filename": "src/Gzero/Api/Controller/Admin/OptionController.php",
+    "groupTitle": "Options"
   }
 ] });

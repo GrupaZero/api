@@ -99,7 +99,7 @@ class OptionController extends ApiController {
 */
 
 /**
- * @api                 {get} /options 1. GET collection of entities
+ * @api                 {get} /options 1. GET collection of categories
  * @apiVersion          0.1.0
  * @apiName             GetOptionCategories
  * @apiGroup            Options
@@ -114,13 +114,7 @@ class OptionController extends ApiController {
  *     {
  *       "data": [
  *            {
- *              "key": "basic"
- *            },
- *            {
- *              "key": "contact"
- *            },
- *            {
- *              "key": "main"
+ *              "key": "general"
  *            },
  *            {
  *              "key": "seo"
@@ -136,38 +130,26 @@ class OptionController extends ApiController {
  * @apiGroup            Options
  * @apiPermission       admin
  * @apiDescription      Get all options within the given category
- * @apiParam {String}   code category unique key
+ * @apiParam {String}   key category unique key
  * @apiUse              Option
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/v1/options/main
+ * curl -i http://api.example.com/v1/options/general
  * @apiSuccessExample   Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "siteName": {
- *         "en": "G-ZERO CMS",
- *         "pl": "G-ZERO CMS"
- *       },
  *       "defaultPageSize": {
  *         "en": 5,
  *         "pl": 5
- *       },
- *       "seoTitleAlternativeField": {
- *         "en": "title",
- *         "pl": "title"
- *       },
- *       "seoDescriptionAlternativeField": {
- *         "en": "body",
- *         "pl": "body"
- *       },
- *       "seoDescLength": {
- *         "en": 160,
- *         "pl": 160
  *       },
  *       "siteDesc": {
  *         "en": "Content management system.",
  *         "pl": "Content management system."
  *       }
+ *       "siteName": {
+ *         "en": "G-ZERO CMS",
+ *         "pl": "G-ZERO CMS"
+ *       },
  *     }
  *
  */
