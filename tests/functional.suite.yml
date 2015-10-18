@@ -10,13 +10,13 @@ modules:
         - REST:
             depends: Laravel5
 env:
-    travis:
+    platform:
         modules:
             enabled:
                 - api\Helper\Functional
                 - Asserts
                 - Laravel5:
-                    root: ../../../
+                    root: ../../../ #relative path to platform from vendor dir
                     environment_file: .env.testing
                 - REST:
                     depends: Laravel5
