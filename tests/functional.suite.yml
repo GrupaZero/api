@@ -16,7 +16,7 @@ env:
                 - api\Helper\Functional
                 - Asserts
                 - Laravel5:
-                    root: ../../
+                    root: ../../../
                     environment_file: .env.testing
                 - REST:
                     depends: Laravel5
