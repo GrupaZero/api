@@ -3,17 +3,33 @@ language: php
 php: 
   - 5.5
   - 5.6
+  - hhvm
 
 before_script:
-  - curl -s http://getcomposer.org/installer | php
   - composer self-update
-  - php composer.phar install --dev --no-interaction
+  - mysql -e 'create database `gzero-tests`;'
+  - cd ../
+  # TODO Add version support. Probably we'd need to add platform compatibility version flag in composer.json
+  - git clone --depth=50 https://github.com/GrupaZero/platform.git platform
+  - cd platform
+  - composer install --dev --no-interaction
+  - cd vendor/gzero
+  - rm -rf api
+  - ln -s ../../../api
+  - cd ../../../api
+  - composer install --dev --no-interaction
 
 script:
  - mkdir -p build/logs
  - ./vendor/bin/phpmd src/ text phpmd.xml
  - ./vendor/bin/phpcs --standard=ruleset.xml src/ -n # -n no warnings
- - phpunit --coverage-clover build/logs/clover.xml
+ - ./vendor/bin/codecept run --coverage --coverage-xml --coverage-html
+ - cp tests/_output/coverage.xml build/logs/clover.xml
 
 after_script:
   - php vendor/bin/coveralls -v
+
+matrix:
+  allow_failures:
+    - php: hhvm
+  fast_finish: true

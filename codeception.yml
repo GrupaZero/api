@@ -1,0 +1,31 @@
+actor: Tester
+namespace: api
+coverage:
+    enabled: true
+    remote: false
+    include:
+        - src/Gzero/*
+    exclude:
+        - src/routes.php
+paths:
+    tests: tests
+    log: tests/_output
+    data: tests/_data
+    support: tests/_support
+    envs: tests/_envs
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed
+modules:
+    config:
+        Db:
+            dsn: 'mysql:host=localhost;dbname=gzero-tests'
+            user: 'root'
+            password: ''
+            dump: tests/_data/dump.sql
+            populate: true
+            cleanup: false

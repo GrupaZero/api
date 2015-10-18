@@ -1,0 +1,22 @@
+class_name: FunctionalTester
+modules:
+    enabled:
+        - Db
+        - api\Helper\Functional
+        - Asserts
+        - Laravel5:
+            root: ../platform/
+            environment_file: .env.testing
+        - REST:
+            depends: Laravel5
+env:
+    travis:
+        modules:
+            enabled:
+                - api\Helper\Functional
+                - Asserts
+                - Laravel5:
+                    root: ../../
+                    environment_file: .env.testing
+                - REST:
+                    depends: Laravel5

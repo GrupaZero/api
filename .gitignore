@@ -7,3 +7,5 @@ Thumbs.db
 _ide_helper.php
 .vagrant
 .sass-cache
+tests/_output/*
+/tests/_support/_generated
