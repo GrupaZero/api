@@ -17,7 +17,7 @@ use Gzero\Entity\RouteTranslation;
 class RouteTranslationTransformer extends AbstractTransformer {
 
     /**
-     * Transforms content entity
+     * Transforms route translation entity
      *
      * @param RouteTranslation|Array $translation Content entity
      *

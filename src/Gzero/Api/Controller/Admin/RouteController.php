@@ -32,7 +32,7 @@ class RouteController extends ApiController {
     protected $validator;
 
     /**
-     * ContentController constructor.
+     * RouteController constructor.
      *
      * @param UrlParamsProcessor        $processor Url processor
      * @param ContentRepository         $content   Content repository

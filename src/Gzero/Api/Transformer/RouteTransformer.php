@@ -26,7 +26,7 @@ class RouteTransformer extends AbstractTransformer {
     ];
 
     /**
-     * Transforms content entity
+     * Transforms route entity
      *
      * @param Route|Array $route Content entity
      *
