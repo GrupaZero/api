@@ -161,7 +161,7 @@ class ApiController extends Controller {
         return $this->respond(
             [
                 'error' => [
-                    'code'    => 500,
+                    'code'    => $code,
                     'message' => $message
                 ]
             ],
@@ -183,7 +183,7 @@ class ApiController extends Controller {
         return $this->respond(
             [
                 'error' => [
-                    'code'    => 404,
+                    'code'    => SymfonyResponse::HTTP_NOT_FOUND,
                     'message' => $message
                 ]
             ],
