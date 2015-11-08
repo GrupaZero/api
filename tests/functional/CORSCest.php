@@ -14,7 +14,7 @@ class CORSCest {
     // tests
     public function contentPOSTSuccessResponse(FunctionalTester $I)
     {
-        $I->wantTo('try to POST content without body as an admin user');
+        $I->wantTo('try to POST content as an admin user');
         $I->loginAsAdmin();
         // Adding AJAX + CORS headers
         $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
