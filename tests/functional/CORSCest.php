@@ -12,13 +12,42 @@ class CORSCest {
     }
 
     // tests
+    public function contentPOSTSuccessResponse(FunctionalTester $I)
+    {
+        $I->wantTo('try to POST content without body as an admin user');
+        $I->loginAsAdmin();
+        // Adding AJAX + CORS headers
+        $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
+        $I->haveHttpHeader('Origin', 'http://localhost');
+        $I->sendPOST(
+            'http://api.localhost/v1/admin/contents',
+            [
+                'type'         => 'content',
+                'translations' => [
+                    'title'    => 'test',
+                    'langCode' => 'en',
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        // Asserting CORS
+        $I->seeHttpHeader('Access-Control-Allow-Credentials', 'true');
+        $I->seeHttpHeader('Access-Control-Allow-Origin', 'http://localhost');
+        $I->seeResponseIsJson();
+    }
+
     public function contentValidationError(FunctionalTester $I)
     {
         $I->wantTo('try to POST content without body as an admin user');
         $I->loginAsAdmin();
+        // Adding AJAX + CORS headers
         $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
+        $I->haveHttpHeader('Origin', 'http://localhost');
         $I->sendPOST('http://api.localhost/v1/admin/contents');
         $I->seeResponseCodeIs(400);
+        // Asserting CORS
+        $I->seeHttpHeader('Access-Control-Allow-Credentials', 'true');
+        $I->seeHttpHeader('Access-Control-Allow-Origin', 'http://localhost');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
@@ -38,9 +67,14 @@ class CORSCest {
     {
         $I->wantTo('try to POST options as an admin user');
         $I->loginAsAdmin();
+        // Adding AJAX + CORS headers
         $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
+        $I->haveHttpHeader('Origin', 'http://localhost');
         $I->sendPOST('http://api.localhost/v1/admin/options');
         $I->seeResponseCodeIs(500);
+        // Asserting CORS
+        $I->seeHttpHeader('Access-Control-Allow-Credentials', 'true');
+        $I->seeHttpHeader('Access-Control-Allow-Origin', 'http://localhost');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
