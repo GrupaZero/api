@@ -21,7 +21,7 @@ class ContentTranslationValidator extends AbstractValidator {
      */
     protected $rules = [
         'list'   => [
-            'langCode' => 'in:pl,en',
+            'langCode' => 'in:pl,en,de,fr',
             'page'     => 'numeric',
             'perPage'  => 'numeric',
             'isActive' => 'boolean',
@@ -29,7 +29,7 @@ class ContentTranslationValidator extends AbstractValidator {
             'level'    => ''
         ],
         'create' => [
-            'langCode'       => 'required|in:pl,en',
+            'langCode'       => 'required|in:pl,en,de,fr',
             'isActive'       => '',
             'title'          => 'required',
             'teaser'         => '',

@@ -21,14 +21,14 @@ class ContentValidator extends AbstractValidator {
      */
     protected $rules = [
         'tree'   => [
-            'lang'     => 'required_with:sort|in:pl,en',
+            'lang'     => 'required_with:sort|in:pl,en,de,fr',
             'type'     => 'in:category',
             'weight'   => 'numeric',
             'isActive' => 'boolean',
             'sort'     => ''
         ],
         'list'   => [
-            'lang'     => 'required_with:sort|in:pl,en',
+            'lang'     => 'required_with:sort|in:pl,en,de,fr',
             'page'     => 'numeric',
             'perPage'  => 'numeric',
             'type'     => 'in:content,category',
@@ -47,7 +47,7 @@ class ContentValidator extends AbstractValidator {
             'isSticky'                    => 'boolean',
             'isActive'                    => 'boolean',
             'publishedAt'                 => 'date|date_format:Y-m-d H:i:s',
-            'translations.langCode'       => 'required|in:pl,en',
+            'translations.langCode'       => 'required|in:pl,en,de,fr',
             'translations.title'          => 'required',
             'translations.teaser'         => '',
             'translations.body'           => '',
