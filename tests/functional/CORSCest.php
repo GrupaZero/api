@@ -9,9 +9,25 @@ class CORSCest {
 
     public function _after(FunctionalTester $I)
     {
+        $I->logout();
     }
 
     // tests
+    public function allowedHeadersOPTIONS(FunctionalTester $I)
+    {
+        $I->wantTo('try get languages list as an admin user');
+        $I->loginAsAdmin();
+        // Adding CORS headers with x-requested-with
+        $I->haveHttpHeader('Access-Control-Request-Headers', 'accept, x-requested-with');
+        $I->haveHttpHeader('Access-Control-Request-Method', 'GET');
+        $I->haveHttpHeader('Origin', 'http://localhost');
+        $I->sendOPTIONS('http://api.localhost/v1/admin/langs');
+        $I->seeResponseCodeIs(200);
+        // Asserting CORS
+        $I->seeHttpHeader('Access-Control-Allow-Credentials', 'true');
+        $I->seeHttpHeader('Access-Control-Allow-Origin', 'http://localhost');
+    }
+
     public function contentPOSTSuccessResponse(FunctionalTester $I)
     {
         $I->wantTo('try to POST content as an admin user');
