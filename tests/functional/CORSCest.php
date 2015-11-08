@@ -81,7 +81,7 @@ class CORSCest {
                 'code'  => 500,
                 'error' =>
                     [
-                        'type' => 'Symfony\\Component\\HttpKernel\\Exception\\MethodNotAllowedHttpException',
+                        'message' => 'Internal Server Error',
                     ]
             ]
 
