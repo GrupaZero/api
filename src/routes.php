@@ -1,7 +1,7 @@
 <?php
 
 group(
-    ['before' => 'auth'],
+    ['middleware' => 'auth'],
     function () {
         // Admin API
         group(
