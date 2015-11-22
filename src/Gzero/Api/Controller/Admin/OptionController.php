@@ -83,8 +83,8 @@ class OptionController extends ApiController {
     {
         $input = $this->validator->validate('update');
         try {
-            $option = $this->optionRepo->updateOrCreateOption($categoryKey, $input['key'], $input['value']);
-            return $this->respondWithSuccess($option, new OptionTransformer);
+            $this->optionRepo->updateOrCreateOption($categoryKey, $input['key'], $input['value']);
+            return $this->respondWithSuccess($this->optionRepo->getOptions($categoryKey), new OptionTransformer);
         } catch (RepositoryException $e) {
             return $this->respondWithError($e->getMessage());
         }
