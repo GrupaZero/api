@@ -22,6 +22,8 @@ class AdminOptionsCest {
         $I->wantTo('get list of options categories as admin user');
         $I->loginAsAdmin();
 
+        $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
+        $I->haveHttpHeader('Origin', 'http://localhost');
         $I->sendGET($this->url);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -40,6 +42,8 @@ class AdminOptionsCest {
         $I->wantTo('get all options from given category as admin user');
         $I->loginAsAdmin();
 
+        $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
+        $I->haveHttpHeader('Origin', 'http://localhost');
         $I->sendGET($this->url . '/seo');
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -68,7 +72,9 @@ class AdminOptionsCest {
         $I->wantTo('update value of option as admin user');
         $I->loginAsAdmin();
 
-        $I->sendPATCH(
+        $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
+        $I->haveHttpHeader('Origin', 'http://localhost');
+        $I->sendPUT(
             $this->url . '/seo',
             [
                 'key'   => 'seoDescLength',
@@ -100,6 +106,95 @@ class AdminOptionsCest {
                         'fr' => 163,
                     ],
             ]
+        );
+    }
+
+    public function getOptionsFromNonExistingCategory(FunctionalTester $I)
+    {
+        $I->wantTo('get options from category that not exists as admin user');
+        $I->loginAsAdmin();
+
+        $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
+        $I->haveHttpHeader('Origin', 'http://localhost');
+        $I->sendGET($this->url . '/some_category');
+        $I->seeResponseCodeIs(500);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'error' =>
+                    [
+                        'code'    => 500,
+                        'message' => 'category some_category does not exist',
+                    ],
+            ]
+        );
+    }
+
+    public function updateNonExistingOption(FunctionalTester $I)
+    {
+        $I->wantTo('update value of non existing option as admin user');
+        $I->loginAsAdmin();
+
+        $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
+        $I->haveHttpHeader('Origin', 'http://localhost');
+        $I->sendPUT(
+            $this->url . '/seo',
+            [
+                'key'   => 'not_an_option',
+                'value' => [
+                    ['lorem' => 'ipsum']
+                ],
+            ]
+        );
+
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'code'  => 400,
+                'error' =>
+                    [
+                        'key' =>
+                            [
+                                0 => 'The selected key is invalid.',
+                            ],
+                    ],
+            ]
+
+        );
+    }
+
+    public function updateOptionInNonExistingCategory(FunctionalTester $I)
+    {
+        $I->wantTo('update value of option in non existing category as admin user');
+        $I->loginAsAdmin();
+
+        $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
+        $I->haveHttpHeader('Origin', 'http://localhost');
+        $I->sendPUT(
+            $this->url . '/some_category',
+            [
+                'key'   => 'not_an_option',
+                'value' => [
+                    ['lorem' => 'ipsum']
+                ],
+            ]
+        );
+
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'code'  => 400,
+                'error' =>
+                    [
+                        'key' =>
+                            [
+                                0 => 'The selected key is invalid.',
+                            ],
+                    ],
+            ]
+
         );
     }
 }
