@@ -25,7 +25,7 @@ modules:
         Db:
             dsn: 'mysql:host=localhost;dbname=gzero-tests'
             user: 'root'
-            password: 'root'
+            password: ''
             dump: tests/_data/dump.sql
             populate: true
             cleanup: false
