@@ -155,6 +155,38 @@ class OptionController extends ApiController {
  */
 
 /**
+ * @api                 {put} /options/:category 3. PUT category options
+ * @apiVersion          0.1.0
+ * @apiName             UpdateOptions
+ * @apiGroup            Options
+ * @apiPermission       admin
+ * @apiDescription      Update selected option within the given category
+ * @apiParam {String}   key option unique key
+ * @apiParam {String}   value option value
+ * @apiUse              Option
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/options/general
+ * @apiSuccessExample   Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "defaultPageSize": {
+ *         "en": 5,
+ *         "pl": 5
+ *       },
+ *       "siteDesc": {
+ *         "en": "Content management system.",
+ *         "pl": "Content management system."
+ *       }
+ *       "siteName": {
+ *         "en": "G-ZERO CMS",
+ *         "pl": "G-ZERO CMS"
+ *       },
+ *     }
+ *
+ */
+
+/**
  * @apiDefine Option
  * @apiSuccess {obj} data obj of all options in category
  */
