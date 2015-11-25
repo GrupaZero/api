@@ -47,7 +47,8 @@ class ContentTransformer extends AbstractTransformer {
     {
         $content = $this->entityToArray('\Gzero\Entity\Content', $content);
         return [
-            'id'               => (int) $content['id'],
+            'id'               => $this->setNullableValue($content['id']),
+            'parentId'         => $this->setNullableValue($content['parentId']),
             'type'             => $content['type'],
             'weight'           => (int) $content['weight'],
             'isActive'         => (bool) $content['isActive'],
@@ -132,5 +133,17 @@ class ContentTransformer extends AbstractTransformer {
             }
         }
         return $result;
+    }
+
+    /**
+     * Returns integer value or null
+     *
+     * @param int $value to evaluate
+     *
+     * @return int|null
+     */
+    private function setNullableValue($value)
+    {
+        return ($value !== null) ? (int) $value : null;
     }
 }
