@@ -1,6 +1,7 @@
 <?php namespace Gzero\Api\Transformer;
 
 use Gzero\Entity\Block;
+use ReflectionClass;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -23,6 +24,7 @@ class BlockTransformer extends AbstractTransformer {
      */
     protected $defaultIncludes = [
         'author',
+        'blockabale',
         'translations'
     ];
 
@@ -36,9 +38,8 @@ class BlockTransformer extends AbstractTransformer {
     /**
      * Transforms block entity
      *
-     * @param Block|array $block Content entity
+     * @param Block|array $block Block entity
      *
-     * @throws \Exception Test
      * @return array
      */
     public function transform($block)
@@ -48,7 +49,6 @@ class BlockTransformer extends AbstractTransformer {
             'id'          => $this->setNullableValue($block['id']),
             'type'        => $block['type'],
             'region'      => $block['region'],
-            'blockable'   => $block['blockable'],
             'filter'      => $block['filter'],
             'options'     => $block['options'],
             'weight'      => (int) $block['weight'],
@@ -84,6 +84,24 @@ class BlockTransformer extends AbstractTransformer {
     {
         $author = $block->author;
         return (!empty($author)) ? $this->item($author, new UserTransformer()) : null;
+    }
+
+    /**
+     * Include Author
+     *
+     * @param Block $block User
+     *
+     * @return \League\Fractal\ItemResource
+     */
+    public function includeBlockabale(Block $block)
+    {
+        $blockable = $block->blockable;
+        if (!empty($blockable)) {
+            $entityClassName  = (new ReflectionClass($blockable))->getShortName();
+            $transformerClass = 'Gzero\\Api\\Transformer\\' . $entityClassName . 'Transformer';
+            return $this->item($blockable, new $transformerClass());
+        }
+        return null;
     }
 
     /**

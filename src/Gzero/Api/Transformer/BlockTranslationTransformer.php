@@ -17,27 +17,23 @@ use Gzero\Entity\BlockTranslation;
 class BlockTranslationTransformer extends AbstractTransformer {
 
     /**
-     * Transforms content translation entity
+     * Transforms block translation entity
      *
-     * @param BlockTranslation|Array $translation Content entity
+     * @param BlockTranslation|array $translation BlockTranslation entity
      *
-     * @throws \Exception Test
      * @return array
      */
     public function transform($translation)
     {
-        $translation = $this->entityToArray('\Gzero\Entity\BlockTranslation', $translation);
+        $translation = $this->entityToArray(BlockTranslation::class, $translation);
         return [
-            'id'             => (int) $translation['id'],
-            'lang'           => $translation['langCode'],
-            'title'          => $translation['title'],
-            'teaser'         => $translation['teaser'],
-            'body'           => $translation['body'],
-            'seoTitle'       => $translation['seoTitle'],
-            'seoDescription' => $translation['seoDescription'],
-            'isActive'       => (int) $translation['isActive'],
-            'createdAt'      => $translation['createdAt'],
-            'updatedAt'      => $translation['updatedAt'],
+            'id'        => (int) $translation['id'],
+            'lang'      => $translation['langCode'],
+            'title'     => $translation['title'],
+            'body'      => $translation['body'],
+            'isActive'  => (int) $translation['isActive'],
+            'createdAt' => $translation['createdAt'],
+            'updatedAt' => $translation['updatedAt'],
         ];
     }
 }

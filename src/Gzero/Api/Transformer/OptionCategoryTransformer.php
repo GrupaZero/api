@@ -19,14 +19,13 @@ class OptionCategoryTransformer extends AbstractTransformer {
     /**
      * Transforms option category entity
      *
-     * @param Array $option Content entity
+     * @param array $option OptionCategory entity
      *
-     * @throws \Exception Test
      * @return array
      */
     public function transform($option)
     {
-        $options = $this->entityToArray('\Gzero\Entity\OptionCategory', $option);
+        $options = $this->entityToArray(OptionCategory::class, $option);
         $data    = ['data' => []];
         foreach ($options as $option) {
             $data['data'][] = [

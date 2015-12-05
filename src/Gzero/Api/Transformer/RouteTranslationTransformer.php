@@ -19,14 +19,13 @@ class RouteTranslationTransformer extends AbstractTransformer {
     /**
      * Transforms route translation entity
      *
-     * @param RouteTranslation|Array $translation Content entity
+     * @param RouteTranslation|array $translation RouteTranslation entity
      *
-     * @throws \Exception Test
      * @return array
      */
     public function transform($translation)
     {
-        $translation = $this->entityToArray('\Gzero\Entity\RouteTranslation', $translation);
+        $translation = $this->entityToArray(RouteTranslation::class, $translation);
         return [
             'id'        => (int) $translation['id'],
             'lang'      => $translation['langCode'],

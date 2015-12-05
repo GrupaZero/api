@@ -19,14 +19,13 @@ class ContentTranslationTransformer extends AbstractTransformer {
     /**
      * Transforms content translation entity
      *
-     * @param ContentTranslation|Array $translation Content entity
+     * @param ContentTranslation|array $translation ContentTranslation entity
      *
-     * @throws \Exception Test
      * @return array
      */
     public function transform($translation)
     {
-        $translation = $this->entityToArray('\Gzero\Entity\ContentTranslation', $translation);
+        $translation = $this->entityToArray(ContentTranslation::class, $translation);
         return [
             'id'             => (int) $translation['id'],
             'lang'           => $translation['langCode'],

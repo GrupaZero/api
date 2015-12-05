@@ -5,7 +5,6 @@ use Gzero\Api\Transformer\BlockTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\BlockValidator;
 use Gzero\Repository\BlockRepository;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -52,8 +51,8 @@ class BlockController extends ApiController {
      */
     public function index()
     {
-        $input  = $this->validator->validate('list');
-        $params = $this->processor->process($input)->getProcessedFields();
+        $input   = $this->validator->validate('list');
+        $params  = $this->processor->process($input)->getProcessedFields();
         $results = $this->repository->getBlocks(
             $params['filter'],
             $params['orderBy'],
@@ -70,16 +69,14 @@ class BlockController extends ApiController {
      */
     public function indexOfDeleted()
     {
-        $input  = $this->validator->validate('list');
-        $params = $this->processor->process($input)->getProcessedFields();
-
+        $input   = $this->validator->validate('list');
+        $params  = $this->processor->process($input)->getProcessedFields();
         $results = $this->repository->getDeletedBlocks(
             $params['filter'],
             $params['orderBy'],
             $params['page'],
             $params['perPage']
         );
-
         return $this->respondWithSuccess($results, new BlockTransformer);
     }
 
@@ -106,8 +103,8 @@ class BlockController extends ApiController {
      */
     public function store()
     {
-        $input   = $this->validator->validate('create');
-        $block = $this->repository->create($input, Auth::user());
+        $input = $this->validator->validate('create');
+        $block = $this->repository->create($input, auth()->user());
         return $this->respondWithSuccess($block, new BlockTransformer);
     }
 
@@ -122,8 +119,8 @@ class BlockController extends ApiController {
     {
         $block = $this->repository->getById($id);
         if (!empty($block)) {
-            $input   = $this->validator->validate('update');
-            $block = $this->repository->update($block, $input, Auth::user());
+            $input = $this->validator->validate('update');
+            $block = $this->repository->update($block, $input, auth()->user());
             return $this->respondWithSuccess($block, new BlockTransformer);
         }
         return $this->respondNotFound();
