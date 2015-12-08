@@ -29,7 +29,7 @@ class RouteTranslationTransformer extends AbstractTransformer {
         $translation = $this->entityToArray('\Gzero\Entity\RouteTranslation', $translation);
         return [
             'id'        => (int) $translation['id'],
-            'lang'      => $translation['langCode'],
+            'langCode'  => $translation['langCode'],
             'url'       => $translation['url'],
             'isActive'  => (int) $translation['isActive'],
             'createdAt' => $translation['createdAt'],
