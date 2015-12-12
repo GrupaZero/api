@@ -28,7 +28,7 @@ class ContentTranslationTransformer extends AbstractTransformer {
         $translation = $this->entityToArray(ContentTranslation::class, $translation);
         return [
             'id'             => (int) $translation['id'],
-            'lang'           => $translation['langCode'],
+            'langCode'       => $translation['langCode'],
             'title'          => $translation['title'],
             'teaser'         => $translation['teaser'],
             'body'           => $translation['body'],

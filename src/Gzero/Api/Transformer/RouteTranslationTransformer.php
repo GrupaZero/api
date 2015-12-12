@@ -28,7 +28,7 @@ class RouteTranslationTransformer extends AbstractTransformer {
         $translation = $this->entityToArray(RouteTranslation::class, $translation);
         return [
             'id'        => (int) $translation['id'],
-            'lang'      => $translation['langCode'],
+            'langCode'  => $translation['langCode'],
             'url'       => $translation['url'],
             'isActive'  => (int) $translation['isActive'],
             'createdAt' => $translation['createdAt'],
