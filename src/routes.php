@@ -15,6 +15,11 @@ group(
                     'Gzero\Api\Controller\Admin\BlockController',
                     ['only' => ['index', 'show', 'store', 'update', 'destroy']]
                 );
+                resource(
+                    'blocks.translations',
+                    'Gzero\Api\Controller\Admin\BlockTranslationController',
+                    ['only' => ['index', 'show', 'store', 'update', 'destroy']]
+                );
                 get('blocks/deleted', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexOfDeleted']);
                 // Contents
                 get('contents/tree/{id?}', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexTree']);

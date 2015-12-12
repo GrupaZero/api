@@ -27,13 +27,14 @@ class BlockTranslationTransformer extends AbstractTransformer {
     {
         $translation = $this->entityToArray(BlockTranslation::class, $translation);
         return [
-            'id'        => (int) $translation['id'],
-            'lang'      => $translation['langCode'],
-            'title'     => $translation['title'],
-            'body'      => $translation['body'],
-            'isActive'  => (int) $translation['isActive'],
-            'createdAt' => $translation['createdAt'],
-            'updatedAt' => $translation['updatedAt'],
+            'id'           => (int) $translation['id'],
+            'lang'         => $translation['langCode'],
+            'title'        => $translation['title'],
+            'body'         => $translation['body'],
+            'customFields' => json_decode($translation['customFields'], true), // Eloquent\Model - toArray() not utilize mutators
+            'isActive'     => (int) $translation['isActive'],
+            'createdAt'    => $translation['createdAt'],
+            'updatedAt'    => $translation['updatedAt'],
         ];
     }
 }

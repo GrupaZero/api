@@ -32,13 +32,26 @@ class BlockValidator extends AbstractValidator {
         ],
         'create' => [
             'type'                  => 'required|in:basic,menu,slider,content,widget',
+            'region'                => '',
+            'weight'                => 'numeric',
+            'filter'                => '',
+            'options'               => '',
+            'widget'                => '',
             'isCacheable'           => 'boolean',
             'isActive'              => 'boolean',
             'translations.langCode' => 'required|in:pl,en,de,fr',
             'translations.title'    => '',
             'translations.body'     => '',
         ],
-        'update' => []
+        'update' => [
+            'region'                => '',
+            'weight'                => 'numeric',
+            'filter'                => '',
+            'options'               => '',
+            'widget'                => '',
+            'isCacheable'           => 'boolean',
+            'isActive'              => 'boolean',
+        ]
     ];
 
     /**
