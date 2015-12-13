@@ -112,7 +112,7 @@ class BlockController extends ApiController {
         if ($content) {
             $input   = $this->validator->validate('listContent');
             $params  = $this->processor->process($input)->getProcessedFields();
-            $results = $this->finder->getBlocks($content, $params, false);
+            $results = $this->finder->getBlocksIds($content->path, $params, false);
             return $results;
             //return $this->respondWithSuccess($results, new BlockTransformer);
         }
