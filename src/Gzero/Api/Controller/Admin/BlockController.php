@@ -104,7 +104,7 @@ class BlockController extends ApiController {
     /**
      * Display a listing of the resource.
      *
-     * @param $contentId
+     * @param int $contentId Id of the resource
      *
      * @return \Illuminate\Http\JsonResponse
      * @throws \Gzero\Validator\ValidationException
