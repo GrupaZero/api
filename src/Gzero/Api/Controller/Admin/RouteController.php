@@ -92,7 +92,7 @@ class RouteController extends ApiController {
 
 /**
  * @apiDefine           ContentRoute
- * @apiSuccess {Number} id ContentRoute id
+ * @apiSuccess {Number} id Route id
  * @apiSuccess {Date} createdAt Creation date of route
  * @apiSuccess {Date} updatedAt Update date of route
  * @apiSuccess {Array} translations List of active translations (Array of Objects)
@@ -101,24 +101,24 @@ class RouteController extends ApiController {
  * HTTP/1.1 200 OK
  *{
  *   "id": 1,
- *   "createdAt": "2015-05-16T13:58:36+0000",
- *   "updatedAt": "2015-05-16T13:58:36+0000",
+ *   "createdAt": "2015-12-13 12:11:04",
+ *   "updatedAt": "2015-12-13 12:11:04",
  *   "translations": [
  *      {
  *          "id": 45,
  *          "lang": "en",
  *          "url": "about-us",
  *          "isActive": 1,
- *          "createdAt": "2015-05-16T13:58:36+0000",
- *          "updatedAt": "2015-05-16T13:58:36+0000"
+ *          "createdAt": "2015-12-13 12:11:04",
+ *          "updatedAt": "2015-12-13 12:11:04"
  *      },
  *      {
  *          "id": 46,
  *          "lang": "pl",
  *          "url": "o-nas",
  *          "isActive": 1,
- *          "createdAt": "2015-05-16T13:58:36+0000",
- *          "updatedAt": "2015-05-16T13:58:36+0000"
+ *          "createdAt": "2015-12-13 12:11:04",
+ *          "updatedAt": "2015-12-13 12:11:04"
  *      }
  *   ]
  *}

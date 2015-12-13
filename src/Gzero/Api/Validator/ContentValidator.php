@@ -41,6 +41,8 @@ class ContentValidator extends AbstractValidator {
         'create' => [
             'type'                        => 'required|in:content,category',
             'parentId'                    => 'numeric',
+            'weight'                      => 'numeric',
+            'theme'                       => '',
             'isOnHome'                    => 'boolean',
             'isCommentAllowed'            => 'boolean',
             'isPromoted'                  => 'boolean',
@@ -57,6 +59,7 @@ class ContentValidator extends AbstractValidator {
         'update' => [
             'parentId'         => 'numeric',
             'weight'           => 'numeric',
+            'theme'            => '',
             'isActive'         => 'boolean',
             'isOnHome'         => 'boolean',
             'isCommentAllowed' => 'boolean',

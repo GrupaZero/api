@@ -1,10 +1,10 @@
 <?php namespace Gzero\Api\Controller\Admin;
 
 use Gzero\Api\Controller\ApiController;
-use Gzero\Api\Transformer\ContentTranslationTransformer;
+use Gzero\Api\Transformer\BlockTranslationTransformer;
 use Gzero\Api\UrlParamsProcessor;
-use Gzero\Api\Validator\ContentTranslationValidator;
-use Gzero\Repository\ContentRepository;
+use Gzero\Api\Validator\BlockTranslationValidator;
+use Gzero\Repository\BlockRepository;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -12,36 +12,36 @@ use Gzero\Repository\ContentRepository;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Class ContentTranslationController
+ * Class BlockTranslationController
  *
  * @package    Gzero\Admin\Controllers\Resource
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
-class ContentTranslationController extends ApiController {
+class BlockTranslationController extends ApiController {
 
     /**
-     * @var ContentRepository
+     * @var BlockRepository
      */
     protected $repository;
 
     /**
-     * @var ContentTranslationValidator
+     * @var BlockTranslationValidator
      */
     protected $validator;
 
     /**
-     * ContentTranslationController constructor
+     * BlockTranslationController constructor
      *
-     * @param UrlParamsProcessor          $processor Url processor
-     * @param ContentRepository           $content   Content repository
-     * @param ContentTranslationValidator $validator Content validator
+     * @param UrlParamsProcessor        $processor Url processor
+     * @param BlockRepository           $block     Block repository
+     * @param BlockTranslationValidator $validator Block validator
      */
-    public function __construct(UrlParamsProcessor $processor, ContentRepository $content, ContentTranslationValidator $validator)
+    public function __construct(UrlParamsProcessor $processor, BlockRepository $block, BlockTranslationValidator $validator)
     {
         parent::__construct($processor);
         $this->validator  = $validator->setData(\Input::all());
-        $this->repository = $content;
+        $this->repository = $block;
     }
 
     /**
@@ -53,18 +53,18 @@ class ContentTranslationController extends ApiController {
      */
     public function index($id)
     {
-        $input   = $this->validator->validate('list');
-        $params  = $this->processor->process($input)->getProcessedFields();
-        $content = $this->repository->getById($id);
-        if (!empty($content)) {
+        $input  = $this->validator->validate('list');
+        $params = $this->processor->process($input)->getProcessedFields();
+        $block  = $this->repository->getById($id);
+        if (!empty($block)) {
             $results = $this->repository->getTranslations(
-                $content,
+                $block,
                 $params['filter'],
                 $params['orderBy'],
                 $params['page'],
                 $params['perPage']
             );
-            return $this->respondWithSuccess($results, new ContentTranslationTransformer);
+            return $this->respondWithSuccess($results, new BlockTranslationTransformer);
         } else {
             return $this->respondNotFound();
         }
@@ -73,37 +73,37 @@ class ContentTranslationController extends ApiController {
     /**
      * Display a specified resource.
      *
-     * @param int $id            Id of the content
-     * @param int $translationId Id of the content translation
+     * @param int $id            Id of the block
+     * @param int $translationId Id of the block translation
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id, $translationId)
     {
-        $content = $this->getContent($id);
-        if (!empty($content)) {
-            $translation = $this->repository->getContentTranslationById($content, $translationId);
+        $block = $this->getBlock($id);
+        if (!empty($block)) {
+            $translation = $this->repository->getBlockTranslationById($block, $translationId);
             if (!empty($translation)) {
-                return $this->respondWithSuccess($translation, new ContentTranslationTransformer);
+                return $this->respondWithSuccess($translation, new BlockTranslationTransformer);
             }
         }
         return $this->respondNotFound();
     }
 
     /**
-     * Stores newly created translation for specified content entity in database.
+     * Stores newly created translation for specified block entity in database.
      *
-     * @param int $id Id of the content
+     * @param int $id Id of the block
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store($id)
     {
-        $content = $this->getContent($id);
-        if (!empty($content)) {
+        $block = $this->getBlock($id);
+        if (!empty($block)) {
             $input       = $this->validator->validate('create');
-            $translation = $this->repository->createTranslation($content, $input);
-            return $this->respondWithSuccess($translation, new ContentTranslationTransformer);
+            $translation = $this->repository->createTranslation($block, $input);
+            return $this->respondWithSuccess($translation, new BlockTranslationTransformer);
         }
         return $this->respondNotFound();
     }
@@ -111,7 +111,7 @@ class ContentTranslationController extends ApiController {
     /**
      * Each translations update always creates new record in database, for history revision
      *
-     * @param int $id Id of the content
+     * @param int $id Id of the block
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -123,16 +123,16 @@ class ContentTranslationController extends ApiController {
     /**
      * Remove the specified resource from database.
      *
-     * @param int $id            Id of the content
-     * @param int $translationId Id of the content translation
+     * @param int $id            Id of the block
+     * @param int $translationId Id of the block translation
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id, $translationId)
     {
-        $content = $this->getContent($id);
-        if (!empty($content)) {
-            $translation = $this->repository->getContentTranslationById($content, $translationId);
+        $block = $this->getBlock($id);
+        if (!empty($block)) {
+            $translation = $this->repository->getBlockTranslationById($block, $translationId);
             if (!empty($translation)) {
                 $this->repository->deleteTranslation($translation);
                 return $this->respondWithSimpleSuccess(['success' => true]);
@@ -142,13 +142,13 @@ class ContentTranslationController extends ApiController {
     }
 
     /**
-     * Gets Content entity by id
+     * Gets Block entity by id
      *
-     * @param int $id content id
+     * @param int $id block id
      *
-     * @return \Gzero\Entity\Content
+     * @return \Gzero\Entity\Block
      */
-    protected function getContent($id)
+    protected function getBlock($id)
     {
         return $this->repository->getById($id);
     }
@@ -160,86 +160,87 @@ class ContentTranslationController extends ApiController {
 |--------------------------------------------------------------------------
 */
 /**
- * @api                 {get} /admin/contents/:id/translations 1. GET collection of translations
+ * @api                 {get} /admin/blocks/:id/translations 1. GET collection of translations
  * @apiVersion          0.1.0
  * @apiName             GetTranslationList
- * @apiGroup            Content Translations
+ * @apiGroup            Block Translations
  * @apiPermission       admin
- * @apiParam {Number} id The Content ID
- * @apiDescription      Get collection of translation for specified content entity
+ * @apiParam {Number} id The Block ID
+ * @apiDescription      Get collection of translation for specified block entity
  * @apiUse              Meta
  * @apiUse              Params
- * @apiUse              ContentTranslationCollection
+ * @apiUse              BlockTranslationCollection
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/v1/admin/contents/1/translations
+ * curl -i http://api.example.com/v1/admin/blocks/1/translations
  */
 /**
- * @api                 {get} /admin/contents/:id/translations/:id 2. GET single entity
+ * @api                 {get} /admin/blocks/:id/translations/:id 2. GET single entity
  * @apiVersion          0.1.0
- * @apiName             GetContentTranslation
- * @apiGroup            Content Translations
+ * @apiName             GetBlockTranslation
+ * @apiGroup            Block Translations
  * @apiPermission       admin
- * @apiParam {Number} id The Content ID
- * @apiParam {Number} translationId The ContentTranslations ID
- * @apiDescription      Get the specified content translation from database
- * @apiUse              ContentTranslation
+ * @apiParam {Number} id The Block ID
+ * @apiParam {Number} translationId The BlockTranslations ID
+ * @apiDescription      Get the specified block translation from database
+ * @apiUse              BlockTranslation
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/v1/admin/contents/1/translations/1
+ * curl -i http://api.example.com/v1/admin/blocks/1/translations/1
  */
 /**
- * @api                 {post} /admin/contents/:id/translations 3. POST newly created entity
+ * @api                 {post} /admin/blocks/:id/translations 3. POST newly created entity
  * @apiVersion          0.1.0
- * @apiName             PostContentTranslation
- * @apiGroup            Content Translations
+ * @apiName             PostBlockTranslation
+ * @apiGroup            Block Translations
  * @apiPermission       admin
- * @apiParam {Number} id The Content ID
- * @apiDescription      Stores newly created content translation in database
- * @apiUse              ContentTranslation
+ * @apiParam {Number} id The Block ID
+ * @apiDescription      Stores newly created block translation in database
+ * @apiUse              BlockTranslation
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/api/v1/admin/contents/1/translations
+ * curl -i http://api.example.com/api/v1/admin/blocks/1/translations
  */
 /**
- * @api                 {put} /admin/contents/:id/translations 4. PUT newly created revision
+ * @api                 {put} /admin/blocks/:id/translations 4. PUT newly created revision
  * @apiVersion          0.1.0
- * @apiName             PutContentTranslation
- * @apiGroup            Content Translations
+ * @apiName             PutBlockTranslation
+ * @apiGroup            Block Translations
  * @apiPermission       admin
- * @apiParam {Number} id The Content ID
+ * @apiParam {Number} id The Block ID
  * @apiDescription      Each translations update always creates new record in database, for history revision
- * @apiUse              ContentTranslation
+ * @apiUse              BlockTranslation
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/api/v1/admin/contents/1/translations
+ * curl -i http://api.example.com/api/v1/admin/blocks/1/translations
  */
 /**
- * @api                 {delete} /admin/contents/:id/translations/:id  5. DELETE the specified entity
+ * @api                 {delete} /admin/blocks/:id/translations/:id  5. DELETE the specified entity
  * @apiVersion          0.1.0
- * @apiName             DeleteContentTranslation
- * @apiGroup            Content Translations
+ * @apiName             DeleteBlockTranslation
+ * @apiGroup            Block Translations
  * @apiPermission       admin
- * @apiParam {Number} id The Content ID
- * @apiParam {Number} translationId The ContentTranslations ID
- * @apiDescription      Deletes the specified content translation from database
+ * @apiParam {Number} id The Block ID
+ * @apiParam {Number} translationId The BlockTranslations ID
+ * @apiDescription      Deletes the specified block translation from database
  * @apiSuccess {Boolean} success Success flag
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/v1/admin/contents/1/translations/1
+ * curl -i http://api.example.com/v1/admin/blocks/1/translations/1
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
  * {"success":true}
  */
 
 /**
- * @apiDefine           ContentTranslationCollection
+ * @apiDefine           BlockTranslationCollection
  * @apiSuccess {Array[]} translations List of active translations (Array of Objects)
  * @apiSuccess {Number} data.id Translation id
  * @apiSuccess {String} data.lang Language code
  * @apiSuccess {String} data.title Title
  * @apiSuccess {String} data.body Body
  * @apiSuccess {Boolean} data.isActive Is active flag
+ * @apiSuccess {Array} data.customFields Translation unique parameters (Defined as array of key / value parameters)
  * @apiSuccess {Date} data.createdAt Creation date of translation
  * @apiSuccess {Date} data.updatedAt Update date of translation
  *
@@ -251,7 +252,7 @@ class ContentTranslationController extends ApiController {
  *        "perPage": 20,
  *        "currentPage": 1,
  *        "lastPage": 1,
- *        "link": "http://api.gzero.dev:8000/v1/admin/contents/1/translations"
+ *        "link": "http://api.gzero.dev:8000/v1/admin/blocks/1/translations"
  *    },
  *    "params": {
  *        "page": 1,
@@ -260,19 +261,20 @@ class ContentTranslationController extends ApiController {
  *        "orderBy": []
  *    },
  *    "data": [
- *        {ContentTranslations},
+ *        {BlockTranslations},
  *        ...
  *    ]
  *}
  */
 
 /**
- * @apiDefine           ContentTranslation
+ * @apiDefine           BlockTranslation
  * @apiSuccess {Number} id Translation id
  * @apiSuccess {String} lang Language code
  * @apiSuccess {String} title Title
  * @apiSuccess {String} body Body
  * @apiSuccess {Boolean} isActive Is active flag
+ * @apiSuccess {Array} customFields Translation unique parameters (Defined as array of key / value parameters)
  * @apiSuccess {Date} createdAt Creation date of translation
  * @apiSuccess {Date} updatedAt Update date of translation
  *
@@ -281,11 +283,17 @@ class ContentTranslationController extends ApiController {
  *{
  *   "id": 1,
  *   "lang": "en",
- *   "title": "Example title",
- *   "body": "Example body",
+ *   "title": "Example block title",
+ *   "body": "Example block body",
  *   "isActive": true,
- *   "createdAt": "2015-12-13 12:10:59",
- *   "updatedAt": "2015-12-13 12:10:59"
+ *   "customFields": {
+ *       "fieldName": "fieldValue",
+ *       "anotherFieldName": "anotherFieldValue",
+ *       "lastFieldName": "lastFieldValue"
+ *   },
+ *   "createdAt": "2015-12-13 12:11:04",
+ *   "updatedAt": "2015-12-13 12:11:04"
+ *   },
  * }
  */
 

@@ -19,14 +19,13 @@ class OptionTransformer extends AbstractTransformer {
     /**
      * Transforms option entity
      *
-     * @param Array $option Content entity
+     * @param Option|array $option Option entity
      *
-     * @throws \Exception Test
      * @return array
      */
     public function transform($option)
     {
-        $option = $this->entityToArray('\Gzero\Entity\Option', $option);
+        $option = $this->entityToArray(Option::class, $option);
         return $option;
     }
 }

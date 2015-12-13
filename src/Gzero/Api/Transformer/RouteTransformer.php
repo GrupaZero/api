@@ -28,14 +28,13 @@ class RouteTransformer extends AbstractTransformer {
     /**
      * Transforms route entity
      *
-     * @param Route|Array $route Content entity
+     * @param Route|array $route route entity
      *
-     * @throws \Exception Test
      * @return array
      */
     public function transform($route)
     {
-        $route = $this->entityToArray('\Gzero\Entity\Route', $route);
+        $route = $this->entityToArray(Route::class, $route);
         return [
             'id'        => (int) $route['id'],
             'createdAt' => $route['createdAt'],

@@ -19,14 +19,13 @@ class UserTransformer extends AbstractTransformer {
     /**
      * Transforms user entity
      *
-     * @param User|Array $user User entity
+     * @param User|array $user User entity
      *
-     * @throws \Exception Test
      * @return array
      */
     public function transform($user)
     {
-        $user = $this->entityToArray('\Gzero\Entity\User', $user);
+        $user = $this->entityToArray(User::class, $user);
         return [
             'id'        => (int) $user['id'],
             'email'     => $user['email'],

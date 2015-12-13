@@ -19,14 +19,13 @@ class LangTransformer extends AbstractTransformer {
     /**
      * Transforms lang entity
      *
-     * @param Lang|Array $lang Content entity
+     * @param Lang|array $lang Lang entity
      *
-     * @throws \Exception Test
      * @return array
      */
     public function transform($lang)
     {
-        $lang = $this->entityToArray('\Gzero\Entity\Lang', $lang);
+        $lang = $this->entityToArray(Lang::class, $lang);
         return [
             'code'      => $lang['code'],
             'i18n'      => $lang['i18n'],

@@ -348,20 +348,24 @@ class ContentController extends ApiController {
 /**
  * @apiDefine           Content
  * @apiSuccess {Number} id Content id
+ * @apiSuccess {Number} parentId Content parent id
+ * @apiSuccess {String} type Content type
+ * @apiSuccess {String} theme Content theme
+ * @apiSuccess {Number} weight Content weight
  * @apiSuccess {Number} rating Content rating
  * @apiSuccess {Number} visits Content visit counter
- * @apiSuccess {Array} path Tree path for this node
- * @apiSuccess {Object} route Route for this Content
- * @apiSuccess {Object} author Author of this Content
- * @apiSuccess {Array} translations List of active translations (Array of Objects)
+ * @apiSuccess {Boolean} isActive Is content active flag
  * @apiSuccess {Boolean} isOnHome Home page flag
  * @apiSuccess {Boolean} isCommentAllowed Is comment allowed flag
  * @apiSuccess {Boolean} isPromoted Is promoted flag
  * @apiSuccess {Boolean} isSticky Is sticky flag
- * @apiSuccess {Boolean} isActive Is content active flag
+ * @apiSuccess {Array} path Tree path for this node
  * @apiSuccess {Date} publishedAt Date of publication
  * @apiSuccess {Date} createdAt Creation date
  * @apiSuccess {Date} updatedAt Update date
+ * @apiSuccess {Object} route Route for this Content
+ * @apiSuccess {Object} author Author of this Content
+ * @apiSuccess {Array} translations List of active translations (Array of Objects)
  *
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
@@ -369,38 +373,47 @@ class ContentController extends ApiController {
  *   "id": 1,
  *   "type": "category",
  *   "weight": 3,
+ *   "theme": null,
+ *   "weight": 0,
  *   "isActive": false,
+ *   "isOnHome": false,
+ *   "isCommentAllowed": true,
+ *   "isPromoted": false,
+ *   "isSticky": true,
+ *   "rating": 1,
+ *   "visits": 1,
  *   "path": [
  *       1
  *   ],
- *   "createdAt": "2014-12-23T13:28:23+0000",
- *   "updatedAt": "2014-12-23T13:28:23+0000",
+ *   "publishedAt": "2015-12-13 12:10:59",
+ *   "createdAt": "2015-12-13 12:10:59",
+ *   "updatedAt": "2015-12-13 12:10:59",
  *   "route": {
  *       "id": 1,
- *       "createdAt": "2014-12-23T13:28:23+0000",
- *       "updatedAt": "2014-12-23T13:28:23+0000",
+ *       "createdAt": "2015-12-13 12:10:59",
+ *       "updatedAt": "2015-12-13 12:10:59",
  *       "translations": [
  *           {
  *               "id": 1,
  *               "lang": "en",
  *               "url": "example-url",
  *               "isActive": 1,
- *               "createdAt": "2014-12-23T13:28:23+0000",
- *               "updatedAt": "2014-12-23T13:28:23+0000"
+ *               "createdAt": "2015-12-13 12:10:59",
+ *               "updatedAt": "2015-12-13 12:10:59"
  *           },
  *           {
  *               "id": 2,
  *               "lang": "pl",
- *               "url": "non",
- *               "isActive": 1,
- *               "createdAt": "2014-12-23T13:28:23+0000",
- *               "updatedAt": "2014-12-23T13:28:23+0000"
+ *               "url": "example-url",
+ *               "isActive": true,
+ *               "createdAt": "2015-12-13 12:10:59",
+ *               "updatedAt": "2015-12-13 12:10:59"
  *           }
  *       ]
  *   },
  *   "author": {
  *       "id": 1,
- *       "email": "a@a.pl",
+ *       "email": "admin@gzero.pl",
  *       "firstName": "John",
  *       "lastName": "Doe"
  *   },
@@ -410,18 +423,18 @@ class ContentController extends ApiController {
  *           "lang": "en",
  *           "title": "Example title",
  *           "body": "Example body",
- *           "isActive": 1,
- *           "createdAt": "2014-12-23T13:28:23+0000",
- *           "updatedAt": "2014-12-23T13:28:23+0000"
+ *           "isActive": true,
+ *           "createdAt": "2015-12-13 12:10:59",
+ *           "updatedAt": "2015-12-13 12:10:59"
  *       },
  *       {
  *           "id": 2,
  *           "lang": "pl",
  *           "title": "title",
  *           "body": "Example body",
- *           "isActive": 1,
- *           "createdAt": "2014-12-23T13:28:23+0000",
- *           "updatedAt": "2014-12-23T13:28:23+0000"
+ *           "isActive": true,
+ *           "createdAt": "2015-12-13 12:10:59",
+ *           "updatedAt": "2015-12-13 12:10:59"
  *       }
  *   ]
  *}
@@ -429,21 +442,24 @@ class ContentController extends ApiController {
 /**
  * @apiDefine           ContentTree
  * @apiSuccess {Number} id Content id
+ * @apiSuccess {Number} parentId Content parent id
+ * @apiSuccess {String} type Content type
+ * @apiSuccess {String} theme Content theme
+ * @apiSuccess {Number} weight Content weight
  * @apiSuccess {Number} rating Content rating
  * @apiSuccess {Number} visits Content visit counter
- * @apiSuccess {Array} path Tree path for this node
- * @apiSuccess {Object} route Route for this Content
- * @apiSuccess {Object} author Author of this Content
- * @apiSuccess {Array} translations List of active translations (Array of Objects)
- * @apiSuccess {Array} children List of children (Array of Objects)
+ * @apiSuccess {Boolean} isActive Is content active flag
  * @apiSuccess {Boolean} isOnHome Home page flag
  * @apiSuccess {Boolean} isCommentAllowed Is comment allowed flag
  * @apiSuccess {Boolean} isPromoted Is promoted flag
  * @apiSuccess {Boolean} isSticky Is sticky flag
- * @apiSuccess {Boolean} isActive Is content active flag
+ * @apiSuccess {Array} path Tree path for this node
  * @apiSuccess {Date} publishedAt Date of publication
  * @apiSuccess {Date} createdAt Creation date
  * @apiSuccess {Date} updatedAt Update date
+ * @apiSuccess {Object} route Route for this Content
+ * @apiSuccess {Object} author Author of this Content
+ * @apiSuccess {Array} translations List of active translations (Array of Objects)
  *
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
@@ -451,38 +467,47 @@ class ContentController extends ApiController {
  *   "id": 1,
  *   "type": "category",
  *   "weight": 3,
+ *   "theme": null,
+ *   "weight": 0,
  *   "isActive": false,
+ *   "isOnHome": false,
+ *   "isCommentAllowed": true,
+ *   "isPromoted": false,
+ *   "isSticky": true,
+ *   "rating": 1,
+ *   "visits": 1,
  *   "path": [
  *       1
  *   ],
- *   "createdAt": "2014-12-23T13:28:23+0000",
- *   "updatedAt": "2014-12-23T13:28:23+0000",
+ *   "publishedAt": "2015-12-13 12:10:59",
+ *   "createdAt": "2015-12-13 12:10:59",
+ *   "updatedAt": "2015-12-13 12:10:59",
  *   "route": {
  *       "id": 1,
- *       "createdAt": "2014-12-23T13:28:23+0000",
- *       "updatedAt": "2014-12-23T13:28:23+0000",
+ *       "createdAt": "2015-12-13 12:10:59",
+ *       "updatedAt": "2015-12-13 12:10:59",
  *       "translations": [
  *           {
  *               "id": 1,
  *               "lang": "en",
  *               "url": "example-url",
  *               "isActive": 1,
- *               "createdAt": "2014-12-23T13:28:23+0000",
- *               "updatedAt": "2014-12-23T13:28:23+0000"
+ *               "createdAt": "2015-12-13 12:10:59",
+ *               "updatedAt": "2015-12-13 12:10:59"
  *           },
  *           {
  *               "id": 2,
  *               "lang": "pl",
- *               "url": "non",
- *               "isActive": 1,
- *               "createdAt": "2014-12-23T13:28:23+0000",
- *               "updatedAt": "2014-12-23T13:28:23+0000"
+ *               "url": "example-url",
+ *               "isActive": true,
+ *               "createdAt": "2015-12-13 12:10:59",
+ *               "updatedAt": "2015-12-13 12:10:59"
  *           }
  *       ]
  *   },
  *   "author": {
  *       "id": 1,
- *       "email": "a@a.pl",
+ *       "email": "admin@gzero.pl",
  *       "firstName": "John",
  *       "lastName": "Doe"
  *   },
@@ -492,18 +517,18 @@ class ContentController extends ApiController {
  *           "lang": "en",
  *           "title": "Example title",
  *           "body": "Example body",
- *           "isActive": 1,
- *           "createdAt": "2014-12-23T13:28:23+0000",
- *           "updatedAt": "2014-12-23T13:28:23+0000"
+ *           "isActive": true,
+ *           "createdAt": "2015-12-13 12:10:59",
+ *           "updatedAt": "2015-12-13 12:10:59"
  *       },
  *       {
  *           "id": 2,
  *           "lang": "pl",
  *           "title": "title",
  *           "body": "Example body",
- *           "isActive": 1,
- *           "createdAt": "2014-12-23T13:28:23+0000",
- *           "updatedAt": "2014-12-23T13:28:23+0000"
+ *           "isActive": true,
+ *           "createdAt": "2015-12-13 12:10:59",
+ *           "updatedAt": "2015-12-13 12:10:59"
  *       }
  *   ]
  *    "children": [
@@ -517,20 +542,24 @@ class ContentController extends ApiController {
  * @apiDefine           ContentCollection
  * @apiSuccess {Array[]} data Array of Contents
  * @apiSuccess {Number} data.id Content id
+ * @apiSuccess {Number} data.parentId Content parent id
+ * @apiSuccess {String} data.type Content type
+ * @apiSuccess {String} data.theme Content theme
+ * @apiSuccess {Number} data.weight Content weight
  * @apiSuccess {Number} data.rating Content rating
  * @apiSuccess {Number} data.visits Content visit counter
- * @apiSuccess {Array} data.path Tree path for this node
- * @apiSuccess {Object} data.route Route for this Content
- * @apiSuccess {Object} data.author Author of this Content
- * @apiSuccess {Array} data.translations List of active translations (Array of Objects)
+ * @apiSuccess {Boolean} data.isActive Is content active flag
  * @apiSuccess {Boolean} data.isOnHome Home page flag
  * @apiSuccess {Boolean} data.isCommentAllowed Is comment allowed flag
  * @apiSuccess {Boolean} data.isPromoted Is promoted flag
  * @apiSuccess {Boolean} data.isSticky Is sticky flag
- * @apiSuccess {Boolean} data.isActive Is content active flag
+ * @apiSuccess {Array} data.path Tree path for this node
  * @apiSuccess {Date} data.publishedAt Date of publication
  * @apiSuccess {Date} data.createdAt Creation date
  * @apiSuccess {Date} data.updatedAt Update date
+ * @apiSuccess {Object} data.route Route for this Content
+ * @apiSuccess {Object} data.author Author of this Content
+ * @apiSuccess {Array} data.translations List of active translations (Array of Objects)
  *
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK

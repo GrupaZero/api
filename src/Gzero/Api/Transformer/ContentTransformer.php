@@ -38,19 +38,21 @@ class ContentTransformer extends AbstractTransformer {
     /**
      * Transforms content entity
      *
-     * @param Content|Array $content Content entity
+     * @param Content|array $content Content entity
      *
-     * @throws \Exception Test
      * @return array
      */
     public function transform($content)
     {
-        $content = $this->entityToArray('\Gzero\Entity\Content', $content);
+        $content = $this->entityToArray(Content::class, $content);
         return [
             'id'               => $this->setNullableValue($content['id']),
             'parentId'         => $this->setNullableValue($content['parentId']),
             'type'             => $content['type'],
+            'theme'            => $content['theme'],
             'weight'           => (int) $content['weight'],
+            'rating'           => (int) $content['isSticky'],
+            'visits'           => (int) $content['isSticky'],
             'isActive'         => (bool) $content['isActive'],
             'isOnHome'         => (bool) $content['isOnHome'],
             'isCommentAllowed' => (bool) $content['isCommentAllowed'],
