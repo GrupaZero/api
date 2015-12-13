@@ -1,6 +1,1235 @@
 [
   {
     "type": "delete",
+    "url": "/admin/blocks",
+    "title": "8. DELETE the specified entity",
+    "version": "0.1.0",
+    "name": "DeleteBlock",
+    "group": "Block",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "description": "<p>Delete the specified block from database</p> ",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Success flag</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"success\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/api/v1/admin/blocks",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockController.php",
+    "groupTitle": ""
+  },
+  {
+    "type": "get",
+    "url": "/admin/blocks/:id",
+    "title": "5. GET single entity",
+    "version": "0.1.0",
+    "name": "GetBlock",
+    "group": "Block",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "description": "<p>Get the specified block from database</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/blocks/123",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockController.php",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Block id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Block type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "region",
+            "description": "<p>Block region</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "filter",
+            "description": "<p>Block visibility configuration in form of Tree node path for each content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "options",
+            "description": "<p>Block unique parameters (Defined as array of key / value parameters)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "theme",
+            "description": "<p>Block theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "weight",
+            "description": "<p>Block weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is block active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "isCacheable",
+            "description": "<p>Can block be cached flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "author",
+            "description": "<p>Author of this Block</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "Translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"basic\",\n  \"region\": \"header\",\n  \"filter\": {\n      \"+\": [\n         \"1/2/*\"\n      ],\n      \"-\": [\n         \"2\"\n      ]\n  },\n  \"options\": {\n      \"optionName\": \"optionValue\",\n      \"anotherOptionName\": \"anotherOptionValue\",\n      \"lastOptionName\": \"lastOptionValue\"\n  },\n  \"theme\": null,\n  \"weight\": 3,\n  \"isActive\": false,\n  \"isCacheable\": false,\n  \"createdAt\": \"2015-12-13 12:11:04\",\n  \"updatedAt\": \"2015-12-13 12:11:04\",\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"admin@gzero.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n       {\n           \"id\": 1,\n           \"lang\": \"en\",\n           \"title\": \"Example block title\",\n           \"body\": \"Example block body\",\n           \"isActive\": true,\n           \"customFields\": {\n               \"fieldName\": \"fieldValue\",\n               \"anotherFieldName\": \"anotherFieldValue\",\n               \"lastFieldName\": \"lastFieldValue\"\n           },\n           \"createdAt\": \"2015-12-13 12:11:04\",\n           \"updatedAt\": \"2015-12-13 12:11:04\"\n      },\n      {\n          \"id\": 1,\n          \"lang\": \"pl\",\n          \"title\": \"Example block title\",\n          \"body\": \"Example block body\",\n          \"isActive\": true,\n             \"customFields\": {\n                 \"fieldName\": \"fieldValue\",\n                 \"anotherFieldName\": \"anotherFieldValue\",\n                 \"lastFieldName\": \"lastFieldValue\"\n          },\n          \"createdAt\": \"2015-12-13 12:11:04\",\n          \"updatedAt\": \"2015-12-13 12:11:04\"\n      },\n ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/admin/blocks",
+    "title": "1. GET collection of entities",
+    "version": "0.1.0",
+    "name": "GetBlockList",
+    "group": "Block",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "description": "<p>Get root blocks</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/blocks",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockController.php",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object[]</p> ",
+            "optional": false,
+            "field": "meta",
+            "description": "<p>Meta data for current request</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "meta.total",
+            "description": "<p>Total number elements</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "meta.perPage",
+            "description": "<p>Number of elements per page</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "meta.currentPage",
+            "description": "<p>Current page number</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "meta.lastPage",
+            "description": "<p>Last page number</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "meta.link",
+            "description": "<p>Link for this resource</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object[]</p> ",
+            "optional": false,
+            "field": "params",
+            "description": "<p>Params passed for current request</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "params.page",
+            "description": "<p>Page parameter</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "params.perPage",
+            "description": "<p>Per page parameter</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array[]</p> ",
+            "optional": false,
+            "field": "params.filter",
+            "description": "<p>Array of filter params</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array[]</p> ",
+            "optional": false,
+            "field": "params.orderBy",
+            "description": "<p>Array of sort params</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array[]</p> ",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Array of Blocks</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>Block id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.type",
+            "description": "<p>Block type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.region",
+            "description": "<p>Block region</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "data.filter",
+            "description": "<p>Block visibility configuration in form of Tree node path for each content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "data.options",
+            "description": "<p>Block unique parameters (Defined as array of key / value parameters)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.theme",
+            "description": "<p>Block theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "data.weight",
+            "description": "<p>Block weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "data.isActive",
+            "description": "<p>Is block active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "data.isCacheable",
+            "description": "<p>Can block be cached flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "data.createdAt",
+            "description": "<p>Creation date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "data.updatedAt",
+            "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "data.author",
+            "description": "<p>Author of this Block</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "data.Translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n       \"meta\": {\n       \"total\": 75,\n       \"perPage\": 20,\n       \"currentPage\": 1,\n       \"lastPage\": 4,\n       \"link\": \"http://api.gzero.dev:8000/v1/admin/blocks\"\n   },\n   \"params\": {\n       \"page\": 1,\n       \"perPage\": 20,\n       \"filter\": [],\n       \"orderBy\": []\n   },\n   \"data\": [\n       {Block},\n       ...\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/admin/blocks",
+    "title": "6. POST newly created entity",
+    "version": "0.1.0",
+    "name": "PostBlock",
+    "group": "Block",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "description": "<p>Store newly created block in database</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/api/v1/admin/blocks",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockController.php",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Block id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Block type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "region",
+            "description": "<p>Block region</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "filter",
+            "description": "<p>Block visibility configuration in form of Tree node path for each content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "options",
+            "description": "<p>Block unique parameters (Defined as array of key / value parameters)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "theme",
+            "description": "<p>Block theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "weight",
+            "description": "<p>Block weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is block active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "isCacheable",
+            "description": "<p>Can block be cached flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "author",
+            "description": "<p>Author of this Block</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "Translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"basic\",\n  \"region\": \"header\",\n  \"filter\": {\n      \"+\": [\n         \"1/2/*\"\n      ],\n      \"-\": [\n         \"2\"\n      ]\n  },\n  \"options\": {\n      \"optionName\": \"optionValue\",\n      \"anotherOptionName\": \"anotherOptionValue\",\n      \"lastOptionName\": \"lastOptionValue\"\n  },\n  \"theme\": null,\n  \"weight\": 3,\n  \"isActive\": false,\n  \"isCacheable\": false,\n  \"createdAt\": \"2015-12-13 12:11:04\",\n  \"updatedAt\": \"2015-12-13 12:11:04\",\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"admin@gzero.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n       {\n           \"id\": 1,\n           \"lang\": \"en\",\n           \"title\": \"Example block title\",\n           \"body\": \"Example block body\",\n           \"isActive\": true,\n           \"customFields\": {\n               \"fieldName\": \"fieldValue\",\n               \"anotherFieldName\": \"anotherFieldValue\",\n               \"lastFieldName\": \"lastFieldValue\"\n           },\n           \"createdAt\": \"2015-12-13 12:11:04\",\n           \"updatedAt\": \"2015-12-13 12:11:04\"\n      },\n      {\n          \"id\": 1,\n          \"lang\": \"pl\",\n          \"title\": \"Example block title\",\n          \"body\": \"Example block body\",\n          \"isActive\": true,\n             \"customFields\": {\n                 \"fieldName\": \"fieldValue\",\n                 \"anotherFieldName\": \"anotherFieldValue\",\n                 \"lastFieldName\": \"lastFieldValue\"\n          },\n          \"createdAt\": \"2015-12-13 12:11:04\",\n          \"updatedAt\": \"2015-12-13 12:11:04\"\n      },\n ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/admin/blocks",
+    "title": "7. PUT the specified entity",
+    "version": "0.1.0",
+    "name": "PutBlock",
+    "group": "Block",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "description": "<p>Update the specified block in database</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/api/v1/admin/blocks",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockController.php",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Block id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Block type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "region",
+            "description": "<p>Block region</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "filter",
+            "description": "<p>Block visibility configuration in form of Tree node path for each content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "options",
+            "description": "<p>Block unique parameters (Defined as array of key / value parameters)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "theme",
+            "description": "<p>Block theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "weight",
+            "description": "<p>Block weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is block active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "isCacheable",
+            "description": "<p>Can block be cached flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "author",
+            "description": "<p>Author of this Block</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "Translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"basic\",\n  \"region\": \"header\",\n  \"filter\": {\n      \"+\": [\n         \"1/2/*\"\n      ],\n      \"-\": [\n         \"2\"\n      ]\n  },\n  \"options\": {\n      \"optionName\": \"optionValue\",\n      \"anotherOptionName\": \"anotherOptionValue\",\n      \"lastOptionName\": \"lastOptionValue\"\n  },\n  \"theme\": null,\n  \"weight\": 3,\n  \"isActive\": false,\n  \"isCacheable\": false,\n  \"createdAt\": \"2015-12-13 12:11:04\",\n  \"updatedAt\": \"2015-12-13 12:11:04\",\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"admin@gzero.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n       {\n           \"id\": 1,\n           \"lang\": \"en\",\n           \"title\": \"Example block title\",\n           \"body\": \"Example block body\",\n           \"isActive\": true,\n           \"customFields\": {\n               \"fieldName\": \"fieldValue\",\n               \"anotherFieldName\": \"anotherFieldValue\",\n               \"lastFieldName\": \"lastFieldValue\"\n           },\n           \"createdAt\": \"2015-12-13 12:11:04\",\n           \"updatedAt\": \"2015-12-13 12:11:04\"\n      },\n      {\n          \"id\": 1,\n          \"lang\": \"pl\",\n          \"title\": \"Example block title\",\n          \"body\": \"Example block body\",\n          \"isActive\": true,\n             \"customFields\": {\n                 \"fieldName\": \"fieldValue\",\n                 \"anotherFieldName\": \"anotherFieldValue\",\n                 \"lastFieldName\": \"lastFieldValue\"\n          },\n          \"createdAt\": \"2015-12-13 12:11:04\",\n          \"updatedAt\": \"2015-12-13 12:11:04\"\n      },\n ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/admin/blocks/:id/translations/:id",
+    "title": "5. DELETE the specified entity",
+    "version": "0.1.0",
+    "name": "DeleteBlockTranslation",
+    "group": "Block_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Block ID</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "translationId",
+            "description": "<p>The BlockTranslations ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Deletes the specified block translation from database</p> ",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "success",
+            "description": "<p>Success flag</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\"success\":true}",
+          "type": "json"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/blocks/1/translations/1",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockTranslationController.php",
+    "groupTitle": "Block_Translations"
+  },
+  {
+    "type": "get",
+    "url": "/admin/blocks/:id/translations/:id",
+    "title": "2. GET single entity",
+    "version": "0.1.0",
+    "name": "GetBlockTranslation",
+    "group": "Block_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Block ID</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "translationId",
+            "description": "<p>The BlockTranslations ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Get the specified block translation from database</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/blocks/1/translations/1",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockTranslationController.php",
+    "groupTitle": "Block_Translations",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Translation id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "lang",
+            "description": "<p>Language code</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Title</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "customFields",
+            "description": "<p>Translation unique parameters (Defined as array of key / value parameters)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date of translation</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date of translation</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example block title\",\n  \"body\": \"Example block body\",\n  \"isActive\": true,\n  \"customFields\": {\n      \"fieldName\": \"fieldValue\",\n      \"anotherFieldName\": \"anotherFieldValue\",\n      \"lastFieldName\": \"lastFieldValue\"\n  },\n  \"createdAt\": \"2015-12-13 12:11:04\",\n  \"updatedAt\": \"2015-12-13 12:11:04\"\n  },\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/admin/blocks/:id/translations",
+    "title": "1. GET collection of translations",
+    "version": "0.1.0",
+    "name": "GetTranslationList",
+    "group": "Block_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Block ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Get collection of translation for specified block entity</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/blocks/1/translations",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockTranslationController.php",
+    "groupTitle": "Block_Translations",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Object[]</p> ",
+            "optional": false,
+            "field": "meta",
+            "description": "<p>Meta data for current request</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "meta.total",
+            "description": "<p>Total number elements</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "meta.perPage",
+            "description": "<p>Number of elements per page</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "meta.currentPage",
+            "description": "<p>Current page number</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "meta.lastPage",
+            "description": "<p>Last page number</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "meta.link",
+            "description": "<p>Link for this resource</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object[]</p> ",
+            "optional": false,
+            "field": "params",
+            "description": "<p>Params passed for current request</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "params.page",
+            "description": "<p>Page parameter</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Integer</p> ",
+            "optional": false,
+            "field": "params.perPage",
+            "description": "<p>Per page parameter</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array[]</p> ",
+            "optional": false,
+            "field": "params.filter",
+            "description": "<p>Array of filter params</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array[]</p> ",
+            "optional": false,
+            "field": "params.orderBy",
+            "description": "<p>Array of sort params</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array[]</p> ",
+            "optional": false,
+            "field": "translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>Translation id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.lang",
+            "description": "<p>Language code</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.title",
+            "description": "<p>Title</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.body",
+            "description": "<p>Body</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "data.isActive",
+            "description": "<p>Is active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "data.customFields",
+            "description": "<p>Translation unique parameters (Defined as array of key / value parameters)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "data.createdAt",
+            "description": "<p>Creation date of translation</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "data.updatedAt",
+            "description": "<p>Update date of translation</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n       \"meta\": {\n       \"total\": 4,\n       \"perPage\": 20,\n       \"currentPage\": 1,\n       \"lastPage\": 1,\n       \"link\": \"http://api.gzero.dev:8000/v1/admin/blocks/1/translations\"\n   },\n   \"params\": {\n       \"page\": 1,\n       \"perPage\": 20,\n       \"filter\": [],\n       \"orderBy\": []\n   },\n   \"data\": [\n       {BlockTranslations},\n       ...\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/admin/blocks/:id/translations",
+    "title": "3. POST newly created entity",
+    "version": "0.1.0",
+    "name": "PostBlockTranslation",
+    "group": "Block_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Block ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Stores newly created block translation in database</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/api/v1/admin/blocks/1/translations",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockTranslationController.php",
+    "groupTitle": "Block_Translations",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Translation id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "lang",
+            "description": "<p>Language code</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Title</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "customFields",
+            "description": "<p>Translation unique parameters (Defined as array of key / value parameters)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date of translation</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date of translation</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example block title\",\n  \"body\": \"Example block body\",\n  \"isActive\": true,\n  \"customFields\": {\n      \"fieldName\": \"fieldValue\",\n      \"anotherFieldName\": \"anotherFieldValue\",\n      \"lastFieldName\": \"lastFieldValue\"\n  },\n  \"createdAt\": \"2015-12-13 12:11:04\",\n  \"updatedAt\": \"2015-12-13 12:11:04\"\n  },\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/admin/blocks/:id/translations",
+    "title": "4. PUT newly created revision",
+    "version": "0.1.0",
+    "name": "PutBlockTranslation",
+    "group": "Block_Translations",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p> "
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The Block ID</p> "
+          }
+        ]
+      }
+    },
+    "description": "<p>Each translations update always creates new record in database, for history revision</p> ",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/api/v1/admin/blocks/1/translations",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockTranslationController.php",
+    "groupTitle": "Block_Translations",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Translation id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "lang",
+            "description": "<p>Language code</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Title</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Boolean</p> ",
+            "optional": false,
+            "field": "isActive",
+            "description": "<p>Is active flag</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "customFields",
+            "description": "<p>Translation unique parameters (Defined as array of key / value parameters)</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>Creation date of translation</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Date</p> ",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>Update date of translation</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example block title\",\n  \"body\": \"Example block body\",\n  \"isActive\": true,\n  \"customFields\": {\n      \"fieldName\": \"fieldValue\",\n      \"anotherFieldName\": \"anotherFieldValue\",\n      \"lastFieldName\": \"lastFieldValue\"\n  },\n  \"createdAt\": \"2015-12-13 12:11:04\",\n  \"updatedAt\": \"2015-12-13 12:11:04\"\n  },\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
     "url": "/admin/contents",
     "title": "8. DELETE the specified entity",
     "version": "0.1.0",
@@ -82,6 +1311,34 @@
             "group": "Success 200",
             "type": "<p>Number</p> ",
             "optional": false,
+            "field": "parentId",
+            "description": "<p>Content parent id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Content type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "theme",
+            "description": "<p>Content theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "weight",
+            "description": "<p>Content weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
             "field": "rating",
             "description": "<p>Content rating</p> "
           },
@@ -94,31 +1351,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Array</p> ",
+            "type": "<p>Boolean</p> ",
             "optional": false,
-            "field": "path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Array</p> ",
-            "optional": false,
-            "field": "translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
+            "field": "isActive",
+            "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
@@ -150,10 +1386,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Boolean</p> ",
+            "type": "<p>Array</p> ",
             "optional": false,
-            "field": "isActive",
-            "description": "<p>Is content active flag</p> "
+            "field": "path",
+            "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
@@ -175,13 +1411,34 @@
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "route",
+            "description": "<p>Route for this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "author",
+            "description": "<p>Author of this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"theme\": null,\n  \"weight\": 0,\n  \"isActive\": false,\n  \"isOnHome\": false,\n  \"isCommentAllowed\": true,\n  \"isPromoted\": false,\n  \"isSticky\": true,\n  \"rating\": 1,\n  \"visits\": 1,\n  \"path\": [\n      1\n  ],\n  \"publishedAt\": \"2015-12-13 12:10:59\",\n  \"createdAt\": \"2015-12-13 12:10:59\",\n  \"updatedAt\": \"2015-12-13 12:10:59\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2015-12-13 12:10:59\",\n      \"updatedAt\": \"2015-12-13 12:10:59\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2015-12-13 12:10:59\",\n              \"updatedAt\": \"2015-12-13 12:10:59\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"example-url\",\n              \"isActive\": true,\n              \"createdAt\": \"2015-12-13 12:10:59\",\n              \"updatedAt\": \"2015-12-13 12:10:59\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"admin@gzero.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": true,\n          \"createdAt\": \"2015-12-13 12:10:59\",\n          \"updatedAt\": \"2015-12-13 12:10:59\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": true,\n          \"createdAt\": \"2015-12-13 12:10:59\",\n          \"updatedAt\": \"2015-12-13 12:10:59\"\n      }\n  ]\n}",
           "type": "json"
         }
       ]
@@ -322,6 +1579,34 @@
             "group": "Success 200",
             "type": "<p>Number</p> ",
             "optional": false,
+            "field": "data.parentId",
+            "description": "<p>Content parent id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.type",
+            "description": "<p>Content type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.theme",
+            "description": "<p>Content theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "data.weight",
+            "description": "<p>Content weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
             "field": "data.rating",
             "description": "<p>Content rating</p> "
           },
@@ -334,31 +1619,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Array</p> ",
+            "type": "<p>Boolean</p> ",
             "optional": false,
-            "field": "data.path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "data.route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "data.author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Array</p> ",
-            "optional": false,
-            "field": "data.translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
+            "field": "data.isActive",
+            "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
@@ -390,10 +1654,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Boolean</p> ",
+            "type": "<p>Array</p> ",
             "optional": false,
-            "field": "data.isActive",
-            "description": "<p>Is content active flag</p> "
+            "field": "data.path",
+            "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
@@ -415,6 +1679,27 @@
             "optional": false,
             "field": "data.updatedAt",
             "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "data.route",
+            "description": "<p>Route for this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "data.author",
+            "description": "<p>Author of this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "data.translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
           }
         ]
       },
@@ -478,6 +1763,34 @@
             "group": "Success 200",
             "type": "<p>Number</p> ",
             "optional": false,
+            "field": "parentId",
+            "description": "<p>Content parent id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Content type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "theme",
+            "description": "<p>Content theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "weight",
+            "description": "<p>Content weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
             "field": "rating",
             "description": "<p>Content rating</p> "
           },
@@ -490,38 +1803,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Array</p> ",
+            "type": "<p>Boolean</p> ",
             "optional": false,
-            "field": "path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Array</p> ",
-            "optional": false,
-            "field": "translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Array</p> ",
-            "optional": false,
-            "field": "children",
-            "description": "<p>List of children (Array of Objects)</p> "
+            "field": "isActive",
+            "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
@@ -553,10 +1838,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Boolean</p> ",
+            "type": "<p>Array</p> ",
             "optional": false,
-            "field": "isActive",
-            "description": "<p>Is content active flag</p> "
+            "field": "path",
+            "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
@@ -578,13 +1863,34 @@
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "route",
+            "description": "<p>Route for this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "author",
+            "description": "<p>Author of this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n   \"children\": [\n       {Content},\n       ...\n   ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"theme\": null,\n  \"weight\": 0,\n  \"isActive\": false,\n  \"isOnHome\": false,\n  \"isCommentAllowed\": true,\n  \"isPromoted\": false,\n  \"isSticky\": true,\n  \"rating\": 1,\n  \"visits\": 1,\n  \"path\": [\n      1\n  ],\n  \"publishedAt\": \"2015-12-13 12:10:59\",\n  \"createdAt\": \"2015-12-13 12:10:59\",\n  \"updatedAt\": \"2015-12-13 12:10:59\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2015-12-13 12:10:59\",\n      \"updatedAt\": \"2015-12-13 12:10:59\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2015-12-13 12:10:59\",\n              \"updatedAt\": \"2015-12-13 12:10:59\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"example-url\",\n              \"isActive\": true,\n              \"createdAt\": \"2015-12-13 12:10:59\",\n              \"updatedAt\": \"2015-12-13 12:10:59\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"admin@gzero.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": true,\n          \"createdAt\": \"2015-12-13 12:10:59\",\n          \"updatedAt\": \"2015-12-13 12:10:59\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": true,\n          \"createdAt\": \"2015-12-13 12:10:59\",\n          \"updatedAt\": \"2015-12-13 12:10:59\"\n      }\n  ]\n   \"children\": [\n       {Content},\n       ...\n   ]\n}",
           "type": "json"
         }
       ]
@@ -712,6 +2018,34 @@
             "group": "Success 200",
             "type": "<p>Number</p> ",
             "optional": false,
+            "field": "data.parentId",
+            "description": "<p>Content parent id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.type",
+            "description": "<p>Content type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "data.theme",
+            "description": "<p>Content theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "data.weight",
+            "description": "<p>Content weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
             "field": "data.rating",
             "description": "<p>Content rating</p> "
           },
@@ -724,31 +2058,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Array</p> ",
+            "type": "<p>Boolean</p> ",
             "optional": false,
-            "field": "data.path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "data.route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "data.author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Array</p> ",
-            "optional": false,
-            "field": "data.translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
+            "field": "data.isActive",
+            "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
@@ -780,10 +2093,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Boolean</p> ",
+            "type": "<p>Array</p> ",
             "optional": false,
-            "field": "data.isActive",
-            "description": "<p>Is content active flag</p> "
+            "field": "data.path",
+            "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
@@ -805,6 +2118,27 @@
             "optional": false,
             "field": "data.updatedAt",
             "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "data.route",
+            "description": "<p>Route for this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "data.author",
+            "description": "<p>Author of this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "data.translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
           }
         ]
       },
@@ -855,6 +2189,34 @@
             "group": "Success 200",
             "type": "<p>Number</p> ",
             "optional": false,
+            "field": "parentId",
+            "description": "<p>Content parent id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Content type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "theme",
+            "description": "<p>Content theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "weight",
+            "description": "<p>Content weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
             "field": "rating",
             "description": "<p>Content rating</p> "
           },
@@ -867,38 +2229,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Array</p> ",
+            "type": "<p>Boolean</p> ",
             "optional": false,
-            "field": "path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Array</p> ",
-            "optional": false,
-            "field": "translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Array</p> ",
-            "optional": false,
-            "field": "children",
-            "description": "<p>List of children (Array of Objects)</p> "
+            "field": "isActive",
+            "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
@@ -930,10 +2264,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Boolean</p> ",
+            "type": "<p>Array</p> ",
             "optional": false,
-            "field": "isActive",
-            "description": "<p>Is content active flag</p> "
+            "field": "path",
+            "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
@@ -955,13 +2289,34 @@
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "route",
+            "description": "<p>Route for this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "author",
+            "description": "<p>Author of this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n   \"children\": [\n       {Content},\n       ...\n   ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"theme\": null,\n  \"weight\": 0,\n  \"isActive\": false,\n  \"isOnHome\": false,\n  \"isCommentAllowed\": true,\n  \"isPromoted\": false,\n  \"isSticky\": true,\n  \"rating\": 1,\n  \"visits\": 1,\n  \"path\": [\n      1\n  ],\n  \"publishedAt\": \"2015-12-13 12:10:59\",\n  \"createdAt\": \"2015-12-13 12:10:59\",\n  \"updatedAt\": \"2015-12-13 12:10:59\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2015-12-13 12:10:59\",\n      \"updatedAt\": \"2015-12-13 12:10:59\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2015-12-13 12:10:59\",\n              \"updatedAt\": \"2015-12-13 12:10:59\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"example-url\",\n              \"isActive\": true,\n              \"createdAt\": \"2015-12-13 12:10:59\",\n              \"updatedAt\": \"2015-12-13 12:10:59\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"admin@gzero.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": true,\n          \"createdAt\": \"2015-12-13 12:10:59\",\n          \"updatedAt\": \"2015-12-13 12:10:59\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": true,\n          \"createdAt\": \"2015-12-13 12:10:59\",\n          \"updatedAt\": \"2015-12-13 12:10:59\"\n      }\n  ]\n   \"children\": [\n       {Content},\n       ...\n   ]\n}",
           "type": "json"
         }
       ]
@@ -1005,6 +2360,34 @@
             "group": "Success 200",
             "type": "<p>Number</p> ",
             "optional": false,
+            "field": "parentId",
+            "description": "<p>Content parent id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Content type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "theme",
+            "description": "<p>Content theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "weight",
+            "description": "<p>Content weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
             "field": "rating",
             "description": "<p>Content rating</p> "
           },
@@ -1017,31 +2400,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Array</p> ",
+            "type": "<p>Boolean</p> ",
             "optional": false,
-            "field": "path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Array</p> ",
-            "optional": false,
-            "field": "translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
+            "field": "isActive",
+            "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
@@ -1073,10 +2435,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Boolean</p> ",
+            "type": "<p>Array</p> ",
             "optional": false,
-            "field": "isActive",
-            "description": "<p>Is content active flag</p> "
+            "field": "path",
+            "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
@@ -1098,13 +2460,34 @@
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "route",
+            "description": "<p>Route for this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "author",
+            "description": "<p>Author of this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"theme\": null,\n  \"weight\": 0,\n  \"isActive\": false,\n  \"isOnHome\": false,\n  \"isCommentAllowed\": true,\n  \"isPromoted\": false,\n  \"isSticky\": true,\n  \"rating\": 1,\n  \"visits\": 1,\n  \"path\": [\n      1\n  ],\n  \"publishedAt\": \"2015-12-13 12:10:59\",\n  \"createdAt\": \"2015-12-13 12:10:59\",\n  \"updatedAt\": \"2015-12-13 12:10:59\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2015-12-13 12:10:59\",\n      \"updatedAt\": \"2015-12-13 12:10:59\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2015-12-13 12:10:59\",\n              \"updatedAt\": \"2015-12-13 12:10:59\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"example-url\",\n              \"isActive\": true,\n              \"createdAt\": \"2015-12-13 12:10:59\",\n              \"updatedAt\": \"2015-12-13 12:10:59\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"admin@gzero.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": true,\n          \"createdAt\": \"2015-12-13 12:10:59\",\n          \"updatedAt\": \"2015-12-13 12:10:59\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": true,\n          \"createdAt\": \"2015-12-13 12:10:59\",\n          \"updatedAt\": \"2015-12-13 12:10:59\"\n      }\n  ]\n}",
           "type": "json"
         }
       ]
@@ -1148,6 +2531,34 @@
             "group": "Success 200",
             "type": "<p>Number</p> ",
             "optional": false,
+            "field": "parentId",
+            "description": "<p>Content parent id</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "type",
+            "description": "<p>Content type</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "theme",
+            "description": "<p>Content theme</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "weight",
+            "description": "<p>Content weight</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
             "field": "rating",
             "description": "<p>Content rating</p> "
           },
@@ -1160,31 +2571,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Array</p> ",
+            "type": "<p>Boolean</p> ",
             "optional": false,
-            "field": "path",
-            "description": "<p>Tree path for this node</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "route",
-            "description": "<p>Route for this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Object</p> ",
-            "optional": false,
-            "field": "author",
-            "description": "<p>Author of this Content</p> "
-          },
-          {
-            "group": "Success 200",
-            "type": "<p>Array</p> ",
-            "optional": false,
-            "field": "translations",
-            "description": "<p>List of active translations (Array of Objects)</p> "
+            "field": "isActive",
+            "description": "<p>Is content active flag</p> "
           },
           {
             "group": "Success 200",
@@ -1216,10 +2606,10 @@
           },
           {
             "group": "Success 200",
-            "type": "<p>Boolean</p> ",
+            "type": "<p>Array</p> ",
             "optional": false,
-            "field": "isActive",
-            "description": "<p>Is content active flag</p> "
+            "field": "path",
+            "description": "<p>Tree path for this node</p> "
           },
           {
             "group": "Success 200",
@@ -1241,13 +2631,34 @@
             "optional": false,
             "field": "updatedAt",
             "description": "<p>Update date</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "route",
+            "description": "<p>Route for this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Object</p> ",
+            "optional": false,
+            "field": "author",
+            "description": "<p>Author of this Content</p> "
+          },
+          {
+            "group": "Success 200",
+            "type": "<p>Array</p> ",
+            "optional": false,
+            "field": "translations",
+            "description": "<p>List of active translations (Array of Objects)</p> "
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"isActive\": false,\n  \"path\": [\n      1\n  ],\n  \"createdAt\": \"2014-12-23T13:28:23+0000\",\n  \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2014-12-23T13:28:23+0000\",\n      \"updatedAt\": \"2014-12-23T13:28:23+0000\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"non\",\n              \"isActive\": 1,\n              \"createdAt\": \"2014-12-23T13:28:23+0000\",\n              \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"a@a.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": 1,\n          \"createdAt\": \"2014-12-23T13:28:23+0000\",\n          \"updatedAt\": \"2014-12-23T13:28:23+0000\"\n      }\n  ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"type\": \"category\",\n  \"weight\": 3,\n  \"theme\": null,\n  \"weight\": 0,\n  \"isActive\": false,\n  \"isOnHome\": false,\n  \"isCommentAllowed\": true,\n  \"isPromoted\": false,\n  \"isSticky\": true,\n  \"rating\": 1,\n  \"visits\": 1,\n  \"path\": [\n      1\n  ],\n  \"publishedAt\": \"2015-12-13 12:10:59\",\n  \"createdAt\": \"2015-12-13 12:10:59\",\n  \"updatedAt\": \"2015-12-13 12:10:59\",\n  \"route\": {\n      \"id\": 1,\n      \"createdAt\": \"2015-12-13 12:10:59\",\n      \"updatedAt\": \"2015-12-13 12:10:59\",\n      \"translations\": [\n          {\n              \"id\": 1,\n              \"lang\": \"en\",\n              \"url\": \"example-url\",\n              \"isActive\": 1,\n              \"createdAt\": \"2015-12-13 12:10:59\",\n              \"updatedAt\": \"2015-12-13 12:10:59\"\n          },\n          {\n              \"id\": 2,\n              \"lang\": \"pl\",\n              \"url\": \"example-url\",\n              \"isActive\": true,\n              \"createdAt\": \"2015-12-13 12:10:59\",\n              \"updatedAt\": \"2015-12-13 12:10:59\"\n          }\n      ]\n  },\n  \"author\": {\n      \"id\": 1,\n      \"email\": \"admin@gzero.pl\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Doe\"\n  },\n  \"translations\": [\n      {\n          \"id\": 1,\n          \"lang\": \"en\",\n          \"title\": \"Example title\",\n          \"body\": \"Example body\",\n          \"isActive\": true,\n          \"createdAt\": \"2015-12-13 12:10:59\",\n          \"updatedAt\": \"2015-12-13 12:10:59\"\n      },\n      {\n          \"id\": 2,\n          \"lang\": \"pl\",\n          \"title\": \"title\",\n          \"body\": \"Example body\",\n          \"isActive\": true,\n          \"createdAt\": \"2015-12-13 12:10:59\",\n          \"updatedAt\": \"2015-12-13 12:10:59\"\n      }\n  ]\n}",
           "type": "json"
         }
       ]
@@ -1298,7 +2709,7 @@
             "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
-            "description": "<p>ContentRoute id</p> "
+            "description": "<p>Route id</p> "
           },
           {
             "group": "Success 200",
@@ -1326,7 +2737,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"createdAt\": \"2015-05-16T13:58:36+0000\",\n  \"updatedAt\": \"2015-05-16T13:58:36+0000\",\n  \"translations\": [\n     {\n         \"id\": 45,\n         \"lang\": \"en\",\n         \"url\": \"about-us\",\n         \"isActive\": 1,\n         \"createdAt\": \"2015-05-16T13:58:36+0000\",\n         \"updatedAt\": \"2015-05-16T13:58:36+0000\"\n     },\n     {\n         \"id\": 46,\n         \"lang\": \"pl\",\n         \"url\": \"o-nas\",\n         \"isActive\": 1,\n         \"createdAt\": \"2015-05-16T13:58:36+0000\",\n         \"updatedAt\": \"2015-05-16T13:58:36+0000\"\n     }\n  ]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"createdAt\": \"2015-12-13 12:11:04\",\n  \"updatedAt\": \"2015-12-13 12:11:04\",\n  \"translations\": [\n     {\n         \"id\": 45,\n         \"lang\": \"en\",\n         \"url\": \"about-us\",\n         \"isActive\": 1,\n         \"createdAt\": \"2015-12-13 12:11:04\",\n         \"updatedAt\": \"2015-12-13 12:11:04\"\n     },\n     {\n         \"id\": 46,\n         \"lang\": \"pl\",\n         \"url\": \"o-nas\",\n         \"isActive\": 1,\n         \"createdAt\": \"2015-12-13 12:11:04\",\n         \"updatedAt\": \"2015-12-13 12:11:04\"\n     }\n  ]\n}",
           "type": "json"
         }
       ]
@@ -1449,7 +2860,7 @@
             "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
-            "description": "<p>ContentTranslation id</p> "
+            "description": "<p>Translation id</p> "
           },
           {
             "group": "Success 200",
@@ -1498,7 +2909,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": 1,\n  \"createdAt\": \"2014-12-24T10:57:39+0000\",\n  \"updatedAt\": \"2014-12-24T10:57:39+0000\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": true,\n  \"createdAt\": \"2015-12-13 12:10:59\",\n  \"updatedAt\": \"2015-12-13 12:10:59\"\n}",
           "type": "json"
         }
       ]
@@ -1630,44 +3041,51 @@
           },
           {
             "group": "Success 200",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>Translation id</p> "
+          },
+          {
+            "group": "Success 200",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "lang",
+            "field": "data.lang",
             "description": "<p>Language code</p> "
           },
           {
             "group": "Success 200",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "title",
+            "field": "data.title",
             "description": "<p>Title</p> "
           },
           {
             "group": "Success 200",
             "type": "<p>String</p> ",
             "optional": false,
-            "field": "body",
+            "field": "data.body",
             "description": "<p>Body</p> "
           },
           {
             "group": "Success 200",
             "type": "<p>Boolean</p> ",
             "optional": false,
-            "field": "isActive",
+            "field": "data.isActive",
             "description": "<p>Is active flag</p> "
           },
           {
             "group": "Success 200",
             "type": "<p>Date</p> ",
             "optional": false,
-            "field": "createdAt",
+            "field": "data.createdAt",
             "description": "<p>Creation date of translation</p> "
           },
           {
             "group": "Success 200",
             "type": "<p>Date</p> ",
             "optional": false,
-            "field": "updatedAt",
+            "field": "data.updatedAt",
             "description": "<p>Update date of translation</p> "
           }
         ]
@@ -1726,7 +3144,7 @@
             "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
-            "description": "<p>ContentTranslation id</p> "
+            "description": "<p>Translation id</p> "
           },
           {
             "group": "Success 200",
@@ -1775,7 +3193,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": 1,\n  \"createdAt\": \"2014-12-24T10:57:39+0000\",\n  \"updatedAt\": \"2014-12-24T10:57:39+0000\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": true,\n  \"createdAt\": \"2015-12-13 12:10:59\",\n  \"updatedAt\": \"2015-12-13 12:10:59\"\n}",
           "type": "json"
         }
       ]
@@ -1826,7 +3244,7 @@
             "type": "<p>Number</p> ",
             "optional": false,
             "field": "id",
-            "description": "<p>ContentTranslation id</p> "
+            "description": "<p>Translation id</p> "
           },
           {
             "group": "Success 200",
@@ -1875,7 +3293,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": 1,\n  \"createdAt\": \"2014-12-24T10:57:39+0000\",\n  \"updatedAt\": \"2014-12-24T10:57:39+0000\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"id\": 1,\n  \"lang\": \"en\",\n  \"title\": \"Example title\",\n  \"body\": \"Example body\",\n  \"isActive\": true,\n  \"createdAt\": \"2015-12-13 12:10:59\",\n  \"updatedAt\": \"2015-12-13 12:10:59\"\n}",
           "type": "json"
         }
       ]

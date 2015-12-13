@@ -51,6 +51,7 @@ class BlockTransformer extends AbstractTransformer {
             'region'      => $block['region'],
             'filter'      => $block['filter'],
             'options'     => $block['options'],
+            'theme'       => $block['theme'],
             'weight'      => (int) $block['weight'],
             'isActive'    => (bool) $block['isActive'],
             'isCacheable' => (bool) $block['isActive'],

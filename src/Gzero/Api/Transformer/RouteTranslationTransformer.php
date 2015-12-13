@@ -30,7 +30,7 @@ class RouteTranslationTransformer extends AbstractTransformer {
             'id'        => (int) $translation['id'],
             'langCode'  => $translation['langCode'],
             'url'       => $translation['url'],
-            'isActive'  => (int) $translation['isActive'],
+            'isActive'  => (bool) $translation['isActive'],
             'createdAt' => $translation['createdAt'],
             'updatedAt' => $translation['updatedAt'],
         ];

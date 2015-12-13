@@ -32,7 +32,7 @@ class BlockTranslationTransformer extends AbstractTransformer {
             'title'        => $translation['title'],
             'body'         => $translation['body'],
             'customFields' => json_decode($translation['customFields'], true), // Eloquent\Model - toArray() not utilize mutators
-            'isActive'     => (int) $translation['isActive'],
+            'isActive'     => (bool) $translation['isActive'],
             'createdAt'    => $translation['createdAt'],
             'updatedAt'    => $translation['updatedAt'],
         ];

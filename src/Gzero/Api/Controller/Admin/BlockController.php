@@ -245,168 +245,80 @@ class BlockController extends ApiController {
 /**
  * @apiDefine           Block
  * @apiSuccess {Number} id Block id
- * @apiSuccess {Number} rating Block rating
- * @apiSuccess {Number} visits Block visit counter
- * @apiSuccess {Array} path Tree path for this node
- * @apiSuccess {Object} route Route for this Block
- * @apiSuccess {Object} author Author of this Block
- * @apiSuccess {Array} translations List of active translations (Array of Objects)
- * @apiSuccess {Boolean} isOnHome Home page flag
- * @apiSuccess {Boolean} isCommentAllowed Is comment allowed flag
- * @apiSuccess {Boolean} isPromoted Is promoted flag
- * @apiSuccess {Boolean} isSticky Is sticky flag
+ * @apiSuccess {String} type Block type
+ * @apiSuccess {String} region Block region
+ * @apiSuccess {Array} filter Block visibility configuration in form of Tree node path for each content
+ * @apiSuccess {Array} options Block unique parameters (Defined as array of key / value parameters)
+ * @apiSuccess {String} theme Block theme
+ * @apiSuccess {Number} weight Block weight
  * @apiSuccess {Boolean} isActive Is block active flag
- * @apiSuccess {Date} publishedAt Date of publication
+ * @apiSuccess {Boolean} isCacheable Can block be cached flag
  * @apiSuccess {Date} createdAt Creation date
  * @apiSuccess {Date} updatedAt Update date
+ * @apiSuccess {Object} author Author of this Block
+ * @apiSuccess {Array} Translations List of active translations (Array of Objects)
  *
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
  *{
  *   "id": 1,
- *   "type": "category",
- *   "weight": 3,
- *   "isActive": false,
- *   "path": [
- *       1
- *   ],
- *   "createdAt": "2014-12-23T13:28:23+0000",
- *   "updatedAt": "2014-12-23T13:28:23+0000",
- *   "route": {
- *       "id": 1,
- *       "createdAt": "2014-12-23T13:28:23+0000",
- *       "updatedAt": "2014-12-23T13:28:23+0000",
- *       "translations": [
- *           {
- *               "id": 1,
- *               "lang": "en",
- *               "url": "example-url",
- *               "isActive": 1,
- *               "createdAt": "2014-12-23T13:28:23+0000",
- *               "updatedAt": "2014-12-23T13:28:23+0000"
- *           },
- *           {
- *               "id": 2,
- *               "lang": "pl",
- *               "url": "non",
- *               "isActive": 1,
- *               "createdAt": "2014-12-23T13:28:23+0000",
- *               "updatedAt": "2014-12-23T13:28:23+0000"
- *           }
+ *   "type": "basic",
+ *   "region": "header",
+ *   "filter": {
+ *       "+": [
+ *          "1/2/*"
+ *       ],
+ *       "-": [
+ *          "2"
  *       ]
  *   },
+ *   "options": {
+ *       "optionName": "optionValue",
+ *       "anotherOptionName": "anotherOptionValue",
+ *       "lastOptionName": "lastOptionValue"
+ *   },
+ *   "theme": null,
+ *   "weight": 3,
+ *   "isActive": false,
+ *   "isCacheable": false,
+ *   "createdAt": "2015-12-13 12:11:04",
+ *   "updatedAt": "2015-12-13 12:11:04",
  *   "author": {
  *       "id": 1,
- *       "email": "a@a.pl",
+ *       "email": "admin@gzero.pl",
  *       "firstName": "John",
  *       "lastName": "Doe"
  *   },
  *   "translations": [
- *       {
- *           "id": 1,
- *           "lang": "en",
- *           "title": "Example title",
- *           "body": "Example body",
- *           "isActive": 1,
- *           "createdAt": "2014-12-23T13:28:23+0000",
- *           "updatedAt": "2014-12-23T13:28:23+0000"
+ *        {
+ *            "id": 1,
+ *            "lang": "en",
+ *            "title": "Example block title",
+ *            "body": "Example block body",
+ *            "isActive": true,
+ *            "customFields": {
+ *                "fieldName": "fieldValue",
+ *                "anotherFieldName": "anotherFieldValue",
+ *                "lastFieldName": "lastFieldValue"
+ *            },
+ *            "createdAt": "2015-12-13 12:11:04",
+ *            "updatedAt": "2015-12-13 12:11:04"
  *       },
  *       {
- *           "id": 2,
+ *           "id": 1,
  *           "lang": "pl",
- *           "title": "title",
- *           "body": "Example body",
- *           "isActive": 1,
- *           "createdAt": "2014-12-23T13:28:23+0000",
- *           "updatedAt": "2014-12-23T13:28:23+0000"
- *       }
- *   ]
- *}
- */
-/**
- * @apiDefine           BlockTree
- * @apiSuccess {Number} id Block id
- * @apiSuccess {Number} rating Block rating
- * @apiSuccess {Number} visits Block visit counter
- * @apiSuccess {Array} path Tree path for this node
- * @apiSuccess {Object} route Route for this Block
- * @apiSuccess {Object} author Author of this Block
- * @apiSuccess {Array} translations List of active translations (Array of Objects)
- * @apiSuccess {Array} children List of children (Array of Objects)
- * @apiSuccess {Boolean} isOnHome Home page flag
- * @apiSuccess {Boolean} isCommentAllowed Is comment allowed flag
- * @apiSuccess {Boolean} isPromoted Is promoted flag
- * @apiSuccess {Boolean} isSticky Is sticky flag
- * @apiSuccess {Boolean} isActive Is block active flag
- * @apiSuccess {Date} publishedAt Date of publication
- * @apiSuccess {Date} createdAt Creation date
- * @apiSuccess {Date} updatedAt Update date
- *
- * @apiSuccessExample   Success-Response:
- * HTTP/1.1 200 OK
- *{
- *   "id": 1,
- *   "type": "category",
- *   "weight": 3,
- *   "isActive": false,
- *   "path": [
- *       1
- *   ],
- *   "createdAt": "2014-12-23T13:28:23+0000",
- *   "updatedAt": "2014-12-23T13:28:23+0000",
- *   "route": {
- *       "id": 1,
- *       "createdAt": "2014-12-23T13:28:23+0000",
- *       "updatedAt": "2014-12-23T13:28:23+0000",
- *       "translations": [
- *           {
- *               "id": 1,
- *               "lang": "en",
- *               "url": "example-url",
- *               "isActive": 1,
- *               "createdAt": "2014-12-23T13:28:23+0000",
- *               "updatedAt": "2014-12-23T13:28:23+0000"
+ *           "title": "Example block title",
+ *           "body": "Example block body",
+ *           "isActive": true,
+ *              "customFields": {
+ *                  "fieldName": "fieldValue",
+ *                  "anotherFieldName": "anotherFieldValue",
+ *                  "lastFieldName": "lastFieldValue"
  *           },
- *           {
- *               "id": 2,
- *               "lang": "pl",
- *               "url": "non",
- *               "isActive": 1,
- *               "createdAt": "2014-12-23T13:28:23+0000",
- *               "updatedAt": "2014-12-23T13:28:23+0000"
- *           }
- *       ]
- *   },
- *   "author": {
- *       "id": 1,
- *       "email": "a@a.pl",
- *       "firstName": "John",
- *       "lastName": "Doe"
- *   },
- *   "translations": [
- *       {
- *           "id": 1,
- *           "lang": "en",
- *           "title": "Example title",
- *           "body": "Example body",
- *           "isActive": 1,
- *           "createdAt": "2014-12-23T13:28:23+0000",
- *           "updatedAt": "2014-12-23T13:28:23+0000"
+ *           "createdAt": "2015-12-13 12:11:04",
+ *           "updatedAt": "2015-12-13 12:11:04"
  *       },
- *       {
- *           "id": 2,
- *           "lang": "pl",
- *           "title": "title",
- *           "body": "Example body",
- *           "isActive": 1,
- *           "createdAt": "2014-12-23T13:28:23+0000",
- *           "updatedAt": "2014-12-23T13:28:23+0000"
- *       }
- *   ]
- *    "children": [
- *        {Block},
- *        ...
- *    ]
+ *  ]
  *}
  */
 
@@ -414,20 +326,18 @@ class BlockController extends ApiController {
  * @apiDefine           BlockCollection
  * @apiSuccess {Array[]} data Array of Blocks
  * @apiSuccess {Number} data.id Block id
- * @apiSuccess {Number} data.rating Block rating
- * @apiSuccess {Number} data.visits Block visit counter
- * @apiSuccess {Array} data.path Tree path for this node
- * @apiSuccess {Object} data.route Route for this Block
- * @apiSuccess {Object} data.author Author of this Block
- * @apiSuccess {Array} data.translations List of active translations (Array of Objects)
- * @apiSuccess {Boolean} data.isOnHome Home page flag
- * @apiSuccess {Boolean} data.isCommentAllowed Is comment allowed flag
- * @apiSuccess {Boolean} data.isPromoted Is promoted flag
- * @apiSuccess {Boolean} data.isSticky Is sticky flag
+ * @apiSuccess {String} data.type Block type
+ * @apiSuccess {String} data.region Block region
+ * @apiSuccess {Array} data.filter Block visibility configuration in form of Tree node path for each content
+ * @apiSuccess {Array} data.options Block unique parameters (Defined as array of key / value parameters)
+ * @apiSuccess {String} data.theme Block theme
+ * @apiSuccess {Number} data.weight Block weight
  * @apiSuccess {Boolean} data.isActive Is block active flag
- * @apiSuccess {Date} data.publishedAt Date of publication
+ * @apiSuccess {Boolean} data.isCacheable Can block be cached flag
  * @apiSuccess {Date} data.createdAt Creation date
  * @apiSuccess {Date} data.updatedAt Update date
+ * @apiSuccess {Object} data.author Author of this Block
+ * @apiSuccess {Array} data.Translations List of active translations (Array of Objects)
  *
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK

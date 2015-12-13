@@ -235,12 +235,13 @@ class ContentTranslationController extends ApiController {
 /**
  * @apiDefine           ContentTranslationCollection
  * @apiSuccess {Array[]} translations List of active translations (Array of Objects)
- * @apiSuccess {String} lang Language code
- * @apiSuccess {String} title Title
- * @apiSuccess {String} body Body
- * @apiSuccess {Boolean} isActive Is active flag
- * @apiSuccess {Date} createdAt Creation date of translation
- * @apiSuccess {Date} updatedAt Update date of translation
+ * @apiSuccess {Number} data.id Translation id
+ * @apiSuccess {String} data.lang Language code
+ * @apiSuccess {String} data.title Title
+ * @apiSuccess {String} data.body Body
+ * @apiSuccess {Boolean} data.isActive Is active flag
+ * @apiSuccess {Date} data.createdAt Creation date of translation
+ * @apiSuccess {Date} data.updatedAt Update date of translation
  *
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
@@ -267,7 +268,7 @@ class ContentTranslationController extends ApiController {
 
 /**
  * @apiDefine           ContentTranslation
- * @apiSuccess {Number} id ContentTranslation id
+ * @apiSuccess {Number} id Translation id
  * @apiSuccess {String} lang Language code
  * @apiSuccess {String} title Title
  * @apiSuccess {String} body Body
@@ -282,9 +283,9 @@ class ContentTranslationController extends ApiController {
  *   "lang": "en",
  *   "title": "Example title",
  *   "body": "Example body",
- *   "isActive": 1,
- *   "createdAt": "2014-12-24T10:57:39+0000",
- *   "updatedAt": "2014-12-24T10:57:39+0000"
+ *   "isActive": true,
+ *   "createdAt": "2015-12-13 12:10:59",
+ *   "updatedAt": "2015-12-13 12:10:59"
  * }
  */
 

@@ -34,7 +34,7 @@ class ContentTranslationTransformer extends AbstractTransformer {
             'body'           => $translation['body'],
             'seoTitle'       => $translation['seoTitle'],
             'seoDescription' => $translation['seoDescription'],
-            'isActive'       => (int) $translation['isActive'],
+            'isActive'       => (bool) $translation['isActive'],
             'createdAt'      => $translation['createdAt'],
             'updatedAt'      => $translation['updatedAt'],
         ];

@@ -31,7 +31,7 @@ class BlockTranslationController extends ApiController {
     protected $validator;
 
     /**
-     * ContentTranslationController constructor
+     * BlockTranslationController constructor
      *
      * @param UrlParamsProcessor        $processor Url processor
      * @param BlockRepository           $block     Block repository
@@ -53,9 +53,9 @@ class BlockTranslationController extends ApiController {
      */
     public function index($id)
     {
-        $input   = $this->validator->validate('list');
-        $params  = $this->processor->process($input)->getProcessedFields();
-        $block = $this->repository->getById($id);
+        $input  = $this->validator->validate('list');
+        $params = $this->processor->process($input)->getProcessedFields();
+        $block  = $this->repository->getById($id);
         if (!empty($block)) {
             $results = $this->repository->getTranslations(
                 $block,
@@ -142,11 +142,11 @@ class BlockTranslationController extends ApiController {
     }
 
     /**
-     * Gets Content entity by id
+     * Gets Block entity by id
      *
      * @param int $id block id
      *
-     * @return \Gzero\Entity\Content
+     * @return \Gzero\Entity\Block
      */
     protected function getBlock($id)
     {
@@ -163,13 +163,13 @@ class BlockTranslationController extends ApiController {
  * @api                 {get} /admin/blocks/:id/translations 1. GET collection of translations
  * @apiVersion          0.1.0
  * @apiName             GetTranslationList
- * @apiGroup            Content Translations
+ * @apiGroup            Block Translations
  * @apiPermission       admin
- * @apiParam {Number} id The Content ID
+ * @apiParam {Number} id The Block ID
  * @apiDescription      Get collection of translation for specified block entity
  * @apiUse              Meta
  * @apiUse              Params
- * @apiUse              ContentTranslationCollection
+ * @apiUse              BlockTranslationCollection
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/v1/admin/blocks/1/translations
@@ -177,13 +177,13 @@ class BlockTranslationController extends ApiController {
 /**
  * @api                 {get} /admin/blocks/:id/translations/:id 2. GET single entity
  * @apiVersion          0.1.0
- * @apiName             GetContentTranslation
+ * @apiName             GetBlockTranslation
  * @apiGroup            Block Translations
  * @apiPermission       admin
- * @apiParam {Number} id The Content ID
- * @apiParam {Number} translationId The ContentTranslations ID
+ * @apiParam {Number} id The Block ID
+ * @apiParam {Number} translationId The BlockTranslations ID
  * @apiDescription      Get the specified block translation from database
- * @apiUse              ContentTranslation
+ * @apiUse              BlockTranslation
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/v1/admin/blocks/1/translations/1
@@ -191,12 +191,12 @@ class BlockTranslationController extends ApiController {
 /**
  * @api                 {post} /admin/blocks/:id/translations 3. POST newly created entity
  * @apiVersion          0.1.0
- * @apiName             PostContentTranslation
+ * @apiName             PostBlockTranslation
  * @apiGroup            Block Translations
  * @apiPermission       admin
- * @apiParam {Number} id The Content ID
+ * @apiParam {Number} id The Block ID
  * @apiDescription      Stores newly created block translation in database
- * @apiUse              ContentTranslation
+ * @apiUse              BlockTranslation
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/api/v1/admin/blocks/1/translations
@@ -204,12 +204,12 @@ class BlockTranslationController extends ApiController {
 /**
  * @api                 {put} /admin/blocks/:id/translations 4. PUT newly created revision
  * @apiVersion          0.1.0
- * @apiName             PutContentTranslation
+ * @apiName             PutBlockTranslation
  * @apiGroup            Block Translations
  * @apiPermission       admin
- * @apiParam {Number} id The Content ID
+ * @apiParam {Number} id The Block ID
  * @apiDescription      Each translations update always creates new record in database, for history revision
- * @apiUse              ContentTranslation
+ * @apiUse              BlockTranslation
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/api/v1/admin/blocks/1/translations
@@ -217,11 +217,11 @@ class BlockTranslationController extends ApiController {
 /**
  * @api                 {delete} /admin/blocks/:id/translations/:id  5. DELETE the specified entity
  * @apiVersion          0.1.0
- * @apiName             DeleteContentTranslation
+ * @apiName             DeleteBlockTranslation
  * @apiGroup            Block Translations
  * @apiPermission       admin
- * @apiParam {Number} id The Content ID
- * @apiParam {Number} translationId The ContentTranslations ID
+ * @apiParam {Number} id The Block ID
+ * @apiParam {Number} translationId The BlockTranslations ID
  * @apiDescription      Deletes the specified block translation from database
  * @apiSuccess {Boolean} success Success flag
  *
@@ -235,12 +235,14 @@ class BlockTranslationController extends ApiController {
 /**
  * @apiDefine           BlockTranslationCollection
  * @apiSuccess {Array[]} translations List of active translations (Array of Objects)
- * @apiSuccess {String} lang Language code
- * @apiSuccess {String} title Title
- * @apiSuccess {String} body Body
- * @apiSuccess {Boolean} isActive Is active flag
- * @apiSuccess {Date} createdAt Creation date of translation
- * @apiSuccess {Date} updatedAt Update date of translation
+ * @apiSuccess {Number} data.id Translation id
+ * @apiSuccess {String} data.lang Language code
+ * @apiSuccess {String} data.title Title
+ * @apiSuccess {String} data.body Body
+ * @apiSuccess {Boolean} data.isActive Is active flag
+ * @apiSuccess {Array} data.customFields Translation unique parameters (Defined as array of key / value parameters)
+ * @apiSuccess {Date} data.createdAt Creation date of translation
+ * @apiSuccess {Date} data.updatedAt Update date of translation
  *
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
@@ -259,19 +261,20 @@ class BlockTranslationController extends ApiController {
  *        "orderBy": []
  *    },
  *    "data": [
- *        {ContentTranslations},
+ *        {BlockTranslations},
  *        ...
  *    ]
  *}
  */
 
 /**
- * @apiDefine           ContentTranslation
- * @apiSuccess {Number} id ContentTranslation id
+ * @apiDefine           BlockTranslation
+ * @apiSuccess {Number} id Translation id
  * @apiSuccess {String} lang Language code
  * @apiSuccess {String} title Title
  * @apiSuccess {String} body Body
  * @apiSuccess {Boolean} isActive Is active flag
+ * @apiSuccess {Array} customFields Translation unique parameters (Defined as array of key / value parameters)
  * @apiSuccess {Date} createdAt Creation date of translation
  * @apiSuccess {Date} updatedAt Update date of translation
  *
@@ -280,11 +283,17 @@ class BlockTranslationController extends ApiController {
  *{
  *   "id": 1,
  *   "lang": "en",
- *   "title": "Example title",
- *   "body": "Example body",
- *   "isActive": 1,
- *   "createdAt": "2014-12-24T10:57:39+0000",
- *   "updatedAt": "2014-12-24T10:57:39+0000"
+ *   "title": "Example block title",
+ *   "body": "Example block body",
+ *   "isActive": true,
+ *   "customFields": {
+ *       "fieldName": "fieldValue",
+ *       "anotherFieldName": "anotherFieldValue",
+ *       "lastFieldName": "lastFieldValue"
+ *   },
+ *   "createdAt": "2015-12-13 12:11:04",
+ *   "updatedAt": "2015-12-13 12:11:04"
+ *   },
  * }
  */
 
