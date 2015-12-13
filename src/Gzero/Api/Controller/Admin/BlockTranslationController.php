@@ -73,8 +73,8 @@ class BlockTranslationController extends ApiController {
     /**
      * Display a specified resource.
      *
-     * @param int $id            Id of the content
-     * @param int $translationId Id of the content translation
+     * @param int $id            Id of the block
+     * @param int $translationId Id of the block translation
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -91,9 +91,9 @@ class BlockTranslationController extends ApiController {
     }
 
     /**
-     * Stores newly created translation for specified content entity in database.
+     * Stores newly created translation for specified block entity in database.
      *
-     * @param int $id Id of the content
+     * @param int $id Id of the block
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -111,7 +111,7 @@ class BlockTranslationController extends ApiController {
     /**
      * Each translations update always creates new record in database, for history revision
      *
-     * @param int $id Id of the content
+     * @param int $id Id of the block
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -123,8 +123,8 @@ class BlockTranslationController extends ApiController {
     /**
      * Remove the specified resource from database.
      *
-     * @param int $id            Id of the content
-     * @param int $translationId Id of the content translation
+     * @param int $id            Id of the block
+     * @param int $translationId Id of the block translation
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -144,7 +144,7 @@ class BlockTranslationController extends ApiController {
     /**
      * Gets Content entity by id
      *
-     * @param int $id content id
+     * @param int $id block id
      *
      * @return \Gzero\Entity\Content
      */
@@ -166,7 +166,7 @@ class BlockTranslationController extends ApiController {
  * @apiGroup            Content Translations
  * @apiPermission       admin
  * @apiParam {Number} id The Content ID
- * @apiDescription      Get collection of translation for specified content entity
+ * @apiDescription      Get collection of translation for specified block entity
  * @apiUse              Meta
  * @apiUse              Params
  * @apiUse              ContentTranslationCollection
@@ -182,7 +182,7 @@ class BlockTranslationController extends ApiController {
  * @apiPermission       admin
  * @apiParam {Number} id The Content ID
  * @apiParam {Number} translationId The ContentTranslations ID
- * @apiDescription      Get the specified content translation from database
+ * @apiDescription      Get the specified block translation from database
  * @apiUse              ContentTranslation
  *
  * @apiExample          Example usage:
@@ -195,7 +195,7 @@ class BlockTranslationController extends ApiController {
  * @apiGroup            Block Translations
  * @apiPermission       admin
  * @apiParam {Number} id The Content ID
- * @apiDescription      Stores newly created content translation in database
+ * @apiDescription      Stores newly created block translation in database
  * @apiUse              ContentTranslation
  *
  * @apiExample          Example usage:
@@ -222,7 +222,7 @@ class BlockTranslationController extends ApiController {
  * @apiPermission       admin
  * @apiParam {Number} id The Content ID
  * @apiParam {Number} translationId The ContentTranslations ID
- * @apiDescription      Deletes the specified content translation from database
+ * @apiDescription      Deletes the specified block translation from database
  * @apiSuccess {Boolean} success Success flag
  *
  * @apiExample          Example usage:
