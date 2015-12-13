@@ -21,6 +21,7 @@ group(
                     ['only' => ['index', 'show', 'store', 'update', 'destroy']]
                 );
                 get('blocks/deleted', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexOfDeleted']);
+                get('blocks/content/{id}', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexForSpecificContent']);
                 // Contents
                 get('contents/tree/{id?}', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexTree']);
                 get('contents/deleted', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexOfDeleted']);

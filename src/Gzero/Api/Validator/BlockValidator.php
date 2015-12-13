@@ -20,7 +20,7 @@ class BlockValidator extends AbstractValidator {
      * @var array
      */
     protected $rules = [
-        'list'   => [
+        'list'        => [
             'lang'     => 'required_with:sort|in:pl,en,de,fr',
             'page'     => 'numeric',
             'perPage'  => 'numeric',
@@ -30,7 +30,8 @@ class BlockValidator extends AbstractValidator {
             'level'    => '',
             'trashed'  => ''
         ],
-        'create' => [
+        'listContent' => [],
+        'create'      => [
             'type'                  => 'required|in:basic,menu,slider,content,widget',
             'region'                => '',
             'weight'                => 'numeric',
@@ -43,14 +44,14 @@ class BlockValidator extends AbstractValidator {
             'translations.title'    => '',
             'translations.body'     => '',
         ],
-        'update' => [
-            'region'                => '',
-            'weight'                => 'numeric',
-            'filter'                => '',
-            'options'               => '',
-            'widget'                => '',
-            'isCacheable'           => 'boolean',
-            'isActive'              => 'boolean',
+        'update'      => [
+            'region'      => '',
+            'weight'      => 'numeric',
+            'filter'      => '',
+            'options'     => '',
+            'widget'      => '',
+            'isCacheable' => 'boolean',
+            'isActive'    => 'boolean',
         ]
     ];
 

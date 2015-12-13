@@ -4,7 +4,9 @@ use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\BlockTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\BlockValidator;
+use Gzero\Core\BlockFinder;
 use Gzero\Repository\BlockRepository;
+use Gzero\Repository\ContentRepository;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -26,22 +28,41 @@ class BlockController extends ApiController {
     protected $repository;
 
     /**
+     * @var ContentRepository
+     */
+    protected $contentRepository;
+
+    /**
      * @var BlockValidator
      */
     protected $validator;
+
+    /**
+     * @var BlockFinder
+     */
+    protected $finder;
 
     /**
      * BlockController constructor.
      *
      * @param UrlParamsProcessor $processor Url processor
      * @param BlockRepository    $block     Block repository
+     * @param ContentRepository  $content   Content repository
      * @param BlockValidator     $validator Block validator
+     * @param BlockFinder        $finder    Block Finder
      */
-    public function __construct(UrlParamsProcessor $processor, BlockRepository $block, BlockValidator $validator)
-    {
+    public function __construct(
+        UrlParamsProcessor $processor,
+        BlockRepository $block,
+        ContentRepository $content,
+        BlockValidator $validator,
+        BlockFinder $finder
+    ) {
         parent::__construct($processor);
-        $this->validator  = $validator->setData(\Input::all());
-        $this->repository = $block;
+        $this->validator         = $validator->setData(\Input::all());
+        $this->repository        = $block;
+        $this->contentRepository = $content;
+        $this->finder            = $finder;
     }
 
     /**
@@ -78,6 +99,24 @@ class BlockController extends ApiController {
             $params['perPage']
         );
         return $this->respondWithSuccess($results, new BlockTransformer);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function indexForSpecificContent($contentId)
+    {
+        $content = $this->contentRepository->getById($contentId);
+        if ($content) {
+            $input   = $this->validator->validate('listContent');
+            $params  = $this->processor->process($input)->getProcessedFields();
+            $results = $this->finder->getBlocks($content, $params, false);
+            return $results;
+            //return $this->respondWithSuccess($results, new BlockTransformer);
+        }
+        return $this->respondNotFound();
     }
 
     /**
