@@ -113,11 +113,11 @@ class BlockController extends ApiController {
     {
         $content = $this->contentRepository->getById($contentId);
         if ($content) {
-            $input   = $this->validator->validate('listContent');
-            $params  = $this->processor->process($input)->getProcessedFields();
-            $results = $this->finder->getBlocksIds($content->path, $params, false);
-            return $results;
-            //return $this->respondWithSuccess($results, new BlockTransformer);
+            $input    = $this->validator->validate('listContent');
+            $params   = $this->processor->process($input)->getProcessedFields();
+            $blockIds = $this->finder->getBlocksIds($content->path, $params, false);
+            $results  = $this->repository->getBlocksByIds($blockIds);
+            return $this->respondWithSuccess($results, new BlockTransformer);
         }
         return $this->respondNotFound();
     }
