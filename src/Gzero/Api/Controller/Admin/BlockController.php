@@ -111,12 +111,13 @@ class BlockController extends ApiController {
      */
     public function indexForSpecificContent($contentId)
     {
-        $content = $this->contentRepository->getById($contentId);
+        $onlyPublic = false;
+        $content    = $this->contentRepository->getById($contentId);
         if ($content) {
             $input    = $this->validator->validate('listContent');
             $params   = $this->processor->process($input)->getProcessedFields();
-            $blockIds = $this->finder->getBlocksIds($content->path, $params, false);
-            $results  = $this->repository->getBlocksByIds($blockIds);
+            $blockIds = $this->finder->getBlocksIds($content->path, $params, $onlyPublic);
+            $results  = $this->repository->getVisibleBlocks($blockIds, $onlyPublic);
             return $this->respondWithSuccess($results, new BlockTransformer);
         }
         return $this->respondNotFound();
