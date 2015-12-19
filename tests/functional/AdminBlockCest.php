@@ -51,6 +51,117 @@ class AdminBlockCest {
         );
     }
 
+    public function getDeletedBlocks(FunctionalTester $I)
+    {
+        $I->wantTo('get list of soft deleted blocks as admin user');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+        $block = $I->haveBlock(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => ['1/2/3']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Example block title',
+                    'body'     => 'Example block body'
+                ]
+            ],
+            $user
+        );
+        $I->sendDelete($this->url . '/' . $block->id);
+        $I->sendGET($this->url . '/deleted');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta'   => [
+                    'total'       => 1,
+                    'perPage'     => 20,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $this->url . '/deleted',
+                ],
+                'params' => [
+                    'page'    => 1,
+                    'perPage' => 20,
+                    'filter'  => [],
+                ],
+            ]
+        );
+    }
+
+    public function getSingleBlock(FunctionalTester $I)
+    {
+        $I->wantTo('get single block as admin user');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+        $block = $I->haveBlock(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => ['1/2/3']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Example block title',
+                    'body'     => 'Example block body'
+                ]
+            ],
+            $user
+        );
+        $I->sendGet(
+            $this->url . '/' . $block->id
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => ['1/2/3']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' =>
+                    [
+                        0 =>
+                            [
+                                'lang'  => 'en',
+                                'title' => 'Example block title',
+                                'body'  => 'Example block body'
+                            ],
+                    ],
+            ]
+        );
+    }
+
+    public function checksIfBlockExistsWhenGetting(FunctionalTester $I)
+    {
+        $I->wantTo('checks for block when getting block as admin user');
+        $I->loginAsAdmin();
+        $I->sendPUT($this->url . '/1');
+        $I->seeResponseCodeIs(404);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'error' =>
+                    [
+                        'code'    => 404,
+                        'message' => "Not found!",
+                    ]
+            ]
+        );
+    }
+
     /*
      |--------------------------------------------------------------------------
      | END Block list tests
@@ -311,6 +422,24 @@ class AdminBlockCest {
         );
     }
 
+    public function checksIfBlockExistsWhenGettingForContent(FunctionalTester $I)
+    {
+        $I->wantTo('checks for block when getting block for content as admin user');
+        $I->loginAsAdmin();
+        $I->sendGET($this->url . '/content/1');
+        $I->seeResponseCodeIs(404);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'error' =>
+                    [
+                        'code'    => 404,
+                        'message' => "Not found!",
+                    ]
+            ]
+        );
+    }
+
     /*
      |--------------------------------------------------------------------------
      | END Block for content tests
@@ -454,7 +583,7 @@ class AdminBlockCest {
                 'region'      => 'footer',
                 'weight'      => 5,
                 'filter'      => ['+' => ['1/2/5']],
-                'options'     => ['option' => ' new value'],
+                'options'     => ['option' => 'new value'],
                 'isActive'    => false,
                 'isCacheable' => false
             ]
@@ -466,9 +595,27 @@ class AdminBlockCest {
                 'region'      => 'footer',
                 'weight'      => 5,
                 'filter'      => ['+' => ['1/2/5']],
-                'options'     => ['option' => ' new value'],
+                'options'     => ['option' => 'new value'],
                 'isActive'    => false,
                 'isCacheable' => false
+            ]
+        );
+    }
+
+    public function checksIfBlockExistsWhenUpdating(FunctionalTester $I)
+    {
+        $I->wantTo('checks for block when updating block as admin user');
+        $I->loginAsAdmin();
+        $I->sendPUT($this->url . '/1');
+        $I->seeResponseCodeIs(404);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'error' =>
+                    [
+                        'code'    => 404,
+                        'message' => "Not found!",
+                    ]
             ]
         );
     }
@@ -501,6 +648,56 @@ class AdminBlockCest {
         $I->seeResponseContainsJson(
             [
                 'success' => true,
+            ]
+        );
+    }
+
+    public function ForceDeleteBlock(FunctionalTester $I)
+    {
+        $I->wantTo('force delete block as admin user');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+        $block = $I->haveBlock(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => ['1/2/3']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Example block title',
+                    'body'     => 'Example block body'
+                ]
+            ],
+            $user
+        );
+        $I->sendDelete($this->url . '/' . $block->id, ['force' => true]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+    }
+
+    public function checksIfBlockExistsWhenDeleting(FunctionalTester $I)
+    {
+        $I->wantTo('checks for block when force delete block as admin user');
+        $I->loginAsAdmin();
+        $I->sendDelete($this->url . '/1');
+        $I->seeResponseCodeIs(404);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'error' =>
+                    [
+                        'code'    => 404,
+                        'message' => "Not found!",
+                    ]
             ]
         );
     }
