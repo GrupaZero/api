@@ -234,7 +234,21 @@ class BlockController extends ApiController {
  * curl -i http://api.example.com/v1/admin/blocks
  */
 /**
- * @api                 {get} /admin/blocks/:id 5. GET single entity
+ * @api                 {get} /admin/blocks/content/:contentId 2. GET blocks for specific content
+ * @apiVersion          0.1.0
+ * @apiName             GetBlocksForSpecificContent
+ * @apiGroup            Block
+ * @apiPermission       admin
+ * @apiDescription      Get blocks for specific content
+ * @apiUse              Meta
+ * @apiUse              Params
+ * @apiUse              BlockCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/blocks/content/1
+ */
+/**
+ * @api                 {get} /admin/blocks/:id 3. GET single entity
  * @apiVersion          0.1.0
  * @apiName             GetBlock
  * @apiGroup            Block
@@ -246,7 +260,7 @@ class BlockController extends ApiController {
  * curl -i http://api.example.com/v1/admin/blocks/123
  */
 /**
- * @api                 {post} /admin/blocks 6. POST newly created entity
+ * @api                 {post} /admin/blocks 4. POST newly created entity
  * @apiVersion          0.1.0
  * @apiName             PostBlock
  * @apiGroup            Block
@@ -258,7 +272,7 @@ class BlockController extends ApiController {
  * curl -i http://api.example.com/api/v1/admin/blocks
  */
 /**
- * @api                 {put} /admin/blocks 7. PUT the specified entity
+ * @api                 {put} /admin/blocks 5. PUT the specified entity
  * @apiVersion          0.1.0
  * @apiName             PutBlock
  * @apiGroup            Block
@@ -270,7 +284,7 @@ class BlockController extends ApiController {
  * curl -i http://api.example.com/api/v1/admin/blocks
  */
 /**
- * @api                 {delete} /admin/blocks 8. DELETE the specified entity
+ * @api                 {delete} /admin/blocks 6. DELETE the specified entity
  * @apiVersion          0.1.0
  * @apiName             DeleteBlock
  * @apiGroup            Block
@@ -283,6 +297,20 @@ class BlockController extends ApiController {
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
  * {"success":true}
+ */
+/**
+ * @api                 {get} /admin/blocks/deleted 7. GET soft deleted blocks
+ * @apiVersion          0.1.0
+ * @apiName             GetDeletedBlocksList
+ * @apiGroup            Block
+ * @apiPermission       admin
+ * @apiDescription      Get soft deleted blocks
+ * @apiUse              Meta
+ * @apiUse              Params
+ * @apiUse              BlockCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/blocks/content/1
  */
 
 /**
