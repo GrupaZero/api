@@ -59,6 +59,266 @@ class AdminBlockCest {
 
     /*
      |--------------------------------------------------------------------------
+     | START Block for content tests
+     |--------------------------------------------------------------------------
+     */
+
+    public function getContentBlocks(FunctionalTester $I)
+    {
+        $I->wantTo('get list of blocks for specific content as admin user');
+        $I->loginAsAdmin();
+        $category       = $I->haveContent(['type' => 'category']);
+        $nestedCategory = $I->haveContent(['type' => 'category', 'parentId' => $category->id]);
+        $content        = $I->haveContent(['type' => 'content', 'parentId' => $nestedCategory->id]);
+        // Block for this content
+        $I->sendPOST(
+            $this->url,
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => [$content->path]],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'First block title',
+                    'body'     => 'First block body'
+                ]
+            ]
+        );
+        // Block for this content parent children's
+        $I->sendPOST(
+            $this->url,
+            [
+                'type'         => 'basic',
+                'region'       => 'sidebar',
+                'weight'       => 2,
+                'filter'       => ['+' => [$nestedCategory->path . '*']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Second block title',
+                    'body'     => 'Second block body'
+                ]
+            ]
+        );
+        // Block for this content root parent children's
+        $I->sendPOST(
+            $this->url,
+            [
+                'type'         => 'basic',
+                'region'       => 'footer',
+                'weight'       => 3,
+                'filter'       => ['+' => [$category->path . '*']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Third block title',
+                    'body'     => 'Third block body'
+                ]
+            ]
+        );
+        // Block hidden on this content
+        $I->sendPOST(
+            $this->url,
+            [
+                'type'         => 'basic',
+                'filter'       => ['+' => [$content->path]],
+                'isActive'     => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Content hidden block title',
+                    'body'     => 'Content hidden block body'
+                ]
+            ]
+        );
+        // Block shown and hidden on this content, should remain hidden
+        $I->sendPOST(
+            $this->url,
+            [
+                'type'         => 'basic',
+                'filter'       => ['+' => [$content->path], '-' => [$content->path]],
+                'isActive'     => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Content shown and hidden block title',
+                    'body'     => 'Content shown and hidden block body'
+                ]
+
+            ]
+        );
+        // Block hidden on this content parent children's
+        $I->sendPOST(
+            $this->url,
+            [
+                'type'         => 'basic',
+                'filter'       => ['-' => [$nestedCategory->path . '*']],
+                'isActive'     => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Content parent hidden block title',
+                    'body'     => 'Content parent hidden block body'
+                ]
+            ]
+        );
+        // Block hidden on this content root parent children's
+        $I->sendPOST(
+            $this->url,
+            [
+                'type'         => 'basic',
+                'filter'       => ['-' => [$category->path . '*']],
+                'isActive'     => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Content root parent hidden block title',
+                    'body'     => 'Content root parent hidden block body'
+                ]
+            ]
+        );
+        $I->sendGET($this->url . '/content/' . $content->id);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseContainsJson(
+            [
+                'data' => [
+                    0 => [
+                        'type'         => 'basic',
+                        'region'       => 'header',
+                        'filter'       => ['+' => ['1/2/3/']],
+                        'options'      => ['option' => 'value'],
+                        'weight'       => 1,
+                        'isActive'     => true,
+                        'isCacheable'  => true,
+                        'translations' =>
+                            [
+                                0 =>
+                                    [
+                                        'lang'  => 'en',
+                                        'title' => 'First block title',
+                                        'body'  => 'First block body',
+                                    ],
+                            ],
+                    ],
+                    1 => [
+                        'type'         => 'basic',
+                        'region'       => 'sidebar',
+                        'filter'       => ['+' => ['1/2/*']],
+                        'options'      => ['option' => 'value'],
+                        'weight'       => 2,
+                        'isActive'     => true,
+                        'isCacheable'  => true,
+                        'translations' =>
+                            [
+                                0 =>
+                                    [
+                                        'lang'  => 'en',
+                                        'title' => 'Second block title',
+                                        'body'  => 'Second block body',
+                                    ],
+                            ],
+                    ],
+                    2 => [
+                        'type'         => 'basic',
+                        'region'       => 'footer',
+                        'filter'       => ['+' => ['1/*']],
+                        'options'      => ['option' => 'value'],
+                        'weight'       => 3,
+                        'isActive'     => true,
+                        'isCacheable'  => true,
+                        'translations' =>
+                            [
+                                0 =>
+                                    [
+                                        'lang'  => 'en',
+                                        'title' => 'Third block title',
+                                        'body'  => 'Third block body',
+                                    ],
+                            ],
+                    ]
+                ],
+
+            ]
+
+        );
+        // Block hidden on this content
+        $I->dontSeeResponseContainsJson(
+            [
+                'type'         => 'basic',
+                'filter'       => ['-' => ['1/2/3/']],
+                'translations' =>
+                    [
+                        0 =>
+                            [
+                                'lang'  => 'en',
+                                'title' => 'Content hidden block title',
+                                'body'  => 'Content hidden block body'
+                            ],
+                    ],
+            ]
+        );
+        // Block shown and hidden on this content, should remain hidden
+        $I->dontSeeResponseContainsJson(
+            [
+                'type'         => 'basic',
+                'filter'       => ['+' => ['1/2/3/'], '-' => ['1/2/3/']],
+                'translations' =>
+                    [
+                        0 =>
+                            [
+                                'lang'  => 'en',
+                                'title' => 'Content shown and hidden block title',
+                                'body'  => 'Content shown and hidden block body'
+                            ],
+                    ],
+            ]
+        );
+        // Block hidden on this content parent children's
+        $I->dontSeeResponseContainsJson(
+            [
+                'type'         => 'basic',
+                'filter'       => ['-' => ['1/2/*']],
+                'translations' =>
+                    [
+                        0 =>
+                            [
+                                'lang'  => 'en',
+                                'title' => 'Content parent hidden block title',
+                                'body'  => 'Content parent hidden block body'
+                            ],
+                    ],
+            ]
+        );
+        // Block hidden on this content root parent children's
+        $I->dontSeeResponseContainsJson(
+            [
+                'type'         => 'basic',
+                'filter'       => ['-' => ['1/*']],
+                'translations' =>
+                    [
+                        0 =>
+                            [
+                                'lang'  => 'en',
+                                'title' => 'Content root parent hidden block title',
+                                'body'  => 'Content root parent hidden block body'
+                            ],
+                    ],
+            ]
+        );
+    }
+
+    /*
+     |--------------------------------------------------------------------------
+     | END Block for content tests
+     |--------------------------------------------------------------------------
+     */
+
+    /*
+     |--------------------------------------------------------------------------
      | START Block tests
      |--------------------------------------------------------------------------
      */
