@@ -11,6 +11,7 @@ group(
                 resource('langs', 'Gzero\Api\Controller\Admin\LangController', ['only' => ['index', 'show']]);
                 // Blocks
                 get('blocks/deleted', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexOfDeleted']);
+                put('blocks/restore/{id?}', 'Gzero\Api\Controller\Admin\BlockController@restore');
                 get('blocks/content/{id}', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexForSpecificContent']);
                 resource(
                     'blocks',

@@ -674,7 +674,41 @@ class AdminBlockCest {
             ],
             $user
         );
+        $I->sendDelete($this->url . '/' . $block->id);
         $I->sendDelete($this->url . '/' . $block->id, ['force' => true]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+    }
+
+    public function RestoreDeletedBlock(FunctionalTester $I)
+    {
+        $I->wantTo('restore deleted block as admin user');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+        $block = $I->haveBlock(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => ['1/2/3']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Example block title',
+                    'body'     => 'Example block body'
+                ]
+            ],
+            $user
+        );
+        $I->sendDelete($this->url . '/' . $block->id);
+        $I->sendPut($this->url . '/restore/' . $block->id);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
@@ -689,6 +723,24 @@ class AdminBlockCest {
         $I->wantTo('checks for block when force delete block as admin user');
         $I->loginAsAdmin();
         $I->sendDelete($this->url . '/1');
+        $I->seeResponseCodeIs(404);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'error' =>
+                    [
+                        'code'    => 404,
+                        'message' => "Not found!",
+                    ]
+            ]
+        );
+    }
+
+    public function checksIfBlockExistsWhenRestoring(FunctionalTester $I)
+    {
+        $I->wantTo('checks for block when restoring block as admin user');
+        $I->loginAsAdmin();
+        $I->sendPut($this->url . '/restore/1');
         $I->seeResponseCodeIs(404);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
