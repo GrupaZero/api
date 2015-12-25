@@ -172,7 +172,7 @@ class BlockController extends ApiController {
     /**
      * Removes the specified resource from database.
      *
-     * @param int  $id          Block id
+     * @param int $id Block id
      *
      * @return \Illuminate\Http\JsonResponse
      */
