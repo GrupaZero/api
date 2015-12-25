@@ -361,7 +361,7 @@ class BlockController extends ApiController {
  *   "translations": [
  *        {
  *            "id": 1,
- *            "lang": "en",
+ *            "langCode": "en",
  *            "title": "Example block title",
  *            "body": "Example block body",
  *            "isActive": true,
@@ -375,7 +375,7 @@ class BlockController extends ApiController {
  *       },
  *       {
  *           "id": 1,
- *           "lang": "pl",
+ *           "langCode": "pl",
  *           "title": "Example block title",
  *           "body": "Example block body",
  *           "isActive": true,
