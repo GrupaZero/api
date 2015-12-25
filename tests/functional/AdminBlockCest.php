@@ -135,7 +135,7 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'lang'  => 'en',
+                                'langCode'  => 'en',
                                 'title' => 'Example block title',
                                 'body'  => 'Example block body'
                             ],
@@ -309,7 +309,7 @@ class AdminBlockCest {
                             [
                                 0 =>
                                     [
-                                        'lang'  => 'en',
+                                        'langCode'  => 'en',
                                         'title' => 'First block title',
                                         'body'  => 'First block body',
                                     ],
@@ -327,7 +327,7 @@ class AdminBlockCest {
                             [
                                 0 =>
                                     [
-                                        'lang'  => 'en',
+                                        'langCode'  => 'en',
                                         'title' => 'Second block title',
                                         'body'  => 'Second block body',
                                     ],
@@ -345,7 +345,7 @@ class AdminBlockCest {
                             [
                                 0 =>
                                     [
-                                        'lang'  => 'en',
+                                        'langCode'  => 'en',
                                         'title' => 'Third block title',
                                         'body'  => 'Third block body',
                                     ],
@@ -365,7 +365,7 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'lang'  => 'en',
+                                'langCode'  => 'en',
                                 'title' => 'Content hidden block title',
                                 'body'  => 'Content hidden block body'
                             ],
@@ -381,7 +381,7 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'lang'  => 'en',
+                                'langCode'  => 'en',
                                 'title' => 'Content shown and hidden block title',
                                 'body'  => 'Content shown and hidden block body'
                             ],
@@ -397,7 +397,7 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'lang'  => 'en',
+                                'langCode'  => 'en',
                                 'title' => 'Content parent hidden block title',
                                 'body'  => 'Content parent hidden block body'
                             ],
@@ -413,7 +413,7 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'lang'  => 'en',
+                                'langCode'  => 'en',
                                 'title' => 'Content root parent hidden block title',
                                 'body'  => 'Content root parent hidden block body'
                             ],
@@ -488,7 +488,7 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'lang'  => 'en',
+                                'langCode'  => 'en',
                                 'title' => 'Example block title',
                                 'body'  => 'Example block body',
                             ],
@@ -545,7 +545,7 @@ class AdminBlockCest {
                 'translations' =>
                     [
                         0 => [
-                            'lang'  => 'en',
+                            'langCode'  => 'en',
                             'title' => 'Example block title',
                             'body'  => 'Example block body',
                         ],
@@ -720,7 +720,7 @@ class AdminBlockCest {
 
     public function checksIfBlockExistsWhenDeleting(FunctionalTester $I)
     {
-        $I->wantTo('checks for block when force delete block as admin user');
+        $I->wantTo('check for block when force delete block as admin user');
         $I->loginAsAdmin();
         $I->sendDelete($this->url . '/1');
         $I->seeResponseCodeIs(404);
@@ -738,7 +738,7 @@ class AdminBlockCest {
 
     public function checksIfBlockExistsWhenRestoring(FunctionalTester $I)
     {
-        $I->wantTo('checks for block when restoring block as admin user');
+        $I->wantTo('check for block when restoring block as admin user');
         $I->loginAsAdmin();
         $I->sendPut($this->url . '/restore/1');
         $I->seeResponseCodeIs(404);
@@ -756,7 +756,7 @@ class AdminBlockCest {
 
     public function checksWidgetFieldWhenCreatingWidgetBlock(FunctionalTester $I)
     {
-        $I->wantTo('checks for widget field when creating block as admin user');
+        $I->wantTo('check for widget field when creating block as admin user');
         $I->loginAsAdmin();
         $I->sendPOST(
             $this->url,
@@ -784,7 +784,7 @@ class AdminBlockCest {
 
     public function checksTypeWhenCreatingBlock(FunctionalTester $I)
     {
-        $I->wantTo('checks for type when creating widget block as admin user');
+        $I->wantTo('check for type when creating widget block as admin user');
         $I->loginAsAdmin();
         $I->sendPOST(
             $this->url,
@@ -860,7 +860,7 @@ class AdminBlockCest {
         $I->seeResponseContainsJson(
             [
 
-                'lang'         => 'en',
+                'langCode'         => 'en',
                 'title'        => 'New block title',
                 'body'         => 'New block body',
                 'customFields' => ['customField' => "New block custom field"],
@@ -906,7 +906,7 @@ class AdminBlockCest {
         $I->seeResponseContainsJson(
             [
 
-                'lang'         => 'en',
+                'langCode'         => 'en',
                 'title'        => 'Modified block title',
                 'body'         => 'Modified block body',
                 'customFields' => ['customField' => "Modified block custom field"],
@@ -958,6 +958,40 @@ class AdminBlockCest {
         $I->seeResponseContainsJson(
             [
                 'success' => true,
+            ]
+        );
+    }
+
+    public function itHandlesNullCustomFieldsInTranslations(FunctionalTester $I)
+    {
+        $I->wantTo('handle null custom fields in block translations as admin user');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+        $block = $I->haveBlock(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+            ],
+            $user
+        );
+        $I->sendPost(
+            $this->url . '/' . $block->id . '/translations',
+            [
+                'langCode'     => 'en',
+                'title'        => 'New block title',
+                'body'         => 'New block body',
+                'customFields' => null,
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+
+                'langCode'         => 'en',
+                'title'        => 'New block title',
+                'body'         => 'New block body',
+                'customFields' => null,
             ]
         );
     }
