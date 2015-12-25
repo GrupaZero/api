@@ -240,7 +240,7 @@ class AdminBlockCest {
             $this->url,
             [
                 'type'         => 'basic',
-                'filter'       => ['+' => [$content->path]],
+                'filter'       => ['-' => [$content->path]],
                 'isActive'     => true,
                 'translations' => [
                     'langCode' => 'en',
@@ -300,7 +300,7 @@ class AdminBlockCest {
                     0 => [
                         'type'         => 'basic',
                         'region'       => 'header',
-                        'filter'       => ['+' => ['1/2/3/']],
+                        'filter'       => ['+' => [$content->path]],
                         'options'      => ['option' => 'value'],
                         'weight'       => 1,
                         'isActive'     => true,
@@ -318,7 +318,7 @@ class AdminBlockCest {
                     1 => [
                         'type'         => 'basic',
                         'region'       => 'sidebar',
-                        'filter'       => ['+' => ['1/2/*']],
+                        'filter'       => ['+' => [$nestedCategory->path . '*']],
                         'options'      => ['option' => 'value'],
                         'weight'       => 2,
                         'isActive'     => true,
@@ -336,7 +336,7 @@ class AdminBlockCest {
                     2 => [
                         'type'         => 'basic',
                         'region'       => 'footer',
-                        'filter'       => ['+' => ['1/*']],
+                        'filter'       => ['+' => [$category->path . '*']],
                         'options'      => ['option' => 'value'],
                         'weight'       => 3,
                         'isActive'     => true,
