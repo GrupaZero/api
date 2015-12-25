@@ -111,13 +111,14 @@ class BlockController extends ApiController {
      */
     public function indexForSpecificContent($contentId)
     {
-        $content = $this->contentRepository->getById($contentId);
+        $onlyPublic = false;
+        $content    = $this->contentRepository->getById($contentId);
         if ($content) {
-            $input   = $this->validator->validate('listContent');
-            $params  = $this->processor->process($input)->getProcessedFields();
-            $results = $this->finder->getBlocksIds($content->path, $params, false);
-            return $results;
-            //return $this->respondWithSuccess($results, new BlockTransformer);
+            $input    = $this->validator->validate('listContent');
+            $params   = $this->processor->process($input)->getProcessedFields();
+            $blockIds = $this->finder->getBlocksIds($content->path, $params, $onlyPublic);
+            $results  = $this->repository->getVisibleBlocks($blockIds, $onlyPublic);
+            return $this->respondWithSuccess($results, new BlockTransformer);
         }
         return $this->respondNotFound();
     }
@@ -171,15 +172,13 @@ class BlockController extends ApiController {
     /**
      * Removes the specified resource from database.
      *
-     * @param int  $id          Block id
-     *
-     * @param bool $forceDelete if true use forceDelete
+     * @param int $id Block id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id, $forceDelete = false)
+    public function destroy($id)
     {
-        $forceDelete = filter_var($forceDelete, FILTER_VALIDATE_BOOLEAN);
+        $forceDelete = \Input::has('force');
 
         $block = $forceDelete ? $this->repository->getDeletedById($id) : $this->repository->getById($id);
 
@@ -233,7 +232,21 @@ class BlockController extends ApiController {
  * curl -i http://api.example.com/v1/admin/blocks
  */
 /**
- * @api                 {get} /admin/blocks/:id 5. GET single entity
+ * @api                 {get} /admin/blocks/content/:contentId 2. GET blocks for specific content
+ * @apiVersion          0.1.0
+ * @apiName             GetBlocksForSpecificContent
+ * @apiGroup            Block
+ * @apiPermission       admin
+ * @apiDescription      Get blocks for specific content
+ * @apiUse              Meta
+ * @apiUse              Params
+ * @apiUse              BlockCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/blocks/content/1
+ */
+/**
+ * @api                 {get} /admin/blocks/:id 3. GET single entity
  * @apiVersion          0.1.0
  * @apiName             GetBlock
  * @apiGroup            Block
@@ -245,7 +258,7 @@ class BlockController extends ApiController {
  * curl -i http://api.example.com/v1/admin/blocks/123
  */
 /**
- * @api                 {post} /admin/blocks 6. POST newly created entity
+ * @api                 {post} /admin/blocks 4. POST newly created entity
  * @apiVersion          0.1.0
  * @apiName             PostBlock
  * @apiGroup            Block
@@ -257,7 +270,7 @@ class BlockController extends ApiController {
  * curl -i http://api.example.com/api/v1/admin/blocks
  */
 /**
- * @api                 {put} /admin/blocks 7. PUT the specified entity
+ * @api                 {put} /admin/blocks 5. PUT the specified entity
  * @apiVersion          0.1.0
  * @apiName             PutBlock
  * @apiGroup            Block
@@ -269,7 +282,7 @@ class BlockController extends ApiController {
  * curl -i http://api.example.com/api/v1/admin/blocks
  */
 /**
- * @api                 {delete} /admin/blocks 8. DELETE the specified entity
+ * @api                 {delete} /admin/blocks 6. DELETE the specified entity
  * @apiVersion          0.1.0
  * @apiName             DeleteBlock
  * @apiGroup            Block
@@ -282,6 +295,20 @@ class BlockController extends ApiController {
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
  * {"success":true}
+ */
+/**
+ * @api                 {get} /admin/blocks/deleted 7. GET soft deleted blocks
+ * @apiVersion          0.1.0
+ * @apiName             GetDeletedBlocksList
+ * @apiGroup            Block
+ * @apiPermission       admin
+ * @apiDescription      Get soft deleted blocks
+ * @apiUse              Meta
+ * @apiUse              Params
+ * @apiUse              BlockCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/blocks/content/1
  */
 
 /**
@@ -334,7 +361,7 @@ class BlockController extends ApiController {
  *   "translations": [
  *        {
  *            "id": 1,
- *            "lang": "en",
+ *            "langCode": "en",
  *            "title": "Example block title",
  *            "body": "Example block body",
  *            "isActive": true,
@@ -348,7 +375,7 @@ class BlockController extends ApiController {
  *       },
  *       {
  *           "id": 1,
- *           "lang": "pl",
+ *           "langCode": "pl",
  *           "title": "Example block title",
  *           "body": "Example block body",
  *           "isActive": true,

@@ -3,6 +3,7 @@ namespace api;
 
 use Faker\Factory;
 use Gzero\Entity\Block;
+use Gzero\Entity\Content;
 use Gzero\Repository\BlockRepository;
 use Gzero\Repository\ContentRepository;
 use Gzero\Repository\UserRepository;
@@ -41,15 +42,21 @@ class FunctionalTester extends \Codeception\Actor {
     private $blockRepo;
 
     /**
+     * @var ContentRepository
+     */
+    private $contentRepo;
+
+    /**
      * @var \Faker\Generator
      */
     private $faker;
 
     public function __construct(\Codeception\Scenario $scenario)
     {
-        $this->faker        = Factory::create();
-        $this->blockRepo = new BlockRepository(new Block(), new Dispatcher());
-        $this->userRepo     = new UserRepository(new User(), new Dispatcher());
+        $this->faker       = Factory::create();
+        $this->contentRepo = new ContentRepository(new Content(), new Dispatcher());
+        $this->blockRepo   = new BlockRepository(new Block(), new Dispatcher());
+        $this->userRepo    = new UserRepository(new User(), new Dispatcher());
         parent::__construct($scenario);
     }
 
@@ -140,11 +147,42 @@ class FunctionalTester extends \Codeception\Actor {
             ]
         ];
 
-        if(!empty($attributes)){
-
+        if (!empty($attributes)) {
             $fakeAttributes = array_merge($fakeAttributes, $attributes);
         }
 
         return $this->blockRepo->create($fakeAttributes, $user);
+    }
+
+    /**
+     * Create content and return entity
+     *
+     * @param bool|false $attributes
+     * @param null       $user
+     *
+     * @return Content
+     */
+    public function haveContent($attributes = false, $user = null)
+    {
+        $fakeAttributes = [
+            'type'         => ['category', 'content'][rand(0, 1)],
+            'isActive'     => 1,
+            'publishedAt'  => date('Y-m-d H:i:s'),
+            'translations' => [
+                'langCode'       => 'en',
+                'title'          => $this->faker->realText(38, 1),
+                'teaser'         => '<p>' . $this->faker->realText(300) . '</p>',
+                'body'           => $this->faker->realText(1000),
+                'seoTitle'       => $this->faker->realText(60, 1),
+                'seoDescription' => $this->faker->realText(160, 1),
+                'isActive'       => rand(0, 1)
+            ]
+        ];
+
+        if (!empty($attributes)) {
+            $fakeAttributes = array_merge($fakeAttributes, $attributes);
+        }
+
+        return $this->contentRepo->create($fakeAttributes, $user);
     }
 }

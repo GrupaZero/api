@@ -10,6 +10,9 @@ group(
                 // Langs
                 resource('langs', 'Gzero\Api\Controller\Admin\LangController', ['only' => ['index', 'show']]);
                 // Blocks
+                get('blocks/deleted', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexOfDeleted']);
+                put('blocks/restore/{id?}', 'Gzero\Api\Controller\Admin\BlockController@restore');
+                get('blocks/content/{id}', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexForSpecificContent']);
                 resource(
                     'blocks',
                     'Gzero\Api\Controller\Admin\BlockController',
@@ -20,8 +23,6 @@ group(
                     'Gzero\Api\Controller\Admin\BlockTranslationController',
                     ['only' => ['index', 'show', 'store', 'update', 'destroy']]
                 );
-                get('blocks/deleted', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexOfDeleted']);
-                get('blocks/content/{id}', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexForSpecificContent']);
                 // Contents
                 get('contents/tree/{id?}', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexTree']);
                 get('contents/deleted', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexOfDeleted']);
