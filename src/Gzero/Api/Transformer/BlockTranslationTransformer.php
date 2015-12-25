@@ -28,7 +28,7 @@ class BlockTranslationTransformer extends AbstractTransformer {
         $translation = $this->entityToArray(BlockTranslation::class, $translation);
         return [
             'id'           => (int) $translation['id'],
-            'lang'         => $translation['langCode'],
+            'langCode'     => $translation['langCode'],
             'title'        => $translation['title'],
             'body'         => $translation['body'],
             'customFields' => json_decode($translation['customFields'], true), // Eloquent\Model - toArray() not utilize mutators
