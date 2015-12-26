@@ -34,6 +34,7 @@ class BlockValidator extends AbstractValidator {
         'create'      => [
             'type'                      => 'required|in:basic,menu,slider,content,widget',
             'region'                    => '',
+            'theme'                     => '',
             'weight'                    => 'numeric',
             'filter'                    => '',
             'options'                   => '',
@@ -47,6 +48,7 @@ class BlockValidator extends AbstractValidator {
         ],
         'update'      => [
             'region'      => '',
+            'theme'       => '',
             'weight'      => 'numeric',
             'filter'      => '',
             'options'     => '',
