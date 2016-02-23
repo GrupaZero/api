@@ -28,7 +28,10 @@ before_script:
   - docker-compose restart # we need to restart to refresh mouted packages
   - cd $TRAVIS_BUILD_DIR
   - pwd
-#  - chmod +x -R vendor/bin/ # to make sure that all files here are executable outside docker container
+  - ls -all .
+  - ls -all vendor/
+  - ls -all vendor/bin
+#  - chmod +x -R vendor/bin # to make sure that all files here are executable outside docker container
 
 script:
   - ./vendor/bin/phpmd src/ text phpmd.xml
