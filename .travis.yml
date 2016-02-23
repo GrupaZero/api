@@ -15,15 +15,13 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 before_script:
-  - pwd
+  - composer install --prefer-source --no-interaction --dev
   - cd ../
   # TODO Add version support. Probably we'd need to add platform compatibility version flag in composer.json
   - git clone --depth=10 https://github.com/GrupaZero/platform.git platform
   - cd platform
-  - pwd
   - docker-compose up -d
   - docker exec -i -t platform_dev_web_1 composer install -d /var/www/ --prefer-source --no-interaction --dev
-  - docker exec -i -t platform_dev_web_1 composer install -d /var/www/vendor/gzero/api/ --prefer-source --no-interaction --dev
   - ./scripts/link_package.sh api mount # mounting our repo to latest platform
   - docker-compose restart # we need to restart to refresh mouted packages
   - cd $TRAVIS_BUILD_DIR
@@ -31,7 +29,7 @@ before_script:
   - ls -all .
   - ls -all vendor/
   - ls -all vendor/bin
-#  - chmod +x -R vendor/bin # to make sure that all files here are executable outside docker container
+  - chmod +x -R vendor/bin # to make sure that all files here are executable outside docker container
 
 script:
   - ./vendor/bin/phpmd src/ text phpmd.xml
