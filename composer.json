@@ -27,7 +27,7 @@
         "codeception/codeception": "2.1.4",
         "phpmd/phpmd": "2.*",
         "squizlabs/php_codesniffer": "1.*",
-        "satooshi/php-coveralls": "dev-master"
+        "satooshi/php-coveralls": "~1.0"
     },
     "autoload": {
         "classmap": [],
