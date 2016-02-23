@@ -23,10 +23,11 @@ before_script:
   - docker exec -i -t platform_dev_web_1 composer install -d /var/www/ --prefer-source --no-interaction --dev
   - ./scripts/link_package.sh api mount
   - cd ../platform
+  - cat vendor/gzero/api/codeception.yml
 
 script:
-  - ./vendor/bin/phpmd src/ text phpmd.xml
-  - ./vendor/bin/phpcs --standard=ruleset.xml src/ -n # -n no warnings
+  - ./vendor/bin/phpmd /var/www/vendor/gzero/api/src/ text phpmd.xml
+  - ./vendor/bin/phpcs --standard=ruleset.xml /var/www/vendor/gzero/api/src/ -n # -n no warnings
   - docker exec -i -t platform_dev_web_1 php /var/www/vendor/bin/codecept run -c /var/www/vendor/gzero/api/codeception.yml --coverage --coverage-xml
   - docker exec -i -t platform_dev_web_1 mkdir -p /var/www/build/logs
   - docker exec -i -t platform_dev_web_1 cp /var/www/tests/_output/coverage.xml /var/www/build/logs/clover.xml
