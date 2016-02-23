@@ -5,18 +5,7 @@ modules:
         - api\Helper\Functional
         - Asserts
         - Laravel5:
-            root: ../platform/
+            root: ../../../ #relative path to platform from vendor dir
             environment_file: .env.testing
         - REST:
             depends: Laravel5
-env:
-    platform:
-        modules:
-            enabled:
-                - api\Helper\Functional
-                - Asserts
-                - Laravel5:
-                    root: ../../../ #relative path to platform from vendor dir
-                    environment_file: .env.testing
-                - REST:
-                    depends: Laravel5

@@ -1,39 +1,38 @@
+sudo: required
+
 language: php
 
-php: 
-  - 5.5
-  - 5.6
-  - hhvm
+services:
+  - docker
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.5.2
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
 
 before_script:
-  - composer self-update
-  - mysql -e 'create database `gzero-tests`;'
   - cd ../
   # TODO Add version support. Probably we'd need to add platform compatibility version flag in composer.json
-  - git clone --depth=50 https://github.com/GrupaZero/platform.git platform
+  - git clone --depth=10 https://github.com/GrupaZero/platform.git platform
   - cd platform
-  - composer install --dev --no-interaction
-  - cd vendor/gzero
-  - rm -rf api
-  - ln -s ../../../api
-  - cd ../../../api
-  - composer install --dev --no-interaction
+  - docker-compose up -d
+  - docker exec -i -t platform_dev_web_1 composer install -d /var/www/ --prefer-source --no-interaction --dev
+  - ./scripts/link_package.sh api mount
+  - cd ../platform
 
 script:
- - mkdir -p build/logs
- - ./vendor/bin/phpmd src/ text phpmd.xml
- - ./vendor/bin/phpcs --standard=ruleset.xml src/ -n # -n no warnings
- - ./vendor/bin/codecept run --coverage --coverage-xml --coverage-html
- - cp tests/_output/coverage.xml build/logs/clover.xml
+  - ./vendor/bin/phpmd src/ text phpmd.xml
+  - ./vendor/bin/phpcs --standard=ruleset.xml src/ -n # -n no warnings
+  - docker exec -i -t platform_dev_web_1 php /var/www/vendor/bin/codecept run -c /var/www/vendor/gzero/api/codeception.yml --coverage --coverage-xml
+  - docker exec -i -t platform_dev_web_1 mkdir -p /var/www/build/logs
+  - docker exec -i -t platform_dev_web_1 cp /var/www/tests/_output/coverage.xml /var/www/build/logs/clover.xml
 
 after_script:
-  - php vendor/bin/coveralls -v
+  - docker exec -i -t platform_dev_web_1 /var/www/vendor/bin/coveralls -v
 
 matrix:
-  allow_failures:
-    - php: hhvm
   fast_finish: true
-
-addons:
-  hosts:
-    - dev_db_tests
