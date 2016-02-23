@@ -6,6 +6,8 @@ modules:
         - Asserts
         - Laravel5:
             root: ../../../ #relative path to platform from vendor dir
+            cleanup: true
+            disable_middleware: false
             environment_file: .env.testing
         - REST:
             depends: Laravel5
