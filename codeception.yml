@@ -9,7 +9,7 @@ coverage:
         - src/routes.php
 paths:
     tests: tests
-    log: tests/_output
+    log: ../../../tests/_output #relative path to platform from vendor dir
     data: tests/_data
     support: tests/_support
     envs: tests/_envs
@@ -23,7 +23,7 @@ extensions:
 modules:
     config:
         Db:
-            dsn: 'mysql:host=localhost;dbname=gzero-tests'
+            dsn: 'mysql:host=dev_db_tests;dbname=gzero-cms'
             user: 'root'
             password: ''
             dump: tests/_data/dump.sql
