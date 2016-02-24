@@ -34,7 +34,7 @@ script:
   - docker exec -it platform_dev_web_1 cp /var/www/tests/_output/coverage.xml /var/www/build/logs/clover.xml
 
 after_script:
-  - docker exec -it platform_dev_web_1 sh -c 'cd /var/www/vendor/gzero/api && vendor/bin/coveralls -v'
+  - docker exec -it platform_dev_web_1 bash -c "cd /var/www/vendor/gzero/api && vendor/bin/coveralls -v"
 
 matrix:
   fast_finish: true
