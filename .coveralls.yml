@@ -1,0 +1,3 @@
+# for php-coveralls
+coverage_clover: ../../../build/logs/clover.xml # relative path to platform
+json_path: ../../../build/logs/coveralls-upload.json # relative path to platform
