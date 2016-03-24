@@ -9,4 +9,3 @@ _ide_helper.php
 .sass-cache
 node_modules
 tests/_output/*
-/tests/_support/_generated
