@@ -5,11 +5,11 @@ class CORSCest {
 
     public function _before(FunctionalTester $I)
     {
+        $I->logout();
     }
 
     public function _after(FunctionalTester $I)
     {
-        $I->logout();
     }
 
     // tests
