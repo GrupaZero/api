@@ -29,8 +29,6 @@ class FunctionalTester extends \Codeception\Actor {
 
     use _generated\FunctionalTesterActions;
 
-    protected $baseUrl = 'http://localhost/';
-
     /**
      * @var UserRepository
      */
@@ -69,7 +67,7 @@ class FunctionalTester extends \Codeception\Actor {
     public function login($email, $password)
     {
         $I = $this;
-        $I->amOnPage($this->baseUrl . 'en/login');
+        $I->amOnPage('/en/login');
         $I->fillField('email', $email);
         $I->fillField('password', $password);
         $I->click('button[type=submit]');
@@ -83,7 +81,7 @@ class FunctionalTester extends \Codeception\Actor {
     public function loginAsAdmin()
     {
         $I = $this;
-        $I->amOnPage($this->baseUrl . 'en/login');
+        $I->amOnPage('/en/login');
         $I->fillField('email', 'admin@gzero.pl');
         $I->fillField('password', 'test');
         $I->click('button[type=submit]');
@@ -96,7 +94,7 @@ class FunctionalTester extends \Codeception\Actor {
     public function logout()
     {
         $I = $this;
-        $I->amOnPage($this->baseUrl . 'en/logout');
+        $I->amOnPage('/en/logout');
         $I->canSeeCurrentUrlEquals('/en');
         $I->dontSeeAuthentication();
     }
