@@ -29,6 +29,7 @@ class UserTransformer extends AbstractTransformer {
         return [
             'id'        => (int) $user['id'],
             'email'     => $user['email'],
+            'nickName'  => $user['nickName'],
             'firstName' => $user['firstName'],
             'lastName'  => $user['lastName']
         ];

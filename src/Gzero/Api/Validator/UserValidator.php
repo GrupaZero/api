@@ -26,9 +26,10 @@ class UserValidator extends AbstractValidator {
             'sort'    => '',
         ],
         'update' => [
-            'email'     => 'required|email',
-            'firstName' => 'required',
-            'lastName'  => 'required'
+            'email'     => 'required|email|unique:Users,email,@userId',
+            'nickName'  => 'required|min:3|unique:Users,nickName,@userId',
+            'firstName' => '',
+            'lastName'  => ''
         ]
     ];
 
