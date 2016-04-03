@@ -128,6 +128,7 @@ class AdminUserCest {
                 'nickName'  => 'Modified user',
                 'firstName' => 'Johny',
                 'lastName'  => 'Stark',
+                'email'     => 'john.doe@gzero.pl',
             ]
         );
         $I->seeResponseCodeIs(200);
