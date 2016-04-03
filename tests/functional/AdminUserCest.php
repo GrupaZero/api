@@ -118,6 +118,7 @@ class AdminUserCest {
                 'nickName'  => 'Test user',
                 'firstName' => 'John',
                 'lastName'  => 'Doe',
+                'email'     => 'john.doe@gzero.pl',
                 'password'  => Hash::make('test123')
             ]
         );
@@ -136,6 +137,7 @@ class AdminUserCest {
                 'nickName'  => 'Modified user',
                 'firstName' => 'Johny',
                 'lastName'  => 'Stark',
+                'email'     => 'john.doe@gzero.pl',
             ]
         );
     }
@@ -162,14 +164,7 @@ class AdminUserCest {
     {
         $I->wantTo('delete user as admin user');
         $I->loginAsAdmin();
-        $user = $I->haveUser(
-            [
-                'nickName'  => 'Test user',
-                'firstName' => 'John',
-                'lastName'  => 'Doe',
-                'password'  => Hash::make('test123')
-            ]
-        );
+        $user = $I->haveUser();
         $I->sendDelete($this->url . '/' . $user->id);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
