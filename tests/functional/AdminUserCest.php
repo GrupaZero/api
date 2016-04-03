@@ -1,6 +1,8 @@
 <?php
 namespace api;
 
+use Illuminate\Support\Facades\Hash;
+
 class AdminUserCest {
     /**
      * @var string endpoint url
@@ -22,7 +24,7 @@ class AdminUserCest {
      |--------------------------------------------------------------------------
      */
 
-    public function getBlocks(FunctionalTester $I)
+    public function getUsers(FunctionalTester $I)
     {
         $I->wantTo('get list of users as admin user');
         $I->loginAsAdmin();
@@ -134,7 +136,7 @@ class AdminUserCest {
         );
     }
 
-    public function checksIfBlockExistsWhenUpdating(FunctionalTester $I)
+    public function checksIfUserExistsWhenUpdating(FunctionalTester $I)
     {
         $I->wantTo('checks for user when updating user as admin user');
         $I->loginAsAdmin();
