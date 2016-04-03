@@ -38,7 +38,7 @@ class AdminUserCest {
         $I->seeResponseContainsJson(
             [
                 'meta'   => [
-                    'total'       => $usersNumber,
+                    'total'       => $usersNumber + 1,
                     'perPage'     => 20,
                     'currentPage' => 1,
                     'lastPage'    => 1,
@@ -57,12 +57,14 @@ class AdminUserCest {
     {
         $I->wantTo('get single user as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser([
-            'nickName'  => 'Test user',
-            'firstName' => 'John',
-            'lastName'  => 'Doe',
-            'password'  => Hash::make('test123')
-        ]);
+        $user = $I->haveUser(
+            [
+                'nickName'  => 'Test user',
+                'firstName' => 'John',
+                'lastName'  => 'Doe',
+                'password'  => Hash::make('test123')
+            ]
+        );
         $I->sendGet(
             $this->url . '/' . $user->id
         );
@@ -111,12 +113,14 @@ class AdminUserCest {
     {
         $I->wantTo('update user as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser([
-            'nickName'  => 'Test user',
-            'firstName' => 'John',
-            'lastName'  => 'Doe',
-            'password'  => Hash::make('test123')
-        ]);
+        $user = $I->haveUser(
+            [
+                'nickName'  => 'Test user',
+                'firstName' => 'John',
+                'lastName'  => 'Doe',
+                'password'  => Hash::make('test123')
+            ]
+        );
         $I->sendPUT(
             $this->url . '/' . $user->id,
             [
@@ -156,14 +160,16 @@ class AdminUserCest {
 
     public function DeleteUser(FunctionalTester $I)
     {
-        $I->wantTo('delete block as admin user');
+        $I->wantTo('delete user as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser([
-            'nickName'  => 'Test user',
-            'firstName' => 'John',
-            'lastName'  => 'Doe',
-            'password'  => Hash::make('test123')
-        ]);
+        $user = $I->haveUser(
+            [
+                'nickName'  => 'Test user',
+                'firstName' => 'John',
+                'lastName'  => 'Doe',
+                'password'  => Hash::make('test123')
+            ]
+        );
         $I->sendDelete($this->url . '/' . $user->id);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
