@@ -113,22 +113,14 @@ class AdminUserCest {
     {
         $I->wantTo('update user as admin user');
         $I->loginAsAdmin();
-        $user = $I->haveUser(
-            [
-                'nickName'  => 'Test user',
-                'firstName' => 'John',
-                'lastName'  => 'Doe',
-                'email'     => 'john.doe@gzero.pl',
-                'password'  => Hash::make('test123')
-            ]
-        );
+        $user = $I->haveUser();
         $I->sendPUT(
             $this->url . '/' . $user->id,
             [
                 'nickName'  => 'Modified user',
                 'firstName' => 'Johny',
                 'lastName'  => 'Stark',
-                'email'     => 'john.doe@gzero.pl',
+                'email'     => $user->email,
             ]
         );
         $I->seeResponseCodeIs(200);
@@ -138,7 +130,7 @@ class AdminUserCest {
                 'nickName'  => 'Modified user',
                 'firstName' => 'Johny',
                 'lastName'  => 'Stark',
-                'email'     => 'john.doe@gzero.pl',
+                'email'     => $user->email,
             ]
         );
     }
