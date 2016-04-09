@@ -111,6 +111,7 @@ class FunctionalTester extends \Codeception\Actor {
     public function haveUser($attributes = [])
     {
         $fakeAttributes = [
+            'nickName'  => $this->faker->userName,
             'firstName' => $this->faker->firstName,
             'lastName'  => $this->faker->lastName,
             'email'     => $this->faker->email
