@@ -4,11 +4,15 @@ namespace api;
 use Faker\Factory;
 use Gzero\Entity\Block;
 use Gzero\Entity\Content;
+use Gzero\Entity\File;
+use Gzero\Entity\FileType;
 use Gzero\Repository\BlockRepository;
 use Gzero\Repository\ContentRepository;
+use Gzero\Repository\FileRepository;
 use Gzero\Repository\UserRepository;
 use Gzero\Entity\User;
 use Illuminate\Events\Dispatcher;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Inherited Methods
@@ -32,6 +36,11 @@ class FunctionalTester extends \Codeception\Actor {
     protected $baseUrl = 'http://localhost/';
 
     /**
+     * files directory
+     */
+    protected $filesDir;
+
+    /**
      * @var UserRepository
      */
     private $userRepo;
@@ -47,6 +56,11 @@ class FunctionalTester extends \Codeception\Actor {
     private $contentRepo;
 
     /**
+     * @var fileRepository
+     */
+    private $fileRepo;
+
+    /**
      * @var \Faker\Generator
      */
     private $faker;
@@ -54,9 +68,11 @@ class FunctionalTester extends \Codeception\Actor {
     public function __construct(\Codeception\Scenario $scenario)
     {
         $this->faker       = Factory::create();
+        $this->filesDir    = __DIR__ . '/../resources';
         $this->contentRepo = new ContentRepository(new Content(), new Dispatcher());
         $this->blockRepo   = new BlockRepository(new Block(), new Dispatcher());
         $this->userRepo    = new UserRepository(new User(), new Dispatcher());
+        $this->fileRepo    = new FileRepository(new File(), new FileType(), new Dispatcher());
         parent::__construct($scenario);
     }
 
@@ -185,5 +201,40 @@ class FunctionalTester extends \Codeception\Actor {
         }
 
         return $this->contentRepo->create($fakeAttributes, $user);
+    }
+
+    /**
+     * Create content and return entity
+     *
+     * @param bool|false $attributes
+     * @param null       $user
+     *
+     * @return Content
+     */
+    public function haveFile($attributes = false, $user = null)
+    {
+        $uploadedFile   = $this->getExampleFile();
+        $fakeAttributes = [
+            'type'         => 'image',
+            'info'         => array_combine($this->faker->words(), $this->faker->words()),
+            'isActive'     => 1,
+            'createdBy'    => $user->id,
+            'translations' => [
+                'langCode'    => 'en',
+                'title'       => $this->faker->realText(38, 1),
+                'description' => $this->faker->realText(100),
+            ]
+        ];
+
+        if (!empty($attributes)) {
+            $fakeAttributes = array_merge($fakeAttributes, $attributes);
+        }
+
+        return $this->fileRepo->create($fakeAttributes, $uploadedFile, $user);
+    }
+
+    public function getExampleFile()
+    {
+        return new UploadedFile($this->filesDir . '/example.png', 'example.png', 'image/jpeg', null, null, true);
     }
 }
