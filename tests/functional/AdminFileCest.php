@@ -7,7 +7,7 @@ class AdminFileCest {
     /**
      * @var string endpoint url
      */
-    protected $url = 'http://api.localhost/v1/admin/options';
+    protected $url = 'http://api.localhost/v1/admin/files';
 
     public function _before(FunctionalTester $I)
     {
@@ -78,6 +78,7 @@ class AdminFileCest {
                 'extension'    => $file->extension,
                 'size'         => $file->size,
                 'mimeType'     => $file->mimeType,
+                'url'          => $file->getUrl(),
                 'isActive'     => (bool) $file->isActive,
                 'createdBy'    => $user->id,
                 'translations' => [
@@ -190,6 +191,7 @@ class AdminFileCest {
                 'extension'    => $file->extension,
                 'size'         => $file->size,
                 'mimeType'     => $file->mimeType,
+                'url'          => $file->getUrl(),
                 'isActive'     => false,
                 'createdBy'    => $user->id,
                 'translations' => [

@@ -34,6 +34,7 @@ class FileTransformer extends AbstractTransformer {
      */
     public function transform($file)
     {
+        $url = $file->getUrl();
         $file = $this->entityToArray(File::class, $file);
         return [
             'id'        => (int) $file['id'],
@@ -43,6 +44,7 @@ class FileTransformer extends AbstractTransformer {
             'size'      => $file['size'],
             'mimeType'  => $file['mimeType'],
             'info'      => $file['info'],
+            'url'       => $url,
             'isActive'  => (bool) $file['isActive'],
             'createdBy' => $file['createdBy'],
             'createdAt' => $file['createdAt'],

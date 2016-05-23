@@ -204,12 +204,12 @@ class FunctionalTester extends \Codeception\Actor {
     }
 
     /**
-     * Create content and return entity
+     * Create file and return entity
      *
      * @param bool|false $attributes
      * @param null       $user
      *
-     * @return Content
+     * @return File
      */
     public function haveFile($attributes = false, $user = null)
     {
