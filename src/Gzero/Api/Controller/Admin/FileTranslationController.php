@@ -109,7 +109,7 @@ class FileTranslationController extends ApiController {
     }
 
     /**
-     * Each translations update always creates new record in database, for history revision
+     * Each translations update always creates new record in database
      *
      * @param int $id Id of the file
      *

@@ -116,7 +116,7 @@ class FileController extends ApiController {
         $file = $this->fileRepo->getById($id);
 
         if (!empty($file)) {
-            $file->delete();
+            $this->fileRepo->delete($file);
             return $this->respondWithSimpleSuccess(['success' => true]);
         }
         return $this->respondNotFound();

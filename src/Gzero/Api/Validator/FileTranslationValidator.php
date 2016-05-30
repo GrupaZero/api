@@ -31,6 +31,7 @@ class FileTranslationValidator extends AbstractValidator {
      * @var array
      */
     protected $filters = [
-        'title' => 'trim'
+        'title'       => 'trim',
+        'description' => 'trim'
     ];
 }
