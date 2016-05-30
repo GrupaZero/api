@@ -167,6 +167,37 @@ class AdminFileCest {
         );
     }
 
+    public function createFileWithoutTranslations(FunctionalTester $I)
+    {
+        $uploadedFile = $I->getExampleFile();
+        $I->wantTo('create file without translations as admin user');
+        $I->loginAsAdmin();
+        $I->sendPOST(
+            $this->url,
+            [
+                'type'         => 'image',
+                'info'         => ['option' => 'value'],
+                'isActive'     => 1
+            ],
+            ['file' => $uploadedFile]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'type'         => 'image',
+                'info'         => ['option' => 'value'],
+                'name'         => 'example',
+                'extension'    => 'png',
+                'size'         => '5148',
+                'mimeType'     => 'image/png',
+                'isActive'     => true,
+                'createdBy'    => 1, // admin user id
+            ]
+
+        );
+    }
+
     public function UpdateFile(FunctionalTester $I)
     {
         $I->wantTo('update file as admin user');

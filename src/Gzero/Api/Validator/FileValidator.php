@@ -34,8 +34,8 @@ class FileValidator extends AbstractValidator {
             'info'                     => '',
             'createdBy'                => '',
             'isActive'                 => 'boolean',
-            'translations.langCode'    => 'required|in:pl,en,de,fr',
-            'translations.title'       => '',
+            'translations.langCode'    => 'required_with:translations.title|in:pl,en,de,fr',
+            'translations.title'       => 'required_with:translations.langCode',
             'translations.description' => '',
         ],
         'update' => [
