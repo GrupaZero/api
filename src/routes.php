@@ -44,9 +44,17 @@ group(
                     'Gzero\Api\Controller\Admin\RouteController',
                     ['only' => ['store']]
                 );
-                //resource('contents.uploads', 'Gzero\Api\Controller\Admin\UploadController');
-                // Uploads
-                //resource('uploads', 'Gzero\Api\Controller\Admin\UploadController');
+                // Files
+                resource(
+                    'files',
+                    'Gzero\Api\Controller\Admin\FileController',
+                    ['only' => ['index', 'show', 'store', 'update', 'destroy']]
+                );
+                resource(
+                    'files.translations',
+                    'Gzero\Api\Controller\Admin\FileTranslationController',
+                    ['only' => ['index', 'show', 'store', 'update', 'destroy']]
+                );
                 // Users
                 resource('users', 'Gzero\Api\Controller\Admin\UserController');
                 resource(
