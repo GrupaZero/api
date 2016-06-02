@@ -238,9 +238,7 @@ class FileTranslationController extends ApiController {
  * @apiSuccess {Number} data.id Translation id
  * @apiSuccess {String} data.lang Language code
  * @apiSuccess {String} data.title Title
- * @apiSuccess {String} data.body Body
- * @apiSuccess {Boolean} data.isActive Is active flag
- * @apiSuccess {Array} data.customFields Translation unique parameters (Defined as array of key / value parameters)
+ * @apiSuccess {String} data.description Description
  * @apiSuccess {Date} data.createdAt Creation date of translation
  * @apiSuccess {Date} data.updatedAt Update date of translation
  *
@@ -272,9 +270,7 @@ class FileTranslationController extends ApiController {
  * @apiSuccess {Number} id Translation id
  * @apiSuccess {String} lang Language code
  * @apiSuccess {String} title Title
- * @apiSuccess {String} body Body
- * @apiSuccess {Boolean} isActive Is active flag
- * @apiSuccess {Array} customFields Translation unique parameters (Defined as array of key / value parameters)
+ * @apiSuccess {String} description Description
  * @apiSuccess {Date} createdAt Creation date of translation
  * @apiSuccess {Date} updatedAt Update date of translation
  *
@@ -284,13 +280,7 @@ class FileTranslationController extends ApiController {
  *   "id": 1,
  *   "lang": "en",
  *   "title": "Example file title",
- *   "body": "Example file body",
- *   "isActive": true,
- *   "customFields": {
- *       "fieldName": "fieldValue",
- *       "anotherFieldName": "anotherFieldValue",
- *       "lastFieldName": "lastFieldValue"
- *   },
+ *   "description": "Example file description",
  *   "createdAt": "2015-12-13 12:11:04",
  *   "updatedAt": "2015-12-13 12:11:04"
  *   },

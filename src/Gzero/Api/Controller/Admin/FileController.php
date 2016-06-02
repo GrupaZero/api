@@ -149,102 +149,154 @@ class FileController extends ApiController {
 */
 
 /**
- * @api                 {get} /files 1. GET collection of categories
+ * @api                 {get} /admin/files 1. GET collection of entities
  * @apiVersion          0.1.0
- * @apiName             GetFileCategories
- * @apiGroup            Files
+ * @apiName             GetFileList
+ * @apiGroup            File
  * @apiPermission       admin
- * @apiDescription      Get all file categories
+ * @apiDescription      Get root files
+ * @apiUse              Meta
+ * @apiUse              Params
  * @apiUse              FileCollection
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/v1/files
- * @apiSuccessExample   Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "data": [
- *            {
- *              "key": "general"
- *            },
- *            {
- *              "key": "seo"
- *            }
- *       ]
- *     }
+ * curl -i http://api.example.com/v1/admin/files
  */
 
 /**
- * @api                 {get} /files/:category 2. GET category files
+ * @api                 {get} /admin/files/:id 2. GET single entity
  * @apiVersion          0.1.0
- * @apiName             GetFiles
- * @apiGroup            Files
+ * @apiName             GetFile
+ * @apiGroup            File
  * @apiPermission       admin
- * @apiDescription      Get all files within the given category
- * @apiParam {String}   key category unique key
+ * @apiDescription      Get the specified file from database
  * @apiUse              File
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/v1/files/general
- * @apiSuccessExample   Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "defaultPageSize": {
- *         "en": 5,
- *         "pl": 5
- *       },
- *       "siteDesc": {
- *         "en": "File management system.",
- *         "pl": "File management system."
- *       }
- *       "siteName": {
- *         "en": "G-ZERO CMS",
- *         "pl": "G-ZERO CMS"
- *       },
- *     }
- *
+ * curl -i http://api.example.com/v1/admin/files/123
  */
-
 /**
- * @api                 {put} /files/:category 3. PUT category files
+ * @api                 {post} /admin/files 3. POST newly created entity
  * @apiVersion          0.1.0
- * @apiName             UpdateFiles
- * @apiGroup            Files
+ * @apiName             PostFile
+ * @apiGroup            File
  * @apiPermission       admin
- * @apiDescription      Update selected file within the given category
- * @apiParam {String}   key file unique key
- * @apiParam {String}   value file value
+ * @apiDescription      Store newly created file in database
  * @apiUse              File
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/v1/files/general
- * @apiSuccessExample   Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "defaultPageSize": {
- *         "en": 5,
- *         "pl": 5
- *       },
- *       "siteDesc": {
- *         "en": "File management system.",
- *         "pl": "File management system."
- *       }
- *       "siteName": {
- *         "en": "G-ZERO CMS",
- *         "pl": "G-ZERO CMS"
- *       },
- *     }
+ * curl -i http://api.example.com/api/v1/admin/files
+ */
+/**
+ * @api                 {put} /admin/files 4. PUT the specified entity
+ * @apiVersion          0.1.0
+ * @apiName             PutFile
+ * @apiGroup            File
+ * @apiPermission       admin
+ * @apiDescription      Update the specified file in database
+ * @apiUse              File
  *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/api/v1/admin/files
+ */
+/**
+ * @api                 {delete} /admin/files 5. DELETE the specified entity
+ * @apiVersion          0.1.0
+ * @apiName             DeleteFile
+ * @apiGroup            File
+ * @apiPermission       admin
+ * @apiDescription      Delete the specified file from database
+ * @apiSuccess {Boolean} success Success flag
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/api/v1/admin/files
+ * @apiSuccessExample   Success-Response:
+ * HTTP/1.1 200 OK
+ * {"success":true}
  */
 
 /**
- * @apiDefine File
- * @apiSuccess {obj} data obj of all files in category
+ * @apiDefine           File
+ * @apiSuccess {Number} id File id
+ * @apiSuccess {String} type File type
+ * @apiSuccess {String} extension File extension
+ * @apiSuccess {number} size File size
+ * @apiSuccess {String} mimeType File mimeType
+ * @apiSuccess {Array} info File unique parameters (Defined as array of key / value parameters)
+ * @apiSuccess {String} url File url
+ * @apiSuccess {Boolean} isActive Is file active flag
+ * @apiSuccess {number} data.createdBy  User id of this File author
+ * @apiSuccess {Date} createdAt Creation date
+ * @apiSuccess {Date} updatedAt Update date
+ * @apiSuccess {Array} Translations List of active translations (Array of Objects)
+ *
+ * @apiSuccessExample   Success-Response:
+ * HTTP/1.1 200 OK
+ *       {
+ *           "id": 61,
+ *           "type": "image",
+ *           "name": "test",
+ *           "extension": "jpg",
+ *           "size": 1239876,
+ *           "mimeType": "image/jpeg",
+ *           "info": null,
+ *           "url": "http://api.dev.gzero.pl:8000/uploads/images/test.jpg",
+ *           "isActive": true,
+ *           "createdBy": 1,
+ *           "createdAt": "2016-05-27 17:37:01",
+ *           "updatedAt": "2016-05-27 17:37:01",
+ *           "translations": [
+ *               {
+ *                   "id": 64,
+ *                   "langCode": "en",
+ *                   "title": "test image",
+ *                   "description": "",
+ *                   "createdAt": "2016-05-27 17:37:01",
+ *                   "updatedAt": "2016-05-27 17:37:01"
+ *               }
+ *           ]
+ *       }
+ *   ]
+ *}
  */
 
 /**
- * @apiDefine FileCollection
- * @apiSuccess {Array[]} data Array of all files categories
- * @apiSuccess {String} data.key file key
+ * @apiDefine           FileCollection
+ * @apiSuccess {Array[]} data Array of Files
+ * @apiSuccess {Number} data.id File id
+ * @apiSuccess {String} data.type File type
+ * @apiSuccess {String} data.extension File extension
+ * @apiSuccess {String} data.size File size
+ * @apiSuccess {String} data.mimeType File mimeType
+ * @apiSuccess {Array} data.info File unique parameters (Defined as array of key / value parameters)
+ * @apiSuccess {String} data.url File url
+ * @apiSuccess {Boolean} data.isActive Is file active flag
+ * @apiSuccess {number} data.createdBy  User id of this File author
+ * @apiSuccess {Date} data.createdAt Creation date
+ * @apiSuccess {Date} data.updatedAt Update date
+ * @apiSuccess {Array} data.Translations List of active translations (Array of Objects)
+ *
+ * @apiSuccessExample   Success-Response:
+ * HTTP/1.1 200 OK
+ *{
+ *        "meta": {
+ *        "total": 75,
+ *        "perPage": 20,
+ *        "currentPage": 1,
+ *        "lastPage": 4,
+ *        "link": "http://api.gzero.dev:8000/v1/admin/files"
+ *    },
+ *    "params": {
+ *        "page": 1,
+ *        "perPage": 20,
+ *        "filter": [],
+ *        "orderBy": []
+ *    },
+ *    "data": [
+ *        {File},
+ *        ...
+ *    ]
+ *}
  */
 
 /*

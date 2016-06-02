@@ -34,19 +34,19 @@ class FileTransformer extends AbstractTransformer {
      */
     public function transform($file)
     {
-        $url = $file->getUrl();
+        $url  = $file->getUrl();
         $file = $this->entityToArray(File::class, $file);
         return [
             'id'        => (int) $file['id'],
             'type'      => $file['type'],
             'name'      => $file['name'],
             'extension' => $file['extension'],
-            'size'      => $file['size'],
+            'size'      => (int) $file['size'],
             'mimeType'  => $file['mimeType'],
             'info'      => $file['info'],
             'url'       => $url,
             'isActive'  => (bool) $file['isActive'],
-            'createdBy' => $file['createdBy'],
+            'createdBy' => (int) $file['createdBy'],
             'createdAt' => $file['createdAt'],
             'updatedAt' => $file['updatedAt']
         ];
