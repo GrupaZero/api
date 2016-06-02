@@ -1,7 +1,6 @@
 {
   "author": "GZERO",
   "name": "GZERO-API",
-  "version": "0.1.0",
   "apidoc": {
     "title": "Api documentation of GZERO API package",
     "url": "http://api.example.com/v1"
