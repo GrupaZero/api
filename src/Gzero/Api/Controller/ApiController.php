@@ -4,7 +4,7 @@ use Gzero\Api\UrlParamsProcessor;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Collection as EloquentCollection;
+use Illuminate\Support\Collection as LaravelCollection;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
@@ -98,7 +98,7 @@ class ApiController extends Controller {
                 $code,
                 $headers
             );
-        } elseif ($data instanceof EloquentCollection) { // Collection without pagination
+        } elseif ($data instanceof LaravelCollection) { // Collection without pagination
             $resource = new Collection($data, $transformer);
             return $this->respond(
                 [
