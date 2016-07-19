@@ -6,6 +6,7 @@ use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\ContentValidator;
 use Gzero\Repository\ContentRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection as LaravelCollection;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -131,16 +132,19 @@ class ContentController extends ApiController {
         }
         // All trees
         //$params['filter'] = array_merge(['type' => ['value' => 'category', 'relation' => null]], $params['filter']);
-        $nodes = $this->repository->getContents(
+        $nodes = $this->repository->getContentsByLevel(
             $params['filter'],
             $params['orderBy'],
             null
         );
 
-        return $this->respondWithSuccess(
-            $this->repository->buildTree($nodes),
-            new ContentTransformer
-        );
+        $trees = $this->repository->buildTree($nodes);
+        // We need to guarantee LaravelCollection here because buildTree will return single root
+        // if we have only one
+        if (!$trees instanceof LaravelCollection) {
+            $trees = new LaravelCollection([$trees]);
+        }
+        return $this->respondWithSuccess($trees, new ContentTransformer);
     }
 
     /**
