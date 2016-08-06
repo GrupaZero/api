@@ -2,26 +2,36 @@ sudo: required
 
 language: php
 
+php:
+  - '7.0'
+
 services:
   - docker
 
 env:
-  DOCKER_COMPOSE_VERSION: 1.5.2
+  DOCKER_VERSION: 1.10.3-0~trusty
+  DOCKER_COMPOSE_VERSION: 1.7.1
 
 before_install:
+  - apt-cache madison docker-engine # list docker-engine versions
+  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION} # upgrade docker-engine
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
 before_script:
+  - docker version
+  - docker-compose version
   - composer install --prefer-source --no-interaction --dev # installing local dependencies to late use
   - cd ../
   # TODO Add version support. Probably we'd need to add platform compatibility version flag in composer.json
   - git clone --depth=10 https://github.com/GrupaZero/platform.git platform
   - cd platform
   - docker-compose up -d
-  - docker exec -i -t platform_dev_web_1 composer install -d /var/www/ --prefer-source --no-interaction --dev # platform deps
+  - docker exec -i -t platform_dev_web_1 phpdismod xdebug # disabling xdebug to speed up composer
+  - docker exec -i -t platform_dev_web_1 composer install -d /var/www/ --prefer-source --no-interaction || true
+  - docker exec -i -t platform_dev_web_1 phpenmod xdebug # enabling xdebug for code coverage
   - ./scripts/link_package.sh api mount # mounting our repo to latest platform
   - docker-compose restart # we need to restart to refresh mouted packages
   - cd $TRAVIS_BUILD_DIR
