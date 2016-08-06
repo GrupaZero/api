@@ -63,6 +63,20 @@ class AdminContentCest {
         );
     }
 
+    public function getContentTreeWhenThereAreNoRecords(FunctionalTester $I)
+    {
+        $I->wantTo('get tree of contents when there are no records as admin user');
+        $I->loginAsAdmin();
+        $I->sendGET('http://api.localhost/v1/admin/contents/tree');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'data' => []
+            ]
+        );
+    }
+
     public function getContentTreeForSingleCategory(FunctionalTester $I)
     {
         $I->wantTo('get tree of contents for single root as admin user');
