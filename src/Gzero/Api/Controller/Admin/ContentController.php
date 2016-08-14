@@ -144,7 +144,7 @@ class ContentController extends ApiController {
         $trees = $this->repository->buildTree($nodes);
         // We need to guarantee LaravelCollection here because buildTree will return single root
         // if we have only one
-        if (!$trees instanceof LaravelCollection) {
+        if (!empty($trees) && !$trees instanceof LaravelCollection) {
             $trees = new LaravelCollection([$trees]);
         }
         return $this->respondWithSuccess($trees, new ContentTransformer);
