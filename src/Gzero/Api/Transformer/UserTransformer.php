@@ -17,6 +17,15 @@ use Gzero\Entity\User;
 class UserTransformer extends AbstractTransformer {
 
     /**
+     * List of resources to automatically include
+     *
+     * @var array
+     */
+    protected $defaultIncludes = [
+        'roles'
+    ];
+
+    /**
      * Transforms user entity
      *
      * @param User|array $user User entity
@@ -31,7 +40,21 @@ class UserTransformer extends AbstractTransformer {
             'email'     => $user['email'],
             'nickName'  => $user['nickName'],
             'firstName' => $user['firstName'],
-            'lastName'  => $user['lastName']
+            'lastName'  => $user['lastName'],
+            'roles'     => !empty($user['roles']) ? $user['roles'] : []
         ];
+    }
+
+    /**
+     * Include Roles
+     *
+     * @param User $user Translation
+     *
+     * @return \League\Fractal\ItemResource
+     */
+    public function includeRoles(User $user)
+    {
+        $roles = $user->roles;
+        return $this->collection($roles, new RoleTransformer());
     }
 }
