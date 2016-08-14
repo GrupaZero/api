@@ -4,8 +4,8 @@ use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\ContentTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\ContentValidator;
+use Gzero\Entity\Content;
 use Gzero\Repository\ContentRepository;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection as LaravelCollection;
 
 /**
@@ -55,6 +55,7 @@ class ContentController extends ApiController {
      */
     public function index($id = null)
     {
+        $this->authorize('readList', Content::class);
         $input  = $this->validator->validate('list');
         $params = $this->processor->process($input)->getProcessedFields();
         if ($id) { // content/id/children
@@ -90,6 +91,7 @@ class ContentController extends ApiController {
      */
     public function indexOfDeleted()
     {
+        $this->authorize('readList', Content::class);
         $input  = $this->validator->validate('list');
         $params = $this->processor->process($input)->getProcessedFields();
 
@@ -112,6 +114,7 @@ class ContentController extends ApiController {
      */
     public function indexTree($id = null)
     {
+        $this->authorize('readList', Content::class);
         $input  = $this->validator->validate('tree');
         $params = $this->processor->process($input)->getProcessedFields();
         $this->getSerializer()->parseIncludes('children'); // We need to enable children include to return tree from api
@@ -158,6 +161,7 @@ class ContentController extends ApiController {
     {
         $content = $this->repository->getById($id);
         if (!empty($content)) {
+            $this->authorize('read', $content);
             return $this->respondWithSuccess($content, new ContentTransformer);
         }
         return $this->respondNotFound();
@@ -170,8 +174,9 @@ class ContentController extends ApiController {
      */
     public function store()
     {
+        $this->authorize('create', Content::class);
         $input   = $this->validator->validate('create');
-        $content = $this->repository->create($input, Auth::user());
+        $content = $this->repository->create($input, auth()->user());
         return $this->respondWithSuccess($content, new ContentTransformer);
     }
 
@@ -186,8 +191,9 @@ class ContentController extends ApiController {
     {
         $content = $this->repository->getById($id);
         if (!empty($content)) {
+            $this->authorize('update', $content);
             $input   = $this->validator->validate('update');
-            $content = $this->repository->update($content, $input, Auth::user());
+            $content = $this->repository->update($content, $input, auth()->user());
             return $this->respondWithSuccess($content, new ContentTransformer);
         }
         return $this->respondNotFound();
@@ -209,6 +215,7 @@ class ContentController extends ApiController {
         $content = $forceDelete ? $this->repository->getDeletedById($id) : $this->repository->getById($id);
 
         if (!empty($content)) {
+            $this->authorize('delete', $content);
             if ($forceDelete) {
                 $this->repository->forceDelete($content);
             } else {
@@ -230,6 +237,7 @@ class ContentController extends ApiController {
     {
         $content = $this->repository->getDeletedById($id);
         if (!empty($content)) {
+            $this->authorize('update', $content);
             $content->restore();
             return $this->respondWithSimpleSuccess(['success' => true]);
         }

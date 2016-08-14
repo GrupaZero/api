@@ -1,6 +1,7 @@
 <?php namespace Gzero\Api\Controller\Admin;
 
 use Gzero\Api\Controller\ApiController;
+use Gzero\Entity\User;
 use Gzero\Repository\UserRepository;
 use Gzero\Api\Transformer\UserTransformer;
 use Gzero\Api\UrlParamsProcessor;
@@ -46,6 +47,7 @@ class UserController extends ApiController {
      */
     public function index()
     {
+        $this->authorize('readList', User::class);
         $input   = $this->validator->validate('list');
         $params  = $this->processor->process($input)->getProcessedFields();
         $results = $this->userRepo->getUsers(
@@ -67,11 +69,11 @@ class UserController extends ApiController {
     public function show($id)
     {
         $user = $this->userRepo->getById($id);
-        if (empty($user)) {
-            return $this->respondNotFound();
-        } else {
+        if (!empty($user)) {
+            $this->authorize('read', $user);
             return $this->respondWithSuccess($user, new UserTransformer);
         }
+        return $this->respondNotFound();
     }
 
     /**
@@ -86,6 +88,7 @@ class UserController extends ApiController {
         $user = $this->userRepo->getById($id);
 
         if (!empty($user)) {
+            $this->authorize('delete', $user);
             $user->delete();
             return $this->respondWithSimpleSuccess(['success' => true]);
         }
@@ -103,6 +106,7 @@ class UserController extends ApiController {
     {
         $user = $this->userRepo->getById($id);
         if (!empty($user)) {
+            $this->authorize('update', $user);
             $input = $this->validator->bind('nickName', ['userId' => $user->id])->bind('email', ['userId' => $user->id])
                 ->validate('update');
             $user  = $this->userRepo->update($user, $input);

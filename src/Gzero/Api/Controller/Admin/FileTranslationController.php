@@ -4,6 +4,7 @@ use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\FileTranslationTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\FileTranslationValidator;
+use Gzero\Entity\File;
 use Gzero\Repository\FileRepository;
 
 /**
@@ -53,6 +54,7 @@ class FileTranslationController extends ApiController {
      */
     public function index($id)
     {
+        $this->authorize('readList', File::class);
         $input  = $this->validator->validate('list');
         $params = $this->processor->process($input)->getProcessedFields();
         $file   = $this->repository->getById($id);
@@ -82,6 +84,7 @@ class FileTranslationController extends ApiController {
     {
         $file = $this->getFile($id);
         if (!empty($file)) {
+            $this->authorize('read', $file);
             $translation = $this->repository->getFileTranslationById($file, $translationId);
             if (!empty($translation)) {
                 return $this->respondWithSuccess($translation, new FileTranslationTransformer);
@@ -101,6 +104,8 @@ class FileTranslationController extends ApiController {
     {
         $file = $this->getFile($id);
         if (!empty($file)) {
+            $this->authorize('create', $file);
+            $this->authorize('update', $file);
             $input       = $this->validator->validate('create');
             $translation = $this->repository->createTranslation($file, $input);
             return $this->respondWithSuccess($translation, new FileTranslationTransformer);
@@ -132,6 +137,7 @@ class FileTranslationController extends ApiController {
     {
         $file = $this->getFile($id);
         if (!empty($file)) {
+            $this->authorize('delete', $file);
             $translation = $this->repository->getFileTranslationById($file, $translationId);
             if (!empty($translation)) {
                 $this->repository->deleteTranslation($translation);

@@ -5,7 +5,7 @@ use Gzero\Api\Transformer\RouteTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\RouteTranslationValidator;
 use Gzero\Repository\ContentRepository;
-use Gzero\Core\Exception;
+use Gzero\Repository\RepositoryException;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -57,6 +57,8 @@ class RouteController extends ApiController {
     {
         $content = $this->repository->getById($contentId);
         if (!empty($content)) {
+            $this->authorize('create', $content);
+            $this->authorize('update', $content);
             if ($content->type != 'category') {
                 $input = $this->validator->validate('create');
                 $route = $this->repository->createRoute($content, $input['langCode'], $input['url']);

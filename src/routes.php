@@ -1,7 +1,7 @@
 <?php
 
 group(
-    ['middleware' => 'auth'],
+    ['middleware' => 'admin.api.access'],
     function () {
         // Admin API
         group(

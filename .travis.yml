@@ -9,12 +9,13 @@ services:
   - docker
 
 env:
+  PLATFORM_BRANCH: master # default master
   DOCKER_VERSION: 1.10.3-0~trusty
   DOCKER_COMPOSE_VERSION: 1.7.1
 
 before_install:
   - apt-cache madison docker-engine # list docker-engine versions
-  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION} # upgrade docker-engine
+  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y --force-yes docker-engine=${DOCKER_VERSION} # upgrade docker-engine
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
@@ -26,7 +27,7 @@ before_script:
   - composer install --prefer-source --no-interaction --dev # installing local dependencies to late use
   - cd ../
   # TODO Add version support. Probably we'd need to add platform compatibility version flag in composer.json
-  - git clone --depth=10 https://github.com/GrupaZero/platform.git platform
+  - git clone --depth=10 -b ${PLATFORM_BRANCH} https://github.com/GrupaZero/platform.git platform
   - cd platform
   - docker-compose up -d
   - docker exec -i -t platform_dev_web_1 phpdismod xdebug # disabling xdebug to speed up composer
