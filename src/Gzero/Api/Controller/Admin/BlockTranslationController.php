@@ -4,6 +4,7 @@ use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\BlockTranslationTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\BlockTranslationValidator;
+use Gzero\Entity\Block;
 use Gzero\Repository\BlockRepository;
 
 /**
@@ -53,6 +54,7 @@ class BlockTranslationController extends ApiController {
      */
     public function index($id)
     {
+        $this->authorize('readList', Block::class);
         $input  = $this->validator->validate('list');
         $params = $this->processor->process($input)->getProcessedFields();
         $block  = $this->repository->getById($id);
@@ -82,6 +84,7 @@ class BlockTranslationController extends ApiController {
     {
         $block = $this->getBlock($id);
         if (!empty($block)) {
+            $this->authorize('read', $block);
             $translation = $this->repository->getBlockTranslationById($block, $translationId);
             if (!empty($translation)) {
                 return $this->respondWithSuccess($translation, new BlockTranslationTransformer);
@@ -101,6 +104,8 @@ class BlockTranslationController extends ApiController {
     {
         $block = $this->getBlock($id);
         if (!empty($block)) {
+            $this->authorize('create', $block);
+            $this->authorize('update', $block);
             $input       = $this->validator->validate('create');
             $translation = $this->repository->createTranslation($block, $input);
             return $this->respondWithSuccess($translation, new BlockTranslationTransformer);
@@ -132,6 +137,7 @@ class BlockTranslationController extends ApiController {
     {
         $block = $this->getBlock($id);
         if (!empty($block)) {
+            $this->authorize('delete', $block);
             $translation = $this->repository->getBlockTranslationById($block, $translationId);
             if (!empty($translation)) {
                 $this->repository->deleteTranslation($translation);

@@ -4,6 +4,7 @@ use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\ContentTranslationTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\ContentTranslationValidator;
+use Gzero\Entity\Content;
 use Gzero\Repository\ContentRepository;
 
 /**
@@ -53,6 +54,7 @@ class ContentTranslationController extends ApiController {
      */
     public function index($id)
     {
+        $this->authorize('readList', Content::class);
         $input   = $this->validator->validate('list');
         $params  = $this->processor->process($input)->getProcessedFields();
         $content = $this->repository->getById($id);
@@ -82,6 +84,7 @@ class ContentTranslationController extends ApiController {
     {
         $content = $this->getContent($id);
         if (!empty($content)) {
+            $this->authorize('read', $content);
             $translation = $this->repository->getContentTranslationById($content, $translationId);
             if (!empty($translation)) {
                 return $this->respondWithSuccess($translation, new ContentTranslationTransformer);
@@ -101,6 +104,8 @@ class ContentTranslationController extends ApiController {
     {
         $content = $this->getContent($id);
         if (!empty($content)) {
+            $this->authorize('create', $content);
+            $this->authorize('update', $content);
             $input       = $this->validator->validate('create');
             $translation = $this->repository->createTranslation($content, $input);
             return $this->respondWithSuccess($translation, new ContentTranslationTransformer);
@@ -132,6 +137,7 @@ class ContentTranslationController extends ApiController {
     {
         $content = $this->getContent($id);
         if (!empty($content)) {
+            $this->authorize('delete', $content);
             $translation = $this->repository->getContentTranslationById($content, $translationId);
             if (!empty($translation)) {
                 $this->repository->deleteTranslation($translation);

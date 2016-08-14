@@ -23,7 +23,7 @@ class ServiceProvider extends AbstractServiceProvider {
      * @var array
      */
     protected $providers = [
-        'Barryvdh\Cors\CorsServiceProvider'
+        \Barryvdh\Cors\CorsServiceProvider::class
     ];
 
     /**
@@ -42,7 +42,6 @@ class ServiceProvider extends AbstractServiceProvider {
     {
         parent::register();
         $this->registerFilters();
-        $this->registerApiErrorHandler();
         $this->bind();
     }
 
@@ -53,6 +52,7 @@ class ServiceProvider extends AbstractServiceProvider {
      */
     public function boot()
     {
+        parent::boot();
         $this->registerRoutes();
     }
 
@@ -91,17 +91,6 @@ class ServiceProvider extends AbstractServiceProvider {
                 return $manager;
             }
         );
-    }
-
-    /**
-     * Register api error handler to return json on exceptions
-     *
-     * @return void
-     */
-    protected function registerApiErrorHandler()
-    {
-        // TODO We need to think, if we want to register api error handler here
-        //$this->app['Illuminate\Contracts\Debug\ExceptionHandler'];
     }
 
 }

@@ -5,6 +5,7 @@ use Gzero\Api\Transformer\BlockTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\BlockValidator;
 use Gzero\Core\BlockFinder;
+use Gzero\Entity\Block;
 use Gzero\Repository\BlockRepository;
 use Gzero\Repository\ContentRepository;
 
@@ -72,6 +73,7 @@ class BlockController extends ApiController {
      */
     public function index()
     {
+        $this->authorize('readList', Block::class);
         $input   = $this->validator->validate('list');
         $params  = $this->processor->process($input)->getProcessedFields();
         $results = $this->repository->getBlocks(
@@ -90,6 +92,7 @@ class BlockController extends ApiController {
      */
     public function indexOfDeleted()
     {
+        $this->authorize('readList', Block::class);
         $input   = $this->validator->validate('list');
         $params  = $this->processor->process($input)->getProcessedFields();
         $results = $this->repository->getDeletedBlocks(
@@ -111,6 +114,7 @@ class BlockController extends ApiController {
      */
     public function indexForSpecificContent($contentId)
     {
+        $this->authorize('readList', Block::class);
         $onlyPublic = false;
         $content    = $this->contentRepository->getById($contentId);
         if ($content) {
@@ -134,6 +138,7 @@ class BlockController extends ApiController {
     {
         $block = $this->repository->getById($id);
         if (!empty($block)) {
+            $this->authorize('read', $block);
             return $this->respondWithSuccess($block, new BlockTransformer);
         }
         return $this->respondNotFound();
@@ -146,6 +151,7 @@ class BlockController extends ApiController {
      */
     public function store()
     {
+        $this->authorize('create', Block::class);
         $input = $this->validator->validate('create');
         $block = $this->repository->create($input, auth()->user());
         return $this->respondWithSuccess($block, new BlockTransformer);
@@ -162,6 +168,7 @@ class BlockController extends ApiController {
     {
         $block = $this->repository->getById($id);
         if (!empty($block)) {
+            $this->authorize('update', $block);
             $input = $this->validator->validate('update');
             $block = $this->repository->update($block, $input, auth()->user());
             return $this->respondWithSuccess($block, new BlockTransformer);
@@ -181,6 +188,7 @@ class BlockController extends ApiController {
         $forceDelete = \Input::has('force');
 
         $block = $forceDelete ? $this->repository->getDeletedById($id) : $this->repository->getById($id);
+        $this->authorize('delete', $block);
 
         if (!empty($block)) {
             if ($forceDelete) {
@@ -204,6 +212,7 @@ class BlockController extends ApiController {
     {
         $block = $this->repository->getDeletedById($id);
         if (!empty($block)) {
+            $this->authorize('update', $block);
             $block->restore();
             return $this->respondWithSimpleSuccess(['success' => true]);
         }

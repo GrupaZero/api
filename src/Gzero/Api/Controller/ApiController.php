@@ -2,7 +2,7 @@
 
 use Gzero\Api\UrlParamsProcessor;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Routing\Controller;
+use Gzero\Core\Controllers\BaseController as Controller;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Collection as LaravelCollection;
 use League\Fractal\Manager;
