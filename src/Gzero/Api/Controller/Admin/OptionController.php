@@ -4,6 +4,7 @@ use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\OptionCategoryTransformer;
 use Gzero\Api\Transformer\OptionTransformer;
 use Gzero\Api\Validator\OptionValidator;
+use Gzero\Entity\Option;
 use Gzero\Repository\OptionRepository;
 use Gzero\Repository\RepositoryException;
 
@@ -50,6 +51,7 @@ class OptionController extends ApiController {
      */
     public function index()
     {
+        $this->authorize('read', Option::class);
         return $this->respondWithSuccess($this->optionRepo->getCategories(), new OptionCategoryTransformer);
     }
 
@@ -62,6 +64,7 @@ class OptionController extends ApiController {
      */
     public function show($key)
     {
+        $this->authorize('read', Option::class);
         try {
             $option = $this->optionRepo->getOptions($key);
             return $this->respondWithSuccess($option, new OptionTransformer);
@@ -82,6 +85,7 @@ class OptionController extends ApiController {
     public function update($categoryKey)
     {
         $input = $this->validator->validate('update');
+        $this->authorize('update', [Option::class, $categoryKey]);
         try {
             $this->optionRepo->updateOrCreateOption($categoryKey, $input['key'], $input['value']);
             return $this->respondWithSuccess($this->optionRepo->getOptions($categoryKey), new OptionTransformer);

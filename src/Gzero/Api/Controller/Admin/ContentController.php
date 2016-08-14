@@ -160,8 +160,8 @@ class ContentController extends ApiController {
     public function show($id)
     {
         $content = $this->repository->getById($id);
-        $this->authorize('read', $content);
         if (!empty($content)) {
+            $this->authorize('read', $content);
             return $this->respondWithSuccess($content, new ContentTransformer);
         }
         return $this->respondNotFound();
@@ -213,9 +213,9 @@ class ContentController extends ApiController {
         $forceDelete = filter_var($forceDelete, FILTER_VALIDATE_BOOLEAN);
 
         $content = $forceDelete ? $this->repository->getDeletedById($id) : $this->repository->getById($id);
-        $this->authorize('delete', $content);
 
         if (!empty($content)) {
+            $this->authorize('delete', $content);
             if ($forceDelete) {
                 $this->repository->forceDelete($content);
             } else {

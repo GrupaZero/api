@@ -1,5 +1,6 @@
 <?php namespace Gzero\Api\Controller\Admin;
 
+use Gzero\Entity\File;
 use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\FileTransformer;
 use Gzero\Api\Validator\FileValidator;
@@ -54,6 +55,7 @@ class FileController extends ApiController {
      */
     public function index()
     {
+        $this->authorize('readList', File::class);
         $input   = $this->validator->validate('list');
         $params  = $this->processor->process($input)->getProcessedFields();
         $results = $this->fileRepo->getFiles(
@@ -75,11 +77,11 @@ class FileController extends ApiController {
     public function show($id)
     {
         $file = $this->fileRepo->getById($id);
-        if (empty($file)) {
-            return $this->respondNotFound();
-        } else {
+        if (!empty($file)) {
+            $this->authorize('read', $file);
             return $this->respondWithSuccess($file, new FileTransformer);
         }
+        return $this->respondNotFound();
     }
 
     /**
@@ -89,6 +91,7 @@ class FileController extends ApiController {
      */
     public function store()
     {
+        $this->authorize('create', File::class);
         $input = $this->validator->validate('create');
         if (Input::hasFile('file')) {
             $uploadedFile = Input::file('file');
@@ -116,6 +119,7 @@ class FileController extends ApiController {
         $file = $this->fileRepo->getById($id);
 
         if (!empty($file)) {
+            $this->authorize('delete', $file);
             $this->fileRepo->delete($file);
             return $this->respondWithSimpleSuccess(['success' => true]);
         }
@@ -133,6 +137,7 @@ class FileController extends ApiController {
     {
         $file = $this->fileRepo->getById($id);
         if (!empty($file)) {
+            $this->authorize('update', $file);
             $input = $this->validator->validate('update');
             $file  = $this->fileRepo->update($file, $input, Auth::user());
             return $this->respondWithSuccess($file, new FileTransformer);
