@@ -342,16 +342,18 @@ class ContentController extends ApiController {
  * curl -i http://api.example.com/api/v1/admin/contents
  */
 /**
- * @api                 {delete} /admin/contents 8. DELETE the specified entity
+ * @api                 {delete} /admin/contents/:id?force=:forceDelete 8. DELETE the specified entity
  * @apiVersion          0.1.0
  * @apiName             DeleteContent
  * @apiGroup            Content
+ * @apiParam            (Content) {Number} id ID of the content.
+ * @apiParam            (Content) {Boolean} forceDelete Idicates content should be permanently deleted or not.
  * @apiPermission       admin
  * @apiDescription      Delete the specified content from database
  * @apiSuccess {Boolean} success Success flag
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/api/v1/admin/contents
+ * curl -i http://api.example.com/api/v1/admin/contents/23?force=true
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
  * {"success":true}
