@@ -204,13 +204,11 @@ class ContentController extends ApiController {
      *
      * @param int  $id          Content id
      *
-     * @param bool $forceDelete if true use forceDelete
-     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id, $forceDelete = false)
+    public function destroy($id)
     {
-        $forceDelete = filter_var($forceDelete, FILTER_VALIDATE_BOOLEAN);
+        $forceDelete = \Input::has('force');
 
         $content = $forceDelete ? $this->repository->getDeletedById($id) : $this->repository->getById($id);
 
