@@ -202,7 +202,7 @@ class ContentController extends ApiController {
     /**
      * Removes the specified resource from database.
      *
-     * @param int  $id          Content id
+     * @param int $id Content id
      *
      * @return \Illuminate\Http\JsonResponse
      */
