@@ -10,14 +10,14 @@ define({ "api": [
       "fields": {
         "": [
           {
-            "group": "Block",
+            "group": "Content",
             "type": "Number",
             "optional": false,
             "field": "id",
             "description": "<p>ID of the block.</p>"
           },
           {
-            "group": "Block",
+            "group": "Content",
             "type": "Boolean",
             "optional": false,
             "field": "forceDelete",
@@ -57,7 +57,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example usage:",
-        "content": "curl -i http://api.example.com/api/v1/admin/blocks",
+        "content": "curl -i http://api.example.com/api/v1/admin/blocks/21?force=true",
         "type": "json"
       }
     ],
