@@ -1,11 +1,31 @@
 [
   {
     "type": "delete",
-    "url": "/admin/blocks",
+    "url": "/admin/blocks/:id?force=:forceDelete",
     "title": "6. DELETE the specified entity",
     "version": "0.1.0",
     "name": "DeleteBlock",
     "group": "Block",
+    "parameter": {
+      "fields": {
+        "": [
+          {
+            "group": "Block",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the block.</p>"
+          },
+          {
+            "group": "Block",
+            "type": "Boolean",
+            "optional": false,
+            "field": "forceDelete",
+            "description": "<p>Idicates block should be permanently deleted or not.</p>"
+          }
+        ]
+      }
+    },
     "permission": [
       {
         "name": "admin",

@@ -291,16 +291,18 @@ class BlockController extends ApiController {
  * curl -i http://api.example.com/api/v1/admin/blocks
  */
 /**
- * @api                 {delete} /admin/blocks 6. DELETE the specified entity
+ * @api                 {delete} /admin/blocks/:id?force=:forceDelete 6. DELETE the specified entity
  * @apiVersion          0.1.0
  * @apiName             DeleteBlock
  * @apiGroup            Block
+ * @apiParam            (Content) {Number} id ID of the block.
+ * @apiParam            (Content) {Boolean} forceDelete Idicates block should be permanently deleted or not.
  * @apiPermission       admin
  * @apiDescription      Delete the specified block from database
  * @apiSuccess {Boolean} success Success flag
  *
  * @apiExample          Example usage:
- * curl -i http://api.example.com/api/v1/admin/blocks
+ * curl -i http://api.example.com/api/v1/admin/blocks/21?force=true
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
  * {"success":true}
