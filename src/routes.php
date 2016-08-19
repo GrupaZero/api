@@ -27,7 +27,6 @@ group(
                 get('contents/tree/{id?}', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexTree']);
                 get('contents/deleted', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexOfDeleted']);
                 put('contents/restore/{id?}', 'Gzero\Api\Controller\Admin\ContentController@restore');
-                delete('contents/{id?}?force={forceDelete?}', 'Gzero\Api\Controller\Admin\ContentController@destroy');
                 resource('contents', 'Gzero\Api\Controller\Admin\ContentController');
                 resource(
                     'contents.children',
