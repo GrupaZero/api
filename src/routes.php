@@ -66,12 +66,10 @@ group(
         );
     }
 );
-//// Public API
-//group(
-//    ['domain' => 'api.' . Config::get('gzero.domain'), 'prefix' => 'v1'],
-//    function () {
-//        resource('blocks', 'Gzero\Api\Controller\BlockController', ['only' => ['index', 'show']]);
-//        resource('contents', 'Gzero\Api\Controller\ContentController', ['only' => ['index', 'show']]);
-//        resource('contents.children', 'Gzero\Api\Controller\ContentController', ['only' => ['index']]);
-//    }
-//);
+// Public API
+group(
+    ['domain' => 'api.' . Config::get('gzero.domain'), 'prefix' => 'v1'],
+    function () {
+        post('login', ['uses' => 'Gzero\Api\Controller\LoginController@index']);
+    }
+);
