@@ -268,7 +268,8 @@ class AdminContentCest {
             ],
             $user
         );
-        $I->sendDelete($this->url . '/' . $content->id);
+        // Since we can delete content even it wasn't soft deleted we don't need it in tests
+        //$I->sendDelete($this->url . '/' . $content->id);
         $I->sendDelete($this->url . '/' . $content->id, ['force' => true]);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
