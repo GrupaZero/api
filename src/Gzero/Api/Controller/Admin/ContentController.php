@@ -208,7 +208,7 @@ class ContentController extends ApiController {
      */
     public function destroy($id)
     {
-        $forceDelete = \Input::has('force');
+        $forceDelete = \Input::get('force', false);
 
         $content = $forceDelete ? $this->repository->getDeletedById($id) : $this->repository->getById($id);
 
