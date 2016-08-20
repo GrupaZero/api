@@ -122,11 +122,8 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 500,
-                        'message' => 'category some_category does not exist',
-                    ],
+                'code'    => 500,
+                'message' => 'category some_category does not exist',
             ]
         );
     }
@@ -152,8 +149,9 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'  => 400,
-                'error' =>
+                'code'    => 400,
+                'message' => '{"key":["The selected key is invalid."]}',
+                'errors'  =>
                     [
                         'key' =>
                             [
@@ -186,8 +184,9 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'  => 400,
-                'error' =>
+                'code'    => 400,
+                'message' => '{"key":["The selected key is invalid."]}',
+                'errors'  =>
                     [
                         'key' =>
                             [
