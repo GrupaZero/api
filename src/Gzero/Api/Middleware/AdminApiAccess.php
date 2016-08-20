@@ -52,6 +52,8 @@ class AdminApiAccess {
             $user = $this->auth->authenticate($token);
             if ($user && ($user->hasPermission('admin-api-access') || $user->isSuperAdmin())) {
                 return $next($request);
+            } else {
+                throw new AccessForbiddenException();
             }
         } catch (TokenExpiredException $e) {
             throw new AccessForbiddenException();
