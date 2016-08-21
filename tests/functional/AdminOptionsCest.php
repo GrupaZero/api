@@ -118,11 +118,11 @@ class AdminOptionsCest {
         $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
         $I->haveHttpHeader('Origin', 'http://localhost');
         $I->sendGET($this->url . '/some_category');
-        $I->seeResponseCodeIs(500);
+        $I->seeResponseCodeIs(400);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 500,
+                'code'    => 400,
                 'message' => 'Category some_category does not exist',
             ]
         );

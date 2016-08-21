@@ -88,11 +88,8 @@ class AdminUserCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -144,11 +141,8 @@ class AdminUserCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }

@@ -154,11 +154,8 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -432,11 +429,8 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -612,11 +606,8 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -728,11 +719,8 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -746,11 +734,8 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }

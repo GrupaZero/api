@@ -102,7 +102,7 @@ class AdminFileCest {
         $I->seeResponseContainsJson(
             [
                 'code'    => 404,
-                'message' => "Not found!",
+                'message' => "Not found",
             ]
         );
     }
@@ -243,7 +243,7 @@ class AdminFileCest {
         $I->seeResponseContainsJson(
             [
                 'code'    => 404,
-                'message' => "Not found!",
+                'message' => "Not found",
             ]
         );
     }
@@ -274,7 +274,7 @@ class AdminFileCest {
         $I->seeResponseContainsJson(
             [
                 'code'    => 404,
-                'message' => "Not found!",
+                'message' => "Not found",
             ]
         );
     }
