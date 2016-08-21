@@ -224,22 +224,22 @@
         },
         {
             "name": "gzero/core",
-            "version": "v0.2.0",
+            "version": "v0.3.0",
             "target-dir": "Gzero/Core",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/core.git",
-                "reference": "c2514dbd52999516943650e3013fa9cc188a3e5e"
+                "reference": "d16d2ffc2e7a893dee35317dd91e1c45cffbef28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/core/zipball/c2514dbd52999516943650e3013fa9cc188a3e5e",
-                "reference": "c2514dbd52999516943650e3013fa9cc188a3e5e",
+                "url": "https://api.github.com/repos/GrupaZero/core/zipball/d16d2ffc2e7a893dee35317dd91e1c45cffbef28",
+                "reference": "d16d2ffc2e7a893dee35317dd91e1c45cffbef28",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "5.1.*",
-                "php": ">=5.5.9"
+                "php": ">=7.0.0"
             },
             "type": "library",
             "autoload": {
@@ -257,26 +257,26 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2016-08-14 14:23:18"
+            "time": "2016-08-21 12:08:13"
         },
         {
             "name": "gzero/entity",
-            "version": "v0.2.0",
+            "version": "v0.3.0",
             "target-dir": "Gzero/Entity",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/entity.git",
-                "reference": "a5993a9993ac94f8fda1b018443bf89cf630d82c"
+                "reference": "f79af037e37c03afb5934e80ba70d45ea4ce4fb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/a5993a9993ac94f8fda1b018443bf89cf630d82c",
-                "reference": "a5993a9993ac94f8fda1b018443bf89cf630d82c",
+                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/f79af037e37c03afb5934e80ba70d45ea4ce4fb7",
+                "reference": "f79af037e37c03afb5934e80ba70d45ea4ce4fb7",
                 "shasum": ""
             },
             "require": {
                 "illuminate/database": "5.1.*",
-                "php": ">=5.5.9"
+                "php": ">=7.0.0"
             },
             "type": "library",
             "autoload": {
@@ -294,28 +294,28 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2016-08-14 14:23:18"
+            "time": "2016-08-21 12:08:13"
         },
         {
             "name": "gzero/repository",
-            "version": "v0.2.0",
+            "version": "v0.3.0",
             "target-dir": "Gzero/Repository",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/repository.git",
-                "reference": "ed53cf9386c99baf7a4f83fe74ffc0329455d4c5"
+                "reference": "e1e475b6aa423f81eeba47375e09d28df54d33df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/ed53cf9386c99baf7a4f83fe74ffc0329455d4c5",
-                "reference": "ed53cf9386c99baf7a4f83fe74ffc0329455d4c5",
+                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/e1e475b6aa423f81eeba47375e09d28df54d33df",
+                "reference": "e1e475b6aa423f81eeba47375e09d28df54d33df",
                 "shasum": ""
             },
             "require": {
                 "gzero/entity": "self.version",
                 "illuminate/database": "5.1.*",
                 "illuminate/events": "5.1.*",
-                "php": ">=5.5.9"
+                "php": ">=7.0.0"
             },
             "type": "library",
             "autoload": {
@@ -333,25 +333,25 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2016-08-14 05:29:49"
+            "time": "2016-08-21 12:08:13"
         },
         {
             "name": "gzero/validator",
-            "version": "v0.2.0",
+            "version": "v0.3.0",
             "target-dir": "Gzero/Validator",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/validator.git",
-                "reference": "729722fcc17cb7db41519885c88f032a95c32495"
+                "reference": "4e7190111dbdd9b5adeb66d633a08fb23ad11345"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/validator/zipball/729722fcc17cb7db41519885c88f032a95c32495",
-                "reference": "729722fcc17cb7db41519885c88f032a95c32495",
+                "url": "https://api.github.com/repos/GrupaZero/validator/zipball/4e7190111dbdd9b5adeb66d633a08fb23ad11345",
+                "reference": "4e7190111dbdd9b5adeb66d633a08fb23ad11345",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=7.0.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "4.3.*"
@@ -377,7 +377,7 @@
                 "laravel",
                 "validator"
             ],
-            "time": "2016-04-09 14:00:12"
+            "time": "2016-08-21 12:08:13"
         },
         {
             "name": "illuminate/container",

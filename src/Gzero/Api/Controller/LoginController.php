@@ -1,7 +1,8 @@
 <?php namespace Gzero\Api\Controller;
 
-use Gzero\Api\AccessForbiddenException;
 use Gzero\Core\Controllers\BaseController;
+use Gzero\Validator\ValidationException;
+use Illuminate\Support\MessageBag;
 use Tymon\JWTAuth\JWTAuth;
 
 /**
@@ -35,14 +36,14 @@ class LoginController extends BaseController {
      * Login user
      *
      * @return \Illuminate\Http\JsonResponse
-     * @throws AccessForbiddenException
+     * @throws ValidationException
      */
     public function index()
     {
         $credentials = \Input::only('email', 'password');
         $token       = $this->JWTAuth->attempt($credentials);
         if (!$token) {
-            throw new AccessForbiddenException();
+            throw new ValidationException(new MessageBag(['email' => 'invalid', 'password' => 'invalid']));
         }
 
         return response()->json(compact('token'));

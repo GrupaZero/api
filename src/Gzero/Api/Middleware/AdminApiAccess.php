@@ -1,7 +1,7 @@
 <?php namespace Gzero\Api\Middleware;
 
 use Closure;
-use Gzero\Api\AccessForbiddenException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\JWTAuth;
@@ -19,6 +19,15 @@ use Tymon\JWTAuth\JWTAuth;
 class AdminApiAccess {
 
     /**
+     * Error message
+     *
+     * @var string
+     */
+    const UNAUTHORIZED_MESSAGE = 'Forbidden';
+
+    /**
+     * JWT auth service
+     *
      * @var \Tymon\JWTAuth\JWTAuth
      */
     protected $auth;
@@ -40,25 +49,25 @@ class AdminApiAccess {
      * @param \Closure                 $next    Next middleware
      *
      * @return mixed
-     * @throws AccessForbiddenException
+     * @throws AccessDeniedHttpException
      */
     public function handle($request, Closure $next)
     {
         $token = $this->auth->setRequest($request)->getToken();
         if (!$token) {
-            throw new AccessForbiddenException();
+            throw new AccessDeniedHttpException(self::UNAUTHORIZED_MESSAGE);
         }
         try {
             $user = $this->auth->authenticate($token);
             if ($user && ($user->hasPermission('admin-api-access') || $user->isSuperAdmin())) {
                 return $next($request);
             } else {
-                throw new AccessForbiddenException();
+                throw new AccessDeniedHttpException(self::UNAUTHORIZED_MESSAGE);
             }
         } catch (TokenExpiredException $e) {
-            throw new AccessForbiddenException();
+            throw new AccessDeniedHttpException(self::UNAUTHORIZED_MESSAGE);
         } catch (JWTException $e) {
-            throw new AccessForbiddenException();
+            throw new AccessDeniedHttpException(self::UNAUTHORIZED_MESSAGE);
         }
     }
 

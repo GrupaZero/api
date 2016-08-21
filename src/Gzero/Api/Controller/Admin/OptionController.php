@@ -6,7 +6,7 @@ use Gzero\Api\Transformer\OptionTransformer;
 use Gzero\Api\Validator\OptionValidator;
 use Gzero\Entity\Option;
 use Gzero\Repository\OptionRepository;
-use Gzero\Repository\RepositoryException;
+use Gzero\Repository\RepositoryValidationException;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -68,7 +68,7 @@ class OptionController extends ApiController {
         try {
             $option = $this->optionRepo->getOptions($key);
             return $this->respondWithSuccess($option, new OptionTransformer);
-        } catch (RepositoryException $e) {
+        } catch (RepositoryValidationException $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
@@ -89,7 +89,7 @@ class OptionController extends ApiController {
         try {
             $this->optionRepo->updateOrCreateOption($categoryKey, $input['key'], $input['value']);
             return $this->respondWithSuccess($this->optionRepo->getOptions($categoryKey), new OptionTransformer);
-        } catch (RepositoryException $e) {
+        } catch (RepositoryValidationException $e) {
             return $this->respondWithError($e->getMessage());
         }
     }
