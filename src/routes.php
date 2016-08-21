@@ -70,6 +70,7 @@ group(
 group(
     ['domain' => 'api.' . Config::get('gzero.domain'), 'prefix' => 'v1'],
     function () {
-        post('login', ['uses' => 'Gzero\Api\Controller\LoginController@index']);
+        post('login', ['uses' => 'Gzero\Api\Controller\LoginController@login']);
+        post('logout', ['uses' => 'Gzero\Api\Controller\LoginController@logout']);
     }
 );

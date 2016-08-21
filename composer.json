@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.0.0",
         "gzero/core": "0.*",
         "gzero/entity": "0.*",
         "gzero/repository": "0.*",

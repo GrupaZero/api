@@ -38,7 +38,7 @@ class LoginController extends BaseController {
      * @return \Illuminate\Http\JsonResponse
      * @throws ValidationException
      */
-    public function index()
+    public function login()
     {
         $credentials = \Input::only('email', 'password');
         $token       = $this->JWTAuth->attempt($credentials);
@@ -47,6 +47,18 @@ class LoginController extends BaseController {
         }
 
         return response()->json(compact('token'));
+    }
+
+    /**
+     * Logout user - it will add token to blacklist in redis.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ValidationException
+     */
+    public function logout()
+    {
+        $this->JWTAuth->parseToken()->invalidate();
+        return response()->json(['success' => true]);
     }
 
 }
