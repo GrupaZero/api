@@ -12,7 +12,10 @@ group(
                 // Blocks
                 get('blocks/deleted', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexOfDeleted']);
                 put('blocks/restore/{id?}', 'Gzero\Api\Controller\Admin\BlockController@restore');
-                get('blocks/content/{id}', ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexForSpecificContent']);
+                get(
+                    'blocks/content/{id}',
+                    ['uses' => 'Gzero\Api\Controller\Admin\BlockController@indexForSpecificContent']
+                );
                 resource(
                     'blocks',
                     'Gzero\Api\Controller\Admin\BlockController',
@@ -70,7 +73,7 @@ group(
 group(
     ['domain' => 'api.' . Config::get('gzero.domain'), 'prefix' => 'v1'],
     function () {
-        post('login', ['uses' => 'Gzero\Api\Controller\LoginController@login']);
-        post('logout', ['uses' => 'Gzero\Api\Controller\LoginController@logout']);
+        post('login', ['as' => 'api.login', 'uses' => 'Gzero\Api\Controller\LoginController@login']);
+        post('logout', ['as' => 'api.logout', 'uses' => 'Gzero\Api\Controller\LoginController@logout']);
     }
 );
