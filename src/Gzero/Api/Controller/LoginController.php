@@ -1,8 +1,8 @@
 <?php namespace Gzero\Api\Controller;
 
-use Gzero\Core\Controllers\BaseController;
 use Gzero\Validator\ValidationException;
 use Illuminate\Support\MessageBag;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\JWTAuth;
 
 /**
@@ -15,7 +15,7 @@ use Tymon\JWTAuth\JWTAuth;
  *
  * @package    Gzero\Admin\Controllers\Resource
  */
-class LoginController extends BaseController {
+class LoginController extends ApiController {
 
     /**
      * @var JWTAuth
@@ -57,8 +57,12 @@ class LoginController extends BaseController {
      */
     public function logout()
     {
-        $this->JWTAuth->parseToken()->invalidate();
-        return response()->json(['success' => true]);
+        try {
+            $this->JWTAuth->parseToken()->invalidate();
+        } catch (JWTException $exception) {
+            return $this->respondWithSimpleSuccess(['success' => false]);
+        }
+        return $this->respondWithSimpleSuccess(['success' => true]);
     }
 
 }
