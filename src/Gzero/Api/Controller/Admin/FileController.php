@@ -5,7 +5,7 @@ use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\FileTransformer;
 use Gzero\Api\Validator\FileValidator;
 use Gzero\Repository\FileRepository;
-use Gzero\Repository\RepositoryException;
+use Gzero\Repository\RepositoryValidationException;
 use Gzero\Api\UrlParamsProcessor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -99,7 +99,7 @@ class FileController extends ApiController {
                 try {
                     $file = $this->fileRepo->create($input, $uploadedFile, auth()->user());
                     return $this->respondWithSuccess($file, new FileTransformer);
-                } catch (RepositoryException $e) {
+                } catch (RepositoryValidationException $e) {
                     return $this->respondWithError($e->getMessage());
                 }
             }

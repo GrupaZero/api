@@ -101,11 +101,8 @@ class AdminFileCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -175,9 +172,9 @@ class AdminFileCest {
         $I->sendPOST(
             $this->url,
             [
-                'type'         => 'image',
-                'info'         => ['option' => 'value'],
-                'isActive'     => 1
+                'type'     => 'image',
+                'info'     => ['option' => 'value'],
+                'isActive' => 1
             ],
             ['file' => $uploadedFile]
         );
@@ -185,14 +182,14 @@ class AdminFileCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'type'         => 'image',
-                'info'         => ['option' => 'value'],
-                'name'         => 'example',
-                'extension'    => 'png',
-                'size'         => '5148',
-                'mimeType'     => 'image/png',
-                'isActive'     => true,
-                'createdBy'    => 1, // admin user id
+                'type'      => 'image',
+                'info'      => ['option' => 'value'],
+                'name'      => 'example',
+                'extension' => 'png',
+                'size'      => '5148',
+                'mimeType'  => 'image/png',
+                'isActive'  => true,
+                'createdBy' => 1, // admin user id
             ]
 
         );
@@ -245,11 +242,8 @@ class AdminFileCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -279,11 +273,8 @@ class AdminFileCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -306,11 +297,16 @@ class AdminFileCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'  => 400,
-                'error' =>
+                'code'    => 400,
+                'message' => 'Validation Error',
+                'errors'  =>
                     [
-                        'The type field is required.',
-                    ]
+                        'type' =>
+                            [
+                                0 => 'The type field is required.',
+                            ],
+                    ],
+
             ]
         );
     }

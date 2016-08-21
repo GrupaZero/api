@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.0.0",
         "gzero/core": "0.*",
         "gzero/entity": "0.*",
         "gzero/repository": "0.*",
@@ -22,7 +22,8 @@
         "illuminate/routing": "5.1.*",
         "illuminate/pagination": "5.1.*",
         "barryvdh/laravel-cors": "0.6.0",
-        "league/fractal": "0.12.0"
+        "league/fractal": "0.12.0",
+        "tymon/jwt-auth": "0.5.*"
     },
     "require-dev": {
         "fzaninotto/faker": "1.4.0",

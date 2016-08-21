@@ -67,13 +67,14 @@ class CORSCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'  => 400,
-                'error' =>
+                'code'    => 400,
+                'message' => 'Validation Error',
+                'errors'  =>
                     [
-                        'type'                  => ['The type field is required.'],
-                        'translations.langCode' => ['The translations.lang code field is required.'],
-                        'translations.title'    => ['The translations.title field is required.']
-                    ]
+                        'type'                  => [0 => 'The type field is required.',],
+                        'translations.langCode' => [0 => 'The translations.lang code field is required.',],
+                        'translations.title'    => [0 => 'The translations.title field is required.',],
+                    ],
             ]
 
         );
@@ -87,18 +88,15 @@ class CORSCest {
         $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
         $I->haveHttpHeader('Origin', 'http://localhost');
         $I->sendPOST('http://api.localhost/v1/admin/options');
-        $I->seeResponseCodeIs(500);
+        $I->seeResponseCodeIs(405);
         // Asserting CORS
         $I->seeHttpHeader('Access-Control-Allow-Credentials', 'true');
         $I->seeHttpHeader('Access-Control-Allow-Origin', 'http://localhost');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'  => 500,
-                'error' =>
-                    [
-                        'message' => 'Internal Server Error',
-                    ]
+                'code'    => 405,
+                'message' => 'Internal Server Error',
             ]
 
         );

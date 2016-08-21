@@ -65,6 +65,8 @@ class FunctionalTester extends \Codeception\Actor {
      */
     private $faker;
 
+    protected $token;
+
     public function __construct(\Codeception\Scenario $scenario)
     {
         $this->faker       = Factory::create();
@@ -94,16 +96,26 @@ class FunctionalTester extends \Codeception\Actor {
     }
 
     /**
+     * Login with token and set Authorization header
+     *
+     * @param $email
+     * @param $password
+     */
+    public function loginWithToken($email, $password)
+    {
+        $I = $this;
+        $I->sendPOST('http://api.localhost/v1/login', ['email' => $email, 'password' => $password]);
+        $I->seeResponseIsJson();
+        $this->token = $I->grabDataFromResponseByJsonPath('token');
+        $I->amBearerAuthenticated($this->token[0]);
+    }
+
+    /**
      * Login as admin in to page
      */
     public function loginAsAdmin()
     {
-        $I = $this;
-        $I->amOnPage($this->baseUrl . 'en/login');
-        $I->fillField('email', 'admin@gzero.pl');
-        $I->fillField('password', 'test');
-        $I->click('button[type=submit]');
-        $I->seeAuthentication();
+        $this->loginWithToken('admin@gzero.pl', 'test');
     }
 
     /**
