@@ -775,7 +775,7 @@ class AdminBlockCest {
         $I->seeResponseContainsJson(
             [
                 'code'    => 400,
-                'message' => '{"type":["The selected type is invalid."]}',
+                'message' => 'Validation Error',
                 'errors'  =>
                     [
                         'type' =>

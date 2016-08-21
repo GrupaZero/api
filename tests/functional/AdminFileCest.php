@@ -298,7 +298,7 @@ class AdminFileCest {
         $I->seeResponseContainsJson(
             [
                 'code'    => 400,
-                'message' => '{"type":["The type field is required."]}',
+                'message' => 'Validation Error',
                 'errors'  =>
                     [
                         'type' =>
