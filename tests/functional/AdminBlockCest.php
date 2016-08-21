@@ -787,11 +787,11 @@ class AdminBlockCest {
                 ]
             ]
         );
-        $I->seeResponseCodeIs(500);
+        $I->seeResponseCodeIs(400);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 500,
+                'code'    => 400,
                 'message' => 'Widget is required',
             ]
         );
@@ -1011,11 +1011,11 @@ class AdminBlockCest {
         $I->sendDELETE(
             $this->url . '/' . $block->id . '/translations/' . $blockTranslations->id
         );
-        $I->seeResponseCodeIs(500);
+        $I->seeResponseCodeIs(400);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 500,
+                'code'    => 400,
                 'message' => 'Cannot delete active translation',
             ]
         );
