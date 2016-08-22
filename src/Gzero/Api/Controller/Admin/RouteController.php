@@ -5,7 +5,7 @@ use Gzero\Api\Transformer\RouteTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\RouteTranslationValidator;
 use Gzero\Repository\ContentRepository;
-use Gzero\Repository\RepositoryException;
+use Gzero\Repository\RepositoryValidationException;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -51,7 +51,7 @@ class RouteController extends ApiController {
      * @param int $contentId Id of the content
      *
      * @return \Illuminate\Http\JsonResponse
-     * @throws RepositoryException
+     * @throws RepositoryValidationException
      */
     public function store($contentId)
     {
@@ -65,7 +65,7 @@ class RouteController extends ApiController {
                 return $this->respondWithSuccess($route, new RouteTransformer);
             } else {
                 // TODO categories children route update
-                throw new RepositoryException("You can't change category url", 500);
+                throw new RepositoryValidationException("You can't change category url", 500);
             }
         }
         return $this->respondNotFound();

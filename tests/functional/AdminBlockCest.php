@@ -136,9 +136,9 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'langCode'  => 'en',
-                                'title' => 'Example block title',
-                                'body'  => 'Example block body'
+                                'langCode' => 'en',
+                                'title'    => 'Example block title',
+                                'body'     => 'Example block body'
                             ],
                     ],
             ]
@@ -154,11 +154,8 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -310,9 +307,9 @@ class AdminBlockCest {
                             [
                                 0 =>
                                     [
-                                        'langCode'  => 'en',
-                                        'title' => 'First block title',
-                                        'body'  => 'First block body',
+                                        'langCode' => 'en',
+                                        'title'    => 'First block title',
+                                        'body'     => 'First block body',
                                     ],
                             ],
                     ],
@@ -328,9 +325,9 @@ class AdminBlockCest {
                             [
                                 0 =>
                                     [
-                                        'langCode'  => 'en',
-                                        'title' => 'Second block title',
-                                        'body'  => 'Second block body',
+                                        'langCode' => 'en',
+                                        'title'    => 'Second block title',
+                                        'body'     => 'Second block body',
                                     ],
                             ],
                     ],
@@ -346,9 +343,9 @@ class AdminBlockCest {
                             [
                                 0 =>
                                     [
-                                        'langCode'  => 'en',
-                                        'title' => 'Third block title',
-                                        'body'  => 'Third block body',
+                                        'langCode' => 'en',
+                                        'title'    => 'Third block title',
+                                        'body'     => 'Third block body',
                                     ],
                             ],
                     ]
@@ -366,9 +363,9 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'langCode'  => 'en',
-                                'title' => 'Content hidden block title',
-                                'body'  => 'Content hidden block body'
+                                'langCode' => 'en',
+                                'title'    => 'Content hidden block title',
+                                'body'     => 'Content hidden block body'
                             ],
                     ],
             ]
@@ -382,9 +379,9 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'langCode'  => 'en',
-                                'title' => 'Content shown and hidden block title',
-                                'body'  => 'Content shown and hidden block body'
+                                'langCode' => 'en',
+                                'title'    => 'Content shown and hidden block title',
+                                'body'     => 'Content shown and hidden block body'
                             ],
                     ],
             ]
@@ -398,9 +395,9 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'langCode'  => 'en',
-                                'title' => 'Content parent hidden block title',
-                                'body'  => 'Content parent hidden block body'
+                                'langCode' => 'en',
+                                'title'    => 'Content parent hidden block title',
+                                'body'     => 'Content parent hidden block body'
                             ],
                     ],
             ]
@@ -414,9 +411,9 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'langCode'  => 'en',
-                                'title' => 'Content root parent hidden block title',
-                                'body'  => 'Content root parent hidden block body'
+                                'langCode' => 'en',
+                                'title'    => 'Content root parent hidden block title',
+                                'body'     => 'Content root parent hidden block body'
                             ],
                     ],
             ]
@@ -432,11 +429,8 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -489,9 +483,9 @@ class AdminBlockCest {
                     [
                         0 =>
                             [
-                                'langCode'  => 'en',
-                                'title' => 'Example block title',
-                                'body'  => 'Example block body',
+                                'langCode' => 'en',
+                                'title'    => 'Example block title',
+                                'body'     => 'Example block body',
                             ],
                     ],
             ]
@@ -546,9 +540,9 @@ class AdminBlockCest {
                 'translations' =>
                     [
                         0 => [
-                            'langCode'  => 'en',
-                            'title' => 'Example block title',
-                            'body'  => 'Example block body',
+                            'langCode' => 'en',
+                            'title'    => 'Example block title',
+                            'body'     => 'Example block body',
                         ],
                     ],
             ]
@@ -612,11 +606,8 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -729,11 +720,8 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -747,11 +735,8 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
+                'code'    => 404,
+                'message' => "Not found",
             ]
         );
     }
@@ -775,11 +760,15 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'  => 400,
-                'error' =>
+                'code'    => 400,
+                'message' => 'Validation Error',
+                'errors'  =>
                     [
-                        'type' => ["The selected type is invalid."],
-                    ]
+                        'type' =>
+                            [
+                                0 => 'The selected type is invalid.',
+                            ],
+                    ],
             ]
         );
     }
@@ -799,15 +788,12 @@ class AdminBlockCest {
                 ]
             ]
         );
-        $I->seeResponseCodeIs(500);
+        $I->seeResponseCodeIs(400);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'  => 500,
-                'error' =>
-                    [
-                        'message' => 'Widget is required',
-                    ]
+                'code'    => 400,
+                'message' => 'Widget is required',
             ]
         );
     }
@@ -862,7 +848,7 @@ class AdminBlockCest {
         $I->seeResponseContainsJson(
             [
 
-                'langCode'         => 'en',
+                'langCode'     => 'en',
                 'title'        => 'New block title',
                 'body'         => 'New block body',
                 'customFields' => ['customField' => "New block custom field"],
@@ -908,7 +894,7 @@ class AdminBlockCest {
         $I->seeResponseContainsJson(
             [
 
-                'langCode'         => 'en',
+                'langCode'     => 'en',
                 'title'        => 'Modified block title',
                 'body'         => 'Modified block body',
                 'customFields' => ['customField' => "Modified block custom field"],
@@ -971,8 +957,8 @@ class AdminBlockCest {
         $user  = $I->haveUser();
         $block = $I->haveBlock(
             [
-                'type'         => 'basic',
-                'region'       => 'header',
+                'type'   => 'basic',
+                'region' => 'header',
             ],
             $user
         );
@@ -990,7 +976,7 @@ class AdminBlockCest {
         $I->seeResponseContainsJson(
             [
 
-                'langCode'         => 'en',
+                'langCode'     => 'en',
                 'title'        => 'New block title',
                 'body'         => 'New block body',
                 'customFields' => null,
@@ -1026,15 +1012,12 @@ class AdminBlockCest {
         $I->sendDELETE(
             $this->url . '/' . $block->id . '/translations/' . $blockTranslations->id
         );
-        $I->seeResponseCodeIs(500);
+        $I->seeResponseCodeIs(400);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'  => 500,
-                'error' =>
-                    [
-                        'message' => 'Cannot delete active translation',
-                    ]
+                'code'    => 400,
+                'message' => 'Cannot delete active translation',
             ]
         );
     }

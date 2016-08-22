@@ -1,5 +1,6 @@
 <?php namespace Gzero\Api;
 
+use Illuminate\Routing\Router;
 use League\Fractal\Manager;
 use Gzero\Core\AbstractServiceProvider;
 
@@ -23,7 +24,8 @@ class ServiceProvider extends AbstractServiceProvider {
      * @var array
      */
     protected $providers = [
-        \Barryvdh\Cors\CorsServiceProvider::class
+        \Barryvdh\Cors\CorsServiceProvider::class,
+        \Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class
     ];
 
     /**
@@ -31,7 +33,21 @@ class ServiceProvider extends AbstractServiceProvider {
      *
      * @var array
      */
-    protected $aliases = [];
+    protected $aliases = [
+        'JWTAuth'    => \Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => \Tymon\JWTAuth\Facades\JWTFactory::class
+    ];
+
+    /**
+     * The application's route middleware.
+     *
+     * @var array
+     */
+    protected $routeMiddleware = [
+        'admin.api.access' => \Gzero\Api\Middleware\AdminApiAccess::class,
+        'jwt.auth'         => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+        'jwt.refresh'      => \Tymon\JWTAuth\Middleware\RefreshToken::class,
+    ];
 
     /**
      * Register the service provider.
@@ -48,11 +64,13 @@ class ServiceProvider extends AbstractServiceProvider {
     /**
      * Bootstrap the application events.
      *
+     * @param Router $router Laravel router
+     *
      * @return void
      */
-    public function boot()
+    public function boot(Router $router)
     {
-        parent::boot();
+        $this->registerRouteMiddleware($router);
         $this->registerRoutes();
     }
 
@@ -91,6 +109,20 @@ class ServiceProvider extends AbstractServiceProvider {
                 return $manager;
             }
         );
+    }
+
+    /**
+     * Register additional route middleware
+     *
+     * @param Router $router Laravel router
+     *
+     * @return void
+     */
+    private function registerRouteMiddleware(Router $router)
+    {
+        foreach ($this->routeMiddleware as $name => $class) {
+            $router->middleware($name, $class);
+        }
     }
 
 }

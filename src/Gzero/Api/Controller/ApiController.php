@@ -3,7 +3,6 @@
 use Gzero\Api\UrlParamsProcessor;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Gzero\Core\Controllers\BaseController as Controller;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Collection as LaravelCollection;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
@@ -19,9 +18,7 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
  *
  * Class ApiController
  *
- * @package    Gzero\Admin\Controllers\Resource
- * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
- * @copyright  Copyright (c) 2014, Adrian Skierniewski
+ * @package Gzero\Admin\Controllers\Resource
  */
 class ApiController extends Controller {
 
@@ -56,7 +53,7 @@ class ApiController extends Controller {
      */
     protected function respond($data, $code, Array $headers = [])
     {
-        return Response::json($data, $code, array_merge($this->defaultHeaders(), $headers));
+        return response()->json($data, $code, array_merge($this->defaultHeaders(), $headers));
     }
 
     /**
@@ -154,20 +151,11 @@ class ApiController extends Controller {
      * @return mixed
      */
     protected function respondWithError(
-        $message = 'Internal Server Error!',
-        $code = SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR,
+        $message = 'Bad Request',
+        $code = SymfonyResponse::HTTP_BAD_REQUEST,
         Array $headers = []
     ) {
-        return $this->respond(
-            [
-                'error' => [
-                    'code'    => $code,
-                    'message' => $message
-                ]
-            ],
-            $code,
-            $headers
-        );
+        return abort($code, $message, $headers);
     }
 
     /**
@@ -178,18 +166,9 @@ class ApiController extends Controller {
      *
      * @return mixed
      */
-    protected function respondNotFound($message = 'Not found!', Array $headers = [])
+    protected function respondNotFound($message = 'Not found', Array $headers = [])
     {
-        return $this->respond(
-            [
-                'error' => [
-                    'code'    => SymfonyResponse::HTTP_NOT_FOUND,
-                    'message' => $message
-                ]
-            ],
-            SymfonyResponse::HTTP_NOT_FOUND,
-            $headers
-        );
+        return abort(404, $message, $headers);
     }
 
     /**
