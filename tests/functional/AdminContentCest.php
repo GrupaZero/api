@@ -268,50 +268,12 @@ class AdminContentCest {
             ],
             $user
         );
-        // Since we can delete content even it wasn't soft deleted we don't need it in tests
-        //$I->sendDelete($this->url . '/' . $content->id);
         $I->sendDelete($this->url . '/' . $content->id, ['force' => true]);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
                 'success' => true,
-            ]
-        );
-    }
-
-    public function checksIfContentExistsWhenDeleting(FunctionalTester $I)
-    {
-        $I->wantTo('check for content when force delete content as admin user');
-        $I->loginAsAdmin();
-        $I->sendDelete($this->url . '/1');
-        $I->seeResponseCodeIs(404);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
-            ]
-        );
-    }
-
-    public function checksIfContentExistsWhenRestoring(FunctionalTester $I)
-    {
-        $I->wantTo('check for content when restoring content as admin user');
-        $I->loginAsAdmin();
-        $I->sendPut($this->url . '/restore/1');
-        $I->seeResponseCodeIs(404);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'error' =>
-                    [
-                        'code'    => 404,
-                        'message' => "Not found!",
-                    ]
             ]
         );
     }

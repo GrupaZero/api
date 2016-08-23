@@ -187,7 +187,7 @@ class BlockController extends ApiController {
     {
         $forceDelete = \Input::has('force');
 
-        $block = $forceDelete ? $this->repository->getDeletedById($id) : $this->repository->getById($id);
+        $block = $this->repository->getByIdWithTrashed($id);
 
         if (!empty($block)) {
             $this->authorize('delete', $block);

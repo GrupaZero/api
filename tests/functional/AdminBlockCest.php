@@ -666,8 +666,6 @@ class AdminBlockCest {
             ],
             $user
         );
-        // Since we can delete block even it wasn't soft deleted we don't need it in tests
-        //$I->sendDelete($this->url . '/' . $block->id);
         $I->sendDelete($this->url . '/' . $block->id, ['force' => true]);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
