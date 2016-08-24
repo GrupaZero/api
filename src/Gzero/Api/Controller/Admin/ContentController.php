@@ -210,9 +210,19 @@ class ContentController extends ApiController {
     {
         $forceDelete = \Input::get('force', false);
 
-        $content = $this->repository->getByIdWithTrashed($id);
+        if ($this->repository->getByid($id)) {
+            $content = $this->repository->getByid($id);
 
-        if (!empty($content)) {
+            $this->authorize('delete', $content);
+            if ($forceDelete) {
+                $this->repository->forceDelete($content);
+            } else {
+                $this->repository->delete($content);
+            }
+            return $this->respondWithSimpleSuccess(['success' => true]);
+        } elseif ($this->repository->getDeletedByid($id)) {
+            $content = $this->repository->getDeletedByid($id);
+
             $this->authorize('delete', $content);
             if ($forceDelete) {
                 $this->repository->forceDelete($content);
@@ -221,6 +231,7 @@ class ContentController extends ApiController {
             }
             return $this->respondWithSimpleSuccess(['success' => true]);
         }
+
         return $this->respondNotFound();
     }
 
