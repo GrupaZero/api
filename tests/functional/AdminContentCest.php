@@ -2,6 +2,10 @@
 namespace api;
 
 class AdminContentCest {
+    /**
+     * @var string endpoint url
+     */
+    protected $url = 'http://api.localhost/v1/admin/contents';
 
     public function _before(FunctionalTester $I)
     {
@@ -133,6 +137,93 @@ class AdminContentCest {
                     ['id' => $nestedCategory->id, 'type' => 'category'],
                     ['id' => $category->id, 'type' => 'category'],
                 ]
+            ]
+        );
+    }
+
+    public function DeleteOneContentFromTrash(FunctionalTester $I)
+    {
+        $I->wantTo('force delete only one item from trashcan');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+
+        $content = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+        $content2 = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+
+        $I->sendDelete($this->url . '/' . $content->id);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+
+        $I->sendDelete($this->url . '/' . $content2->id);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+
+        $I->sendDelete($this->url . '/' . $content->id . '/true');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+
+        $I->sendGET($this->url . '/deleted');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta'   => [
+                    'total'       => 1,
+                    'perPage'     => 20,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $this->url . '/deleted',
+                ],
+                'params' => [
+                    'page'    => 1,
+                    'perPage' => 20,
+                    'filter'  => [],
+                ],
             ]
         );
     }
