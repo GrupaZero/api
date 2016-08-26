@@ -160,6 +160,94 @@ class AdminBlockCest {
         );
     }
 
+    public function DeleteOneBlockFromTrash(FunctionalTester $I)
+    {
+        $I->wantTo('force delete only one block item from trashcan');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+        $block = $I->haveBlock(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => ['1/2/3']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Example block title',
+                    'body'     => 'Example block body'
+                ]
+            ],
+            $user
+        );
+        $block2 = $I->haveBlock(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => ['1/2/3']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Example block title',
+                    'body'     => 'Example block body'
+                ]
+            ],
+            $user
+        );
+
+        $I->sendDelete($this->url . '/' . $block->id);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+
+        $I->sendDelete($this->url . '/' . $block2->id);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+
+        $I->sendDelete($this->url . '/' . $block->id, ['force' => true]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+
+        $I->sendGET($this->url . '/deleted');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta'   => [
+                    'total'       => 1,
+                    'perPage'     => 20,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $this->url . '/deleted',
+                ],
+                'params' => [
+                    'page'    => 1,
+                    'perPage' => 20,
+                    'filter'  => [],
+                ],
+            ]
+        );
+    }
+
     /*
      |--------------------------------------------------------------------------
      | END Block list tests
