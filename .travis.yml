@@ -9,7 +9,7 @@ services:
   - docker
 
 env:
-  PLATFORM_BRANCH: master # default master
+  PLATFORM_BRANCH: GC-57 # default master
   DOCKER_VERSION: 1.10.3-0~trusty
   DOCKER_COMPOSE_VERSION: 1.7.1
 
