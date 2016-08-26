@@ -185,7 +185,7 @@ class BlockController extends ApiController {
      */
     public function destroy($id)
     {
-        $forceDelete = \Input::has('force');
+        $forceDelete = \Input::get('force', false);
 
         $block = $this->repository->getByIdWithTrashed($id);
 
