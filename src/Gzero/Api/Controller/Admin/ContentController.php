@@ -210,19 +210,9 @@ class ContentController extends ApiController {
     {
         $forceDelete = \Input::get('force', false);
 
-        if ($this->repository->getByid($id)) {
-            $content = $this->repository->getByid($id);
+        $content = $this->repository->getByIdWithTrashed($id);
 
-            $this->authorize('delete', $content);
-            if ($forceDelete) {
-                $this->repository->forceDelete($content);
-            } else {
-                $this->repository->delete($content);
-            }
-            return $this->respondWithSimpleSuccess(['success' => true]);
-        } elseif ($this->repository->getDeletedByid($id)) {
-            $content = $this->repository->getDeletedByid($id);
-
+        if (!empty($content)) {
             $this->authorize('delete', $content);
             if ($forceDelete) {
                 $this->repository->forceDelete($content);
