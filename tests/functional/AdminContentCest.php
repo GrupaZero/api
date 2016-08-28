@@ -141,6 +141,143 @@ class AdminContentCest {
         );
     }
 
+    public function deleteContent(FunctionalTester $I)
+    {
+        $I->wantTo('delete content as admin user');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+        $content = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+        $I->sendDelete($this->url . '/' . $content->id);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+    }
+
+    public function getDeletedContent(FunctionalTester $I)
+    {
+        $I->wantTo('get list of soft deleted content as admin user');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+        $content = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+        $I->sendDelete($this->url . '/' . $content->id);
+        $I->sendGET($this->url . '/deleted');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta'   => [
+                    'total'       => 1,
+                    'perPage'     => 20,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $this->url . '/deleted',
+                ],
+                'params' => [
+                    'page'    => 1,
+                    'perPage' => 20,
+                    'filter'  => [],
+                ],
+            ]
+        );
+    }
+
+    public function RestoreDeletedContent(FunctionalTester $I)
+    {
+        $I->wantTo('restore deleted content as admin user');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+        $content = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+        $I->sendDelete($this->url . '/' . $content->id);
+        $I->sendPut($this->url . '/restore/' . $content->id);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+    }
+
+    public function ForceDeleteContent(FunctionalTester $I)
+    {
+        $I->wantTo('force delete content as admin user');
+        $I->loginAsAdmin();
+        $user  = $I->haveUser();
+        $content = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+        $I->sendDelete($this->url . '/' . $content->id, ['force' => true]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'success' => true,
+            ]
+        );
+    }
+
     public function DeleteOneContentFromTrash(FunctionalTester $I)
     {
         $I->wantTo('force delete only one item from trashcan');
@@ -198,7 +335,7 @@ class AdminContentCest {
             ]
         );
 
-        $I->sendDelete($this->url . '/' . $content->id . '/true');
+        $I->sendDelete($this->url . '/' . $content->id, ['force' => true]);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(

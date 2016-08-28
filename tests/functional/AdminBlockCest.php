@@ -754,7 +754,6 @@ class AdminBlockCest {
             ],
             $user
         );
-        $I->sendDelete($this->url . '/' . $block->id);
         $I->sendDelete($this->url . '/' . $block->id, ['force' => true]);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();

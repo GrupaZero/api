@@ -1,11 +1,31 @@
 define({ "api": [
   {
     "type": "delete",
-    "url": "/admin/blocks",
+    "url": "/admin/blocks/:id?force=:forceDelete",
     "title": "6. DELETE the specified entity",
     "version": "0.1.0",
     "name": "DeleteBlock",
     "group": "Block",
+    "parameter": {
+      "fields": {
+        "": [
+          {
+            "group": "Content",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the block.</p>"
+          },
+          {
+            "group": "Content",
+            "type": "Boolean",
+            "optional": false,
+            "field": "forceDelete",
+            "description": "<p>Idicates block should be permanently deleted or not.</p>"
+          }
+        ]
+      }
+    },
     "permission": [
       {
         "name": "admin",
@@ -37,7 +57,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example usage:",
-        "content": "curl -i http://api.example.com/api/v1/admin/blocks",
+        "content": "curl -i http://api.example.com/api/v1/admin/blocks/21?force=true",
         "type": "json"
       }
     ],
@@ -1656,11 +1676,31 @@ define({ "api": [
   },
   {
     "type": "delete",
-    "url": "/admin/contents",
+    "url": "/admin/contents/:id?force=:forceDelete",
     "title": "8. DELETE the specified entity",
     "version": "0.1.0",
     "name": "DeleteContent",
     "group": "Content",
+    "parameter": {
+      "fields": {
+        "": [
+          {
+            "group": "Content",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID of the content.</p>"
+          },
+          {
+            "group": "Content",
+            "type": "Boolean",
+            "optional": false,
+            "field": "forceDelete",
+            "description": "<p>Idicates content should be permanently deleted or not.</p>"
+          }
+        ]
+      }
+    },
     "permission": [
       {
         "name": "admin",
@@ -1692,7 +1732,7 @@ define({ "api": [
     "examples": [
       {
         "title": "Example usage:",
-        "content": "curl -i http://api.example.com/api/v1/admin/contents",
+        "content": "curl -i http://api.example.com/api/v1/admin/contents/23?force=true",
         "type": "json"
       }
     ],
