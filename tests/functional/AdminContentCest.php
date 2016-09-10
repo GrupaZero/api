@@ -383,7 +383,22 @@ class AdminContentCest {
         $I->loginAsAdmin();
         $fileIds     = [];
         $user        = $I->haveUser();
-        $content     = $I->haveContent(['type' => 'content']);
+        $content  = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
         $url         = $this->url . '/' . $content->id . '/files';
         $filesNumber = 4;
         for ($i = 0; $i < $filesNumber; $i++) {
@@ -391,7 +406,7 @@ class AdminContentCest {
             $fileIds[] = $file->id;
         }
 
-        $I->sendPUT($url, ['filesIds' => $fileIds]);
+        $I->sendPOST($url, ['filesIds' => $fileIds]);
         $I->seeResponseCodeIs(200);
         $I->sendGET($url);
         $I->seeResponseCodeIs(200);
