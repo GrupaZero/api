@@ -230,7 +230,7 @@ class FileController extends ApiController {
  * @apiSuccess {Array} info File unique parameters (Defined as array of key / value parameters)
  * @apiSuccess {String} url File url
  * @apiSuccess {Boolean} isActive Is file active flag
- * @apiSuccess {number} data.createdBy  User id of this File author
+ * @apiSuccess {number} createdBy  User id of this File author
  * @apiSuccess {Date} createdAt Creation date
  * @apiSuccess {Date} updatedAt Update date
  * @apiSuccess {Array} Translations List of active translations (Array of Objects)

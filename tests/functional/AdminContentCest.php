@@ -1,6 +1,8 @@
 <?php
 namespace api;
 
+use Illuminate\Support\Facades\Storage;
+
 class AdminContentCest {
     /**
      * @var string endpoint url
@@ -14,6 +16,10 @@ class AdminContentCest {
 
     public function _after(FunctionalTester $I)
     {
+        $dirName = config('gzero.upload.directory');
+        if ($dirName) {
+            Storage::deleteDirectory($dirName);
+        }
     }
 
     // tests
@@ -145,7 +151,7 @@ class AdminContentCest {
     {
         $I->wantTo('delete content as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
+        $user    = $I->haveUser();
         $content = $I->haveContent(
             [
                 'type'         => 'content',
@@ -176,7 +182,7 @@ class AdminContentCest {
     {
         $I->wantTo('get list of soft deleted content as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
+        $user    = $I->haveUser();
         $content = $I->haveContent(
             [
                 'type'         => 'content',
@@ -219,7 +225,7 @@ class AdminContentCest {
     {
         $I->wantTo('restore deleted content as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
+        $user    = $I->haveUser();
         $content = $I->haveContent(
             [
                 'type'         => 'content',
@@ -251,7 +257,7 @@ class AdminContentCest {
     {
         $I->wantTo('force delete content as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
+        $user    = $I->haveUser();
         $content = $I->haveContent(
             [
                 'type'         => 'content',
@@ -282,9 +288,9 @@ class AdminContentCest {
     {
         $I->wantTo('force delete only one item from trashcan');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
+        $user = $I->haveUser();
 
-        $content = $I->haveContent(
+        $content  = $I->haveContent(
             [
                 'type'         => 'content',
                 'isActive'     => 1,
@@ -364,4 +370,53 @@ class AdminContentCest {
             ]
         );
     }
+
+    /*
+     |--------------------------------------------------------------------------
+     | START File list tests
+     |--------------------------------------------------------------------------
+     */
+
+    public function getContentFiles(FunctionalTester $I)
+    {
+        $I->wantTo('get list of content files as admin user');
+        $I->loginAsAdmin();
+        $fileIds     = [];
+        $user        = $I->haveUser();
+        $content     = $I->haveContent(['type' => 'content']);
+        $url         = $this->url . '/' . $content->id . '/files';
+        $filesNumber = 4;
+        for ($i = 0; $i < $filesNumber; $i++) {
+            $file      = $I->haveFile(false, $user);
+            $fileIds[] = $file->id;
+        }
+
+        $I->sendPUT($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->sendGET($url);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta'   => [
+                    'total'       => $filesNumber,
+                    'perPage'     => 20,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $url,
+                ],
+                'params' => [
+                    'page'    => 1,
+                    'perPage' => 20,
+                    'filter'  => [],
+                ],
+            ]
+        );
+    }
+
+    /*
+     |--------------------------------------------------------------------------
+     | END File list tests
+     |--------------------------------------------------------------------------
+     */
 }

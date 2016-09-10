@@ -46,6 +46,7 @@ class FileTransformer extends AbstractTransformer {
             'info'      => $file['info'],
             'url'       => $url,
             'isActive'  => (bool) $file['isActive'],
+            'weight'    => array_key_exists('pivot', $file) ? (int) $file['pivot']['weight'] : null,
             'createdBy' => (int) $file['createdBy'],
             'createdAt' => $file['createdAt'],
             'updatedAt' => $file['updatedAt']

@@ -47,6 +47,12 @@ group(
                     'Gzero\Api\Controller\Admin\RouteController',
                     ['only' => ['store']]
                 );
+                resource(
+                    'contents.files',
+                    'Gzero\Api\Controller\Admin\ContentFileController',
+                    ['only' => ['index', 'store', 'update']]
+                );
+                delete('contents/{id}/files', 'Gzero\Api\Controller\Admin\ContentFileController@destroy');
                 // Files
                 resource(
                     'files',
