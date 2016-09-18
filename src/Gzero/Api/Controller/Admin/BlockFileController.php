@@ -32,8 +32,8 @@ class BlockFileController extends ApiController {
     /**
      * BlockFileController constructor
      *
-     * @param UrlParamsProcessor   $processor Url processor
-     * @param BlockRepository    $block   Block repository
+     * @param UrlParamsProcessor $processor Url processor
+     * @param BlockRepository    $block     Block repository
      * @param BlockFileValidator $validator Block validator
      */
     public function __construct(
@@ -56,9 +56,9 @@ class BlockFileController extends ApiController {
     public function index($id)
     {
         $this->authorize('readList', Block::class);
-        $input   = $this->validator->validate('list');
-        $params  = $this->processor->process($input)->getProcessedFields();
-        $block = $this->repository->getById($id);
+        $input  = $this->validator->validate('list');
+        $params = $this->processor->process($input)->getProcessedFields();
+        $block  = $this->repository->getById($id);
         if (!empty($block)) {
             $results = $this->repository->getFiles(
                 $block,
