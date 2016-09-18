@@ -208,7 +208,7 @@ class ContentFileController extends ApiController {
  * curl -i http://api.example.com/api/v1/admin/contents/1/files/1
  */
 /**
- * @api                 {delete} /admin/contents/:id/files/:fileId  5. DELETE Detaches selected files from specified content entity
+ * @api                 {delete} /admin/contents/:id/files/:fileId 5. DELETE Detaches selected files from specified content entity
  * @apiVersion          0.1.0
  * @apiName             DeleteContentFile
  * @apiGroup            Content Files
