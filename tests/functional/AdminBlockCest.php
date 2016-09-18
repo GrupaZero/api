@@ -1,6 +1,8 @@
 <?php
 namespace api;
 
+use Illuminate\Support\Facades\Storage;
+
 class AdminBlockCest {
     /**
      * @var string endpoint url
@@ -14,6 +16,10 @@ class AdminBlockCest {
 
     public function _after(FunctionalTester $I)
     {
+        $dirName = config('gzero.upload.directory');
+        if ($dirName) {
+            Storage::deleteDirectory($dirName);
+        }
     }
 
     /*
@@ -164,8 +170,8 @@ class AdminBlockCest {
     {
         $I->wantTo('force delete only one block item from trashcan');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
-        $block = $I->haveBlock(
+        $user   = $I->haveUser();
+        $block  = $I->haveBlock(
             [
                 'type'         => 'basic',
                 'region'       => 'header',
@@ -1113,4 +1119,143 @@ class AdminBlockCest {
      | END Block translations tests
      |--------------------------------------------------------------------------
      */
+
+    /*
+     |--------------------------------------------------------------------------
+     | START File list tests
+     |--------------------------------------------------------------------------
+     */
+
+    public function getBlockFiles(FunctionalTester $I)
+    {
+        $I->wantTo('create and get list of block files as admin user');
+        $I->loginAsAdmin();
+        $fileIds     = [];
+        $user        = $I->haveUser();
+        $block       = $I->haveBlock(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => ['1/2/3']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Example block title',
+                    'body'     => 'Example block body'
+                ]
+            ],
+            $user
+        );
+        $url         = $this->url . '/' . $block->id . '/files';
+        $filesNumber = 4;
+        for ($i = 0; $i < $filesNumber; $i++) {
+            $file      = $I->haveFile(false, $user);
+            $fileIds[] = $file->id;
+        }
+
+        $I->sendPOST($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->sendGET($url);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta'   => [
+                    'total'       => $filesNumber,
+                    'perPage'     => 20,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $url,
+                ],
+                'params' => [
+                    'page'    => 1,
+                    'perPage' => 20,
+                    'filter'  => [],
+                ],
+            ]
+        );
+    }
+
+    public function updateBlockFile(FunctionalTester $I)
+    {
+        $I->wantTo('update block file as admin user');
+        $I->loginAsAdmin();
+        $fileIds   = [];
+        $user      = $I->haveUser();
+        $block     = $I->haveBlock(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => ['1/2/3']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Example block title',
+                    'body'     => 'Example block body'
+                ]
+            ],
+            $user
+        );
+        $url       = $this->url . '/' . $block->id . '/files';
+        $file      = $I->haveFile(false, $user);
+        $fileIds[] = $file->id;
+
+        $I->sendPOST($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->sendPUT($url . '/' . $file->id, ['weight' => 4]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'weight' => 4
+            ]
+        );
+    }
+
+    public function deleteBlockFile(FunctionalTester $I)
+    {
+        $I->wantTo('celete block file as admin user');
+        $I->loginAsAdmin();
+        $fileIds   = [];
+        $user      = $I->haveUser();
+        $block     = $I->haveBlock(
+            [
+                'type'         => 'basic',
+                'region'       => 'header',
+                'weight'       => 1,
+                'filter'       => ['+' => ['1/2/3']],
+                'options'      => ['option' => 'value'],
+                'isActive'     => true,
+                'isCacheable'  => true,
+                'translations' => [
+                    'langCode' => 'en',
+                    'title'    => 'Example block title',
+                    'body'     => 'Example block body'
+                ]
+            ],
+            $user
+        );
+        $url       = $this->url . '/' . $block->id . '/files';
+        $file      = $I->haveFile(false, $user);
+        $fileIds[] = $file->id;
+
+        $I->sendPOST($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->sendDelete($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+    }
+
+    /*
+     |--------------------------------------------------------------------------
+     | END File list tests
+     |--------------------------------------------------------------------------
+     */
+
 }

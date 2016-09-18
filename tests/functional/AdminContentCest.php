@@ -379,11 +379,11 @@ class AdminContentCest {
 
     public function getContentFiles(FunctionalTester $I)
     {
-        $I->wantTo('get list of content files as admin user');
+        $I->wantTo('create and get list of content files as admin user');
         $I->loginAsAdmin();
         $fileIds     = [];
         $user        = $I->haveUser();
-        $content  = $I->haveContent(
+        $content     = $I->haveContent(
             [
                 'type'         => 'content',
                 'isActive'     => 1,
@@ -427,6 +427,77 @@ class AdminContentCest {
                 ],
             ]
         );
+    }
+
+    public function updateContentFile(FunctionalTester $I)
+    {
+        $I->wantTo('update content file as admin user');
+        $I->loginAsAdmin();
+        $fileIds   = [];
+        $user      = $I->haveUser();
+        $content   = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+        $url       = $this->url . '/' . $content->id . '/files';
+        $file      = $I->haveFile(false, $user);
+        $fileIds[] = $file->id;
+
+        $I->sendPOST($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->sendPUT($url . '/' . $file->id, ['weight' => 4]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'weight' => 4
+            ]
+        );
+    }
+
+    public function deleteContentFile(FunctionalTester $I)
+    {
+        $I->wantTo('celete content file as admin user');
+        $I->loginAsAdmin();
+        $fileIds   = [];
+        $user      = $I->haveUser();
+        $content   = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+        $url       = $this->url . '/' . $content->id . '/files';
+        $file      = $I->haveFile(false, $user);
+        $fileIds[] = $file->id;
+
+        $I->sendPOST($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->sendDelete($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
     }
 
     /*

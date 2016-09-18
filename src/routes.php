@@ -26,6 +26,12 @@ group(
                     'Gzero\Api\Controller\Admin\BlockTranslationController',
                     ['only' => ['index', 'show', 'store', 'update', 'destroy']]
                 );
+                resource(
+                    'blocks.files',
+                    'Gzero\Api\Controller\Admin\BlockFileController',
+                    ['only' => ['index', 'store', 'update']]
+                );
+                delete('blocks/{id}/files', 'Gzero\Api\Controller\Admin\BlockFileController@destroy');
                 // Contents
                 get('contents/tree/{id?}', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexTree']);
                 get('contents/deleted', ['uses' => 'Gzero\Api\Controller\Admin\ContentController@indexOfDeleted']);
