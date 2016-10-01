@@ -46,7 +46,7 @@ class FileTransformer extends AbstractTransformer {
             'info'      => $file['info'],
             'url'       => $url,
             'isActive'  => (bool) $file['isActive'],
-            'weight'    => array_key_exists('pivot', $file) ? (int) $file['pivot']['weight'] : null,
+            'weight'    => $this->setPivotNullableValue($file, 'weight'),
             'createdBy' => (int) $file['createdBy'],
             'createdAt' => $file['createdAt'],
             'updatedAt' => $file['updatedAt']
@@ -64,5 +64,34 @@ class FileTransformer extends AbstractTransformer {
     {
         $translations = $file->translations;
         return $this->collection($translations, new FileTranslationTransformer());
+    }
+
+    /**
+     * Returns integer value or null
+     *
+     * @param int $value to evaluate
+     *
+     * @return int|null
+     */
+    private function setNullableValue($value)
+    {
+        return ($value !== null) ? (int) $value : null;
+    }
+
+    /**
+     * Returns pivot integer value or null
+     *
+     * @param array  $file file to check for pivot
+     * @param string $key  to evaluate
+     *
+     * @return int|null
+     */
+    private function setPivotNullableValue($file, $key)
+    {
+        if (array_key_exists('pivot', $file)) {
+            return $this->setNullableValue($file['pivot'][$key]);
+        }
+
+        return null;
     }
 }

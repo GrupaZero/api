@@ -221,7 +221,7 @@ class AdminContentCest {
         );
     }
 
-    public function RestoreDeletedContent(FunctionalTester $I)
+    public function restoreDeletedContent(FunctionalTester $I)
     {
         $I->wantTo('restore deleted content as admin user');
         $I->loginAsAdmin();
@@ -253,7 +253,7 @@ class AdminContentCest {
         );
     }
 
-    public function ForceDeleteContent(FunctionalTester $I)
+    public function forceDeleteContent(FunctionalTester $I)
     {
         $I->wantTo('force delete content as admin user');
         $I->loginAsAdmin();
@@ -284,7 +284,7 @@ class AdminContentCest {
         );
     }
 
-    public function DeleteOneContentFromTrash(FunctionalTester $I)
+    public function deleteOneContentFromTrash(FunctionalTester $I)
     {
         $I->wantTo('force delete only one item from trashcan');
         $I->loginAsAdmin();
@@ -373,7 +373,7 @@ class AdminContentCest {
 
     /*
      |--------------------------------------------------------------------------
-     | START File list tests
+     | START Content Files tests
      |--------------------------------------------------------------------------
      */
 
@@ -408,6 +408,7 @@ class AdminContentCest {
 
         $I->sendPOST($url, ['filesIds' => $fileIds]);
         $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
         $I->sendGET($url);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -425,6 +426,58 @@ class AdminContentCest {
                     'perPage' => 20,
                     'filter'  => [],
                 ],
+            ]
+        );
+    }
+
+    public function createContentRelatedFile(FunctionalTester $I)
+    {
+        $I->wantTo('create content related file as admin user');
+        $I->loginAsAdmin();
+        $fileIds   = [];
+        $user      = $I->haveUser();
+        $content   = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+        $url       = $this->url . '/' . $content->id . '/files';
+        $file      = $I->haveFile(false, $user);
+        $fileIds[] = $file->id;
+
+        $I->sendPOST($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'id'        => $file->id,
+                'type'      => $file->type,
+                'name'      => $file->name,
+                'extension' => $file->extension,
+                'size'      => $file->size,
+                'mimeType'  => $file->mimeType,
+                'info'      => $file->info,
+                'isActive'  => (bool) $file->isActive
+            ]
+        );
+        $I->sendPUT($this->url . '/' . $content->id, ['fileId' => $file->id]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'id'     => $content->id,
+                'fileId' => $file->id
             ]
         );
     }
@@ -457,6 +510,7 @@ class AdminContentCest {
 
         $I->sendPOST($url, ['filesIds' => $fileIds]);
         $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
         $I->sendPUT($url . '/' . $file->id, ['weight' => 4]);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -469,7 +523,7 @@ class AdminContentCest {
 
     public function deleteContentFile(FunctionalTester $I)
     {
-        $I->wantTo('celete content file as admin user');
+        $I->wantTo('delete content file as admin user');
         $I->loginAsAdmin();
         $fileIds   = [];
         $user      = $I->haveUser();
@@ -495,14 +549,61 @@ class AdminContentCest {
 
         $I->sendPOST($url, ['filesIds' => $fileIds]);
         $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
         $I->sendDelete($url, ['filesIds' => $fileIds]);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
     }
 
+    public function deleteContentRelatedFile(FunctionalTester $I)
+    {
+        $I->wantTo('delete content related file as admin user');
+        $I->loginAsAdmin();
+        $fileIds   = [];
+        $user      = $I->haveUser();
+        $content   = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+        $url       = $this->url . '/' . $content->id . '/files';
+        $file      = $I->haveFile(false, $user);
+        $fileIds[] = $file->id;
+
+        $I->sendPOST($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->sendPUT($this->url . '/' . $content->id, ['fileId' => $file->id]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->sendDelete($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->sendGet($this->url . '/' . $content->id);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'id'     => $content->id,
+                'fileId' => null
+            ]
+        );
+    }
+
     /*
      |--------------------------------------------------------------------------
-     | END File list tests
+     | END Content Files tests
      |--------------------------------------------------------------------------
      */
 }

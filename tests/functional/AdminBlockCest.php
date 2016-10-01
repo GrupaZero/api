@@ -166,7 +166,7 @@ class AdminBlockCest {
         );
     }
 
-    public function DeleteOneBlockFromTrash(FunctionalTester $I)
+    public function deleteOneBlockFromTrash(FunctionalTester $I)
     {
         $I->wantTo('force delete only one block item from trashcan');
         $I->loginAsAdmin();
@@ -643,7 +643,7 @@ class AdminBlockCest {
         );
     }
 
-    public function UpdateBlock(FunctionalTester $I)
+    public function updateBlock(FunctionalTester $I)
     {
         $I->wantTo('update block as admin user');
         $I->loginAsAdmin();
@@ -706,7 +706,7 @@ class AdminBlockCest {
         );
     }
 
-    public function DeleteBlock(FunctionalTester $I)
+    public function deleteBlock(FunctionalTester $I)
     {
         $I->wantTo('delete block as admin user');
         $I->loginAsAdmin();
@@ -738,7 +738,7 @@ class AdminBlockCest {
         );
     }
 
-    public function ForceDeleteBlock(FunctionalTester $I)
+    public function forceDeleteBlock(FunctionalTester $I)
     {
         $I->wantTo('force delete block as admin user');
         $I->loginAsAdmin();
@@ -770,7 +770,7 @@ class AdminBlockCest {
         );
     }
 
-    public function RestoreDeletedBlock(FunctionalTester $I)
+    public function restoreDeletedBlock(FunctionalTester $I)
     {
         $I->wantTo('restore deleted block as admin user');
         $I->loginAsAdmin();
@@ -902,7 +902,7 @@ class AdminBlockCest {
      |--------------------------------------------------------------------------
      */
 
-    public function CreateBlockTranslations(FunctionalTester $I)
+    public function createBlockTranslations(FunctionalTester $I)
     {
         $I->wantTo('create block translations as admin user');
         $I->loginAsAdmin();
@@ -948,7 +948,7 @@ class AdminBlockCest {
         );
     }
 
-    public function UpdateBlockTranslations(FunctionalTester $I)
+    public function updateBlockTranslations(FunctionalTester $I)
     {
         $I->wantTo('update block translations as admin user');
         $I->loginAsAdmin();
@@ -994,7 +994,7 @@ class AdminBlockCest {
         );
     }
 
-    public function DeleteBlockTranslations(FunctionalTester $I)
+    public function deleteBlockTranslations(FunctionalTester $I)
     {
         $I->wantTo('delete block translations as admin user');
         $I->loginAsAdmin();
@@ -1076,7 +1076,7 @@ class AdminBlockCest {
         );
     }
 
-    public function PreventsDeleteBlockActiveTranslations(FunctionalTester $I)
+    public function preventsDeleteBlockActiveTranslations(FunctionalTester $I)
     {
         $I->wantTo('prevent delete block active translations as admin user');
         $I->loginAsAdmin();
@@ -1122,7 +1122,7 @@ class AdminBlockCest {
 
     /*
      |--------------------------------------------------------------------------
-     | START File list tests
+     | START Block Files tests
      |--------------------------------------------------------------------------
      */
 
@@ -1254,7 +1254,7 @@ class AdminBlockCest {
 
     /*
      |--------------------------------------------------------------------------
-     | END File list tests
+     | END Block Files tests
      |--------------------------------------------------------------------------
      */
 

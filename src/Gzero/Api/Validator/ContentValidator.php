@@ -58,6 +58,7 @@ class ContentValidator extends AbstractValidator {
         ],
         'update' => [
             'parentId'         => 'numeric',
+            'fileId'           => 'numeric',
             'weight'           => 'numeric',
             'theme'            => '',
             'isActive'         => 'boolean',
