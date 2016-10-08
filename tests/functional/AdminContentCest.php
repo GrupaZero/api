@@ -467,7 +467,7 @@ class AdminContentCest {
         $I->sendPOST($url, ['filesIds' => $fileIds]);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
-        $I->sendGET($url . 'sort=pivot.weight');
+        $I->sendGET($url . '?lang=en&sort=pivot.weight');
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
@@ -482,7 +482,9 @@ class AdminContentCest {
                 'params' => [
                     'page'    => 1,
                     'perPage' => 20,
-                    'filter'  => [],
+                    'filter'  => [
+                        ['lang', '=', 'en']
+                    ],
                     'orderBy' => [
                         ['pivot.weight', 'ASC']
                     ]
