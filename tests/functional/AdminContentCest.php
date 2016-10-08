@@ -409,7 +409,65 @@ class AdminContentCest {
         $I->sendPOST($url, ['filesIds' => $fileIds]);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
-        $I->sendGET($url);
+        $I->sendGET($url . '?lang=en&sort=translations.title');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta'   => [
+                    'total'       => $filesNumber,
+                    'perPage'     => 20,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $url,
+                ],
+                'params' => [
+                    'page'    => 1,
+                    'perPage' => 20,
+                    'filter'  => [
+                        ['lang', '=', 'en'],
+                    ],
+                    'orderBy' => [
+                        ['translations.title', 'ASC']
+                    ]
+                ]
+            ]
+        );
+    }
+
+    public function sortContentFilesByPivotColumn(FunctionalTester $I)
+    {
+        $I->wantTo('sort list of content files by pivot column as admin user');
+        $I->loginAsAdmin();
+        $fileIds     = [];
+        $user        = $I->haveUser();
+        $content     = $I->haveContent(
+            [
+                'type'         => 'content',
+                'isActive'     => 1,
+                'translations' => [
+                    'langCode'       => 'en',
+                    'title'          => 'Fake title',
+                    'teaser'         => '<p>Super fake...</p>',
+                    'body'           => '<p>Super fake body of some post!</p>',
+                    'seoTitle'       => 'fake-title',
+                    'seoDescription' => 'desc-demonstrate-fake',
+                    'isActive'       => 1
+                ]
+            ],
+            $user
+        );
+        $url         = $this->url . '/' . $content->id . '/files';
+        $filesNumber = 4;
+        for ($i = 0; $i < $filesNumber; $i++) {
+            $file      = $I->haveFile(false, $user);
+            $fileIds[] = $file->id;
+        }
+
+        $I->sendPOST($url, ['filesIds' => $fileIds]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->sendGET($url . 'sort=pivot.weight');
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
@@ -425,7 +483,10 @@ class AdminContentCest {
                     'page'    => 1,
                     'perPage' => 20,
                     'filter'  => [],
-                ],
+                    'orderBy' => [
+                        ['pivot.weight', 'ASC']
+                    ]
+                ]
             ]
         );
     }

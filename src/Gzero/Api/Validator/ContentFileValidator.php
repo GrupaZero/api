@@ -19,7 +19,7 @@ class ContentFileValidator extends AbstractValidator {
      */
     protected $rules = [
         'list'   => [
-            'langCode' => 'in:pl,en,de,fr',
+            'lang'     => 'required_with:sort|in:pl,en,de,fr',
             'page'     => 'numeric',
             'perPage'  => 'numeric',
             'isActive' => 'boolean',
