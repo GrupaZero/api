@@ -5,7 +5,10 @@ modules:
         - api\Helper\Functional
         - Asserts
         - Laravel5:
-            root: ../../../ #relative path to platform from vendor dir
+#            root: ../../../ #relative path to platform from vendor dir
+            root: vendor/orchestra/testbench/fixture/
+            bootstrap: '../../../../laravel.php'
+            vendor_dir: '../../../../vendor'
             cleanup: true
             disable_middleware: false
             environment_file: .env.testing

@@ -1,9 +1,8 @@
 <?php namespace Gzero\Api\Controller;
 
 use Gzero\Validator\ValidationException;
+use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\JWTAuth;
 
 /**
  * This file is part of the GZERO API package.
@@ -18,35 +17,23 @@ use Tymon\JWTAuth\JWTAuth;
 class LoginController extends ApiController {
 
     /**
-     * @var JWTAuth
-     */
-    protected $JWTAuth;
-
-    /**
-     * LoginController constructor.
-     *
-     * @param JWTAuth $jwtAuth JWT Auth
-     */
-    public function __construct(JWTAuth $jwtAuth)
-    {
-        $this->JWTAuth = $jwtAuth;
-    }
-
-    /**
      * Login user
+     *
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      * @throws ValidationException
      */
-    public function login()
+    public function login(Request $request)
     {
-        $credentials = \Input::only('email', 'password');
-        $token       = $this->JWTAuth->attempt($credentials);
+        $credentials = $request->only('email', 'password');
+        //$token       = $this->JWTAuth->attempt($credentials);
+        $token       = null;
         if (!$token) {
             throw new ValidationException(new MessageBag(['email' => 'invalid', 'password' => 'invalid']));
         }
 
-        return response()->json(compact('token'));
+        return response()->json([]);
     }
 
     /**
@@ -57,11 +44,11 @@ class LoginController extends ApiController {
      */
     public function logout()
     {
-        try {
-            $this->JWTAuth->parseToken()->invalidate();
-        } catch (JWTException $exception) {
-            return $this->respondWithSimpleSuccess(['success' => false]);
-        }
+        //try {
+        //    $this->JWTAuth->parseToken()->invalidate();
+        //} catch (JWTException $exception) {
+        //    return $this->respondWithSimpleSuccess(['success' => false]);
+        //}
         return $this->respondWithSimpleSuccess(['success' => true]);
     }
 

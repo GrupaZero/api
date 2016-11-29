@@ -24,8 +24,7 @@ class ServiceProvider extends AbstractServiceProvider {
      * @var array
      */
     protected $providers = [
-        \Barryvdh\Cors\CorsServiceProvider::class,
-        \Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class
+        \Barryvdh\Cors\ServiceProvider::class,
     ];
 
     /**
@@ -33,10 +32,7 @@ class ServiceProvider extends AbstractServiceProvider {
      *
      * @var array
      */
-    protected $aliases = [
-        'JWTAuth'    => \Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory' => \Tymon\JWTAuth\Facades\JWTFactory::class
-    ];
+    protected $aliases = [];
 
     /**
      * The application's route middleware.
@@ -45,8 +41,6 @@ class ServiceProvider extends AbstractServiceProvider {
      */
     protected $routeMiddleware = [
         'admin.api.access' => \Gzero\Api\Middleware\AdminApiAccess::class,
-        'jwt.auth'         => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
-        'jwt.refresh'      => \Tymon\JWTAuth\Middleware\RefreshToken::class,
     ];
 
     /**
@@ -57,7 +51,6 @@ class ServiceProvider extends AbstractServiceProvider {
     public function register()
     {
         parent::register();
-        $this->registerFilters();
         $this->bind();
     }
 
@@ -81,17 +74,7 @@ class ServiceProvider extends AbstractServiceProvider {
      */
     protected function registerRoutes()
     {
-        require __DIR__ . '/../../routes.php';
-    }
-
-    /**
-     * Add additional file to store filters
-     *
-     * @return void
-     */
-    protected function registerFilters()
-    {
-        require __DIR__ . '/../../filters.php';
+        $this->loadRoutesFrom(__DIR__.'/../../routes.php');
     }
 
     /**
