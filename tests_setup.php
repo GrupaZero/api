@@ -1,5 +1,14 @@
 <?php
 
+namespace App;
+
+use Barryvdh\Cors\HandlePreflight;
+use Gzero\Api\ServiceProvider as AdminServiceProvider;
+use Gzero\Core\ServiceProvider as CoreServiceProvider;
+use Laravel\Passport\Passport;
+use Laravel\Passport\PassportServiceProvider;
+
+require_once __DIR__ . '/tests/fixture/User.php';
 require __DIR__ . '/vendor/autoload.php';
 
 $Laravel = new class {
@@ -16,13 +25,17 @@ $Laravel = new class {
 
         // Register Exception handler
         $app->singleton(
-            Illuminate\Contracts\Debug\ExceptionHandler::class,
-            Gzero\Core\Exceptions\Handler::class
+            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            \Gzero\Core\Exceptions\Handler::class
         );
 
+        // We need to tell Laravel Passport where to find oauth keys
+        Passport::loadKeysFrom(__DIR__ . '/vendor/gzero/testing/oauth/');
+
         return [
-            Gzero\Core\ServiceProvider::class,
-            Gzero\Api\ServiceProvider::class
+            CoreServiceProvider::class,
+            AdminServiceProvider::class,
+            PassportServiceProvider::class
         ];
     }
 
@@ -35,6 +48,16 @@ $Laravel = new class {
      */
     protected function getEnvironmentSetUp($app)
     {
+        // Use same key as it was used in platform
+        $app['config']->set('app.key', '5IlQpknidVO1GleZITdWVWsUFdh1ozT7');
+        // Use passport as guard for api
+        $app['config']->set('auth.guards.api.driver', 'passport');
+
+        // We need to add middleware to handle OPTIONS case
+        app('Illuminate\Contracts\Http\Kernel')->prependMiddleware(HandlePreflight::class);
+        // We want to return Access-Control-Allow-Credentials header as well
+        $app['config']->set('cors.supportsCredentials', true);
+
         $app['config']->set('database.default', 'testbench');
         $app['config']->set(
             'database.connections.testbench',
@@ -62,11 +85,6 @@ $Laravel = new class {
             ]
         );
 
-        //$this->beforeApplicationDestroyed(
-        //    function () {
-        //        \DB::disconnect('testbench');
-        //    }
-        //);
     }
 };
 

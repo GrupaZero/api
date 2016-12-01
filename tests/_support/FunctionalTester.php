@@ -88,11 +88,6 @@ class FunctionalTester extends \Codeception\Actor {
     {
         $I = $this;
         $I->amLoggedAs(['username' => $email, 'password' => $password]);
-        //$I->amOnPage($this->baseUrl . 'en/login');
-        //$I->fillField('email', );
-        //$I->fillField('password', );
-        //$I->click('button[type=submit]');
-        //$I->amOnPage('/en');
         $I->seeAuthentication();
     }
 
@@ -100,15 +95,13 @@ class FunctionalTester extends \Codeception\Actor {
      * Login with token and set Authorization header
      *
      * @param $email
-     * @param $password
      */
-    public function loginWithToken($email, $password)
+    public function loginWithToken($email)
     {
-        $I = $this;
-        $I->sendPOST('http://api.localhost/v1/login', ['email' => $email, 'password' => $password]);
-        $I->seeResponseIsJson();
-        $this->token = $I->grabDataFromResponseByJsonPath('token');
-        $I->amBearerAuthenticated($this->token[0]);
+        $I    = $this;
+        $user = User::where('email', $email)->first();
+        $I->assertInstanceOf(User::class, $user);
+        $I->amBearerAuthenticated($user->createToken('Test')->accessToken);
     }
 
     /**
@@ -116,18 +109,7 @@ class FunctionalTester extends \Codeception\Actor {
      */
     public function loginAsAdmin()
     {
-        $this->loginWithToken('admin@gzero.pl', 'test');
-    }
-
-    /**
-     * Logout from page
-     */
-    public function logout()
-    {
-        $I = $this;
-        //$I->amOnPage($this->baseUrl . 'en/logout');
-        //$I->canSeeCurrentUrlEquals('/en');
-        //$I->dontSeeAuthentication();
+        $this->loginWithToken('admin@gzero.pl');
     }
 
     /**
@@ -143,6 +125,7 @@ class FunctionalTester extends \Codeception\Actor {
             'nickName'  => $this->faker->userName,
             'firstName' => $this->faker->firstName,
             'lastName'  => $this->faker->lastName,
+            'password'  => 'test',
             'email'     => $this->faker->email
         ];
 
@@ -248,6 +231,6 @@ class FunctionalTester extends \Codeception\Actor {
 
     public function getExampleFile()
     {
-        return new UploadedFile($this->filesDir . '/example.png', 'example.png', 'image/jpeg', null, null, true);
+        return new UploadedFile($this->filesDir . '/example.png', 'example.png', 'image/jpeg', 5148, null, true);
     }
 }

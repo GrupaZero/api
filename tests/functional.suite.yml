@@ -5,12 +5,13 @@ modules:
         - api\Helper\Functional
         - Asserts
         - Laravel5:
-#            root: ../../../ #relative path to platform from vendor dir
-            root: vendor/orchestra/testbench/fixture/
-            bootstrap: '../../../../laravel.php'
-            vendor_dir: '../../../../vendor'
-            cleanup: true
+            root: vendor/orchestra/testbench/fixture/ # we're use testbench package to bootstrap fake laravel app
+            bootstrap: '../../../../tests_setup.php' # bootstrap fake laravel app
+            vendor_dir: '../../../../vendor' # api/vendor
+            cleanup: false
+            disable_events: false
+            disable_exception_handling: false
             disable_middleware: false
-            environment_file: .env.testing
+            disable_model_events: false
         - REST:
             depends: Laravel5

@@ -10,7 +10,6 @@ coverage:
 paths:
     tests: tests
     log: tests/_output
-#    log: ../../../tests/_output #relative path to platform from vendor dir
     data: tests/_data
     support: tests/_support
     envs: tests/_envs
@@ -27,6 +26,6 @@ modules:
             dsn: 'mysql:host=localhost;dbname=gzero-tests'
             user: 'root'
             password: ''
-            dump: vendor/gzero/testing-db/dump.sql
+            dump: vendor/gzero/testing/db/dump.sql
             populate: true
-            cleanup: false
+            cleanup: true

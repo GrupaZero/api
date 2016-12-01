@@ -6,6 +6,7 @@ use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\RouteTranslationValidator;
 use Gzero\Repository\ContentRepository;
 use Gzero\Repository\RepositoryValidationException;
+use Illuminate\Http\Request;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -37,11 +38,16 @@ class RouteController extends ApiController {
      * @param UrlParamsProcessor        $processor Url processor
      * @param ContentRepository         $content   Content repository
      * @param RouteTranslationValidator $validator Route translation validator
+     * @param Request                   $request   Request object
      */
-    public function __construct(UrlParamsProcessor $processor, ContentRepository $content, RouteTranslationValidator $validator)
-    {
+    public function __construct(
+        UrlParamsProcessor $processor,
+        ContentRepository $content,
+        RouteTranslationValidator $validator,
+        Request $request
+    ) {
         parent::__construct($processor);
-        $this->validator  = $validator->setData(\Input::all());
+        $this->validator  = $validator->setData($request->all());
         $this->repository = $content;
     }
 

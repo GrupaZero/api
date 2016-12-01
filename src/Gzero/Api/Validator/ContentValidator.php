@@ -40,7 +40,7 @@ class ContentValidator extends AbstractValidator {
         ],
         'create' => [
             'type'                        => 'required|in:content,category',
-            'parentId'                    => 'numeric',
+            'parentId'                    => 'numeric|nullable',
             'weight'                      => 'numeric',
             'theme'                       => '',
             'isOnHome'                    => 'boolean',
@@ -57,7 +57,7 @@ class ContentValidator extends AbstractValidator {
             'translations.seoDescription' => ''
         ],
         'update' => [
-            'parentId'         => 'numeric',
+            'parentId'         => 'numeric|nullable',
             'weight'           => 'numeric',
             'theme'            => '',
             'isActive'         => 'boolean',

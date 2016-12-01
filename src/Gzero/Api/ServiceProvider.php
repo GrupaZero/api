@@ -1,6 +1,8 @@
 <?php namespace Gzero\Api;
 
+use Carbon\Carbon;
 use Illuminate\Routing\Router;
+use Laravel\Passport\Passport;
 use League\Fractal\Manager;
 use Gzero\Core\AbstractServiceProvider;
 
@@ -39,9 +41,7 @@ class ServiceProvider extends AbstractServiceProvider {
      *
      * @var array
      */
-    protected $routeMiddleware = [
-        'admin.api.access' => \Gzero\Api\Middleware\AdminApiAccess::class,
-    ];
+    protected $routeMiddleware = [];
 
     /**
      * Register the service provider.
@@ -65,6 +65,13 @@ class ServiceProvider extends AbstractServiceProvider {
     {
         $this->registerRouteMiddleware($router);
         $this->registerRoutes();
+
+        // @TODO Probably we can move this to routes file
+        Passport::routes();
+
+        Passport::tokensExpireIn(Carbon::now()->addDays(15));
+
+        Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
     }
 
     /**
@@ -74,7 +81,7 @@ class ServiceProvider extends AbstractServiceProvider {
      */
     protected function registerRoutes()
     {
-        $this->loadRoutesFrom(__DIR__.'/../../routes.php');
+        $this->loadRoutesFrom(__DIR__.'/../../../routes/api.php');
     }
 
     /**

@@ -1,51 +1,27 @@
-sudo: required
-
 language: php
 
 php:
-  - '7.0'
+  - 7.0
+  - 7.1
 
-services:
-  - docker
-
-env:
-  PLATFORM_BRANCH: master # default master
-  DOCKER_VERSION: 1.12.3-0~trusty
-  DOCKER_COMPOSE_VERSION: 1.7.1
-
-before_install:
-  - apt-cache madison docker-engine # list docker-engine versions
-  - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y --force-yes docker-engine=${DOCKER_VERSION} # upgrade docker-engine
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+addons:
+  mariadb: '10.1'
 
 before_script:
-  - docker version
-  - docker-compose version
-  - composer install --prefer-source --no-interaction --dev # installing local dependencies to late use
-  - cd ../
-  # TODO Add version support. Probably we'd need to add platform compatibility version flag in composer.json
-  - git clone --depth=10 -b ${PLATFORM_BRANCH} https://github.com/GrupaZero/platform.git platform
-  - cd platform
-  - docker-compose up -d
-  - docker exec -i -t platform_dev_web_1 phpdismod xdebug # disabling xdebug to speed up composer
-  - docker exec -i -t platform_dev_web_1 composer install -d /var/www/ --prefer-source --no-interaction || true
-  - docker exec -i -t platform_dev_web_1 phpenmod xdebug # enabling xdebug for code coverage
-  - ./scripts/link_package.sh api mount # mounting our repo to latest platform
-  - docker-compose restart # we need to restart to refresh mouted packages
-  - cd $TRAVIS_BUILD_DIR
+  - mkdir -p build/logs
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+  - mysql -e 'create database `gzero-tests`;'
 
 script:
   - ./vendor/bin/phpmd src/ text phpmd.xml
-  - ./vendor/bin/phpcs --standard=ruleset.xml src/ -n
-  - docker exec -it platform_dev_web_1 php /var/www/vendor/bin/codecept run -c /var/www/vendor/gzero/api/codeception.yml --coverage --coverage-xml
-  - docker exec -it platform_dev_web_1 mkdir -p /var/www/build/logs
-  - docker exec -it platform_dev_web_1 cp /var/www/tests/_output/coverage.xml /var/www/build/logs/clover.xml
+  - ./vendor/bin/phpcs --standard=ruleset.xml src/ -n # -n no warnings
+  - php vendor/bin/codecept run -c codeception.yml --coverage --coverage-xml
+  - mkdir -p build/logs
+  - cp tests/_output/coverage.xml build/logs/clover.xml
 
 after_script:
-  - docker exec -it platform_dev_web_1 bash -c "export TRAVIS=$TRAVIS && export TRAVIS_JOB_ID=$TRAVIS_JOB_ID && cd /var/www/vendor/gzero/api && vendor/bin/coveralls -v"
+  - php vendor/bin/coveralls -v
 
 matrix:
   fast_finish: true

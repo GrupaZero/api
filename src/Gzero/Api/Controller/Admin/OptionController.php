@@ -7,6 +7,7 @@ use Gzero\Api\Validator\OptionValidator;
 use Gzero\Entity\Option;
 use Gzero\Repository\OptionRepository;
 use Gzero\Repository\RepositoryValidationException;
+use Illuminate\Http\Request;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -37,10 +38,11 @@ class OptionController extends ApiController {
      *
      * @param OptionRepository $option    Option repo
      * @param OptionValidator  $validator validator
+     * @param Request          $request   Request object
      */
-    public function __construct(OptionRepository $option, OptionValidator $validator)
+    public function __construct(OptionRepository $option, OptionValidator $validator, Request $request)
     {
-        $this->validator  = $validator->setData(\Input::all());
+        $this->validator  = $validator->setData($request->all());
         $this->optionRepo = $option;
     }
 
