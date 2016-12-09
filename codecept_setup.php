@@ -53,9 +53,6 @@ $Laravel = new class {
      */
     protected function getEnvironmentSetUp($app)
     {
-
-        //// Use same key as it was used in platform
-        //$app['config']->set('app.key', '5IlQpknidVO1GleZITdWVWsUFdh1ozT7');
         // Use passport as guard for api
         $app['config']->set('auth.guards.api.driver', 'passport');
 
@@ -76,7 +73,6 @@ $Laravel = new class {
                 'NO_ENGINE_SUBSTITUTION'
             ]
         );
-
     }
 };
 
