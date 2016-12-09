@@ -1,5 +1,6 @@
 <?php
-namespace api;
+
+namespace Api;
 
 class AdminContentCest {
     /**
@@ -47,7 +48,7 @@ class AdminContentCest {
         $I->loginAsAdmin();
         $category1      = $I->haveContent(['type' => 'category']);
         $category2      = $I->haveContent(['type' => 'category']);
-        $nestedCategory = $I->haveContent(['type' => 'category', 'parentId' => $category1->id]);
+        $nestedCategory = $I->haveContent(['type' => 'category', 'parent_id' => $category1->id]);
         $I->sendGET('http://api.localhost/v1/admin/contents/tree');
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -85,7 +86,7 @@ class AdminContentCest {
         $I->wantTo('get tree of contents for single root as admin user');
         $I->loginAsAdmin();
         $category1      = $I->haveContent(['type' => 'category']);
-        $nestedCategory = $I->haveContent(['type' => 'category', 'parentId' => $category1->id]);
+        $nestedCategory = $I->haveContent(['type' => 'category', 'parent_id' => $category1->id]);
         $I->sendGET('http://api.localhost/v1/admin/contents/tree');
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -108,7 +109,7 @@ class AdminContentCest {
         $I->wantTo('get list of contents as admin user');
         $I->loginAsAdmin();
         $category       = $I->haveContent(['type' => 'category']);
-        $nestedCategory = $I->haveContent(['type' => 'category', 'parentId' => $category->id]);
+        $nestedCategory = $I->haveContent(['type' => 'category', 'parent_id' => $category->id]);
         $content        = $I->haveContent(['type' => 'content']);
         $I->sendGET('http://api.localhost/v1/admin/contents?sort=-type,-id&lang=en');
         $I->seeResponseCodeIs(200);
@@ -144,19 +145,19 @@ class AdminContentCest {
     {
         $I->wantTo('delete content as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
+        $user    = $I->haveUser();
         $content = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -175,19 +176,19 @@ class AdminContentCest {
     {
         $I->wantTo('get list of soft deleted content as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
+        $user    = $I->haveUser();
         $content = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -218,19 +219,19 @@ class AdminContentCest {
     {
         $I->wantTo('restore deleted content as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
+        $user    = $I->haveUser();
         $content = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -250,19 +251,19 @@ class AdminContentCest {
     {
         $I->wantTo('force delete content as admin user');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
+        $user    = $I->haveUser();
         $content = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -281,20 +282,20 @@ class AdminContentCest {
     {
         $I->wantTo('force delete only one item from trashcan');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
+        $user = $I->haveUser();
 
-        $content = $I->haveContent(
+        $content  = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -302,15 +303,15 @@ class AdminContentCest {
         $content2 = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user

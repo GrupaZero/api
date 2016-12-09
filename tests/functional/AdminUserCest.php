@@ -1,5 +1,6 @@
 <?php
-namespace api;
+
+namespace Api;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -58,10 +59,10 @@ class AdminUserCest {
         $I->loginAsAdmin();
         $user = $I->haveUser(
             [
-                'nickName'  => 'Test user',
-                'firstName' => 'John',
-                'lastName'  => 'Doe',
-                'password'  => Hash::make('test123')
+                'nick'       => 'Test user',
+                'first_name' => 'John',
+                'last_name'  => 'Doe',
+                'password'   => Hash::make('test123')
             ]
         );
         $I->sendGet(
@@ -71,7 +72,7 @@ class AdminUserCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'nickName'  => 'Test user',
+                'nick'      => 'Test user',
                 'firstName' => 'John',
                 'lastName'  => 'Doe',
             ]
@@ -113,7 +114,7 @@ class AdminUserCest {
         $I->sendPUT(
             $this->url . '/' . $user->id,
             [
-                'nickName'  => 'Modified user',
+                'nick'      => 'Modified user',
                 'firstName' => 'Johny',
                 'lastName'  => 'Stark',
                 'email'     => $user->email,
@@ -123,7 +124,7 @@ class AdminUserCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'nickName'  => 'Modified user',
+                'nick'      => 'Modified user',
                 'firstName' => 'Johny',
                 'lastName'  => 'Stark',
                 'email'     => $user->email,

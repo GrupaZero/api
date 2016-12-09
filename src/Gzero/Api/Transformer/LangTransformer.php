@@ -29,8 +29,8 @@ class LangTransformer extends AbstractTransformer {
         return [
             'code'      => $lang['code'],
             'i18n'      => $lang['i18n'],
-            'isEnabled' => (bool) $lang['isEnabled'],
-            'isDefault' => (bool) $lang['isDefault']
+            'isEnabled' => (bool) $lang['is_enabled'],
+            'isDefault' => (bool) $lang['is_default'],
         ];
     }
 }

@@ -1,5 +1,6 @@
 <?php
-namespace api;
+
+namespace Api;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -76,13 +77,13 @@ class AdminFileCest {
                 'name'         => $file->name,
                 'extension'    => $file->extension,
                 'size'         => $file->size,
-                'mimeType'     => $file->mimeType,
+                'mimeType'     => $file->mime_type,
                 'url'          => $file->getUrl(),
-                'isActive'     => (bool) $file->isActive,
+                'isActive'     => (bool) $file->is_active,
                 'createdBy'    => $user->id,
                 'translations' => [
                     [
-                        'langCode'    => $fileTranslation->langCode,
+                        'langCode'    => $fileTranslation->lang_code,
                         'title'       => $fileTranslation->title,
                         'description' => $fileTranslation->description,
                     ]
@@ -217,13 +218,13 @@ class AdminFileCest {
                 'name'         => $file->name,
                 'extension'    => $file->extension,
                 'size'         => $file->size,
-                'mimeType'     => $file->mimeType,
+                'mimeType'     => $file->mime_type,
                 'url'          => $file->getUrl(),
                 'isActive'     => false,
                 'createdBy'    => $user->id,
                 'translations' => [
                     [
-                        'langCode'    => $fileTranslation->langCode,
+                        'langCode'    => $fileTranslation->lang_code,
                         'title'       => $fileTranslation->title,
                         'description' => $fileTranslation->description,
                     ]

@@ -28,13 +28,28 @@ class BlockTranslationTransformer extends AbstractTransformer {
         $translation = $this->entityToArray(BlockTranslation::class, $translation);
         return [
             'id'           => (int) $translation['id'],
-            'langCode'     => $translation['langCode'],
+            'langCode'     => $translation['lang_code'],
             'title'        => $translation['title'],
             'body'         => $translation['body'],
-            'customFields' => json_decode($translation['customFields'], true), // Eloquent\Model - toArray() not utilize mutators
-            'isActive'     => (bool) $translation['isActive'],
-            'createdAt'    => $translation['createdAt'],
-            'updatedAt'    => $translation['updatedAt'],
+            'customFields' => $this->transformCustomFields($translation),
+            'isActive'     => (bool) $translation['is_active'],
+            'createdAt'    => $translation['created_at'],
+            'updatedAt'    => $translation['updated_at'],
         ];
+    }
+
+    /**
+     * It transforms customFields
+     *
+     * @param BlockTranslation|array $translation BlockTranslation entity
+     *
+     * @return array|null
+     */
+    protected function transformCustomFields($translation)
+    {
+        if (is_array($translation['custom_fields'])) {
+            return array_camel_case_keys($translation['custom_fields']);
+        }
+        return null;
     }
 }

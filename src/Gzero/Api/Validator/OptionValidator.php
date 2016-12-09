@@ -21,7 +21,7 @@ class OptionValidator extends AbstractValidator {
      */
     protected $rules = [
         'update' => [
-            'key'   => ['required', 'exists:Options,key'],
+            'key'   => ['required', 'exists:options,key'],
             'value' => 'required'
         ]
     ];

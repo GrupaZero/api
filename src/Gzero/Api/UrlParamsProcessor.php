@@ -87,7 +87,7 @@ class UrlParamsProcessor {
      *
      * @return $this
      */
-    public function process(Array $input)
+    public function process(array $input)
     {
         if (!empty($input['sort'])) {
             foreach (explode(',', $input['sort']) as $sort) {
@@ -127,7 +127,7 @@ class UrlParamsProcessor {
      *
      * @return mixed
      */
-    private function processPageParams(Array $input)
+    private function processPageParams(array $input)
     {
         if (!empty($input['page']) && is_numeric($input['page'])) {
             $this->page = $input['page'];

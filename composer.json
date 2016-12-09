@@ -17,10 +17,10 @@
         "php": ">=7.0.0",
         "barryvdh/laravel-cors": "0.8.2",
         "flow/jsonpath": "^0.3.4",
-        "gzero/core": "dev-laravel_53_upgrade",
-        "gzero/entity": "dev-laravel_53_upgrade",
-        "gzero/repository": "dev-laravel_53_upgrade",
-        "gzero/validator": "dev-laravel_53_upgrade",
+        "gzero/core": "dev-database_tables_refactor",
+        "gzero/entity": "dev-database_tables_refactor",
+        "gzero/repository": "dev-database_tables_refactor",
+        "gzero/validator": "dev-database_tables_refactor",
         "illuminate/pagination": "5.3.*",
         "illuminate/routing": "5.3.*",
         "laravel/passport": "^1.0",
@@ -28,13 +28,13 @@
     },
     "require-dev": {
         "aedart/testing-laravel": "1.8.*",
-        "codeception/codeception": "2.2.x-dev as 2.2.6",
+        "codeception/codeception": "2.2.*",
         "fzaninotto/faker": "~1.6",
-        "gzero/testing": "1.*",
+        "gzero/testing": "2.*",
         "mockery/mockery": "0.9.*",
         "phpmd/phpmd": "2.*",
         "satooshi/php-coveralls": "~1.0",
-        "squizlabs/php_codesniffer": "1.*"
+        "squizlabs/php_codesniffer": "2.*"
     },
     "autoload": {
         "classmap": [],

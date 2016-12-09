@@ -1,5 +1,6 @@
 <?php
-namespace api;
+
+namespace Api;
 
 class AdminBlockCest {
     /**
@@ -63,12 +64,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -107,12 +108,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -163,20 +164,20 @@ class AdminBlockCest {
     {
         $I->wantTo('force delete only one block item from trashcan');
         $I->loginAsAdmin();
-        $user  = $I->haveUser();
-        $block = $I->haveBlock(
+        $user   = $I->haveUser();
+        $block  = $I->haveBlock(
             [
                 'type'         => 'basic',
                 'region'       => 'header',
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -188,12 +189,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -264,8 +265,8 @@ class AdminBlockCest {
         $I->wantTo('get list of blocks for specific content as admin user');
         $I->loginAsAdmin();
         $category       = $I->haveContent(['type' => 'category']);
-        $nestedCategory = $I->haveContent(['type' => 'category', 'parentId' => $category->id]);
-        $content        = $I->haveContent(['type' => 'content', 'parentId' => $nestedCategory->id]);
+        $nestedCategory = $I->haveContent(['type' => 'category', 'parent_id' => $category->id]);
+        $content        = $I->haveContent(['type' => 'content', 'parent_id' => $nestedCategory->id]);
         // Block for this content
         $I->sendPOST(
             $this->url,
@@ -648,12 +649,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -711,12 +712,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -743,12 +744,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -775,12 +776,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -907,13 +908,13 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode'     => 'en',
-                    'title'        => 'Example block title',
-                    'body'         => 'Example block body',
-                    'customFields' => ['customField' => "Example block custom field"],
+                    'lang_code'     => 'en',
+                    'title'         => 'Example block title',
+                    'body'          => 'Example block body',
+                    'custom_fields' => ['customField' => "Example block custom field"],
 
                 ]
             ],
@@ -953,13 +954,13 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode'     => 'en',
-                    'title'        => 'Example block title',
-                    'body'         => 'Example block body',
-                    'customFields' => ['customField' => "Example block custom field"],
+                    'lang_code'     => 'en',
+                    'title'         => 'Example block title',
+                    'body'          => 'Example block body',
+                    'custom_fields' => ['custom_field' => "Example block custom field"],
 
                 ]
             ],
@@ -971,7 +972,7 @@ class AdminBlockCest {
                 'langCode'     => 'en',
                 'title'        => 'Modified block title',
                 'body'         => 'Modified block body',
-                'customFields' => ['customField' => "Modified block custom field"],
+                'customFields' => ['custom_field' => "Modified block custom field"],
             ]
         );
         $I->seeResponseCodeIs(200);
@@ -999,14 +1000,14 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode'     => 'en',
-                    'isActive'     => false,
-                    'title'        => 'Example block title',
-                    'body'         => 'Example block body',
-                    'customFields' => ['customField' => "Example block custom field"],
+                    'lang_code'     => 'en',
+                    'is_active'     => false,
+                    'title'         => 'Example block title',
+                    'body'          => 'Example block body',
+                    'custom_fields' => ['custom_field' => "Example block custom field"],
                 ]
             ],
             $user
@@ -1017,7 +1018,7 @@ class AdminBlockCest {
                 'langCode'     => 'en',
                 'title'        => 'New block title',
                 'body'         => 'New block body',
-                'customFields' => ['customField' => "New block custom field"],
+                'customFields' => ['custom_field' => "New block custom field"],
             ]
         );
         // get inactive translation
@@ -1081,13 +1082,13 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode'     => 'en',
-                    'title'        => 'Example block title',
-                    'body'         => 'Example block body',
-                    'customFields' => ['customField' => "Example block custom field"],
+                    'lang_code'     => 'en',
+                    'title'         => 'Example block title',
+                    'body'          => 'Example block body',
+                    'custom_fields' => ['custom_field' => "Example block custom field"],
                 ]
             ],
             $user

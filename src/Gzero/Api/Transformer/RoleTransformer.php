@@ -29,8 +29,8 @@ class RoleTransformer extends AbstractTransformer {
         return [
             'id'        => (int) $role['id'],
             'name'      => $role['name'],
-            'createdAt' => $role['createdAt'],
-            'updatedAt' => $role['updatedAt']
+            'createdAt' => $role['created_at'],
+            'updatedAt' => $role['updated_at']
         ];
     }
 }

@@ -2,11 +2,11 @@ class_name: FunctionalTester
 modules:
     enabled:
         - Db
-        - api\Helper\Functional
+        - Api\Helper\Functional
         - Asserts
         - Laravel5:
             root: vendor/orchestra/testbench/fixture/ # we're use testbench package to bootstrap fake laravel app
-            bootstrap: '../../../../tests_setup.php' # bootstrap fake laravel app
+            bootstrap: '../../../../codecept_setup.php' # bootstrap fake laravel app
             vendor_dir: '../../../../vendor' # api/vendor
             cleanup: false
             disable_events: false

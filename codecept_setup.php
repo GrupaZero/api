@@ -4,12 +4,17 @@ namespace App;
 
 use Barryvdh\Cors\HandlePreflight;
 use Gzero\Api\ServiceProvider as AdminServiceProvider;
+use Gzero\Core\Middleware\Init;
 use Gzero\Core\ServiceProvider as CoreServiceProvider;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider;
 
 require_once __DIR__ . '/tests/fixture/User.php';
 require __DIR__ . '/vendor/autoload.php';
+
+if (file_exists(__DIR__ . '/.env.testing')) {
+    (new \Dotenv\Dotenv(__DIR__, '.env.testing'))->load();
+}
 
 $Laravel = new class {
     use \Orchestra\Testbench\Traits\ApplicationTrait;
@@ -48,45 +53,33 @@ $Laravel = new class {
      */
     protected function getEnvironmentSetUp($app)
     {
-        // Use same key as it was used in platform
-        $app['config']->set('app.key', '5IlQpknidVO1GleZITdWVWsUFdh1ozT7');
+
+        //// Use same key as it was used in platform
+        //$app['config']->set('app.key', '5IlQpknidVO1GleZITdWVWsUFdh1ozT7');
         // Use passport as guard for api
         $app['config']->set('auth.guards.api.driver', 'passport');
 
         // We need to add middleware to handle OPTIONS case
         app('Illuminate\Contracts\Http\Kernel')->prependMiddleware(HandlePreflight::class);
+        app('Illuminate\Contracts\Http\Kernel')->prependMiddleware(Init::class);
         // We want to return Access-Control-Allow-Credentials header as well
         $app['config']->set('cors.supportsCredentials', true);
-
-        $app['config']->set('database.default', 'testbench');
         $app['config']->set(
-            'database.connections.testbench',
+            'database.connections.mysql.modes',
             [
-                'driver'    => 'mysql',
-                'host'      => 'localhost',
-                'port'      => 3306,
-                'database'  => 'gzero-tests',
-                'username'  => 'root',
-                'password'  => '',
-                'charset'   => 'utf8',
-                'collation' => 'utf8_unicode_ci',
-                'prefix'    => '',
-                'modes'     => [
-                    'ONLY_FULL_GROUP_BY',
-                    'STRICT_TRANS_TABLES',
-                    'NO_ZERO_IN_DATE',
-                    'NO_ZERO_DATE',
-                    'ERROR_FOR_DIVISION_BY_ZERO',
-                    'NO_AUTO_CREATE_USER',
-                    'NO_ENGINE_SUBSTITUTION'
-                ],
-                'strict'    => true, // Not used when modes specified
-                'engine'    => null,
+                'ONLY_FULL_GROUP_BY',
+                'STRICT_TRANS_TABLES',
+                'NO_ZERO_IN_DATE',
+                'NO_ZERO_DATE',
+                'ERROR_FOR_DIVISION_BY_ZERO',
+                'NO_AUTO_CREATE_USER',
+                'NO_ENGINE_SUBSTITUTION'
             ]
         );
 
     }
 };
+
 
 $app = $Laravel->createApplication();
 

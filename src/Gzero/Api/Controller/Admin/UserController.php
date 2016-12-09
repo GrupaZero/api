@@ -113,7 +113,7 @@ class UserController extends ApiController {
         $user = $this->userRepo->getById($id);
         if (!empty($user)) {
             $this->authorize('update', $user);
-            $input = $this->validator->bind('nickName', ['userId' => $user->id])->bind('email', ['userId' => $user->id])
+            $input = $this->validator->bind('nick', ['user_id' => $user->id])->bind('email', ['user_id' => $user->id])
                 ->validate('update');
             $user  = $this->userRepo->update($user, $input);
             return $this->respondWithSuccess($user, new UserTransformer());

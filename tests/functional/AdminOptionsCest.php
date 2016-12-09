@@ -1,5 +1,6 @@
 <?php
-namespace api;
+
+namespace Api;
 
 class AdminOptionsCest {
 
@@ -49,14 +50,14 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'googleAnalyticsId' =>
+                'google_analytics_id' =>
                     [
                         'en' => null,
                         'pl' => null,
                         'de' => null,
                         'fr' => null,
                     ],
-                'seoDescLength'     =>
+                'desc_length'     =>
                     [
                         'en' => 160,
                         'pl' => 160,
@@ -77,7 +78,7 @@ class AdminOptionsCest {
         $I->sendPUT(
             $this->url . '/seo',
             [
-                'key'   => 'seoDescLength',
+                'key'   => 'desc_length',
                 'value' => [
                     'en' => 160,
                     'pl' => 161,
@@ -91,14 +92,14 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'googleAnalyticsId' =>
+                'google_analytics_id' =>
                     [
                         'en' => null,
                         'pl' => null,
                         'de' => null,
                         'fr' => null,
                     ],
-                'seoDescLength'     =>
+                'desc_length'     =>
                     [
                         'en' => 160,
                         'pl' => 161,
