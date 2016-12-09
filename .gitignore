@@ -7,5 +7,6 @@ Thumbs.db
 _ide_helper.php
 .vagrant
 .sass-cache
+.env.testing
 node_modules
 tests/_output/*
