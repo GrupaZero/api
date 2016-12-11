@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7593366be49c09a592316dde542d4b30",
+    "content-hash": "a38b8c2e9f84d67ca58018b5350225f3",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -579,17 +579,17 @@
         },
         {
             "name": "gzero/core",
-            "version": "dev-database_tables_refactor",
+            "version": "dev-master",
             "target-dir": "Gzero/Core",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/core.git",
-                "reference": "9cc1e8e435f508c1a4bb58d7e44e33f7fc3f9d07"
+                "reference": "379fffdb9456dc4a7a01ef93dc381d5f1773e4aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/core/zipball/9cc1e8e435f508c1a4bb58d7e44e33f7fc3f9d07",
-                "reference": "9cc1e8e435f508c1a4bb58d7e44e33f7fc3f9d07",
+                "url": "https://api.github.com/repos/GrupaZero/core/zipball/379fffdb9456dc4a7a01ef93dc381d5f1773e4aa",
+                "reference": "379fffdb9456dc4a7a01ef93dc381d5f1773e4aa",
                 "shasum": ""
             },
             "require": {
@@ -621,7 +621,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2016-12-09 14:53:09"
+            "time": "2016-12-09 17:32:35"
         },
         {
             "name": "gzero/eloquent-tree",
@@ -673,17 +673,17 @@
         },
         {
             "name": "gzero/entity",
-            "version": "dev-database_tables_refactor",
+            "version": "dev-master",
             "target-dir": "Gzero/Entity",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/entity.git",
-                "reference": "35c161a02072c1585a2b0cb4c1bd5913a39be056"
+                "reference": "072cf228d0b3d8c3436299e08fc82961ad56f727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/35c161a02072c1585a2b0cb4c1bd5913a39be056",
-                "reference": "35c161a02072c1585a2b0cb4c1bd5913a39be056",
+                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/072cf228d0b3d8c3436299e08fc82961ad56f727",
+                "reference": "072cf228d0b3d8c3436299e08fc82961ad56f727",
                 "shasum": ""
             },
             "require": {
@@ -709,21 +709,21 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2016-12-08 16:58:21"
+            "time": "2016-12-09 17:32:35"
         },
         {
             "name": "gzero/repository",
-            "version": "dev-database_tables_refactor",
+            "version": "dev-master",
             "target-dir": "Gzero/Repository",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/repository.git",
-                "reference": "038488b378553b03089bdf6503cf45e12e01a045"
+                "reference": "424a8081a633c20bcae800628e38d0cc4a90634f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/038488b378553b03089bdf6503cf45e12e01a045",
-                "reference": "038488b378553b03089bdf6503cf45e12e01a045",
+                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/424a8081a633c20bcae800628e38d0cc4a90634f",
+                "reference": "424a8081a633c20bcae800628e38d0cc4a90634f",
                 "shasum": ""
             },
             "require": {
@@ -748,21 +748,21 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2016-12-09 14:53:09"
+            "time": "2016-12-09 17:32:35"
         },
         {
             "name": "gzero/validator",
-            "version": "dev-database_tables_refactor",
+            "version": "dev-master",
             "target-dir": "Gzero/Validator",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/validator.git",
-                "reference": "93834dbdf2d84f1b8493af1c053654b6e0ad1524"
+                "reference": "c403b3291a062527166bda559f7645774d3abf72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/validator/zipball/93834dbdf2d84f1b8493af1c053654b6e0ad1524",
-                "reference": "93834dbdf2d84f1b8493af1c053654b6e0ad1524",
+                "url": "https://api.github.com/repos/GrupaZero/validator/zipball/c403b3291a062527166bda559f7645774d3abf72",
+                "reference": "c403b3291a062527166bda559f7645774d3abf72",
                 "shasum": ""
             },
             "require": {
@@ -791,7 +791,7 @@
                 "laravel",
                 "validator"
             ],
-            "time": "2016-12-05 18:20:28"
+            "time": "2016-12-09 17:32:35"
         },
         {
             "name": "jakub-onderka/php-console-color",
