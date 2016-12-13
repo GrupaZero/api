@@ -22,18 +22,18 @@ class ContentTranslationValidator extends AbstractValidator {
     protected $rules = [
         'list'   => [
             'lang_code' => 'in:pl,en,de,fr',
-            'page'     => 'numeric',
+            'page'      => 'numeric',
             'per_page'  => 'numeric',
             'is_active' => 'boolean',
-            'sort'     => '',
-            'level'    => ''
+            'sort'      => '',
+            'level'     => ''
         ],
         'create' => [
             'lang_code'       => 'required|in:pl,en,de,fr',
             'is_active'       => '',
-            'title'          => 'required',
-            'teaser'         => '',
-            'body'           => '',
+            'title'           => 'required',
+            'teaser'          => '',
+            'body'            => '',
             'seo_title'       => '',
             'seo_description' => '',
         ]
@@ -43,7 +43,7 @@ class ContentTranslationValidator extends AbstractValidator {
      * @var array
      */
     protected $filters = [
-        'title'          => 'trim',
+        'title'           => 'trim',
         'seo_title'       => 'trim',
         'seo_description' => 'trim'
     ];

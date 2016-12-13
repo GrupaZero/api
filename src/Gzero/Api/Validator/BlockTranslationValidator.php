@@ -22,17 +22,17 @@ class BlockTranslationValidator extends AbstractValidator {
     protected $rules = [
         'list'   => [
             'lang_code' => 'in:pl,en,de,fr',
-            'page'     => 'numeric',
+            'page'      => 'numeric',
             'per_page'  => 'numeric',
             'is_active' => 'boolean',
-            'sort'     => '',
-            'level'    => ''
+            'sort'      => '',
+            'level'     => ''
         ],
         'create' => [
             'lang_code'     => 'required|in:pl,en,de,fr',
             'is_active'     => '',
-            'title'        => 'required',
-            'body'         => '',
+            'title'         => 'required',
+            'body'          => '',
             'custom_fields' => '',
         ]
     ];
