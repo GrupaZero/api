@@ -46,7 +46,7 @@ class UrlParamsProcessorTest extends \Codeception\Test\Unit {
             [
                 ['lang', '=', 'en'],
                 ['test2', '=', 'test2'],
-                ['translation.langCode', '=', 'en']
+                ['translation.lang_code', '=', 'en']
             ]
         );
     }
@@ -88,7 +88,7 @@ class UrlParamsProcessorTest extends \Codeception\Test\Unit {
                 'filter'  => [
                     ['lang', '=', 'en'],
                     ['test2', '=', 'test2'],
-                    ['translation.langCode', '=', 'en']
+                    ['translation.lang_code', '=', 'en']
                 ],
                 'orderBy' => [
                     ['test1', 'DESC'],
@@ -106,12 +106,12 @@ class UrlParamsProcessorTest extends \Codeception\Test\Unit {
     {
         return (new UrlParamsProcessor())->process(
             [
-                'sort'                 => '-test1,test2,test3',
-                'page'                 => 3,
-                'perPage'              => 21,
-                'lang'                 => 'en',
-                'test2'                => 'test2',
-                'translation.langCode' => 'en'
+                'sort'                  => '-test1,test2,test3',
+                'page'                  => 3,
+                'per_page'              => 21,
+                'lang'                  => 'en',
+                'test2'                 => 'test2',
+                'translation.lang_code' => 'en'
             ]
         );
     }

@@ -96,7 +96,7 @@ class UrlParamsProcessor {
         }
         $input = $this->processPageParams($input);
         foreach ($input as $key => $param) {
-            if (!in_array($key, ['sort', 'page', 'perPage'], true)) {
+            if (!in_array($key, ['sort', 'page', 'per_page'], true)) {
                 $this->processFilterParams($key, $param);
             }
         }
@@ -132,8 +132,8 @@ class UrlParamsProcessor {
         if (!empty($input['page']) && is_numeric($input['page'])) {
             $this->page = $input['page'];
         }
-        if (!empty($input['perPage']) && is_numeric($input['perPage'])) {
-            $this->perPage = $input['perPage'];
+        if (!empty($input['per_page']) && is_numeric($input['per_page'])) {
+            $this->perPage = $input['per_page'];
         }
         return $input;
     }
