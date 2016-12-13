@@ -4,7 +4,11 @@ modules:
         - Db
         - Api\Helper\Functional
         - Asserts
-        - Laravel5:
+        - Laravel5
+        - REST:
+              depends: Laravel5
+    config:
+        Laravel5:
             root: vendor/orchestra/testbench/fixture/ # we're use testbench package to bootstrap fake laravel app
             bootstrap: '../../../../codecept_setup.php' # bootstrap fake laravel app
             vendor_dir: '../../../../vendor' # api/vendor
@@ -13,5 +17,18 @@ modules:
             disable_exception_handling: false
             disable_middleware: false
             disable_model_events: false
-        - REST:
-            depends: Laravel5
+
+env:
+    platform:
+        modules:
+            config:
+                Laravel5:
+                    root: ../../../ # relative path to platform
+                    bootstrap: 'bootstrap/app.php' # platform bootstrap file
+                    vendor_dir: 'vendor'
+                    cleanup: false
+                    disable_events: false
+                    disable_exception_handling: false
+                    disable_middleware: false
+                    disable_model_events: false
+                    environment_file: .env.testing
