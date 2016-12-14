@@ -6,6 +6,7 @@ use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\ContentTranslationValidator;
 use Gzero\Entity\Content;
 use Gzero\Repository\ContentRepository;
+use Illuminate\Http\Request;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -37,11 +38,16 @@ class ContentTranslationController extends ApiController {
      * @param UrlParamsProcessor          $processor Url processor
      * @param ContentRepository           $content   Content repository
      * @param ContentTranslationValidator $validator Content validator
+     * @param Request                     $request   Request object
      */
-    public function __construct(UrlParamsProcessor $processor, ContentRepository $content, ContentTranslationValidator $validator)
-    {
+    public function __construct(
+        UrlParamsProcessor $processor,
+        ContentRepository $content,
+        ContentTranslationValidator $validator,
+        Request $request
+    ) {
         parent::__construct($processor);
-        $this->validator  = $validator->setData(\Input::all());
+        $this->validator  = $validator->setData($request->all());
         $this->repository = $content;
     }
 

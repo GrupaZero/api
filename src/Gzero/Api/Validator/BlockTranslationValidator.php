@@ -21,19 +21,19 @@ class BlockTranslationValidator extends AbstractValidator {
      */
     protected $rules = [
         'list'   => [
-            'langCode' => 'in:pl,en,de,fr',
-            'page'     => 'numeric',
-            'perPage'  => 'numeric',
-            'isActive' => 'boolean',
-            'sort'     => '',
-            'level'    => ''
+            'lang_code' => 'in:pl,en,de,fr',
+            'page'      => 'numeric',
+            'per_page'  => 'numeric',
+            'is_active' => 'boolean',
+            'sort'      => '',
+            'level'     => ''
         ],
         'create' => [
-            'langCode'     => 'required|in:pl,en,de,fr',
-            'isActive'     => '',
-            'title'        => 'required',
-            'body'         => '',
-            'customFields' => '',
+            'lang_code'     => 'required|in:pl,en,de,fr',
+            'is_active'     => '',
+            'title'         => 'required',
+            'body'          => '',
+            'custom_fields' => '',
         ]
     ];
 

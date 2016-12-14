@@ -1,47 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset name="gzero-ruleset">
-    <description>GZERO CMS PHP Coding Standards
-    </description>
+    <description>GZERO CMS PHP Coding Standards</description>
     <rule ref="PSR1"/>
     <rule ref="PSR2">
         <!--but exclude their code ClassDeclaration-->
         <exclude name="PSR2.Classes.ClassDeclaration"/>
     </rule>
-    <rule ref="PEAR">
-        <!--We use PSR2-->
-        <exclude name="PEAR.Classes"/>
-        <exclude name="PEAR.Files"/>
-        <exclude name="PEAR.Commenting.ClassComment"/>
-        <exclude name="PEAR.Commenting.FileComment"/>
-        <!--No _ in private methods/variables-->
-        <exclude name="PEAR.NamingConventions"/>
-    </rule>
-    <rule ref="Squiz">
-        <exclude name="Squiz.Classes.ClassDeclaration"/>
-        <exclude name="Squiz.WhiteSpace.FunctionSpacing"/>
-        <exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace"/>
-        <exclude name="Squiz.WhiteSpace.ControlStructureSpacing"/>
-        <exclude name="Squiz.NamingConventions"/>
-        <exclude name="Squiz.Commenting"/>
-        <exclude name="Squiz.Files"/>
-        <exclude name="Squiz.Formatting"/>
-        <exclude name="Squiz.PHP.CommentedOutCode"/>
-        <exclude name="Squiz.Operators.ComparisonOperatorUsage"/>
+    <rule ref="PEAR.Commenting.FunctionComment"/>
+    <rule ref="PEAR.Commenting.InlineComment"/>
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag"/>
+    <rule ref="Squiz.PHP">
         <exclude name="Squiz.PHP.DisallowComparisonAssignment"/>
-        <exclude name="Squiz.Strings"/>
-        <exclude name="Squiz.ControlStructures.ElseIfDeclaration"/>
-        <exclude name="Squiz.ControlStructures.InlineIfDeclaration"/>
-        <!-- Issue with our arrays -->
-        <exclude name="Generic.Formatting.MultipleStatementAlignment"/>
-        <!-- Spaces before object operator -> -->
-        <exclude name="Squiz.WhiteSpace.ObjectOperatorSpacing"/>
-        <!-- Disabled because returning error on function($arg1, $arg2 = true)-->
-        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing"/>
         <exclude name="Squiz.PHP.DisallowInlineIf"/>
-        <!-- Passing new as argument to function -->
-        <exclude name="Squiz.Objects.ObjectInstantiation"/>
-        <exclude name="Squiz.PHP.ForbiddenFunctions"/>
+        <exclude name="Squiz.PHP.DisallowBooleanStatement"/>
+        <exclude name="Squiz.WhiteSpace.ControlStructureSpacing"/>
     </rule>
+    <rule ref="Squiz.Scope"/>
+    <rule ref="Squiz.Functions"/>
     <rule ref="Generic.Files.LineLength">
         <properties>
             <property name="lineLimit" value="130"/>
@@ -65,7 +40,7 @@
     <rule ref="Generic.Metrics.NestingLevel"/>
     <rule ref="Generic.PHP.DeprecatedFunctions"/>
     <rule ref="Generic.PHP.DisallowShortOpenTag"/>
-    <!--<rule ref="Generic.PHP.ForbiddenFunctions"/>-->
+    <rule ref="Generic.PHP.ForbiddenFunctions"/>
     <rule ref="Generic.PHP.NoSilencedErrors"/>
     <rule ref="Generic.Strings.UnnecessaryStringConcat"/>
     <rule ref="Generic.WhiteSpace.ScopeIndent"/>

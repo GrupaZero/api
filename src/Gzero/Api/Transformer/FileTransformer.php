@@ -42,13 +42,13 @@ class FileTransformer extends AbstractTransformer {
             'name'      => $file['name'],
             'extension' => $file['extension'],
             'size'      => (int) $file['size'],
-            'mimeType'  => $file['mimeType'],
+            'mimeType'  => $file['mime_type'],
             'info'      => $file['info'],
             'url'       => $url,
-            'isActive'  => (bool) $file['isActive'],
-            'createdBy' => (int) $file['createdBy'],
-            'createdAt' => $file['createdAt'],
-            'updatedAt' => $file['updatedAt']
+            'isActive'  => (bool) $file['is_active'],
+            'createdBy' => (int) $file['created_by'],
+            'createdAt' => $file['created_at'],
+            'updatedAt' => $file['updated_at']
         ];
     }
 

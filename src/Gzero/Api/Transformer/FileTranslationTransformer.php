@@ -28,11 +28,11 @@ class FileTranslationTransformer extends AbstractTransformer {
         $translation = $this->entityToArray(FileTranslation::class, $translation);
         return [
             'id'          => (int) $translation['id'],
-            'langCode'    => $translation['langCode'],
+            'langCode'    => $translation['lang_code'],
             'title'       => $translation['title'],
             'description' => $translation['description'],
-            'createdAt'   => $translation['createdAt'],
-            'updatedAt'   => $translation['updatedAt'],
+            'createdAt'   => $translation['created_at'],
+            'updatedAt'   => $translation['updated_at'],
         ];
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace api;
+namespace Api;
 
 use Faker\Factory;
 use Gzero\Entity\Block;
@@ -71,10 +71,10 @@ class FunctionalTester extends \Codeception\Actor {
     {
         $this->faker       = Factory::create();
         $this->filesDir    = __DIR__ . '/../resources';
-        $this->contentRepo = new ContentRepository(new Content(), new Dispatcher());
-        $this->blockRepo   = new BlockRepository(new Block(), new Dispatcher());
         $this->userRepo    = new UserRepository(new User(), new Dispatcher());
         $this->fileRepo    = new FileRepository(new File(), new FileType(), new Dispatcher());
+        $this->blockRepo   = new BlockRepository(new Block(), new Dispatcher(), $this->fileRepo);
+        $this->contentRepo = new ContentRepository(new Content(), new Dispatcher(), $this->fileRepo);
         parent::__construct($scenario);
     }
 
@@ -87,11 +87,7 @@ class FunctionalTester extends \Codeception\Actor {
     public function login($email, $password)
     {
         $I = $this;
-        $I->amOnPage($this->baseUrl . 'en/login');
-        $I->fillField('email', $email);
-        $I->fillField('password', $password);
-        $I->click('button[type=submit]');
-        $I->amOnPage('/en');
+        $I->amLoggedAs(['username' => $email, 'password' => $password]);
         $I->seeAuthentication();
     }
 
@@ -99,15 +95,13 @@ class FunctionalTester extends \Codeception\Actor {
      * Login with token and set Authorization header
      *
      * @param $email
-     * @param $password
      */
-    public function loginWithToken($email, $password)
+    public function loginWithToken($email)
     {
-        $I = $this;
-        $I->sendPOST('http://api.localhost/v1/login', ['email' => $email, 'password' => $password]);
-        $I->seeResponseIsJson();
-        $this->token = $I->grabDataFromResponseByJsonPath('token');
-        $I->amBearerAuthenticated($this->token[0]);
+        $I    = $this;
+        $user = User::where('email', $email)->first();
+        $I->assertInstanceOf(User::class, $user);
+        $I->amBearerAuthenticated($user->createToken('Test')->accessToken);
     }
 
     /**
@@ -115,18 +109,7 @@ class FunctionalTester extends \Codeception\Actor {
      */
     public function loginAsAdmin()
     {
-        $this->loginWithToken('admin@gzero.pl', 'test');
-    }
-
-    /**
-     * Logout from page
-     */
-    public function logout()
-    {
-        $I = $this;
-        $I->amOnPage($this->baseUrl . 'en/logout');
-        $I->canSeeCurrentUrlEquals('/en');
-        $I->dontSeeAuthentication();
+        $this->loginWithToken('admin@gzero.pl');
     }
 
     /**
@@ -139,13 +122,14 @@ class FunctionalTester extends \Codeception\Actor {
     public function haveUser($attributes = [])
     {
         $fakeAttributes = [
-            'nickName'  => $this->faker->userName,
-            'firstName' => $this->faker->firstName,
-            'lastName'  => $this->faker->lastName,
-            'email'     => $this->faker->email
+            'nick'       => $this->faker->userName,
+            'first_name' => $this->faker->firstName,
+            'last_name'  => $this->faker->lastName,
+            'password'   => 'test',
+            'email'      => $this->faker->email
         ];
 
-        $fakeAttributes = array_merge($fakeAttributes, $attributes);
+        $fakeAttributes = array_merge(array_snake_case_keys($fakeAttributes), $attributes);
 
         return $this->userRepo->create($fakeAttributes);
     }
@@ -166,13 +150,13 @@ class FunctionalTester extends \Codeception\Actor {
             'weight'       => rand(0, 10),
             'filter'       => ['+' => ['1/2/3']],
             'options'      => ['test' => 'value'],
-            'isActive'     => true,
-            'isCacheable'  => true,
-            'publishedAt'  => date('Y-m-d H:i:s'),
+            'is_active'    => true,
+            'is_cacheable' => true,
+            'published_at' => date('Y-m-d H:i:s'),
             'translations' => [
-                'langCode' => 'en',
-                'title'    => 'Example block title',
-                'body'     => 'Example block body'
+                'lang_code' => 'en',
+                'title'     => 'Example block title',
+                'body'      => 'Example block body'
             ]
         ];
 
@@ -195,16 +179,16 @@ class FunctionalTester extends \Codeception\Actor {
     {
         $fakeAttributes = [
             'type'         => ['category', 'content'][rand(0, 1)],
-            'isActive'     => 1,
-            'publishedAt'  => date('Y-m-d H:i:s'),
+            'is_active'    => 1,
+            'published_at' => date('Y-m-d H:i:s'),
             'translations' => [
-                'langCode'       => 'en',
-                'title'          => $this->faker->realText(38, 1),
-                'teaser'         => '<p>' . $this->faker->realText(300) . '</p>',
-                'body'           => $this->faker->realText(1000),
-                'seoTitle'       => $this->faker->realText(60, 1),
-                'seoDescription' => $this->faker->realText(160, 1),
-                'isActive'       => rand(0, 1)
+                'lang_code'       => 'en',
+                'title'           => $this->faker->realText(38, 1),
+                'teaser'          => '<p>' . $this->faker->realText(300) . '</p>',
+                'body'            => $this->faker->realText(1000),
+                'seo_title'       => $this->faker->realText(60, 1),
+                'seo_description' => $this->faker->realText(160, 1),
+                'is_active'       => rand(0, 1)
             ]
         ];
 
@@ -229,10 +213,10 @@ class FunctionalTester extends \Codeception\Actor {
         $fakeAttributes = [
             'type'         => 'image',
             'info'         => array_combine($this->faker->words(), $this->faker->words()),
-            'isActive'     => 1,
-            'createdBy'    => $user->id,
+            'is_active'    => 1,
+            'created_by'   => $user->id,
             'translations' => [
-                'langCode'    => 'en',
+                'lang_code'   => 'en',
                 'title'       => $this->faker->realText(38, 1),
                 'description' => $this->faker->realText(100),
             ]
@@ -247,6 +231,6 @@ class FunctionalTester extends \Codeception\Actor {
 
     public function getExampleFile()
     {
-        return new UploadedFile($this->filesDir . '/example.png', 'example.png', 'image/jpeg', null, null, true);
+        return new UploadedFile($this->filesDir . '/example.png', 'example.png', 'image/jpeg', 5148, null, true);
     }
 }

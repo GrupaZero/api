@@ -21,14 +21,14 @@ class BlockValidator extends AbstractValidator {
      */
     protected $rules = [
         'list'        => [
-            'lang'     => 'required_with:sort|in:pl,en,de,fr',
-            'page'     => 'numeric',
-            'perPage'  => 'numeric',
-            'type'     => 'in:basic,menu,slider,content,widget',
-            'isActive' => 'boolean',
-            'sort'     => '',
-            'level'    => '',
-            'trashed'  => ''
+            'lang'      => 'required_with:sort|in:pl,en,de,fr',
+            'page'      => 'numeric',
+            'per_page'  => 'numeric',
+            'type'      => 'in:basic,menu,slider,content,widget',
+            'is_active' => 'boolean',
+            'sort'      => '',
+            'level'     => '',
+            'trashed'   => ''
         ],
         'listContent' => [],
         'create'      => [
@@ -39,22 +39,22 @@ class BlockValidator extends AbstractValidator {
             'filter'                    => '',
             'options'                   => '',
             'widget'                    => '',
-            'isCacheable'               => 'boolean',
-            'isActive'                  => 'boolean',
-            'translations.langCode'     => 'required|in:pl,en,de,fr',
+            'is_cacheable'              => 'boolean',
+            'is_active'                 => 'boolean',
+            'translations.lang_code'    => 'required|in:pl,en,de,fr',
             'translations.title'        => '',
             'translations.body'         => '',
             'translations.customFields' => '',
         ],
         'update'      => [
-            'region'      => '',
-            'theme'       => '',
-            'weight'      => 'numeric',
-            'filter'      => '',
-            'options'     => '',
-            'widget'      => '',
-            'isCacheable' => 'boolean',
-            'isActive'    => 'boolean',
+            'region'       => '',
+            'theme'        => '',
+            'weight'       => 'numeric',
+            'filter'       => '',
+            'options'      => '',
+            'widget'       => '',
+            'is_cacheable' => 'boolean',
+            'is_active'    => 'boolean',
         ]
     ];
 

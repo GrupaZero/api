@@ -1,4 +1,7 @@
 <?php
+
+namespace Api;
+
 use Gzero\Api\UrlParamsProcessor;
 
 /**
@@ -12,16 +15,17 @@ use Gzero\Api\UrlParamsProcessor;
  * @author     Adrian Skierniewski <adrian.skierniewski@gmail.com>
  * @copyright  Copyright (c) 2014, Adrian Skierniewski
  */
-class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
+class UrlParamsProcessorTest extends \Codeception\Test\Unit {
 
     /**
      * @var UrlParamsProcessor
      */
     protected $processor;
 
-    protected function setUp()
+    protected function _before()
     {
         $this->processor = $this->initClass();
+
     }
 
     /**
@@ -42,7 +46,7 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
             [
                 ['lang', '=', 'en'],
                 ['test2', '=', 'test2'],
-                ['translation.langCode', '=', 'en']
+                ['translation.lang_code', '=', 'en']
             ]
         );
     }
@@ -84,7 +88,7 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
                 'filter'  => [
                     ['lang', '=', 'en'],
                     ['test2', '=', 'test2'],
-                    ['translation.langCode', '=', 'en']
+                    ['translation.lang_code', '=', 'en']
                 ],
                 'orderBy' => [
                     ['test1', 'DESC'],
@@ -102,12 +106,12 @@ class UrlParamsProcessorTest extends \PHPUnit_Framework_TestCase {
     {
         return (new UrlParamsProcessor())->process(
             [
-                'sort'                 => '-test1,test2,test3',
-                'page'                 => 3,
-                'perPage'              => 21,
-                'lang'                 => 'en',
-                'test2'                => 'test2',
-                'translation.langCode' => 'en'
+                'sort'                  => '-test1,test2,test3',
+                'page'                  => 3,
+                'per_page'              => 21,
+                'lang'                  => 'en',
+                'test2'                 => 'test2',
+                'translation.lang_code' => 'en'
             ]
         );
     }

@@ -6,6 +6,7 @@ use Gzero\Repository\UserRepository;
 use Gzero\Api\Transformer\UserTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\UserValidator;
+use Illuminate\Http\Request;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -32,11 +33,16 @@ class UserController extends ApiController {
      * @param UrlParamsProcessor $processor Url processor
      * @param UserRepository     $content   Content repository
      * @param UserValidator      $validator Content validator
+     * @param Request            $request   Request object
      */
-    public function __construct(UrlParamsProcessor $processor, UserRepository $content, UserValidator $validator)
-    {
+    public function __construct(
+        UrlParamsProcessor $processor,
+        UserRepository $content,
+        UserValidator $validator,
+        Request $request
+    ) {
         parent::__construct($processor);
-        $this->validator = $validator->setData(\Input::all());
+        $this->validator = $validator->setData($request->all());
         $this->userRepo  = $content;
     }
 
@@ -107,7 +113,7 @@ class UserController extends ApiController {
         $user = $this->userRepo->getById($id);
         if (!empty($user)) {
             $this->authorize('update', $user);
-            $input = $this->validator->bind('nickName', ['userId' => $user->id])->bind('email', ['userId' => $user->id])
+            $input = $this->validator->bind('nick', ['user_id' => $user->id])->bind('email', ['user_id' => $user->id])
                 ->validate('update');
             $user  = $this->userRepo->update($user, $input);
             return $this->respondWithSuccess($user, new UserTransformer());

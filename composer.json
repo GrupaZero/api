@@ -1,6 +1,6 @@
 {
     "name": "gzero/api",
-    "description": "Gzero API",
+    "description": "GZERO API",
     "keywords": [
         "laravel",
         "cms",
@@ -15,30 +15,40 @@
     ],
     "require": {
         "php": ">=7.0.0",
-        "gzero/core": "0.*",
-        "gzero/entity": "0.*",
-        "gzero/repository": "0.*",
-        "gzero/validator": "0.*",
-        "illuminate/routing": "5.1.*",
-        "illuminate/pagination": "5.1.*",
-        "barryvdh/laravel-cors": "0.6.0",
-        "league/fractal": "0.12.0",
-        "tymon/jwt-auth": "0.5.*"
+        "barryvdh/laravel-cors": "0.8.2",
+        "flow/jsonpath": "^0.3.4",
+        "gzero/core": "dev-master",
+        "gzero/entity": "dev-master",
+        "gzero/repository": "dev-master",
+        "gzero/validator": "dev-master",
+        "illuminate/pagination": "5.3.*",
+        "illuminate/routing": "5.3.*",
+        "laravel/passport": "^1.0",
+        "league/fractal": "0.12.0"
     },
     "require-dev": {
-        "fzaninotto/faker": "1.4.0",
+        "aedart/testing-laravel": "1.8.*",
+        "codeception/codeception": "2.2.*",
+        "fzaninotto/faker": "~1.6",
+        "gzero/testing": "2.*",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~4.0",
-        "codeception/codeception": "2.1.4",
         "phpmd/phpmd": "2.*",
-        "squizlabs/php_codesniffer": "1.*",
-        "satooshi/php-coveralls": "~1.0"
+        "satooshi/php-coveralls": "~1.0",
+        "squizlabs/php_codesniffer": "2.*"
     },
     "autoload": {
         "classmap": [],
         "psr-4": {
             "Gzero\\": "src/Gzero"
         }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
+    },
+    "scripts": {
+        "test": "./vendor/bin/codecept run"
     },
     "minimum-stability": "stable"
 }

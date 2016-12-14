@@ -2,4 +2,7 @@
 
 API for GZERO CMS
 
-**The project is still in the phase of intensive development**
+###Testing
+
+To run tests, copy .env.example file to .env.testing and put your database credentials into it.
+

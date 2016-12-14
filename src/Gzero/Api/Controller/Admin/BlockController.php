@@ -8,6 +8,7 @@ use Gzero\Core\BlockFinder;
 use Gzero\Entity\Block;
 use Gzero\Repository\BlockRepository;
 use Gzero\Repository\ContentRepository;
+use Illuminate\Http\Request;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -51,16 +52,18 @@ class BlockController extends ApiController {
      * @param ContentRepository  $content   Content repository
      * @param BlockValidator     $validator Block validator
      * @param BlockFinder        $finder    Block Finder
+     * @param Request            $request   Request object
      */
     public function __construct(
         UrlParamsProcessor $processor,
         BlockRepository $block,
         ContentRepository $content,
         BlockValidator $validator,
-        BlockFinder $finder
+        BlockFinder $finder,
+        Request $request
     ) {
         parent::__construct($processor);
-        $this->validator         = $validator->setData(\Input::all());
+        $this->validator         = $validator->setData($request->all());
         $this->repository        = $block;
         $this->contentRepository = $content;
         $this->finder            = $finder;
@@ -179,13 +182,14 @@ class BlockController extends ApiController {
     /**
      * Removes the specified resource from database.
      *
-     * @param int $id Block id
+     * @param Request $request Request object
+     * @param int     $id      Block id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $forceDelete = \Input::get('force', false);
+        $forceDelete = $request->get('force', false);
 
         $block = $this->repository->getByIdWithTrashed($id);
 
