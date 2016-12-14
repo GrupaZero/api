@@ -4,7 +4,7 @@
     'dsn'      => 'mysql:host=' . env('DB_HOST', 'localhost') . ';dbname=' . env('DB_DATABASE', 'gzero-tests'),
     'user'     => env('DB_USERNAME', 'root'),
     'password' => env('DB_PASSWORD', ''),
-    'dump'     => (isPlatformRun()) ? '../../testing/db/dump.sql' : 'vendor/gzero/testing/db/dump.sql',
+    'dump'     => (isPlatformRun()) ? '../testing/db/dump.sql' : 'vendor/gzero/testing/db/dump.sql',
     'populate' => true,
     'cleanup'  => true
 ];
