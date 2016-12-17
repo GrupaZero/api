@@ -57,7 +57,7 @@ class AdminOptionsCest {
                         'de' => null,
                         'fr' => null,
                     ],
-                'desc_length'     =>
+                'desc_length'         =>
                     [
                         'en' => 160,
                         'pl' => 160,
@@ -99,7 +99,7 @@ class AdminOptionsCest {
                         'de' => null,
                         'fr' => null,
                     ],
-                'desc_length'     =>
+                'desc_length'         =>
                     [
                         'en' => 160,
                         'pl' => 161,
@@ -122,7 +122,6 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
                 'message' => 'Category some_category does not exist',
             ]
         );
@@ -145,19 +144,18 @@ class AdminOptionsCest {
             ]
         );
 
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  =>
-                    [
-                        'key' =>
-                            [
-                                0 => 'The selected key is invalid.',
-                            ],
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
+                        'key' => [
+                            0 => 'The selected key is invalid.',
+                        ],
                     ],
+                ]
             ]
 
         );
@@ -180,19 +178,18 @@ class AdminOptionsCest {
             ]
         );
 
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  =>
-                    [
-                        'key' =>
-                            [
-                                0 => 'The selected key is invalid.',
-                            ],
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
+                        'key' => [
+                            0 => 'The selected key is invalid.',
+                        ],
                     ],
+                ]
             ]
 
         );

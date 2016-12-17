@@ -8,6 +8,7 @@ use Gzero\Core\BlockFinder;
 use Gzero\Entity\Block;
 use Gzero\Repository\BlockRepository;
 use Gzero\Repository\ContentRepository;
+use Gzero\Repository\RepositoryValidationException;
 use Illuminate\Http\Request;
 
 /**
@@ -156,8 +157,13 @@ class BlockController extends ApiController {
     {
         $this->authorize('create', Block::class);
         $input = $this->validator->validate('create');
-        $block = $this->repository->create($input, auth()->user());
-        return $this->respondWithSuccess($block, new BlockTransformer);
+        try {
+            $block = $this->repository->create($input, auth()->user());
+            return $this->respondWithSuccess($block, new BlockTransformer);
+        } catch (RepositoryValidationException $e) {
+            return $this->respondWithError($e->getMessage());
+        }
+
     }
 
     /**

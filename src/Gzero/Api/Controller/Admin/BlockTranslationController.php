@@ -6,6 +6,7 @@ use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\BlockTranslationValidator;
 use Gzero\Entity\Block;
 use Gzero\Repository\BlockRepository;
+use Gzero\Repository\RepositoryValidationException;
 use Illuminate\Http\Request;
 
 /**
@@ -146,8 +147,12 @@ class BlockTranslationController extends ApiController {
             $this->authorize('delete', $block);
             $translation = $this->repository->getBlockTranslationById($block, $translationId);
             if (!empty($translation)) {
-                $this->repository->deleteTranslation($translation);
-                return $this->respondWithSimpleSuccess(['success' => true]);
+                try {
+                    $this->repository->deleteTranslation($translation);
+                    return $this->respondWithSimpleSuccess(['success' => true]);
+                } catch (RepositoryValidationException $e) {
+                    return $this->respondWithError($e->getMessage());
+                }
             }
         }
         return $this->respondNotFound();

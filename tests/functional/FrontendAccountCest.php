@@ -75,16 +75,16 @@ class FrontendAccountCest {
                 'password' => 'newPassword',
             ]
         );
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  => [
-                    'password' => ['The password and password confirmation must match.']
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
+                        'password' => ['The password and password confirmation must match.']
+                    ]
                 ]
-
             ]
         );
     }
@@ -102,16 +102,16 @@ class FrontendAccountCest {
                 'email' => $user->email,
             ]
         );
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  => [
-                    'nick' => ['The nick has already been taken.']
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
+                        'nick' => ['The nick has already been taken.']
+                    ]
                 ]
-
             ]
         );
     }
@@ -129,16 +129,16 @@ class FrontendAccountCest {
                 'email' => $user1->email,
             ]
         );
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  => [
-                    'email' => ['The email has already been taken.']
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
+                        'email' => ['The email has already been taken.']
+                    ]
                 ]
-
             ]
         );
     }
