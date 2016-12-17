@@ -27,6 +27,6 @@ class AdminApiAccess {
         if ($request->user()->hasPermission('admin-api-access') || $request->user()->isSuperAdmin()) {
             return $next($request);
         }
-        return abort(404, 'Not Found');
+        return abort(404);
     }
 }

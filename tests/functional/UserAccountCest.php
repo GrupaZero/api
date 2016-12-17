@@ -2,13 +2,11 @@
 
 namespace Api;
 
-use Illuminate\Support\Facades\Hash;
-
-class FrontendAccountCest {
+class UserAccountCest {
     /**
      * @var string endpoint url
      */
-    protected $url = 'http://api.localhost/v1/account';
+    protected $url = 'http://api.localhost/v1/user/account';
 
     /*
      |--------------------------------------------------------------------------

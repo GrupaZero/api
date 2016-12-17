@@ -108,8 +108,8 @@ Route::group(
 Route::group(
     [
         'domain'     => 'api.' . config('gzero.domain'),
-        'prefix'     => 'v1',
-        'namespace'  => 'Gzero\Api\Controller\Frontend',
+        'prefix'     => 'v1/user',
+        'namespace'  => 'Gzero\Api\Controller\User',
         'middleware' => ['cors', 'auth:api']
     ],
     function ($router) {

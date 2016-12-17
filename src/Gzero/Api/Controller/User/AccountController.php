@@ -1,7 +1,6 @@
-<?php namespace Gzero\Api\Controller\Frontend;
+<?php namespace Gzero\Api\Controller\User;
 
 use Gzero\Api\Controller\ApiController;
-use Gzero\Entity\User;
 use Gzero\Repository\UserRepository;
 use Gzero\Api\Transformer\UserTransformer;
 use Gzero\Api\UrlParamsProcessor;
@@ -54,15 +53,13 @@ class AccountController extends ApiController {
         if (!$request->has('password')) {
             $this->validator->setData($request->except(['password', 'password_confirmation']));
         }
+
         $user = $this->userRepo->getById($request->user()->id);
-        if (!empty($user)) {
-            $this->authorize('update', $user);
-            $input = $this->validator->bind('nick', ['user_id' => $user->id])->bind('email', ['user_id' => $user->id])
-                ->validate('update');
-            $user  = $this->userRepo->update($user, $input);
-            return $this->respondWithSuccess($user, new UserTransformer());
-        }
-        return $this->respondNotFound();
+        $this->authorize('update', $user);
+        $input = $this->validator->bind('nick', ['user_id' => $user->id])->bind('email', ['user_id' => $user->id])
+            ->validate('update');
+        $user  = $this->userRepo->update($user, $input);
+        return $this->respondWithSuccess($user, new UserTransformer());
     }
 
 
