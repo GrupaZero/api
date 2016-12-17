@@ -2,7 +2,6 @@
 
 use Closure;
 
-
 /**
  * This file is part of the GZERO Admin package.
  *

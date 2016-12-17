@@ -45,7 +45,7 @@ class AccountController extends ApiController {
     /**
      * Updates the specified resource in the database.
      *
-     * @param Request $request
+     * @param Request $request Request object
      *
      * @return \Illuminate\Http\JsonResponse
      */

@@ -163,7 +163,6 @@ class BlockController extends ApiController {
         } catch (RepositoryValidationException $e) {
             return $this->respondWithError($e->getMessage());
         }
-
     }
 
     /**
