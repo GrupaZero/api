@@ -87,7 +87,7 @@ class FunctionalTester extends \Codeception\Actor {
     public function login($email, $password)
     {
         $I = $this;
-        $I->amLoggedAs(['username' => $email, 'password' => $password]);
+        $I->amLoggedAs(['email' => $email, 'password' => $password], 'web');
         $I->seeAuthentication();
     }
 

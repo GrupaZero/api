@@ -31,8 +31,8 @@ class UserController extends ApiController {
      * UserController constructor.
      *
      * @param UrlParamsProcessor $processor Url processor
-     * @param UserRepository     $content   Content repository
-     * @param UserValidator      $validator Content validator
+     * @param UserRepository     $content   User repository
+     * @param UserValidator      $validator User validator
      * @param Request            $request   Request object
      */
     public function __construct(

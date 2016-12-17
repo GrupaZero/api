@@ -6,7 +6,7 @@ Route::group(
         'domain'     => 'api.' . config('gzero.domain'),
         'prefix'     => 'v1/admin',
         'namespace'  => 'Gzero\Api\Controller\Admin',
-        'middleware' => ['cors', 'auth:api']
+        'middleware' => ['cors', 'auth:api', 'admin.api.access']
     ],
     function ($router) {
         /** @var \Illuminate\Routing\Router $router */
@@ -109,11 +109,17 @@ Route::group(
     [
         'domain'     => 'api.' . config('gzero.domain'),
         'prefix'     => 'v1',
-        'namespace'  => 'Gzero\Api\Controller',
-        'middleware' => ['cors']
+        'namespace'  => 'Gzero\Api\Controller\Frontend',
+        'middleware' => ['cors', 'auth:api']
     ],
     function ($router) {
         /** @var \Illuminate\Routing\Router $router */
+
+        // ======== Account ========
+        $router->put(
+            'account',
+            'AccountController@update'
+        );
 
     }
 );
