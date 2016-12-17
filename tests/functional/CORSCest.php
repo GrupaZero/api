@@ -60,21 +60,21 @@ class CORSCest {
         $I->haveHttpHeader('X-Requested-With', 'XMLHttpRequest');
         $I->haveHttpHeader('Origin', 'http://localhost');
         $I->sendPOST('http://api.localhost/v1/admin/contents');
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         // Asserting CORS
         $I->seeHttpHeader('Access-Control-Allow-Credentials', 'true');
         $I->seeHttpHeader('Access-Control-Allow-Origin', 'http://localhost');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  =>
-                    [
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
                         'type'                  => [0 => 'The type field is required.',],
                         'translations.langCode' => [0 => 'The translations.lang code field is required.',],
                         'translations.title'    => [0 => 'The translations.title field is required.',],
                     ],
+                ]
             ]
 
         );
@@ -95,8 +95,7 @@ class CORSCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 405,
-                'message' => 'Internal Server Error',
+                'message' => 'Method Not Allowed',
             ]
 
         );

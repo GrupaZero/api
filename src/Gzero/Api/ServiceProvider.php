@@ -41,7 +41,9 @@ class ServiceProvider extends AbstractServiceProvider {
      *
      * @var array
      */
-    protected $routeMiddleware = [];
+    protected $routeMiddleware = [
+        'admin.api.access' => \Gzero\Api\Middleware\AdminApiAccess::class,
+    ];
 
     /**
      * Register the service provider.

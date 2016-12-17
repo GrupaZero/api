@@ -154,7 +154,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -517,7 +516,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -694,7 +692,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -806,7 +803,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -821,7 +817,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -842,19 +837,18 @@ class AdminBlockCest {
                 ]
             ]
         );
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  =>
-                    [
-                        'type' =>
-                            [
-                                0 => 'The selected type is invalid.',
-                            ],
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
+                        'type' => [
+                            0 => 'The selected type is invalid.',
+                        ],
                     ],
+                ]
             ]
         );
     }
@@ -878,7 +872,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
                 'message' => 'Widget is required',
             ]
         );
@@ -1102,7 +1095,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
                 'message' => 'Cannot delete active translation',
             ]
         );
