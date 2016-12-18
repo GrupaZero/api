@@ -679,12 +679,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/entity.git",
-                "reference": "e26cec2c00dd4a8fee295a51ae30cae0e99ef3a8"
+                "reference": "916c5a2769681058f32d6caa86ec18243f2b1644"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/e26cec2c00dd4a8fee295a51ae30cae0e99ef3a8",
-                "reference": "e26cec2c00dd4a8fee295a51ae30cae0e99ef3a8",
+                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/916c5a2769681058f32d6caa86ec18243f2b1644",
+                "reference": "916c5a2769681058f32d6caa86ec18243f2b1644",
                 "shasum": ""
             },
             "require": {
@@ -710,7 +710,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2016-12-17 16:38:04"
+            "time": "2016-12-18 13:53:52"
         },
         {
             "name": "gzero/repository",
@@ -758,12 +758,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/validator.git",
-                "reference": "394c6e4578bca9e81c8e0cbc6a914edf26769460"
+                "reference": "cf3b247faa0c1944ed85447cb93a26ff15b1ff7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/validator/zipball/394c6e4578bca9e81c8e0cbc6a914edf26769460",
-                "reference": "394c6e4578bca9e81c8e0cbc6a914edf26769460",
+                "url": "https://api.github.com/repos/GrupaZero/validator/zipball/cf3b247faa0c1944ed85447cb93a26ff15b1ff7d",
+                "reference": "cf3b247faa0c1944ed85447cb93a26ff15b1ff7d",
                 "shasum": ""
             },
             "require": {
@@ -792,7 +792,7 @@
                 "laravel",
                 "validator"
             ],
-            "time": "2016-12-17 16:36:07"
+            "time": "2016-12-18 12:51:41"
         },
         {
             "name": "jakub-onderka/php-console-color",
