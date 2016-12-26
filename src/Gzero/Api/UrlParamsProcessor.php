@@ -115,7 +115,7 @@ class UrlParamsProcessor {
         $direction       = (substr($sort, 0, 1) == '-') ? 'DESC' : 'ASC';
         $field           = (substr($sort, 0, 1) == '-') ? substr($sort, 1) : $sort;
         $this->orderBy[] = [
-            $field,
+            snake_case($field),
             $direction
         ];
     }
