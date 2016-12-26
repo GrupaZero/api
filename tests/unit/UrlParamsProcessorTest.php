@@ -70,7 +70,7 @@ class UrlParamsProcessorTest extends \Codeception\Test\Unit {
             [
                 ['test1', 'DESC'],
                 ['test2', 'ASC'],
-                ['test3', 'ASC'],
+                ['author.created_at', 'ASC'],
             ]
         );
     }
@@ -93,7 +93,7 @@ class UrlParamsProcessorTest extends \Codeception\Test\Unit {
                 'orderBy' => [
                     ['test1', 'DESC'],
                     ['test2', 'ASC'],
-                    ['test3', 'ASC'],
+                    ['author.created_at', 'ASC'],
                 ]
             ]
         );
@@ -106,7 +106,7 @@ class UrlParamsProcessorTest extends \Codeception\Test\Unit {
     {
         return (new UrlParamsProcessor())->process(
             [
-                'sort'                  => '-test1,test2,test3',
+                'sort'                  => '-test1,test2,author.createdAt',
                 'page'                  => 3,
                 'per_page'              => 21,
                 'lang'                  => 'en',
