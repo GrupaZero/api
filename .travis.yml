@@ -4,14 +4,14 @@ php:
   - 7.1
 
 addons:
-  mariadb: '10.1'
+  postgresql: '9.5'
 
 before_script:
+  - psql -c 'create database gzero_cms;' -U postgres
   - cp .env.example .env.testing
   - mkdir -p build/logs
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
-  - mysql -e 'create database `gzero-tests`;'
 
 script:
   - ./vendor/bin/phpmd src/ text phpmd.xml
