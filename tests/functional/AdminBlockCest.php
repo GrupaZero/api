@@ -617,8 +617,8 @@ class AdminBlockCest {
                 'blockabale'   => [
                     'name'        => 'getLastContent',
                     'args'        => ['contentId' => 1],
-                    'isActive'    => 1,
-                    'isCacheable' => 1,
+                    'isActive'    => true,
+                    'isCacheable' => true,
                 ],
                 'weight'       => 1,
                 'isActive'     => true,
