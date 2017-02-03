@@ -584,12 +584,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/core.git",
-                "reference": "2f0228b69f00dc4820a80e1d882ad39d82c09c42"
+                "reference": "814d7f0f46b1919aa0d4707a7747103b9f580d1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/core/zipball/2f0228b69f00dc4820a80e1d882ad39d82c09c42",
-                "reference": "2f0228b69f00dc4820a80e1d882ad39d82c09c42",
+                "url": "https://api.github.com/repos/GrupaZero/core/zipball/814d7f0f46b1919aa0d4707a7747103b9f580d1e",
+                "reference": "814d7f0f46b1919aa0d4707a7747103b9f580d1e",
                 "shasum": ""
             },
             "require": {
@@ -621,7 +621,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2016-12-26 09:15:50"
+            "time": "2017-02-03 18:40:42"
         },
         {
             "name": "gzero/eloquent-tree",
@@ -678,12 +678,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/entity.git",
-                "reference": "00387e8d6197310fb5c9e719982a7cdb3dbd30a4"
+                "reference": "03c4feb3c097bffb66db496e4e32d1b1592bcfa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/00387e8d6197310fb5c9e719982a7cdb3dbd30a4",
-                "reference": "00387e8d6197310fb5c9e719982a7cdb3dbd30a4",
+                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/03c4feb3c097bffb66db496e4e32d1b1592bcfa7",
+                "reference": "03c4feb3c097bffb66db496e4e32d1b1592bcfa7",
                 "shasum": ""
             },
             "require": {
@@ -709,7 +709,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2016-12-26 09:15:50"
+            "time": "2016-12-26 12:24:23"
         },
         {
             "name": "gzero/repository",
@@ -718,12 +718,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/repository.git",
-                "reference": "db85d68b79436ed8bc5bddef8532252d43803303"
+                "reference": "ab7f4e13afd5ce03e8127331ce8cc99c27556d3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/db85d68b79436ed8bc5bddef8532252d43803303",
-                "reference": "db85d68b79436ed8bc5bddef8532252d43803303",
+                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/ab7f4e13afd5ce03e8127331ce8cc99c27556d3f",
+                "reference": "ab7f4e13afd5ce03e8127331ce8cc99c27556d3f",
                 "shasum": ""
             },
             "require": {
@@ -748,7 +748,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2016-12-26 09:15:50"
+            "time": "2017-02-03 18:40:42"
         },
         {
             "name": "gzero/validator",
