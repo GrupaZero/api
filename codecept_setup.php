@@ -66,7 +66,7 @@ $Laravel = new class {
         // Use passport as guard for api
         $app['config']->set('auth.guards.api.driver', 'passport');
 
-        // Set upload disk to local and changed it's adapter to NullAdapter
+        // Set upload disk to local and change it's adapter to NullAdapter
         $app['config']->set('gzero.upload.disk', 'local');
         $app['config']->set('filesystems.disks.local.driver', 'nullAdapter');
 
