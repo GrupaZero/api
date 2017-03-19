@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5a8b151b96dc7eddd9c4899249c3294a",
-    "content-hash": "83c640577aa71d550d76f51d54791055",
+    "hash": "b6cdb1d691d612c5a8551256ed896a2d",
+    "content-hash": "b935ea3d7145bee5622e8c92cc8e0335",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -637,17 +637,17 @@
         },
         {
             "name": "gzero/core",
-            "version": "dev-file_upload_fixes",
+            "version": "dev-master",
             "target-dir": "Gzero/Core",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/core.git",
-                "reference": "1eff572d3332b3ae79af36637ade10e1f5d5ad0f"
+                "reference": "ea0b9481946ceb56e2b9462c1bf881a91e722b05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/core/zipball/1eff572d3332b3ae79af36637ade10e1f5d5ad0f",
-                "reference": "1eff572d3332b3ae79af36637ade10e1f5d5ad0f",
+                "url": "https://api.github.com/repos/GrupaZero/core/zipball/ea0b9481946ceb56e2b9462c1bf881a91e722b05",
+                "reference": "ea0b9481946ceb56e2b9462c1bf881a91e722b05",
                 "shasum": ""
             },
             "require": {
@@ -680,7 +680,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2017-03-19 10:14:25"
+            "time": "2017-03-19 14:52:08"
         },
         {
             "name": "gzero/eloquent-tree",
@@ -732,17 +732,17 @@
         },
         {
             "name": "gzero/entity",
-            "version": "dev-file_upload_fixes",
+            "version": "dev-master",
             "target-dir": "Gzero/Entity",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/entity.git",
-                "reference": "d29c907d0c9dff05e7fe8c13f0da2f77a825557e"
+                "reference": "06b7e6f930658067be1e0e420e9bfe82ba924763"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/d29c907d0c9dff05e7fe8c13f0da2f77a825557e",
-                "reference": "d29c907d0c9dff05e7fe8c13f0da2f77a825557e",
+                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/06b7e6f930658067be1e0e420e9bfe82ba924763",
+                "reference": "06b7e6f930658067be1e0e420e9bfe82ba924763",
                 "shasum": ""
             },
             "require": {
@@ -768,21 +768,21 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2017-03-19 10:14:25"
+            "time": "2017-03-19 14:52:08"
         },
         {
             "name": "gzero/repository",
-            "version": "dev-file_upload_fixes",
+            "version": "dev-master",
             "target-dir": "Gzero/Repository",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/repository.git",
-                "reference": "f69c55e3447a3425f3a6146901d81cf0bf1a3e4e"
+                "reference": "6a9fc3cc69e90fd7cea431824fd0393c8863daf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/f69c55e3447a3425f3a6146901d81cf0bf1a3e4e",
-                "reference": "f69c55e3447a3425f3a6146901d81cf0bf1a3e4e",
+                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/6a9fc3cc69e90fd7cea431824fd0393c8863daf5",
+                "reference": "6a9fc3cc69e90fd7cea431824fd0393c8863daf5",
                 "shasum": ""
             },
             "require": {
@@ -807,11 +807,11 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2017-03-19 12:44:08"
+            "time": "2017-03-19 14:52:08"
         },
         {
             "name": "gzero/validator",
-            "version": "dev-file_upload_fixes",
+            "version": "dev-master",
             "target-dir": "Gzero/Validator",
             "source": {
                 "type": "git",
