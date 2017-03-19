@@ -2,22 +2,11 @@
 
 namespace Api;
 
-use Illuminate\Support\Facades\Storage;
-
 class AdminFileCest {
     /**
      * @var string endpoint url
      */
     protected $url = 'http://api.localhost/v1/admin/files';
-
-    public function _before(FunctionalTester $I)
-    {
-    }
-
-    public function _after(FunctionalTester $I)
-    {
-
-    }
 
     /*
      |--------------------------------------------------------------------------
@@ -75,7 +64,7 @@ class AdminFileCest {
                 'extension'    => $file->extension,
                 'size'         => $file->size,
                 'mimeType'     => $file->mime_type,
-                'url'          => $file->getUrl(),
+                'thumb'        => '/images/example-729x459.png?token=0c18a40115c0a4158d2a0ede3d746a63',
                 'isActive'     => (bool) $file->is_active,
                 'createdBy'    => $user->id,
                 'translations' => [
@@ -142,7 +131,7 @@ class AdminFileCest {
                 'info'         => ['option' => 'value'],
                 'name'         => 'example',
                 'extension'    => 'png',
-                'size'         => '5148',
+                'size'         => 5148,
                 'mimeType'     => 'image/png',
                 'isActive'     => true,
                 'createdBy'    => 1, // admin user id
@@ -191,7 +180,7 @@ class AdminFileCest {
         );
     }
 
-    public function UpdateFile(FunctionalTester $I)
+    public function updateFile(FunctionalTester $I)
     {
         $I->wantTo('update file as admin user');
         $I->loginAsAdmin();
@@ -215,7 +204,7 @@ class AdminFileCest {
                 'extension'    => $file->extension,
                 'size'         => $file->size,
                 'mimeType'     => $file->mime_type,
-                'url'          => $file->getUrl(),
+                'thumb'        => '/images/example-729x459.png?token=0c18a40115c0a4158d2a0ede3d746a63',
                 'isActive'     => false,
                 'createdBy'    => $user->id,
                 'translations' => [
@@ -243,7 +232,7 @@ class AdminFileCest {
         );
     }
 
-    public function DeleteFile(FunctionalTester $I)
+    public function deleteFile(FunctionalTester $I)
     {
         $I->wantTo('delete file as admin user');
         $I->loginAsAdmin();
@@ -316,7 +305,7 @@ class AdminFileCest {
      |--------------------------------------------------------------------------
      */
 
-    public function CreateFileTranslations(FunctionalTester $I)
+    public function createFileTranslations(FunctionalTester $I)
     {
         $I->wantTo('create file translations as admin user');
         $I->loginAsAdmin();
@@ -342,7 +331,7 @@ class AdminFileCest {
         );
     }
 
-    public function UpdateFileTranslations(FunctionalTester $I)
+    public function updateFileTranslations(FunctionalTester $I)
     {
         $I->wantTo('update file translations as admin user');
         $I->loginAsAdmin();
@@ -368,7 +357,7 @@ class AdminFileCest {
         );
     }
 
-    public function DeleteFileTranslations(FunctionalTester $I)
+    public function deleteFileTranslations(FunctionalTester $I)
     {
         $I->wantTo('delete file translations as admin user');
         $I->loginAsAdmin();

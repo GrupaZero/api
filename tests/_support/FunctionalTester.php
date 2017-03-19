@@ -204,7 +204,7 @@ class FunctionalTester extends \Codeception\Actor {
         $uploadedFile   = $this->getExampleFile();
         $fakeAttributes = [
             'type'         => 'image',
-            'info'         => array_combine($this->faker->words(), $this->faker->words()),
+            'info'         => json_encode(array_combine($this->faker->words(), $this->faker->words())),
             'name'         => str_slug(pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME)),
             'extension'    => mb_strtolower($uploadedFile->getClientOriginalExtension()),
             'size'         => $uploadedFile->getSize(),
@@ -223,7 +223,7 @@ class FunctionalTester extends \Codeception\Actor {
         }
 
         $I      = $this;
-        $fileId = $I->haveInDatabase('files', $fakeAttributes);
+        $fileId = $I->haveInDatabase('files', array_except($fakeAttributes, 'translations'));
         $I->haveInDatabase('file_translations', array_merge(['file_id' => $fileId], $fakeAttributes['translations']));
 
         return File::find($fileId);

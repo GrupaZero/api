@@ -4,14 +4,6 @@ namespace Api;
 
 class CORSCest {
 
-    public function _before(FunctionalTester $I)
-    {
-    }
-
-    public function _after(FunctionalTester $I)
-    {
-    }
-
     // tests
     public function allowedHeadersOPTIONS(FunctionalTester $I)
     {
@@ -80,7 +72,7 @@ class CORSCest {
         );
     }
 
-    public function MethodNotAllowedHttpException(FunctionalTester $I)
+    public function methodNotAllowedHttpException(FunctionalTester $I)
     {
         $I->wantTo('try to POST options as an admin user');
         $I->loginAsAdmin();

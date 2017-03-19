@@ -144,7 +144,7 @@ class FileTranslationController extends ApiController {
         $file = $this->getFile($id);
         if (!empty($file)) {
             $this->authorize('delete', $file);
-            $translation = $this->repository->getFileTranslationById($file, $translationId);
+            $translation = $this->repository->getTranslationById($file, $translationId);
             if (!empty($translation)) {
                 $this->repository->deleteTranslation($translation);
                 return $this->respondWithSimpleSuccess(['success' => true]);

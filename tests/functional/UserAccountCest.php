@@ -14,7 +14,7 @@ class UserAccountCest {
      |--------------------------------------------------------------------------
      */
 
-    public function UpdateAccount(FunctionalTester $I)
+    public function updateAccount(FunctionalTester $I)
     {
         $I->wantTo('update my account data');
         $user = $I->haveUser();
@@ -40,7 +40,7 @@ class UserAccountCest {
         );
     }
 
-    public function UpdatePassword(FunctionalTester $I)
+    public function updatePassword(FunctionalTester $I)
     {
         $I->wantTo('update my password');
         $user = $I->haveUser();

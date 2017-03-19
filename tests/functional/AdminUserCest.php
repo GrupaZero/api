@@ -10,14 +10,6 @@ class AdminUserCest {
      */
     protected $url = 'http://api.localhost/v1/admin/users';
 
-    public function _before(FunctionalTester $I)
-    {
-    }
-
-    public function _after(FunctionalTester $I)
-    {
-    }
-
     /*
      |--------------------------------------------------------------------------
      | START User list tests
@@ -105,7 +97,7 @@ class AdminUserCest {
      |--------------------------------------------------------------------------
      */
 
-    public function UpdateUser(FunctionalTester $I)
+    public function updateUser(FunctionalTester $I)
     {
         $I->wantTo('update user as admin user');
         $I->loginAsAdmin();
@@ -145,7 +137,7 @@ class AdminUserCest {
         );
     }
 
-    public function DeleteUser(FunctionalTester $I)
+    public function deleteUser(FunctionalTester $I)
     {
         $I->wantTo('delete user as admin user');
         $I->loginAsAdmin();
