@@ -8,14 +8,6 @@ class AdminContentCest {
      */
     protected $url = 'http://api.localhost/v1/admin/contents';
 
-    public function _before(FunctionalTester $I)
-    {
-    }
-
-    public function _after(FunctionalTester $I)
-    {
-    }
-
     // tests
     public function getLangs(FunctionalTester $I)
     {
@@ -215,7 +207,7 @@ class AdminContentCest {
         );
     }
 
-    public function RestoreDeletedContent(FunctionalTester $I)
+    public function restoreDeletedContent(FunctionalTester $I)
     {
         $I->wantTo('restore deleted content as admin user');
         $I->loginAsAdmin();
@@ -247,7 +239,7 @@ class AdminContentCest {
         );
     }
 
-    public function ForceDeleteContent(FunctionalTester $I)
+    public function forceDeleteContent(FunctionalTester $I)
     {
         $I->wantTo('force delete content as admin user');
         $I->loginAsAdmin();
@@ -278,7 +270,7 @@ class AdminContentCest {
         );
     }
 
-    public function DeleteOneContentFromTrash(FunctionalTester $I)
+    public function deleteOneContentFromTrash(FunctionalTester $I)
     {
         $I->wantTo('force delete only one item from trashcan');
         $I->loginAsAdmin();

@@ -8,6 +8,8 @@ use Gzero\Core\Middleware\Init;
 use Gzero\Core\ServiceProvider as CoreServiceProvider;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider;
+use League\Flysystem\Adapter\NullAdapter;
+use League\Flysystem\Filesystem;
 
 require_once __DIR__ . '/tests/fixture/User.php';
 require __DIR__ . '/vendor/autoload.php';
@@ -53,8 +55,20 @@ $Laravel = new class {
      */
     protected function getEnvironmentSetUp($app)
     {
+        // Use null adapter for tests
+        $app['filesystem']->extend(
+            'nullAdapter',
+            function ($app, $config) {
+                return new Filesystem(new NullAdapter());
+            }
+        );
+
         // Use passport as guard for api
         $app['config']->set('auth.guards.api.driver', 'passport');
+
+        // Set upload disk to local and change it's adapter to NullAdapter
+        $app['config']->set('gzero.upload.disk', 'local');
+        $app['config']->set('filesystems.disks.local.driver', 'nullAdapter');
 
         // We need to add middleware to handle OPTIONS case
         app('Illuminate\Contracts\Http\Kernel')->prependMiddleware(HandlePreflight::class);

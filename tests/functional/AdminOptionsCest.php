@@ -9,14 +9,6 @@ class AdminOptionsCest {
      */
     protected $url = 'http://api.localhost/v1/admin/options';
 
-    public function _before(FunctionalTester $I)
-    {
-    }
-
-    public function _after(FunctionalTester $I)
-    {
-    }
-
     // tests
     public function getOptionsCategories(FunctionalTester $I)
     {
