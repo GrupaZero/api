@@ -5,10 +5,8 @@ use Faker\Factory;
 use Gzero\Entity\Block;
 use Gzero\Entity\Content;
 use Gzero\Entity\File;
-use Gzero\Entity\FileType;
 use Gzero\Repository\BlockRepository;
 use Gzero\Repository\ContentRepository;
-use Gzero\Repository\FileRepository;
 use Gzero\Repository\UserRepository;
 use Gzero\Entity\User;
 use Illuminate\Events\Dispatcher;
@@ -56,11 +54,6 @@ class FunctionalTester extends \Codeception\Actor {
     private $contentRepo;
 
     /**
-     * @var fileRepository
-     */
-    private $fileRepo;
-
-    /**
      * @var \Faker\Generator
      */
     private $faker;
@@ -72,9 +65,8 @@ class FunctionalTester extends \Codeception\Actor {
         $this->faker       = Factory::create();
         $this->filesDir    = __DIR__ . '/../resources';
         $this->userRepo    = new UserRepository(new User(), new Dispatcher());
-        $this->fileRepo    = new FileRepository(new File(), new FileType(), new Dispatcher());
-        $this->blockRepo   = new BlockRepository(new Block(), new Dispatcher(), $this->fileRepo);
-        $this->contentRepo = new ContentRepository(new Content(), new Dispatcher(), $this->fileRepo);
+        $this->blockRepo   = new BlockRepository(new Block(), new Dispatcher());
+        $this->contentRepo = new ContentRepository(new Content(), new Dispatcher());
         parent::__construct($scenario);
     }
 
@@ -213,6 +205,10 @@ class FunctionalTester extends \Codeception\Actor {
         $fakeAttributes = [
             'type'         => 'image',
             'info'         => array_combine($this->faker->words(), $this->faker->words()),
+            'name'         => str_slug(pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME)),
+            'extension'    => mb_strtolower($uploadedFile->getClientOriginalExtension()),
+            'size'         => $uploadedFile->getSize(),
+            'mime_type'    => $uploadedFile->getMimeType(),
             'is_active'    => 1,
             'created_by'   => $user->id,
             'translations' => [
@@ -226,7 +222,11 @@ class FunctionalTester extends \Codeception\Actor {
             $fakeAttributes = array_merge($fakeAttributes, $attributes);
         }
 
-        return $this->fileRepo->create($fakeAttributes, $uploadedFile, $user);
+        $I      = $this;
+        $fileId = $I->haveInDatabase('files', $fakeAttributes);
+        $I->haveInDatabase('file_translations', array_merge(['file_id' => $fileId], $fakeAttributes['translations']));
+
+        return File::find($fileId);
     }
 
     public function getExampleFile()

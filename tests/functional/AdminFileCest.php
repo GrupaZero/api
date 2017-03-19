@@ -16,10 +16,7 @@ class AdminFileCest {
 
     public function _after(FunctionalTester $I)
     {
-        $dirName = config('gzero.upload.directory');
-        if ($dirName) {
-            Storage::deleteDirectory($dirName);
-        }
+
     }
 
     /*
