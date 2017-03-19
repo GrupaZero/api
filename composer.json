@@ -42,11 +42,6 @@
             "Gzero\\": "src/Gzero"
         }
     },
-    "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ]
-    },
     "scripts": {
         "test": "./vendor/bin/codecept run"
     },
