@@ -152,14 +152,12 @@ class BlockController extends ApiController {
     public function indexOfFiles($blockId)
     {
         $this->authorize('readList', File::class);
-        $input   = $this->validator->validate('files');
-        $params  = $this->processor->process($input)->getProcessedFields();
-        $block = $this->repository->getById($blockId);
-
+        $input  = $this->validator->validate('files');
+        $params = $this->processor->process($input)->getProcessedFields();
+        $block  = $this->repository->getById($blockId);
         if (empty($block)) {
             return $this->respondNotFound();
         }
-
         $results = $this->fileRepository->getEntityFiles(
             $block,
             $params['filter'],
@@ -281,7 +279,7 @@ class BlockController extends ApiController {
             return $this->respondNotFound();
         }
         $this->authorize('update', $block);
-        $input   = $this->validator->validate('syncFiles');
+        $input = $this->validator->validate('syncFiles');
         $block = $this->fileRepository->syncWith($block, $this->buildSyncData($input));
         return $this->respondWithSuccess($block);
     }

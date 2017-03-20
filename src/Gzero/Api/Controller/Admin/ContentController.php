@@ -11,7 +11,6 @@ use Gzero\Repository\ContentRepository;
 use Gzero\Repository\FileRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection as LaravelCollection;
-use Illuminate\Support\Facades\Input;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -181,11 +180,9 @@ class ContentController extends ApiController {
         $input   = $this->validator->validate('files');
         $params  = $this->processor->process($input)->getProcessedFields();
         $content = $this->repository->getById($contentId);
-
         if (empty($content)) {
             return $this->respondNotFound();
         }
-
         $results = $this->fileRepository->getEntityFiles(
             $content,
             $params['filter'],
