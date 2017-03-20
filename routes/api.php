@@ -23,6 +23,14 @@ Route::group(
             'blocks/deleted',
             'BlockController@indexOfDeleted'
         );
+        $router->get(
+            'blocks/{id}/files',
+            'BlockController@indexOfFiles'
+        );
+        $router->get(
+            'blocks/{id}/files/sync',
+            'BlockController@syncFiles'
+        );
         $router->put(
             'blocks/restore/{id?}',
             'BlockController@restore'
@@ -50,6 +58,14 @@ Route::group(
         $router->get(
             'contents/deleted',
             'ContentController@indexOfDeleted'
+        );
+        $router->get(
+            'contents/{id}/files',
+            'ContentController@indexOfFiles'
+        );
+        $router->get(
+            'contents/{id}/files/sync',
+            'ContentController@syncFiles'
         );
         $router->put(
             'contents/restore/{id?}',

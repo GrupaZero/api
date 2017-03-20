@@ -2,10 +2,13 @@
 
 use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\ContentTransformer;
+use Gzero\Api\Transformer\FileTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\ContentValidator;
 use Gzero\Entity\Content;
+use Gzero\Entity\File;
 use Gzero\Repository\ContentRepository;
+use Gzero\Repository\FileRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection as LaravelCollection;
 
@@ -29,6 +32,11 @@ class ContentController extends ApiController {
     protected $repository;
 
     /**
+     * @var FileRepository
+     */
+    protected $fileRepository;
+
+    /**
      * @var ContentValidator
      */
     protected $validator;
@@ -38,18 +46,21 @@ class ContentController extends ApiController {
      *
      * @param UrlParamsProcessor $processor Url processor
      * @param ContentRepository  $content   Content repository
+     * @param FileRepository     $file      File repository
      * @param ContentValidator   $validator Content validator
      * @param Request            $request   Request object
      */
     public function __construct(
         UrlParamsProcessor $processor,
         ContentRepository $content,
+        FileRepository $file,
         ContentValidator $validator,
         Request $request
     ) {
         parent::__construct($processor);
         $this->validator  = $validator->setData($request->all());
         $this->repository = $content;
+        $this->fileRepository = $file;
     }
 
     /**
@@ -154,6 +165,34 @@ class ContentController extends ApiController {
             $trees = new LaravelCollection([$trees]);
         }
         return $this->respondWithSuccess($trees, new ContentTransformer);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param int|null $contentId Content id for which we are displaying files
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function indexOfFiles($contentId)
+    {
+        $this->authorize('readList', File::class);
+        $input   = $this->validator->validate('files');
+        $params  = $this->processor->process($input)->getProcessedFields();
+        $content = $this->repository->getById($contentId);
+
+        if (empty($content)) {
+            return $this->respondNotFound();
+        }
+
+        $results = $this->fileRepository->getEntityFiles(
+            $content,
+            $params['filter'],
+            $params['orderBy'],
+            $params['page'],
+            $params['perPage']
+        );
+        return $this->respondWithSuccess($results, new FileTransformer);
     }
 
     /**

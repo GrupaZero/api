@@ -31,6 +31,13 @@ class BlockValidator extends AbstractValidator {
             'trashed'   => ''
         ],
         'listContent' => [],
+        'files'   => [
+            'lang'      => 'required_with:sort|in:pl,en,de,fr',
+            'page'      => 'numeric',
+            'per_page'  => 'numeric',
+            'type'      => 'in:image,document',
+            'is_active' => 'boolean',
+        ],
         'create'      => [
             'type'                      => 'required|in:basic,menu,slider,content,widget',
             'region'                    => '',

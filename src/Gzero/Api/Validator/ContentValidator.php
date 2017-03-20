@@ -38,6 +38,13 @@ class ContentValidator extends AbstractValidator {
             'level'     => '',
             'trashed'   => ''
         ],
+        'files'   => [
+            'lang'      => 'required_with:sort|in:pl,en,de,fr',
+            'page'      => 'numeric',
+            'per_page'  => 'numeric',
+            'type'      => 'in:image,document',
+            'is_active' => 'boolean',
+        ],
         'create' => [
             'type'                         => 'required|in:content,category',
             'parent_id'                    => 'numeric|nullable',

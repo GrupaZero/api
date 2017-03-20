@@ -2,12 +2,15 @@
 
 use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\BlockTransformer;
+use Gzero\Api\Transformer\FileTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\BlockValidator;
 use Gzero\Core\BlockFinder;
 use Gzero\Entity\Block;
+use Gzero\Entity\File;
 use Gzero\Repository\BlockRepository;
 use Gzero\Repository\ContentRepository;
+use Gzero\Repository\FileRepository;
 use Gzero\Repository\RepositoryValidationException;
 use Illuminate\Http\Request;
 
@@ -36,6 +39,11 @@ class BlockController extends ApiController {
     protected $contentRepository;
 
     /**
+     * @var FileRepository
+     */
+    protected $fileRepository;
+
+    /**
      * @var BlockValidator
      */
     protected $validator;
@@ -59,6 +67,7 @@ class BlockController extends ApiController {
         UrlParamsProcessor $processor,
         BlockRepository $block,
         ContentRepository $content,
+        FileRepository $file,
         BlockValidator $validator,
         BlockFinder $finder,
         Request $request
@@ -67,6 +76,7 @@ class BlockController extends ApiController {
         $this->validator         = $validator->setData($request->all());
         $this->repository        = $block;
         $this->contentRepository = $content;
+        $this->fileRepository    = $file;
         $this->finder            = $finder;
     }
 
@@ -129,6 +139,34 @@ class BlockController extends ApiController {
             return $this->respondWithSuccess($results, new BlockTransformer);
         }
         return $this->respondNotFound();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param int|null $blockId Block id for which we are displaying files
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function indexOfFiles($blockId)
+    {
+        $this->authorize('readList', File::class);
+        $input   = $this->validator->validate('files');
+        $params  = $this->processor->process($input)->getProcessedFields();
+        $content = $this->repository->getById($blockId);
+
+        if (empty($content)) {
+            return $this->respondNotFound();
+        }
+
+        $results = $this->fileRepository->getEntityFiles(
+            $content,
+            $params['filter'],
+            $params['orderBy'],
+            $params['page'],
+            $params['perPage']
+        );
+        return $this->respondWithSuccess($results, new FileTransformer);
     }
 
     /**
