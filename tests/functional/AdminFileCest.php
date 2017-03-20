@@ -48,7 +48,6 @@ class AdminFileCest {
     {
         $I->wantTo('get single file as admin user');
         $I->loginAsAdmin();
-        $croppaDir       = config('croppa.url_prefix');
         $user            = $I->haveUser();
         $file            = $I->haveFile(false, $user);
         $fileTranslation = $file->translations()->first();
@@ -65,7 +64,6 @@ class AdminFileCest {
                 'extension'    => $file->extension,
                 'size'         => $file->size,
                 'mimeType'     => $file->mime_type,
-                'thumb'        => $croppaDir . 'images/example-729x459.png?token=0c18a40115c0a4158d2a0ede3d746a63',
                 'isActive'     => (bool) $file->is_active,
                 'createdBy'    => $user->id,
                 'translations' => [
@@ -77,6 +75,10 @@ class AdminFileCest {
                 ]
             ]
         );
+        $tWidth    = config('gzero.image.thumb.width');
+        $tHeight   = config('gzero.image.thumb.height');
+        $thumbPath = $I->grabDataFromResponseByJsonPath('thumb')[0];
+        $I->assertRegExp('/images\/example-' . $tWidth . 'x' . $tHeight . '\.png\?token=.+$/', $thumbPath);
     }
 
     public function checksIfFileExistsWhenGetting(FunctionalTester $I)
@@ -185,7 +187,6 @@ class AdminFileCest {
     {
         $I->wantTo('update file as admin user');
         $I->loginAsAdmin();
-        $croppaDir       = config('croppa.url_prefix');
         $user            = $I->haveUser();
         $file            = $I->haveFile(false, $user);
         $fileTranslation = $file->translations()->first();
@@ -206,7 +207,6 @@ class AdminFileCest {
                 'extension'    => $file->extension,
                 'size'         => $file->size,
                 'mimeType'     => $file->mime_type,
-                'thumb'        => $croppaDir . 'images/example-729x459.png?token=0c18a40115c0a4158d2a0ede3d746a63',
                 'isActive'     => false,
                 'createdBy'    => $user->id,
                 'translations' => [
@@ -218,6 +218,10 @@ class AdminFileCest {
                 ]
             ]
         );
+        $tWidth    = config('gzero.image.thumb.width');
+        $tHeight   = config('gzero.image.thumb.height');
+        $thumbPath = $I->grabDataFromResponseByJsonPath('thumb')[0];
+        $I->assertRegExp('/images\/example-' . $tWidth . 'x' . $tHeight . '\.png\?token=.+$/', $thumbPath);
     }
 
     public function checksIfFileExistsWhenUpdating(FunctionalTester $I)

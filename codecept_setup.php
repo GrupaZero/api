@@ -69,8 +69,6 @@ $Laravel = new class {
         // Set upload disk to local and change it's adapter to NullAdapter
         $app['config']->set('gzero.upload.disk', 'local');
         $app['config']->set('filesystems.disks.local.driver', 'nullAdapter');
-        $app['config']->set('croppa.path', '(.*)$');
-        $app['config']->set('croppa.url_prefix', '/uploads/');
 
         // We need to add middleware to handle OPTIONS case
         app('Illuminate\Contracts\Http\Kernel')->prependMiddleware(HandlePreflight::class);
