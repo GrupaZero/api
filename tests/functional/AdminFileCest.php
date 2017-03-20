@@ -4,9 +4,9 @@ namespace Api;
 
 class AdminFileCest {
     /**
-     * @var string endpoint url
+     * @var string base url
      */
-    protected $url = 'http://api.localhost/v1/admin/files';
+    protected $url = 'http://api.localhost/v1/admin/';
 
     /*
      |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ class AdminFileCest {
         for ($i = 0; $i < $filesNumber; $i++) {
             $I->haveFile(false, $user);
         }
-        $I->sendGET($this->url);
+        $I->sendGET($this->url . 'files');
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
@@ -33,13 +33,140 @@ class AdminFileCest {
                     'perPage'     => 20,
                     'currentPage' => 1,
                     'lastPage'    => 1,
-                    'link'        => $this->url,
+                    'link'        => $this->url . 'files',
                 ],
                 'params' => [
                     'page'    => 1,
                     'perPage' => 20,
                     'filter'  => [],
                 ],
+            ]
+        );
+    }
+
+    public function getContentFiles(FunctionalTester $I)
+    {
+        $I->wantTo('get list of content files as admin user');
+        $I->loginAsAdmin();
+        $user      = $I->haveUser();
+        $content   = $I->haveContent();
+        $otherFile = $I->haveFile(false, $user);
+        $fileIds   = [];
+        for ($i = 0; $i < 4; $i++) {
+            $fileIds[] = $I->haveFile(false, $user)->id;
+        }
+        $content->files()->sync($fileIds);
+
+        $I->sendGET($this->url . 'contents/' . $content->id . '/files');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta'   => [
+                    'total'       => count($fileIds),
+                    'perPage'     => 20,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $this->url . 'contents/' . $content->id . '/files',
+                ],
+                'params' => [
+                    'page'    => 1,
+                    'perPage' => 20,
+                    'filter'  => [],
+                ],
+                'data'   => [
+                    [
+                        'id'        => $fileIds[0],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[1],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[2],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[3],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                ]
+            ]
+        );
+    }
+
+    public function getBlockFiles(FunctionalTester $I)
+    {
+        $I->wantTo('get list of block files as admin user');
+        $I->loginAsAdmin();
+        $user      = $I->haveUser();
+        $block     = $I->haveBlock();
+        $otherFile = $I->haveFile(false, $user);
+        $fileIds   = [];
+        for ($i = 0; $i < 4; $i++) {
+            $fileIds[] = $I->haveFile(false, $user)->id;
+        }
+        $block->files()->sync($fileIds);
+        $I->sendGET($this->url . 'blocks/' . $block->id . '/files');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta'   => [
+                    'total'       => count($fileIds),
+                    'perPage'     => 20,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $this->url . 'blocks/' . $block->id . '/files',
+                ],
+                'params' => [
+                    'page'    => 1,
+                    'perPage' => 20,
+                    'filter'  => [],
+                ],
+                'data'   => [
+                    [
+                        'id'        => $fileIds[0],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[1],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[2],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[3],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                ]
             ]
         );
     }
@@ -52,7 +179,7 @@ class AdminFileCest {
         $file            = $I->haveFile(false, $user);
         $fileTranslation = $file->translations()->first();
         $I->sendGet(
-            $this->url . '/' . $file->id
+            $this->url . 'files/' . $file->id
         );
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -85,7 +212,7 @@ class AdminFileCest {
     {
         $I->wantTo('checks for file when getting file as admin user');
         $I->loginAsAdmin();
-        $I->sendPUT($this->url . '/1');
+        $I->sendPUT($this->url . 'files/1');
         $I->seeResponseCodeIs(404);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
@@ -113,7 +240,7 @@ class AdminFileCest {
         $I->wantTo('create file as admin user');
         $I->loginAsAdmin();
         $I->sendPOST(
-            $this->url,
+            $this->url . 'files',
             [
                 'type'         => 'image',
                 'info'         => ['option' => 'value'],
@@ -158,7 +285,7 @@ class AdminFileCest {
         $I->wantTo('create file without translations as admin user');
         $I->loginAsAdmin();
         $I->sendPOST(
-            $this->url,
+            $this->url . 'files',
             [
                 'type'     => 'image',
                 'info'     => ['option' => 'value'],
@@ -191,7 +318,7 @@ class AdminFileCest {
         $file            = $I->haveFile(false, $user);
         $fileTranslation = $file->translations()->first();
         $I->sendPUT(
-            $this->url . '/' . $file->id,
+            $this->url . 'files/' . $file->id,
             [
                 'info'     => ['option' => 'new value'],
                 'isActive' => false,
@@ -228,7 +355,7 @@ class AdminFileCest {
     {
         $I->wantTo('checks for file when updating file as admin user');
         $I->loginAsAdmin();
-        $I->sendPUT($this->url . '/1');
+        $I->sendPUT($this->url . 'files/1');
         $I->seeResponseCodeIs(404);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
@@ -244,7 +371,7 @@ class AdminFileCest {
         $I->loginAsAdmin();
         $user = $I->haveUser();
         $file = $I->haveFile(false, $user);
-        $I->sendDelete($this->url . '/' . $file->id);
+        $I->sendDelete($this->url . 'files/' . $file->id);
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
@@ -258,7 +385,7 @@ class AdminFileCest {
     {
         $I->wantTo('check for file when delete file as admin user');
         $I->loginAsAdmin();
-        $I->sendDelete($this->url . '/1');
+        $I->sendDelete($this->url . 'files/1');
         $I->seeResponseCodeIs(404);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
@@ -273,7 +400,7 @@ class AdminFileCest {
         $I->wantTo('check for type when creating file as admin user');
         $I->loginAsAdmin();
         $I->sendPOST(
-            $this->url,
+            $this->url . 'files',
             [
                 'translations' => [
                     'langCode' => 'en',
@@ -299,6 +426,98 @@ class AdminFileCest {
         );
     }
 
+    public function syncFilesWithContent(FunctionalTester $I)
+    {
+        $I->wantTo('sync file with content as admin user');
+        $I->loginAsAdmin();
+        $content = $I->haveContent();
+        $file1   = $I->haveFile();
+        $file2   = $I->haveFile();
+        $I->sendPUT(
+            $this->url . 'contents/' . $content->id . '/files/sync',
+            [
+                'data' => [
+                    ['id' => $file1->id],
+                    ['id' => $file2->id, 'weight' => 1337]
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [$file1->id, $file2->id],
+                'detached' => [],
+                'updated'  => []
+            ]
+        );
+
+        // Updating weight & detaching
+        $I->sendPUT(
+            $this->url . 'contents/' . $content->id . '/files/sync',
+            [
+                'data' => [
+                    ['id' => $file1->id, 'weight' => 13, 'unexpected_property' => 321]
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [],
+                'detached' => [1 => $file2->id], // @TODO Why key starts from 1?
+                'updated'  => [$file1->id]
+            ]
+        );
+    }
+
+    public function syncFilesWithBlock(FunctionalTester $I)
+    {
+        $I->wantTo('sync file with block as admin user');
+        $I->loginAsAdmin();
+        $block = $I->haveBlock();
+        $file1 = $I->haveFile();
+        $file2 = $I->haveFile();
+        $I->sendPUT(
+            $this->url . 'blocks/' . $block->id . '/files/sync',
+            [
+                'data' => [
+                    ['id' => $file1->id],
+                    ['id' => $file2->id, 'weight' => 1337]
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [$file1->id, $file2->id],
+                'detached' => [],
+                'updated'  => []
+            ]
+        );
+
+        // Updating weight & detaching
+        $I->sendPUT(
+            $this->url . 'blocks/' . $block->id . '/files/sync',
+            [
+                'data' => [
+                    ['id' => $file1->id, 'weight' => 13, 'unexpected_property' => 321]
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [],
+                'detached' => [1 => $file2->id], // @TODO Why key starts from 1?
+                'updated'  => [$file1->id]
+            ]
+        );
+    }
+
     /*
      |--------------------------------------------------------------------------
      | END File tests
@@ -318,7 +537,7 @@ class AdminFileCest {
         $user = $I->haveUser();
         $file = $I->haveFile(false, $user);
         $I->sendPost(
-            $this->url . '/' . $file->id . '/translations',
+            $this->url . 'files/' . $file->id . '/translations',
             [
                 'langCode'    => 'en',
                 'title'       => 'New file title',
@@ -344,7 +563,7 @@ class AdminFileCest {
         $user = $I->haveUser();
         $file = $I->haveFile(false, $user);
         $I->sendPUT(
-            $this->url . '/' . $file->id . '/translations/en',
+            $this->url . 'files/' . $file->id . '/translations/en',
             [
                 'langCode'    => 'en',
                 'title'       => 'Modified file title',
@@ -371,7 +590,7 @@ class AdminFileCest {
         $file            = $I->haveFile(false, $user);
         $fileTranslation = $file->translations()->first();
         $I->sendDELETE(
-            $this->url . '/' . $file->id . '/translations/' . $fileTranslation->id
+            $this->url . 'files/' . $file->id . '/translations/' . $fileTranslation->id
         );
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();

@@ -210,7 +210,7 @@ class FunctionalTester extends \Codeception\Actor {
             'size'         => $uploadedFile->getSize(),
             'mime_type'    => $uploadedFile->getMimeType(),
             'is_active'    => 1,
-            'created_by'   => $user->id,
+            'created_by'   => (!empty($user)) ? $user->id : null,
             'translations' => [
                 'lang_code'   => 'en',
                 'title'       => $this->faker->realText(38, 1),

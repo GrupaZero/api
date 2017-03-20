@@ -31,6 +31,13 @@ class BlockValidator extends AbstractValidator {
             'trashed'   => ''
         ],
         'listContent' => [],
+        'files'   => [
+            'lang'      => 'required_with:sort|in:pl,en,de,fr',
+            'page'      => 'numeric',
+            'per_page'  => 'numeric',
+            'type'      => 'in:image,document',
+            'is_active' => 'boolean',
+        ],
         'create'      => [
             'type'                      => 'required|in:basic,menu,slider,content,widget',
             'region'                    => '',
@@ -55,6 +62,11 @@ class BlockValidator extends AbstractValidator {
             'widget'       => '',
             'is_cacheable' => 'boolean',
             'is_active'    => 'boolean',
+        ],
+        'syncFiles' => [
+            'data'          => 'required',
+            'data.*.id'     => 'numeric',
+            'data.*.weight' => 'numeric',
         ]
     ];
 

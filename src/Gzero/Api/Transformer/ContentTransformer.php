@@ -48,6 +48,7 @@ class ContentTransformer extends AbstractTransformer {
         return [
             'id'               => $this->setNullableValue($content['id']),
             'parentId'         => $this->setNullableValue($content['parent_id']),
+            'fileId'           => $this->setNullableValue($content['file_id']),
             'type'             => $content['type'],
             'theme'            => $content['theme'],
             'weight'           => (int) $content['weight'],

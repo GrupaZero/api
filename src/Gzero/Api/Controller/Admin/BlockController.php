@@ -2,12 +2,15 @@
 
 use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\BlockTransformer;
+use Gzero\Api\Transformer\FileTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\BlockValidator;
 use Gzero\Core\BlockFinder;
 use Gzero\Entity\Block;
+use Gzero\Entity\File;
 use Gzero\Repository\BlockRepository;
 use Gzero\Repository\ContentRepository;
+use Gzero\Repository\FileRepository;
 use Gzero\Repository\RepositoryValidationException;
 use Illuminate\Http\Request;
 
@@ -36,6 +39,11 @@ class BlockController extends ApiController {
     protected $contentRepository;
 
     /**
+     * @var FileRepository
+     */
+    protected $fileRepository;
+
+    /**
      * @var BlockValidator
      */
     protected $validator;
@@ -51,6 +59,7 @@ class BlockController extends ApiController {
      * @param UrlParamsProcessor $processor Url processor
      * @param BlockRepository    $block     Block repository
      * @param ContentRepository  $content   Content repository
+     * @param FileRepository     $file      File Repository
      * @param BlockValidator     $validator Block validator
      * @param BlockFinder        $finder    Block Finder
      * @param Request            $request   Request object
@@ -59,6 +68,7 @@ class BlockController extends ApiController {
         UrlParamsProcessor $processor,
         BlockRepository $block,
         ContentRepository $content,
+        FileRepository $file,
         BlockValidator $validator,
         BlockFinder $finder,
         Request $request
@@ -67,6 +77,7 @@ class BlockController extends ApiController {
         $this->validator         = $validator->setData($request->all());
         $this->repository        = $block;
         $this->contentRepository = $content;
+        $this->fileRepository    = $file;
         $this->finder            = $finder;
     }
 
@@ -129,6 +140,32 @@ class BlockController extends ApiController {
             return $this->respondWithSuccess($results, new BlockTransformer);
         }
         return $this->respondNotFound();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param int|null $blockId Block id for which we are displaying files
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function indexOfFiles($blockId)
+    {
+        $this->authorize('readList', File::class);
+        $input  = $this->validator->validate('files');
+        $params = $this->processor->process($input)->getProcessedFields();
+        $block  = $this->repository->getById($blockId);
+        if (empty($block)) {
+            return $this->respondNotFound();
+        }
+        $results = $this->fileRepository->getEntityFiles(
+            $block,
+            $params['filter'],
+            $params['orderBy'],
+            $params['page'],
+            $params['perPage']
+        );
+        return $this->respondWithSuccess($results, new FileTransformer);
     }
 
     /**
@@ -226,6 +263,41 @@ class BlockController extends ApiController {
             return $this->respondWithSimpleSuccess(['success' => true]);
         }
         return $this->respondNotFound();
+    }
+
+    /**
+     * Sync files with specific content
+     *
+     * @param int $contentId Content id
+     *
+     * @return mixed
+     */
+    public function syncFiles($contentId)
+    {
+        $block = $this->repository->getById($contentId);
+        if (empty($block)) {
+            return $this->respondNotFound();
+        }
+        $this->authorize('update', $block);
+        $input = $this->validator->validate('syncFiles');
+        $block = $this->fileRepository->syncWith($block, $this->buildSyncData($input));
+        return $this->respondWithSuccess($block);
+    }
+
+    /**
+     * It builds syncData
+     *
+     * @param array $input Validated input
+     *
+     * @return mixed
+     */
+    protected function buildSyncData(array $input)
+    {
+        $syncData = [];
+        foreach ($input['data'] as $item) {
+            $syncData[$item['id']] = ['weight' => (!isset($item['weight']) ?: 0)];
+        }
+        return $syncData;
     }
 
 }
@@ -329,6 +401,31 @@ class BlockController extends ApiController {
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/v1/admin/blocks/content/1
+ */
+/**
+ * @api                 {get} /admin/blocks/:id/files 8. GET block files
+ * @apiVersion          0.1.0
+ * @apiName             GetBlockFilesList
+ * @apiGroup            Block
+ * @apiPermission       admin
+ * @apiDescription      Get list of files for specific block
+ * @apiUse              Meta
+ * @apiUse              Params
+ * @apiUse              FileCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/blocks/1/files
+ */
+/**
+ * @api                 {get} /admin/contents/:id/files/sync 9. PUT associate files with block
+ * @apiVersion          0.1.0
+ * @apiName             SyncBlockFiles
+ * @apiGroup            Block
+ * @apiPermission       admin
+ * @apiDescription      Sync files for specific block
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/blocks/1/files/sync
  */
 
 /**

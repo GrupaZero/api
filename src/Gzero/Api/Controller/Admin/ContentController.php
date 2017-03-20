@@ -2,10 +2,13 @@
 
 use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\ContentTransformer;
+use Gzero\Api\Transformer\FileTransformer;
 use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\ContentValidator;
 use Gzero\Entity\Content;
+use Gzero\Entity\File;
 use Gzero\Repository\ContentRepository;
+use Gzero\Repository\FileRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection as LaravelCollection;
 
@@ -29,6 +32,11 @@ class ContentController extends ApiController {
     protected $repository;
 
     /**
+     * @var FileRepository
+     */
+    protected $fileRepository;
+
+    /**
      * @var ContentValidator
      */
     protected $validator;
@@ -38,18 +46,21 @@ class ContentController extends ApiController {
      *
      * @param UrlParamsProcessor $processor Url processor
      * @param ContentRepository  $content   Content repository
+     * @param FileRepository     $file      File repository
      * @param ContentValidator   $validator Content validator
      * @param Request            $request   Request object
      */
     public function __construct(
         UrlParamsProcessor $processor,
         ContentRepository $content,
+        FileRepository $file,
         ContentValidator $validator,
         Request $request
     ) {
         parent::__construct($processor);
-        $this->validator  = $validator->setData($request->all());
-        $this->repository = $content;
+        $this->validator      = $validator->setData($request->all());
+        $this->repository     = $content;
+        $this->fileRepository = $file;
     }
 
     /**
@@ -157,6 +168,32 @@ class ContentController extends ApiController {
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param int|null $contentId Content id for which we are displaying files
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function indexOfFiles($contentId)
+    {
+        $this->authorize('readList', File::class);
+        $input   = $this->validator->validate('files');
+        $params  = $this->processor->process($input)->getProcessedFields();
+        $content = $this->repository->getById($contentId);
+        if (empty($content)) {
+            return $this->respondNotFound();
+        }
+        $results = $this->fileRepository->getEntityFiles(
+            $content,
+            $params['filter'],
+            $params['orderBy'],
+            $params['page'],
+            $params['perPage']
+        );
+        return $this->respondWithSuccess($results, new FileTransformer);
+    }
+
+    /**
      * Display a specified resource.
      *
      * @param int $id Id of the resource
@@ -248,6 +285,41 @@ class ContentController extends ApiController {
             return $this->respondWithSimpleSuccess(['success' => true]);
         }
         return $this->respondNotFound();
+    }
+
+    /**
+     * Sync files with specific content
+     *
+     * @param int $contentId Content id
+     *
+     * @return mixed
+     */
+    public function syncFiles($contentId)
+    {
+        $content = $this->repository->getById($contentId);
+        if (empty($content)) {
+            return $this->respondNotFound();
+        }
+        $this->authorize('update', $content);
+        $input   = $this->validator->validate('syncFiles');
+        $content = $this->fileRepository->syncWith($content, $this->buildSyncData($input));
+        return $this->respondWithSuccess($content);
+    }
+
+    /**
+     * It builds syncData
+     *
+     * @param array $input Validated input
+     *
+     * @return mixed
+     */
+    protected function buildSyncData(array $input)
+    {
+        $syncData = [];
+        foreach ($input['data'] as $item) {
+            $syncData[$item['id']] = ['weight' => (!isset($item['weight']) ?: 0)];
+        }
+        return $syncData;
     }
 
 }
@@ -363,6 +435,31 @@ class ContentController extends ApiController {
  * @apiSuccessExample   Success-Response:
  * HTTP/1.1 200 OK
  * {"success":true}
+ */
+/**
+ * @api                 {get} /admin/contents/:id/files 8. GET content files
+ * @apiVersion          0.1.0
+ * @apiName             GetContentFilesList
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiDescription      Get list of files for specific content
+ * @apiUse              Meta
+ * @apiUse              Params
+ * @apiUse              FileCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/contents/1/files
+ */
+/**
+ * @api                 {get} /admin/contents/:id/files/sync 9. PUT associate files with content
+ * @apiVersion          0.1.0
+ * @apiName             SyncContentFiles
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiDescription      Sync files for specific content
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/contents/1/files/sync
  */
 
 /**
