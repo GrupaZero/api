@@ -195,6 +195,212 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/admin/blocks/:id/files",
+    "title": "8. GET block files",
+    "version": "0.1.0",
+    "name": "GetBlockFilesList",
+    "group": "Block",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p>"
+      }
+    ],
+    "description": "<p>Get list of files for specific block</p>",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/blocks/1/files",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockController.php",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "meta",
+            "description": "<p>Meta data for current request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.total",
+            "description": "<p>Total number elements</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.perPage",
+            "description": "<p>Number of elements per page</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.currentPage",
+            "description": "<p>Current page number</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.lastPage",
+            "description": "<p>Last page number</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "meta.link",
+            "description": "<p>Link for this resource</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "params",
+            "description": "<p>Params passed for current request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "params.page",
+            "description": "<p>Page parameter</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "params.perPage",
+            "description": "<p>Per page parameter</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "params.filter",
+            "description": "<p>Array of filter params</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "params.orderBy",
+            "description": "<p>Array of sort params</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Array of Files</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>File id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.type",
+            "description": "<p>File type</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.extension",
+            "description": "<p>File extension</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.size",
+            "description": "<p>File size</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.mimeType",
+            "description": "<p>File mimeType</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data.info",
+            "description": "<p>File unique parameters (Defined as array of key / value parameters)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.url",
+            "description": "<p>File url</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "data.isActive",
+            "description": "<p>Is file active flag</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "number",
+            "optional": false,
+            "field": "data.createdBy",
+            "description": "<p>User id of this File author</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "data.createdAt",
+            "description": "<p>Creation date</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "data.updatedAt",
+            "description": "<p>Update date</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data.Translations",
+            "description": "<p>List of active translations (Array of Objects)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n       \"meta\": {\n       \"total\": 75,\n       \"perPage\": 20,\n       \"currentPage\": 1,\n       \"lastPage\": 4,\n       \"link\": \"http://api.gzero.dev:8000/v1/admin/files\"\n   },\n   \"params\": {\n       \"page\": 1,\n       \"perPage\": 20,\n       \"filter\": [],\n       \"orderBy\": []\n   },\n   \"data\": [\n       {File},\n       ...\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
     "url": "/admin/blocks",
     "title": "1. GET collection of entities",
     "version": "0.1.0",
@@ -2364,6 +2570,212 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/admin/contents/:id/files",
+    "title": "8. GET content files",
+    "version": "0.1.0",
+    "name": "GetContentFilesList",
+    "group": "Content",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p>"
+      }
+    ],
+    "description": "<p>Get list of files for specific content</p>",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/contents/1/files",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "meta",
+            "description": "<p>Meta data for current request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.total",
+            "description": "<p>Total number elements</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.perPage",
+            "description": "<p>Number of elements per page</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.currentPage",
+            "description": "<p>Current page number</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.lastPage",
+            "description": "<p>Last page number</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "meta.link",
+            "description": "<p>Link for this resource</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "params",
+            "description": "<p>Params passed for current request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "params.page",
+            "description": "<p>Page parameter</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "params.perPage",
+            "description": "<p>Per page parameter</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "params.filter",
+            "description": "<p>Array of filter params</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "params.orderBy",
+            "description": "<p>Array of sort params</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>Array of Files</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>File id</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.type",
+            "description": "<p>File type</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.extension",
+            "description": "<p>File extension</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.size",
+            "description": "<p>File size</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.mimeType",
+            "description": "<p>File mimeType</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data.info",
+            "description": "<p>File unique parameters (Defined as array of key / value parameters)</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.url",
+            "description": "<p>File url</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "data.isActive",
+            "description": "<p>Is file active flag</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "number",
+            "optional": false,
+            "field": "data.createdBy",
+            "description": "<p>User id of this File author</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "data.createdAt",
+            "description": "<p>Creation date</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "data.updatedAt",
+            "description": "<p>Update date</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "data.Translations",
+            "description": "<p>List of active translations (Array of Objects)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n       \"meta\": {\n       \"total\": 75,\n       \"perPage\": 20,\n       \"currentPage\": 1,\n       \"lastPage\": 4,\n       \"link\": \"http://api.gzero.dev:8000/v1/admin/files\"\n   },\n   \"params\": {\n       \"page\": 1,\n       \"perPage\": 20,\n       \"filter\": [],\n       \"orderBy\": []\n   },\n   \"data\": [\n       {File},\n       ...\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
     "url": "/admin/contents",
     "title": "1. GET collection of root entities",
     "version": "0.1.0",
@@ -3897,7 +4309,7 @@ define({ "api": [
             "group": "Success 200",
             "type": "number",
             "optional": false,
-            "field": "data.createdBy",
+            "field": "createdBy",
             "description": "<p>User id of this File author</p>"
           },
           {
@@ -4225,7 +4637,7 @@ define({ "api": [
             "group": "Success 200",
             "type": "number",
             "optional": false,
-            "field": "data.createdBy",
+            "field": "createdBy",
             "description": "<p>User id of this File author</p>"
           },
           {
@@ -4347,7 +4759,7 @@ define({ "api": [
             "group": "Success 200",
             "type": "number",
             "optional": false,
-            "field": "data.createdBy",
+            "field": "createdBy",
             "description": "<p>User id of this File author</p>"
           },
           {

@@ -48,9 +48,10 @@ class AdminFileCest {
     {
         $I->wantTo('get list of content files as admin user');
         $I->loginAsAdmin();
-        $user    = $I->haveUser();
-        $content = $I->haveContent();
-        $fileIds = [];
+        $user      = $I->haveUser();
+        $content   = $I->haveContent();
+        $otherFile = $I->haveFile(false, $user);
+        $fileIds   = [];
         for ($i = 0; $i < 4; $i++) {
             $fileIds[] = $I->haveFile(false, $user)->id;
         }
@@ -73,6 +74,36 @@ class AdminFileCest {
                     'perPage' => 20,
                     'filter'  => [],
                 ],
+                'data'   => [
+                    [
+                        'id'        => $fileIds[0],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[1],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[2],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[3],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                ]
             ]
         );
     }
@@ -81,9 +112,10 @@ class AdminFileCest {
     {
         $I->wantTo('get list of block files as admin user');
         $I->loginAsAdmin();
-        $user    = $I->haveUser();
-        $block = $I->haveBlock();
-        $fileIds = [];
+        $user      = $I->haveUser();
+        $block     = $I->haveBlock();
+        $otherFile = $I->haveFile(false, $user);
+        $fileIds   = [];
         for ($i = 0; $i < 4; $i++) {
             $fileIds[] = $I->haveFile(false, $user)->id;
         }
@@ -105,6 +137,36 @@ class AdminFileCest {
                     'perPage' => 20,
                     'filter'  => [],
                 ],
+                'data'   => [
+                    [
+                        'id'        => $fileIds[0],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[1],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[2],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                    [
+                        'id'        => $fileIds[3],
+                        'type'      => 'image',
+                        'createdBy' => $user->id,
+                        'isActive'  => true,
+                        'weight'    => 0
+                    ],
+                ]
             ]
         );
     }

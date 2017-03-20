@@ -59,6 +59,7 @@ class BlockController extends ApiController {
      * @param UrlParamsProcessor $processor Url processor
      * @param BlockRepository    $block     Block repository
      * @param ContentRepository  $content   Content repository
+     * @param FileRepository     $file      File Repository
      * @param BlockValidator     $validator Block validator
      * @param BlockFinder        $finder    Block Finder
      * @param Request            $request   Request object
@@ -153,14 +154,14 @@ class BlockController extends ApiController {
         $this->authorize('readList', File::class);
         $input   = $this->validator->validate('files');
         $params  = $this->processor->process($input)->getProcessedFields();
-        $content = $this->repository->getById($blockId);
+        $block = $this->repository->getById($blockId);
 
-        if (empty($content)) {
+        if (empty($block)) {
             return $this->respondNotFound();
         }
 
         $results = $this->fileRepository->getEntityFiles(
-            $content,
+            $block,
             $params['filter'],
             $params['orderBy'],
             $params['page'],
@@ -367,6 +368,20 @@ class BlockController extends ApiController {
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/v1/admin/blocks/content/1
+ */
+/**
+ * @api                 {get} /admin/blocks/:id/files 8. GET block files
+ * @apiVersion          0.1.0
+ * @apiName             GetBlockFilesList
+ * @apiGroup            Block
+ * @apiPermission       admin
+ * @apiDescription      Get list of files for specific block
+ * @apiUse              Meta
+ * @apiUse              Params
+ * @apiUse              FileCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/blocks/1/files
  */
 
 /**

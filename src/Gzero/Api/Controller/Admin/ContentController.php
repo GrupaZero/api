@@ -403,6 +403,20 @@ class ContentController extends ApiController {
  * HTTP/1.1 200 OK
  * {"success":true}
  */
+/**
+ * @api                 {get} /admin/contents/:id/files 8. GET content files
+ * @apiVersion          0.1.0
+ * @apiName             GetContentFilesList
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiDescription      Get list of files for specific content
+ * @apiUse              Meta
+ * @apiUse              Params
+ * @apiUse              FileCollection
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/contents/1/files
+ */
 
 /**
  * @apiDefine           Content
