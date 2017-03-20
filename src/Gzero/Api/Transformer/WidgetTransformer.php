@@ -29,11 +29,11 @@ class WidgetTransformer extends AbstractTransformer {
         return [
             'id'          => (int) $widget['id'],
             'name'        => $widget['name'],
-            'args'        => $widget['args'],
-            'isCacheable' => $widget['isCacheable'],
-            'isActive'    => $widget['isActive'],
-            'createdAt'   => $widget['createdAt'],
-            'updatedAt'   => $widget['updatedAt'],
+            'args'        => array_camel_case_keys($widget['args']),
+            'isActive'    => (bool) $widget['is_active'],
+            'isCacheable' => (bool) $widget['is_cacheable'],
+            'createdAt'   => $widget['created_at'],
+            'updatedAt'   => $widget['updated_at'],
         ];
     }
 }

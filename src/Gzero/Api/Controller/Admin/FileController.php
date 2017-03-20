@@ -7,8 +7,8 @@ use Gzero\Api\Validator\FileValidator;
 use Gzero\Repository\FileRepository;
 use Gzero\Repository\RepositoryValidationException;
 use Gzero\Api\UrlParamsProcessor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -40,11 +40,16 @@ class FileController extends ApiController {
      * @param UrlParamsProcessor $processor Url processor
      * @param FileRepository     $file      File repository
      * @param FileValidator      $validator File validator
+     * @param Request            $request   Request object
      */
-    public function __construct(UrlParamsProcessor $processor, FileRepository $file, FileValidator $validator)
-    {
+    public function __construct(
+        UrlParamsProcessor $processor,
+        FileRepository $file,
+        FileValidator $validator,
+        Request $request
+    ) {
         parent::__construct($processor);
-        $this->validator = $validator->setData(\Input::all());
+        $this->validator = $validator->setData($request->all());
         $this->fileRepo  = $file;
     }
 
@@ -87,14 +92,16 @@ class FileController extends ApiController {
     /**
      * Stores newly created file in database.
      *
+     * @param Request $request Request object
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store()
+    public function store(Request $request)
     {
         $this->authorize('create', File::class);
         $input = $this->validator->validate('create');
-        if (Input::hasFile('file')) {
-            $uploadedFile = Input::file('file');
+        if ($request->hasFile('file')) {
+            $uploadedFile = $request->file('file');
             if ($uploadedFile->isValid()) {
                 try {
                     $file = $this->fileRepo->create($input, $uploadedFile, auth()->user());

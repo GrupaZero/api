@@ -6,6 +6,8 @@ use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\BlockTranslationValidator;
 use Gzero\Entity\Block;
 use Gzero\Repository\BlockRepository;
+use Gzero\Repository\RepositoryValidationException;
+use Illuminate\Http\Request;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -37,11 +39,16 @@ class BlockTranslationController extends ApiController {
      * @param UrlParamsProcessor        $processor Url processor
      * @param BlockRepository           $block     Block repository
      * @param BlockTranslationValidator $validator Block validator
+     * @param Request                   $request   Request object
      */
-    public function __construct(UrlParamsProcessor $processor, BlockRepository $block, BlockTranslationValidator $validator)
-    {
+    public function __construct(
+        UrlParamsProcessor $processor,
+        BlockRepository $block,
+        BlockTranslationValidator $validator,
+        Request $request
+    ) {
         parent::__construct($processor);
-        $this->validator  = $validator->setData(\Input::all());
+        $this->validator  = $validator->setData($request->all());
         $this->repository = $block;
     }
 
@@ -140,8 +147,12 @@ class BlockTranslationController extends ApiController {
             $this->authorize('delete', $block);
             $translation = $this->repository->getBlockTranslationById($block, $translationId);
             if (!empty($translation)) {
-                $this->repository->deleteTranslation($translation);
-                return $this->respondWithSimpleSuccess(['success' => true]);
+                try {
+                    $this->repository->deleteTranslation($translation);
+                    return $this->respondWithSimpleSuccess(['success' => true]);
+                } catch (RepositoryValidationException $e) {
+                    return $this->respondWithError($e->getMessage());
+                }
             }
         }
         return $this->respondNotFound();

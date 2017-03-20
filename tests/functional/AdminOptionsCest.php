@@ -1,5 +1,6 @@
 <?php
-namespace api;
+
+namespace Api;
 
 class AdminOptionsCest {
 
@@ -7,15 +8,6 @@ class AdminOptionsCest {
      * @var string endpoint url
      */
     protected $url = 'http://api.localhost/v1/admin/options';
-
-    public function _before(FunctionalTester $I)
-    {
-        $I->logout();
-    }
-
-    public function _after(FunctionalTester $I)
-    {
-    }
 
     // tests
     public function getOptionsCategories(FunctionalTester $I)
@@ -50,14 +42,14 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'googleAnalyticsId' =>
+                'google_analytics_id' =>
                     [
                         'en' => null,
                         'pl' => null,
                         'de' => null,
                         'fr' => null,
                     ],
-                'seoDescLength'     =>
+                'desc_length'         =>
                     [
                         'en' => 160,
                         'pl' => 160,
@@ -78,7 +70,7 @@ class AdminOptionsCest {
         $I->sendPUT(
             $this->url . '/seo',
             [
-                'key'   => 'seoDescLength',
+                'key'   => 'desc_length',
                 'value' => [
                     'en' => 160,
                     'pl' => 161,
@@ -92,14 +84,14 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'googleAnalyticsId' =>
+                'google_analytics_id' =>
                     [
                         'en' => null,
                         'pl' => null,
                         'de' => null,
                         'fr' => null,
                     ],
-                'seoDescLength'     =>
+                'desc_length'         =>
                     [
                         'en' => 160,
                         'pl' => 161,
@@ -122,7 +114,6 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
                 'message' => 'Category some_category does not exist',
             ]
         );
@@ -145,19 +136,18 @@ class AdminOptionsCest {
             ]
         );
 
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  =>
-                    [
-                        'key' =>
-                            [
-                                0 => 'The selected key is invalid.',
-                            ],
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
+                        'key' => [
+                            0 => 'The selected key is invalid.',
+                        ],
                     ],
+                ]
             ]
 
         );
@@ -180,19 +170,18 @@ class AdminOptionsCest {
             ]
         );
 
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  =>
-                    [
-                        'key' =>
-                            [
-                                0 => 'The selected key is invalid.',
-                            ],
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
+                        'key' => [
+                            0 => 'The selected key is invalid.',
+                        ],
                     ],
+                ]
             ]
 
         );

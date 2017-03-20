@@ -1,26 +1,12 @@
 <?php
-namespace api;
 
-use Illuminate\Support\Facades\Storage;
+namespace Api;
 
 class AdminContentCest {
     /**
      * @var string endpoint url
      */
     protected $url = 'http://api.localhost/v1/admin/contents';
-
-    public function _before(FunctionalTester $I)
-    {
-        $I->logout();
-    }
-
-    public function _after(FunctionalTester $I)
-    {
-        $dirName = config('gzero.upload.directory');
-        if ($dirName) {
-            Storage::deleteDirectory($dirName);
-        }
-    }
 
     // tests
     public function getLangs(FunctionalTester $I)
@@ -54,7 +40,7 @@ class AdminContentCest {
         $I->loginAsAdmin();
         $category1      = $I->haveContent(['type' => 'category']);
         $category2      = $I->haveContent(['type' => 'category']);
-        $nestedCategory = $I->haveContent(['type' => 'category', 'parentId' => $category1->id]);
+        $nestedCategory = $I->haveContent(['type' => 'category', 'parent_id' => $category1->id]);
         $I->sendGET('http://api.localhost/v1/admin/contents/tree');
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -92,7 +78,7 @@ class AdminContentCest {
         $I->wantTo('get tree of contents for single root as admin user');
         $I->loginAsAdmin();
         $category1      = $I->haveContent(['type' => 'category']);
-        $nestedCategory = $I->haveContent(['type' => 'category', 'parentId' => $category1->id]);
+        $nestedCategory = $I->haveContent(['type' => 'category', 'parent_id' => $category1->id]);
         $I->sendGET('http://api.localhost/v1/admin/contents/tree');
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
@@ -115,7 +101,7 @@ class AdminContentCest {
         $I->wantTo('get list of contents as admin user');
         $I->loginAsAdmin();
         $category       = $I->haveContent(['type' => 'category']);
-        $nestedCategory = $I->haveContent(['type' => 'category', 'parentId' => $category->id]);
+        $nestedCategory = $I->haveContent(['type' => 'category', 'parent_id' => $category->id]);
         $content        = $I->haveContent(['type' => 'content']);
         $I->sendGET('http://api.localhost/v1/admin/contents?sort=-type,-id&lang=en');
         $I->seeResponseCodeIs(200);
@@ -155,15 +141,15 @@ class AdminContentCest {
         $content = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -186,15 +172,15 @@ class AdminContentCest {
         $content = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -229,15 +215,15 @@ class AdminContentCest {
         $content = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -261,15 +247,15 @@ class AdminContentCest {
         $content = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -293,15 +279,15 @@ class AdminContentCest {
         $content  = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -309,15 +295,15 @@ class AdminContentCest {
         $content2 = $I->haveContent(
             [
                 'type'         => 'content',
-                'isActive'     => 1,
+                'is_active'    => 1,
                 'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
                 ]
             ],
             $user
@@ -370,303 +356,4 @@ class AdminContentCest {
             ]
         );
     }
-
-    /*
-     |--------------------------------------------------------------------------
-     | START Content Files tests
-     |--------------------------------------------------------------------------
-     */
-
-    public function getContentFiles(FunctionalTester $I)
-    {
-        $I->wantTo('create and get list of content files as admin user');
-        $I->loginAsAdmin();
-        $fileIds     = [];
-        $user        = $I->haveUser();
-        $content     = $I->haveContent(
-            [
-                'type'         => 'content',
-                'isActive'     => 1,
-                'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
-                ]
-            ],
-            $user
-        );
-        $url         = $this->url . '/' . $content->id . '/files';
-        $filesNumber = 4;
-        for ($i = 0; $i < $filesNumber; $i++) {
-            $file      = $I->haveFile(false, $user);
-            $fileIds[] = $file->id;
-        }
-
-        $I->sendPOST($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->sendGET($url . '?lang=en&sort=translations.title');
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'meta'   => [
-                    'total'       => $filesNumber,
-                    'perPage'     => 20,
-                    'currentPage' => 1,
-                    'lastPage'    => 1,
-                    'link'        => $url,
-                ],
-                'params' => [
-                    'page'    => 1,
-                    'perPage' => 20,
-                    'filter'  => [
-                        ['lang', '=', 'en'],
-                    ],
-                    'orderBy' => [
-                        ['translations.title', 'ASC']
-                    ]
-                ]
-            ]
-        );
-    }
-
-    public function sortContentFilesByPivotColumn(FunctionalTester $I)
-    {
-        $I->wantTo('sort list of content files by pivot column as admin user');
-        $I->loginAsAdmin();
-        $fileIds     = [];
-        $user        = $I->haveUser();
-        $content     = $I->haveContent(
-            [
-                'type'         => 'content',
-                'isActive'     => 1,
-                'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
-                ]
-            ],
-            $user
-        );
-        $url         = $this->url . '/' . $content->id . '/files';
-        $filesNumber = 4;
-        for ($i = 0; $i < $filesNumber; $i++) {
-            $file      = $I->haveFile(false, $user);
-            $fileIds[] = $file->id;
-        }
-
-        $I->sendPOST($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->sendGET($url . '?lang=en&sort=pivot.weight');
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'meta'   => [
-                    'total'       => $filesNumber,
-                    'perPage'     => 20,
-                    'currentPage' => 1,
-                    'lastPage'    => 1,
-                    'link'        => $url,
-                ],
-                'params' => [
-                    'page'    => 1,
-                    'perPage' => 20,
-                    'filter'  => [
-                        ['lang', '=', 'en']
-                    ],
-                    'orderBy' => [
-                        ['pivot.weight', 'ASC']
-                    ]
-                ]
-            ]
-        );
-    }
-
-    public function createContentRelatedFile(FunctionalTester $I)
-    {
-        $I->wantTo('create content related file as admin user');
-        $I->loginAsAdmin();
-        $fileIds   = [];
-        $user      = $I->haveUser();
-        $content   = $I->haveContent(
-            [
-                'type'         => 'content',
-                'isActive'     => 1,
-                'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
-                ]
-            ],
-            $user
-        );
-        $url       = $this->url . '/' . $content->id . '/files';
-        $file      = $I->haveFile(false, $user);
-        $fileIds[] = $file->id;
-
-        $I->sendPOST($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'id'        => $file->id,
-                'type'      => $file->type,
-                'name'      => $file->name,
-                'extension' => $file->extension,
-                'size'      => $file->size,
-                'mimeType'  => $file->mimeType,
-                'info'      => $file->info,
-                'isActive'  => (bool) $file->isActive
-            ]
-        );
-        $I->sendPUT($this->url . '/' . $content->id, ['fileId' => $file->id]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'id'     => $content->id,
-                'fileId' => $file->id
-            ]
-        );
-    }
-
-    public function updateContentFile(FunctionalTester $I)
-    {
-        $I->wantTo('update content file as admin user');
-        $I->loginAsAdmin();
-        $fileIds   = [];
-        $user      = $I->haveUser();
-        $content   = $I->haveContent(
-            [
-                'type'         => 'content',
-                'isActive'     => 1,
-                'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
-                ]
-            ],
-            $user
-        );
-        $url       = $this->url . '/' . $content->id . '/files';
-        $file      = $I->haveFile(false, $user);
-        $fileIds[] = $file->id;
-
-        $I->sendPOST($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->sendPUT($url . '/' . $file->id, ['weight' => 4]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'weight' => 4
-            ]
-        );
-    }
-
-    public function deleteContentFile(FunctionalTester $I)
-    {
-        $I->wantTo('delete content file as admin user');
-        $I->loginAsAdmin();
-        $fileIds   = [];
-        $user      = $I->haveUser();
-        $content   = $I->haveContent(
-            [
-                'type'         => 'content',
-                'isActive'     => 1,
-                'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
-                ]
-            ],
-            $user
-        );
-        $url       = $this->url . '/' . $content->id . '/files';
-        $file      = $I->haveFile(false, $user);
-        $fileIds[] = $file->id;
-
-        $I->sendPOST($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->sendDelete($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-    }
-
-    public function deleteContentRelatedFile(FunctionalTester $I)
-    {
-        $I->wantTo('delete content related file as admin user');
-        $I->loginAsAdmin();
-        $fileIds   = [];
-        $user      = $I->haveUser();
-        $content   = $I->haveContent(
-            [
-                'type'         => 'content',
-                'isActive'     => 1,
-                'translations' => [
-                    'langCode'       => 'en',
-                    'title'          => 'Fake title',
-                    'teaser'         => '<p>Super fake...</p>',
-                    'body'           => '<p>Super fake body of some post!</p>',
-                    'seoTitle'       => 'fake-title',
-                    'seoDescription' => 'desc-demonstrate-fake',
-                    'isActive'       => 1
-                ]
-            ],
-            $user
-        );
-        $url       = $this->url . '/' . $content->id . '/files';
-        $file      = $I->haveFile(false, $user);
-        $fileIds[] = $file->id;
-
-        $I->sendPOST($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->sendPUT($this->url . '/' . $content->id, ['fileId' => $file->id]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->sendDelete($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->sendGet($this->url . '/' . $content->id);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'id'     => $content->id,
-                'fileId' => null
-            ]
-        );
-    }
-
-    /*
-     |--------------------------------------------------------------------------
-     | END Content Files tests
-     |--------------------------------------------------------------------------
-     */
 }

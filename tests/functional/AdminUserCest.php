@@ -1,5 +1,6 @@
 <?php
-namespace api;
+
+namespace Api;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -8,15 +9,6 @@ class AdminUserCest {
      * @var string endpoint url
      */
     protected $url = 'http://api.localhost/v1/admin/users';
-
-    public function _before(FunctionalTester $I)
-    {
-        $I->logout();
-    }
-
-    public function _after(FunctionalTester $I)
-    {
-    }
 
     /*
      |--------------------------------------------------------------------------
@@ -59,10 +51,10 @@ class AdminUserCest {
         $I->loginAsAdmin();
         $user = $I->haveUser(
             [
-                'nickName'  => 'Test user',
-                'firstName' => 'John',
-                'lastName'  => 'Doe',
-                'password'  => Hash::make('test123')
+                'nick'       => 'Test user',
+                'first_name' => 'John',
+                'last_name'  => 'Doe',
+                'password'   => Hash::make('test123')
             ]
         );
         $I->sendGet(
@@ -72,7 +64,7 @@ class AdminUserCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'nickName'  => 'Test user',
+                'nick'      => 'Test user',
                 'firstName' => 'John',
                 'lastName'  => 'Doe',
             ]
@@ -88,7 +80,6 @@ class AdminUserCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -106,7 +97,7 @@ class AdminUserCest {
      |--------------------------------------------------------------------------
      */
 
-    public function UpdateUser(FunctionalTester $I)
+    public function updateUser(FunctionalTester $I)
     {
         $I->wantTo('update user as admin user');
         $I->loginAsAdmin();
@@ -114,7 +105,7 @@ class AdminUserCest {
         $I->sendPUT(
             $this->url . '/' . $user->id,
             [
-                'nickName'  => 'Modified user',
+                'nick'      => 'Modified user',
                 'firstName' => 'Johny',
                 'lastName'  => 'Stark',
                 'email'     => $user->email,
@@ -124,7 +115,7 @@ class AdminUserCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'nickName'  => 'Modified user',
+                'nick'      => 'Modified user',
                 'firstName' => 'Johny',
                 'lastName'  => 'Stark',
                 'email'     => $user->email,
@@ -141,13 +132,12 @@ class AdminUserCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
     }
 
-    public function DeleteUser(FunctionalTester $I)
+    public function deleteUser(FunctionalTester $I)
     {
         $I->wantTo('delete user as admin user');
         $I->loginAsAdmin();

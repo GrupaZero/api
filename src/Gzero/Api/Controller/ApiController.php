@@ -51,7 +51,7 @@ class ApiController extends Controller {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respond($data, $code, Array $headers = [])
+    protected function respond($data, $code, array $headers = [])
     {
         return response()->json($data, $code, array_merge($this->defaultHeaders(), $headers));
     }
@@ -66,7 +66,7 @@ class ApiController extends Controller {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondTransformer($data, $code, TransformerAbstract $transformer, Array $headers = [])
+    protected function respondTransformer($data, $code, TransformerAbstract $transformer, array $headers = [])
     {
         if ($data === null) { // If we have empty result
             return $this->respond(
@@ -123,7 +123,7 @@ class ApiController extends Controller {
      *
      * @return mixed
      */
-    protected function respondWithSuccess($data, TransformerAbstract $transformer, Array $headers = [])
+    protected function respondWithSuccess($data, TransformerAbstract $transformer, array $headers = [])
     {
         return $this->respondTransformer($data, SymfonyResponse::HTTP_OK, $transformer, $headers);
     }
@@ -136,7 +136,7 @@ class ApiController extends Controller {
      *
      * @return mixed
      */
-    protected function respondWithSimpleSuccess($data, Array $headers = [])
+    protected function respondWithSimpleSuccess($data, array $headers = [])
     {
         return $this->respond($data, SymfonyResponse::HTTP_OK, $headers);
     }
@@ -153,7 +153,7 @@ class ApiController extends Controller {
     protected function respondWithError(
         $message = 'Bad Request',
         $code = SymfonyResponse::HTTP_BAD_REQUEST,
-        Array $headers = []
+        array $headers = []
     ) {
         return abort($code, $message, $headers);
     }
@@ -166,7 +166,7 @@ class ApiController extends Controller {
      *
      * @return mixed
      */
-    protected function respondNotFound($message = 'Not found', Array $headers = [])
+    protected function respondNotFound($message = 'Not found', array $headers = [])
     {
         return abort(404, $message, $headers);
     }

@@ -21,15 +21,15 @@ class UserValidator extends AbstractValidator {
      */
     protected $rules = [
         'list'   => [
-            'page'    => 'numeric',
-            'perPage' => 'numeric',
-            'sort'    => '',
+            'page'     => 'numeric',
+            'per_page' => 'numeric',
+            'sort'     => '',
         ],
         'update' => [
-            'email'     => 'required|email|unique:Users,email,@userId',
-            'nickName'  => 'required|min:3|unique:Users,nickName,@userId',
-            'firstName' => '',
-            'lastName'  => ''
+            'email'      => 'required|email|unique:users,email,@user_id',
+            'nick'       => 'required|min:3|unique:users,nick,@user_id',
+            'first_name' => '',
+            'last_name'  => ''
         ]
     ];
 

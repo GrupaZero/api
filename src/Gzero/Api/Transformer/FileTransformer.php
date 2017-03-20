@@ -34,7 +34,14 @@ class FileTransformer extends AbstractTransformer {
      */
     public function transform($file)
     {
-        $url  = $file->getUrl();
+        $thumb = null;
+
+        if ($file->type === 'image') {
+            $width  = config('gzero.image.thumb.width');
+            $height = config('gzero.image.thumb.height');
+            $thumb  = croppaUrl($file->getFullPath(), $width, $height);
+        }
+
         $file = $this->entityToArray(File::class, $file);
         return [
             'id'        => (int) $file['id'],
@@ -42,14 +49,14 @@ class FileTransformer extends AbstractTransformer {
             'name'      => $file['name'],
             'extension' => $file['extension'],
             'size'      => (int) $file['size'],
-            'mimeType'  => $file['mimeType'],
+            'mimeType'  => $file['mime_type'],
             'info'      => $file['info'],
-            'url'       => $url,
-            'isActive'  => (bool) $file['isActive'],
+            'thumb'     => $thumb,
             'weight'    => $this->setPivotNullableValue($file, 'weight'),
-            'createdBy' => (int) $file['createdBy'],
-            'createdAt' => $file['createdAt'],
-            'updatedAt' => $file['updatedAt']
+            'isActive'  => (bool) $file['is_active'],
+            'createdBy' => (int) $file['created_by'],
+            'createdAt' => $file['created_at'],
+            'updatedAt' => $file['updated_at']
         ];
     }
 

@@ -21,7 +21,7 @@ class FileTranslationValidator extends AbstractValidator {
      */
     protected $rules = [
         'create' => [
-            'langCode'    => 'required|in:pl,en,de,fr',
+            'lang_code'   => 'required|in:pl,en,de,fr',
             'title'       => 'required',
             'description' => ''
         ]

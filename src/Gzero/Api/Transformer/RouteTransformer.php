@@ -37,8 +37,8 @@ class RouteTransformer extends AbstractTransformer {
         $route = $this->entityToArray(Route::class, $route);
         return [
             'id'        => (int) $route['id'],
-            'createdAt' => $route['createdAt'],
-            'updatedAt' => $route['updatedAt']
+            'createdAt' => $route['created_at'],
+            'updatedAt' => $route['updated_at']
         ];
     }
 

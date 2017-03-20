@@ -1,26 +1,12 @@
 <?php
-namespace api;
 
-use Illuminate\Support\Facades\Storage;
+namespace Api;
 
 class AdminBlockCest {
     /**
      * @var string endpoint url
      */
     protected $url = 'http://api.localhost/v1/admin/blocks';
-
-    public function _before(FunctionalTester $I)
-    {
-        $I->logout();
-    }
-
-    public function _after(FunctionalTester $I)
-    {
-        $dirName = config('gzero.upload.directory');
-        if ($dirName) {
-            Storage::deleteDirectory($dirName);
-        }
-    }
 
     /*
      |--------------------------------------------------------------------------
@@ -70,12 +56,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -114,12 +100,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -160,7 +146,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -178,12 +163,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -195,12 +180,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -271,8 +256,8 @@ class AdminBlockCest {
         $I->wantTo('get list of blocks for specific content as admin user');
         $I->loginAsAdmin();
         $category       = $I->haveContent(['type' => 'category']);
-        $nestedCategory = $I->haveContent(['type' => 'category', 'parentId' => $category->id]);
-        $content        = $I->haveContent(['type' => 'content', 'parentId' => $nestedCategory->id]);
+        $nestedCategory = $I->haveContent(['type' => 'category', 'parent_id' => $category->id]);
+        $content        = $I->haveContent(['type' => 'content', 'parent_id' => $nestedCategory->id]);
         // Block for this content
         $I->sendPOST(
             $this->url,
@@ -523,7 +508,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -625,8 +609,8 @@ class AdminBlockCest {
                 'blockabale'   => [
                     'name'        => 'getLastContent',
                     'args'        => ['contentId' => 1],
-                    'isActive'    => 1,
-                    'isCacheable' => 1,
+                    'isActive'    => true,
+                    'isCacheable' => true,
                 ],
                 'weight'       => 1,
                 'isActive'     => true,
@@ -655,12 +639,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -700,7 +684,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -718,12 +701,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -750,12 +733,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -782,12 +765,12 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
+                    'lang_code' => 'en',
+                    'title'     => 'Example block title',
+                    'body'      => 'Example block body'
                 ]
             ],
             $user
@@ -812,7 +795,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -827,7 +809,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -848,19 +829,18 @@ class AdminBlockCest {
                 ]
             ]
         );
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  =>
-                    [
-                        'type' =>
-                            [
-                                0 => 'The selected type is invalid.',
-                            ],
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
+                        'type' => [
+                            0 => 'The selected type is invalid.',
+                        ],
                     ],
+                ]
             ]
         );
     }
@@ -884,7 +864,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
                 'message' => 'Widget is required',
             ]
         );
@@ -914,13 +893,13 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode'     => 'en',
-                    'title'        => 'Example block title',
-                    'body'         => 'Example block body',
-                    'customFields' => ['customField' => "Example block custom field"],
+                    'lang_code'     => 'en',
+                    'title'         => 'Example block title',
+                    'body'          => 'Example block body',
+                    'custom_fields' => ['customField' => "Example block custom field"],
 
                 ]
             ],
@@ -960,13 +939,13 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode'     => 'en',
-                    'title'        => 'Example block title',
-                    'body'         => 'Example block body',
-                    'customFields' => ['customField' => "Example block custom field"],
+                    'lang_code'     => 'en',
+                    'title'         => 'Example block title',
+                    'body'          => 'Example block body',
+                    'custom_fields' => ['custom_field' => "Example block custom field"],
 
                 ]
             ],
@@ -978,7 +957,7 @@ class AdminBlockCest {
                 'langCode'     => 'en',
                 'title'        => 'Modified block title',
                 'body'         => 'Modified block body',
-                'customFields' => ['customField' => "Modified block custom field"],
+                'customFields' => ['custom_field' => "Modified block custom field"],
             ]
         );
         $I->seeResponseCodeIs(200);
@@ -1006,14 +985,14 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode'     => 'en',
-                    'isActive'     => false,
-                    'title'        => 'Example block title',
-                    'body'         => 'Example block body',
-                    'customFields' => ['customField' => "Example block custom field"],
+                    'lang_code'     => 'en',
+                    'is_active'     => false,
+                    'title'         => 'Example block title',
+                    'body'          => 'Example block body',
+                    'custom_fields' => ['custom_field' => "Example block custom field"],
                 ]
             ],
             $user
@@ -1024,7 +1003,7 @@ class AdminBlockCest {
                 'langCode'     => 'en',
                 'title'        => 'New block title',
                 'body'         => 'New block body',
-                'customFields' => ['customField' => "New block custom field"],
+                'customFields' => ['custom_field' => "New block custom field"],
             ]
         );
         // get inactive translation
@@ -1088,13 +1067,13 @@ class AdminBlockCest {
                 'weight'       => 1,
                 'filter'       => ['+' => ['1/2/3']],
                 'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
+                'is_active'    => true,
+                'is_cacheable' => true,
                 'translations' => [
-                    'langCode'     => 'en',
-                    'title'        => 'Example block title',
-                    'body'         => 'Example block body',
-                    'customFields' => ['customField' => "Example block custom field"],
+                    'lang_code'     => 'en',
+                    'title'         => 'Example block title',
+                    'body'          => 'Example block body',
+                    'custom_fields' => ['custom_field' => "Example block custom field"],
                 ]
             ],
             $user
@@ -1108,7 +1087,6 @@ class AdminBlockCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
                 'message' => 'Cannot delete active translation',
             ]
         );
@@ -1119,143 +1097,4 @@ class AdminBlockCest {
      | END Block translations tests
      |--------------------------------------------------------------------------
      */
-
-    /*
-     |--------------------------------------------------------------------------
-     | START Block Files tests
-     |--------------------------------------------------------------------------
-     */
-
-    public function getBlockFiles(FunctionalTester $I)
-    {
-        $I->wantTo('create and get list of block files as admin user');
-        $I->loginAsAdmin();
-        $fileIds     = [];
-        $user        = $I->haveUser();
-        $block       = $I->haveBlock(
-            [
-                'type'         => 'basic',
-                'region'       => 'header',
-                'weight'       => 1,
-                'filter'       => ['+' => ['1/2/3']],
-                'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
-                'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
-                ]
-            ],
-            $user
-        );
-        $url         = $this->url . '/' . $block->id . '/files';
-        $filesNumber = 4;
-        for ($i = 0; $i < $filesNumber; $i++) {
-            $file      = $I->haveFile(false, $user);
-            $fileIds[] = $file->id;
-        }
-
-        $I->sendPOST($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->sendGET($url);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'meta'   => [
-                    'total'       => $filesNumber,
-                    'perPage'     => 20,
-                    'currentPage' => 1,
-                    'lastPage'    => 1,
-                    'link'        => $url,
-                ],
-                'params' => [
-                    'page'    => 1,
-                    'perPage' => 20,
-                    'filter'  => [],
-                ],
-            ]
-        );
-    }
-
-    public function updateBlockFile(FunctionalTester $I)
-    {
-        $I->wantTo('update block file as admin user');
-        $I->loginAsAdmin();
-        $fileIds   = [];
-        $user      = $I->haveUser();
-        $block     = $I->haveBlock(
-            [
-                'type'         => 'basic',
-                'region'       => 'header',
-                'weight'       => 1,
-                'filter'       => ['+' => ['1/2/3']],
-                'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
-                'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
-                ]
-            ],
-            $user
-        );
-        $url       = $this->url . '/' . $block->id . '/files';
-        $file      = $I->haveFile(false, $user);
-        $fileIds[] = $file->id;
-
-        $I->sendPOST($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->sendPUT($url . '/' . $file->id, ['weight' => 4]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(
-            [
-                'weight' => 4
-            ]
-        );
-    }
-
-    public function deleteBlockFile(FunctionalTester $I)
-    {
-        $I->wantTo('celete block file as admin user');
-        $I->loginAsAdmin();
-        $fileIds   = [];
-        $user      = $I->haveUser();
-        $block     = $I->haveBlock(
-            [
-                'type'         => 'basic',
-                'region'       => 'header',
-                'weight'       => 1,
-                'filter'       => ['+' => ['1/2/3']],
-                'options'      => ['option' => 'value'],
-                'isActive'     => true,
-                'isCacheable'  => true,
-                'translations' => [
-                    'langCode' => 'en',
-                    'title'    => 'Example block title',
-                    'body'     => 'Example block body'
-                ]
-            ],
-            $user
-        );
-        $url       = $this->url . '/' . $block->id . '/files';
-        $file      = $I->haveFile(false, $user);
-        $fileIds[] = $file->id;
-
-        $I->sendPOST($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->sendDelete($url, ['filesIds' => $fileIds]);
-        $I->seeResponseCodeIs(200);
-        $I->seeResponseIsJson();
-    }
-
-    /*
-     |--------------------------------------------------------------------------
-     | END Block Files tests
-     |--------------------------------------------------------------------------
-     */
-
 }

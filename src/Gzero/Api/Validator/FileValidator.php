@@ -21,26 +21,26 @@ class FileValidator extends AbstractValidator {
      */
     protected $rules = [
         'list'   => [
-            'lang'     => 'required_with:sort|in:pl,en,de,fr',
-            'page'     => 'numeric',
-            'perPage'  => 'numeric',
-            'type'     => 'in:image,document,video,music',
-            'isActive' => 'boolean',
-            'sort'     => ''
+            'lang'      => 'required_with:sort|in:pl,en,de,fr',
+            'page'      => 'numeric',
+            'per_page'  => 'numeric',
+            'type'      => 'in:image,document,video,music',
+            'is_active' => 'boolean',
+            'sort'      => ''
         ],
         'create' => [
             'type'                     => 'required|in:image,document,video,music',
             'file'                     => '',
             'info'                     => '',
-            'createdBy'                => '',
-            'isActive'                 => 'boolean',
-            'translations.langCode'    => 'required_with:translations.title|in:pl,en,de,fr',
-            'translations.title'       => 'required_with:translations.langCode',
+            'created_by'               => '',
+            'is_active'                => 'boolean',
+            'translations.lang_code'   => 'required_with:translations.title|in:pl,en,de,fr',
+            'translations.title'       => 'required_with:translations.lang_code',
             'translations.description' => '',
         ],
         'update' => [
             'info'      => '',
-            'isActive'  => 'boolean',
+            'is_active' => 'boolean',
         ]
     ];
 

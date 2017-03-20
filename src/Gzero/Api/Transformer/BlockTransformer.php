@@ -53,10 +53,10 @@ class BlockTransformer extends AbstractTransformer {
             'options'     => $block['options'],
             'theme'       => $block['theme'],
             'weight'      => (int) $block['weight'],
-            'isActive'    => (bool) $block['isActive'],
-            'isCacheable' => (bool) $block['isActive'],
-            'createdAt'   => $block['createdAt'],
-            'updatedAt'   => $block['updatedAt']
+            'isActive'    => (bool) $block['is_active'],
+            'isCacheable' => (bool) $block['is_cacheable'],
+            'createdAt'   => $block['created_at'],
+            'updatedAt'   => $block['updated_at']
         ];
     }
 

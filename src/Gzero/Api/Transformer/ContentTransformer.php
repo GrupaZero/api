@@ -47,22 +47,22 @@ class ContentTransformer extends AbstractTransformer {
         $content = $this->entityToArray(Content::class, $content);
         return [
             'id'               => $this->setNullableValue($content['id']),
-            'parentId'         => $this->setNullableValue($content['parentId']),
-            'fileId'           => $this->setNullableValue($content['fileId']),
+            'parentId'         => $this->setNullableValue($content['parent_id']),
+            'fileId'           => $this->setNullableValue($content['file_id']),
             'type'             => $content['type'],
             'theme'            => $content['theme'],
             'weight'           => (int) $content['weight'],
-            'rating'           => (int) $content['isSticky'],
-            'visits'           => (int) $content['isSticky'],
-            'isActive'         => (bool) $content['isActive'],
-            'isOnHome'         => (bool) $content['isOnHome'],
-            'isCommentAllowed' => (bool) $content['isCommentAllowed'],
-            'isPromoted'       => (bool) $content['isPromoted'],
-            'isSticky'         => (bool) $content['isSticky'],
+            'rating'           => (int) $content['rating'],
+            'visits'           => (int) $content['visits'],
+            'isActive'         => (bool) $content['is_active'],
+            'isOnHome'         => (bool) $content['is_on_home'],
+            'isCommentAllowed' => (bool) $content['is_comment_allowed'],
+            'isPromoted'       => (bool) $content['is_promoted'],
+            'isSticky'         => (bool) $content['is_sticky'],
             'path'             => $this->buildPath($content['path']),
-            'publishedAt'      => $content['publishedAt'],
-            'createdAt'        => $content['createdAt'],
-            'updatedAt'        => $content['updatedAt']
+            'publishedAt'      => $content['published_at'],
+            'createdAt'        => $content['created_at'],
+            'updatedAt'        => $content['updated_at']
         ];
     }
 

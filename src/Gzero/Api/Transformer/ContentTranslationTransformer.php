@@ -28,15 +28,15 @@ class ContentTranslationTransformer extends AbstractTransformer {
         $translation = $this->entityToArray(ContentTranslation::class, $translation);
         return [
             'id'             => (int) $translation['id'],
-            'langCode'       => $translation['langCode'],
+            'langCode'       => $translation['lang_code'],
             'title'          => $translation['title'],
             'teaser'         => $translation['teaser'],
             'body'           => $translation['body'],
-            'seoTitle'       => $translation['seoTitle'],
-            'seoDescription' => $translation['seoDescription'],
-            'isActive'       => (bool) $translation['isActive'],
-            'createdAt'      => $translation['createdAt'],
-            'updatedAt'      => $translation['updatedAt'],
+            'seoTitle'       => $translation['seo_title'],
+            'seoDescription' => $translation['seo_description'],
+            'isActive'       => (bool) $translation['is_active'],
+            'createdAt'      => $translation['created_at'],
+            'updatedAt'      => $translation['updated_at'],
         ];
     }
 }

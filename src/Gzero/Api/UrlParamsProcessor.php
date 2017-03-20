@@ -87,7 +87,7 @@ class UrlParamsProcessor {
      *
      * @return $this
      */
-    public function process(Array $input)
+    public function process(array $input)
     {
         if (!empty($input['sort'])) {
             foreach (explode(',', $input['sort']) as $sort) {
@@ -96,7 +96,7 @@ class UrlParamsProcessor {
         }
         $input = $this->processPageParams($input);
         foreach ($input as $key => $param) {
-            if (!in_array($key, ['sort', 'page', 'perPage'], true)) {
+            if (!in_array($key, ['sort', 'page', 'per_page'], true)) {
                 $this->processFilterParams($key, $param);
             }
         }
@@ -115,7 +115,7 @@ class UrlParamsProcessor {
         $direction       = (substr($sort, 0, 1) == '-') ? 'DESC' : 'ASC';
         $field           = (substr($sort, 0, 1) == '-') ? substr($sort, 1) : $sort;
         $this->orderBy[] = [
-            $field,
+            snake_case($field),
             $direction
         ];
     }
@@ -127,13 +127,13 @@ class UrlParamsProcessor {
      *
      * @return mixed
      */
-    private function processPageParams(Array $input)
+    private function processPageParams(array $input)
     {
         if (!empty($input['page']) && is_numeric($input['page'])) {
             $this->page = $input['page'];
         }
-        if (!empty($input['perPage']) && is_numeric($input['perPage'])) {
-            $this->perPage = $input['perPage'];
+        if (!empty($input['per_page']) && is_numeric($input['per_page'])) {
+            $this->perPage = $input['per_page'];
         }
         return $input;
     }

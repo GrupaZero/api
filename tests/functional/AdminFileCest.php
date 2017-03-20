@@ -1,26 +1,12 @@
 <?php
-namespace api;
 
-use Illuminate\Support\Facades\Storage;
+namespace Api;
 
 class AdminFileCest {
     /**
      * @var string endpoint url
      */
     protected $url = 'http://api.localhost/v1/admin/files';
-
-    public function _before(FunctionalTester $I)
-    {
-        $I->logout();
-    }
-
-    public function _after(FunctionalTester $I)
-    {
-        $dirName = config('gzero.upload.directory');
-        if ($dirName) {
-            Storage::deleteDirectory($dirName);
-        }
-    }
 
     /*
      |--------------------------------------------------------------------------
@@ -77,19 +63,22 @@ class AdminFileCest {
                 'name'         => $file->name,
                 'extension'    => $file->extension,
                 'size'         => $file->size,
-                'mimeType'     => $file->mimeType,
-                'url'          => $file->getUrl(),
-                'isActive'     => (bool) $file->isActive,
+                'mimeType'     => $file->mime_type,
+                'isActive'     => (bool) $file->is_active,
                 'createdBy'    => $user->id,
                 'translations' => [
                     [
-                        'langCode'    => $fileTranslation->langCode,
+                        'langCode'    => $fileTranslation->lang_code,
                         'title'       => $fileTranslation->title,
                         'description' => $fileTranslation->description,
                     ]
                 ]
             ]
         );
+        $tWidth    = config('gzero.image.thumb.width');
+        $tHeight   = config('gzero.image.thumb.height');
+        $thumbPath = $I->grabDataFromResponseByJsonPath('thumb')[0];
+        $I->assertRegExp('/images\/example-' . $tWidth . 'x' . $tHeight . '\.png\?token=.+$/', $thumbPath);
     }
 
     public function checksIfFileExistsWhenGetting(FunctionalTester $I)
@@ -101,7 +90,6 @@ class AdminFileCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -146,7 +134,7 @@ class AdminFileCest {
                 'info'         => ['option' => 'value'],
                 'name'         => 'example',
                 'extension'    => 'png',
-                'size'         => '5148',
+                'size'         => 5148,
                 'mimeType'     => 'image/png',
                 'isActive'     => true,
                 'createdBy'    => 1, // admin user id
@@ -195,7 +183,7 @@ class AdminFileCest {
         );
     }
 
-    public function UpdateFile(FunctionalTester $I)
+    public function updateFile(FunctionalTester $I)
     {
         $I->wantTo('update file as admin user');
         $I->loginAsAdmin();
@@ -218,19 +206,22 @@ class AdminFileCest {
                 'name'         => $file->name,
                 'extension'    => $file->extension,
                 'size'         => $file->size,
-                'mimeType'     => $file->mimeType,
-                'url'          => $file->getUrl(),
+                'mimeType'     => $file->mime_type,
                 'isActive'     => false,
                 'createdBy'    => $user->id,
                 'translations' => [
                     [
-                        'langCode'    => $fileTranslation->langCode,
+                        'langCode'    => $fileTranslation->lang_code,
                         'title'       => $fileTranslation->title,
                         'description' => $fileTranslation->description,
                     ]
                 ]
             ]
         );
+        $tWidth    = config('gzero.image.thumb.width');
+        $tHeight   = config('gzero.image.thumb.height');
+        $thumbPath = $I->grabDataFromResponseByJsonPath('thumb')[0];
+        $I->assertRegExp('/images\/example-' . $tWidth . 'x' . $tHeight . '\.png\?token=.+$/', $thumbPath);
     }
 
     public function checksIfFileExistsWhenUpdating(FunctionalTester $I)
@@ -242,13 +233,12 @@ class AdminFileCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
     }
 
-    public function DeleteFile(FunctionalTester $I)
+    public function deleteFile(FunctionalTester $I)
     {
         $I->wantTo('delete file as admin user');
         $I->loginAsAdmin();
@@ -273,7 +263,6 @@ class AdminFileCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 404,
                 'message' => "Not found",
             ]
         );
@@ -293,20 +282,19 @@ class AdminFileCest {
                 ]
             ]
         );
-        $I->seeResponseCodeIs(400);
+        $I->seeResponseCodeIs(422);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'code'    => 400,
-                'message' => 'Validation Error',
-                'errors'  =>
-                    [
-                        'type' =>
-                            [
-                                0 => 'The type field is required.',
-                            ],
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => [
+                        'type' => [
+                            0 => 'The type field is required.',
+                        ],
                     ],
 
+                ]
             ]
         );
     }
@@ -323,7 +311,7 @@ class AdminFileCest {
      |--------------------------------------------------------------------------
      */
 
-    public function CreateFileTranslations(FunctionalTester $I)
+    public function createFileTranslations(FunctionalTester $I)
     {
         $I->wantTo('create file translations as admin user');
         $I->loginAsAdmin();
@@ -349,7 +337,7 @@ class AdminFileCest {
         );
     }
 
-    public function UpdateFileTranslations(FunctionalTester $I)
+    public function updateFileTranslations(FunctionalTester $I)
     {
         $I->wantTo('update file translations as admin user');
         $I->loginAsAdmin();
@@ -375,7 +363,7 @@ class AdminFileCest {
         );
     }
 
-    public function DeleteFileTranslations(FunctionalTester $I)
+    public function deleteFileTranslations(FunctionalTester $I)
     {
         $I->wantTo('delete file translations as admin user');
         $I->loginAsAdmin();

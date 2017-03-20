@@ -6,6 +6,7 @@ use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\FileTranslationValidator;
 use Gzero\Entity\File;
 use Gzero\Repository\FileRepository;
+use Illuminate\Http\Request;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -37,11 +38,16 @@ class FileTranslationController extends ApiController {
      * @param UrlParamsProcessor       $processor Url processor
      * @param FileRepository           $file      File repository
      * @param FileTranslationValidator $validator File validator
+     * @param Request                  $request   Request object
      */
-    public function __construct(UrlParamsProcessor $processor, FileRepository $file, FileTranslationValidator $validator)
-    {
+    public function __construct(
+        UrlParamsProcessor $processor,
+        FileRepository $file,
+        FileTranslationValidator $validator,
+        Request $request
+    ) {
         parent::__construct($processor);
-        $this->validator  = $validator->setData(\Input::all());
+        $this->validator  = $validator->setData($request->all());
         $this->repository = $file;
     }
 
@@ -138,7 +144,7 @@ class FileTranslationController extends ApiController {
         $file = $this->getFile($id);
         if (!empty($file)) {
             $this->authorize('delete', $file);
-            $translation = $this->repository->getFileTranslationById($file, $translationId);
+            $translation = $this->repository->getTranslationById($file, $translationId);
             if (!empty($translation)) {
                 $this->repository->deleteTranslation($translation);
                 return $this->respondWithSimpleSuccess(['success' => true]);

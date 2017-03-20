@@ -6,6 +6,7 @@ use Gzero\Api\UrlParamsProcessor;
 use Gzero\Api\Validator\ContentValidator;
 use Gzero\Entity\Content;
 use Gzero\Repository\ContentRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection as LaravelCollection;
 
 /**
@@ -38,11 +39,16 @@ class ContentController extends ApiController {
      * @param UrlParamsProcessor $processor Url processor
      * @param ContentRepository  $content   Content repository
      * @param ContentValidator   $validator Content validator
+     * @param Request            $request   Request object
      */
-    public function __construct(UrlParamsProcessor $processor, ContentRepository $content, ContentValidator $validator)
-    {
+    public function __construct(
+        UrlParamsProcessor $processor,
+        ContentRepository $content,
+        ContentValidator $validator,
+        Request $request
+    ) {
         parent::__construct($processor);
-        $this->validator  = $validator->setData(\Input::all());
+        $this->validator  = $validator->setData($request->all());
         $this->repository = $content;
     }
 
@@ -202,13 +208,14 @@ class ContentController extends ApiController {
     /**
      * Removes the specified resource from database.
      *
-     * @param int $id Content id
+     * @param Request $request Request object
+     * @param int     $id      Content id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $forceDelete = \Input::get('force', false);
+        $forceDelete = $request->get('force', false);
 
         $content = $this->repository->getByIdWithTrashed($id);
 
