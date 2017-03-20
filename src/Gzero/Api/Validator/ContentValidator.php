@@ -20,14 +20,14 @@ class ContentValidator extends AbstractValidator {
      * @var array
      */
     protected $rules = [
-        'tree'   => [
+        'tree'      => [
             'lang'      => 'required_with:sort|in:pl,en,de,fr',
             'type'      => 'in:category',
             'weight'    => 'numeric',
             'is_active' => 'boolean',
             'sort'      => ''
         ],
-        'list'   => [
+        'list'      => [
             'lang'      => 'required_with:sort|in:pl,en,de,fr',
             'page'      => 'numeric',
             'per_page'  => 'numeric',
@@ -38,14 +38,14 @@ class ContentValidator extends AbstractValidator {
             'level'     => '',
             'trashed'   => ''
         ],
-        'files'   => [
+        'files'     => [
             'lang'      => 'required_with:sort|in:pl,en,de,fr',
             'page'      => 'numeric',
             'per_page'  => 'numeric',
             'type'      => 'in:image,document',
             'is_active' => 'boolean',
         ],
-        'create' => [
+        'create'    => [
             'type'                         => 'required|in:content,category',
             'parent_id'                    => 'numeric|nullable',
             'weight'                       => 'numeric',
@@ -63,7 +63,7 @@ class ContentValidator extends AbstractValidator {
             'translations.seo_title'       => '',
             'translations.seo_description' => ''
         ],
-        'update' => [
+        'update'    => [
             'parent_id'          => 'numeric|nullable',
             'weight'             => 'numeric',
             'theme'              => '',
@@ -73,6 +73,11 @@ class ContentValidator extends AbstractValidator {
             'is_promoted'        => 'boolean',
             'is_sticky'          => 'boolean',
             'published_at'       => 'date|date_format:Y-m-d H:i:s',
+        ],
+        'syncFiles' => [
+            'data'          => 'required',
+            'data.*.id'     => 'numeric',
+            'data.*.weight' => 'numeric',
         ]
     ];
 

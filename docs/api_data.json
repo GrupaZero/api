@@ -1297,6 +1297,114 @@
     }
   },
   {
+    "type": "get",
+    "url": "/admin/contents/:id/files/sync",
+    "title": "9. PUT associate files with block",
+    "version": "0.1.0",
+    "name": "SyncBlockFiles",
+    "group": "Block",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p>"
+      }
+    ],
+    "description": "<p>Sync files for specific block</p>",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/blocks/1/files/sync",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/BlockController.php",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "meta",
+            "description": "<p>Meta data for current request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.total",
+            "description": "<p>Total number elements</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.perPage",
+            "description": "<p>Number of elements per page</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.currentPage",
+            "description": "<p>Current page number</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.lastPage",
+            "description": "<p>Last page number</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "meta.link",
+            "description": "<p>Link for this resource</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "params",
+            "description": "<p>Params passed for current request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "params.page",
+            "description": "<p>Page parameter</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "params.perPage",
+            "description": "<p>Per page parameter</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "params.filter",
+            "description": "<p>Array of filter params</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "params.orderBy",
+            "description": "<p>Array of sort params</p>"
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "delete",
     "url": "/admin/blocks/:id/translations/:id",
     "title": "5. DELETE the specified entity",
@@ -3540,6 +3648,114 @@
           "type": "json"
         }
       ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/admin/contents/:id/files/sync",
+    "title": "9. PUT associate files with content",
+    "version": "0.1.0",
+    "name": "SyncContentFiles",
+    "group": "Content",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>These permissions is needed for access to all admin api methods</p>"
+      }
+    ],
+    "description": "<p>Sync files for specific content</p>",
+    "examples": [
+      {
+        "title": "Example usage:",
+        "content": "curl -i http://api.example.com/v1/admin/contents/1/files/sync",
+        "type": "json"
+      }
+    ],
+    "filename": "src/Gzero/Api/Controller/Admin/ContentController.php",
+    "groupTitle": "",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "meta",
+            "description": "<p>Meta data for current request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.total",
+            "description": "<p>Total number elements</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.perPage",
+            "description": "<p>Number of elements per page</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.currentPage",
+            "description": "<p>Current page number</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "meta.lastPage",
+            "description": "<p>Last page number</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "meta.link",
+            "description": "<p>Link for this resource</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "params",
+            "description": "<p>Params passed for current request</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "params.page",
+            "description": "<p>Page parameter</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Integer",
+            "optional": false,
+            "field": "params.perPage",
+            "description": "<p>Per page parameter</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "params.filter",
+            "description": "<p>Array of filter params</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array[]",
+            "optional": false,
+            "field": "params.orderBy",
+            "description": "<p>Array of sort params</p>"
+          }
+        ]
+      }
     }
   },
   {

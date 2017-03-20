@@ -426,6 +426,98 @@ class AdminFileCest {
         );
     }
 
+    public function syncFilesWithContent(FunctionalTester $I)
+    {
+        $I->wantTo('sync file with content as admin user');
+        $I->loginAsAdmin();
+        $content = $I->haveContent();
+        $file1   = $I->haveFile();
+        $file2   = $I->haveFile();
+        $I->sendPUT(
+            $this->url . 'contents/' . $content->id . '/files/sync',
+            [
+                'data' => [
+                    ['id' => $file1->id],
+                    ['id' => $file2->id, 'weight' => 1337]
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [$file1->id, $file2->id],
+                'detached' => [],
+                'updated'  => []
+            ]
+        );
+
+        // Updating weight & detaching
+        $I->sendPUT(
+            $this->url . 'contents/' . $content->id . '/files/sync',
+            [
+                'data' => [
+                    ['id' => $file1->id, 'weight' => 13, 'unexpected_property' => 321]
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [],
+                'detached' => [1 => $file2->id], // @TODO Why key starts from 1?
+                'updated'  => [$file1->id]
+            ]
+        );
+    }
+
+    public function syncFilesWithBlock(FunctionalTester $I)
+    {
+        $I->wantTo('sync file with block as admin user');
+        $I->loginAsAdmin();
+        $block = $I->haveBlock();
+        $file1 = $I->haveFile();
+        $file2 = $I->haveFile();
+        $I->sendPUT(
+            $this->url . 'blocks/' . $block->id . '/files/sync',
+            [
+                'data' => [
+                    ['id' => $file1->id],
+                    ['id' => $file2->id, 'weight' => 1337]
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [$file1->id, $file2->id],
+                'detached' => [],
+                'updated'  => []
+            ]
+        );
+
+        // Updating weight & detaching
+        $I->sendPUT(
+            $this->url . 'blocks/' . $block->id . '/files/sync',
+            [
+                'data' => [
+                    ['id' => $file1->id, 'weight' => 13, 'unexpected_property' => 321]
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [],
+                'detached' => [1 => $file2->id], // @TODO Why key starts from 1?
+                'updated'  => [$file1->id]
+            ]
+        );
+    }
+
     /*
      |--------------------------------------------------------------------------
      | END File tests

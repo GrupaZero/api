@@ -11,6 +11,7 @@ use Gzero\Repository\ContentRepository;
 use Gzero\Repository\FileRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection as LaravelCollection;
+use Illuminate\Support\Facades\Input;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -58,8 +59,8 @@ class ContentController extends ApiController {
         Request $request
     ) {
         parent::__construct($processor);
-        $this->validator  = $validator->setData($request->all());
-        $this->repository = $content;
+        $this->validator      = $validator->setData($request->all());
+        $this->repository     = $content;
         $this->fileRepository = $file;
     }
 
@@ -289,6 +290,41 @@ class ContentController extends ApiController {
         return $this->respondNotFound();
     }
 
+    /**
+     * Sync files with specific content
+     *
+     * @param int $contentId Content id
+     *
+     * @return mixed
+     */
+    public function syncFiles($contentId)
+    {
+        $content = $this->repository->getById($contentId);
+        if (empty($content)) {
+            return $this->respondNotFound();
+        }
+        $this->authorize('readList', $content);
+        $input   = $this->validator->validate('syncFiles');
+        $content = $this->fileRepository->syncWith($content, $this->buildSyncData($input));
+        return $this->respondWithSuccess($content);
+    }
+
+    /**
+     * It builds syncData
+     *
+     * @param array $input Validated input
+     *
+     * @return mixed
+     */
+    protected function buildSyncData(array $input)
+    {
+        $syncData = [];
+        foreach ($input['data'] as $item) {
+            $syncData[$item['id']] = ['weight' => (!isset($item['weight']) ?: 0)];
+        }
+        return $syncData;
+    }
+
 }
 
 /*
@@ -416,6 +452,19 @@ class ContentController extends ApiController {
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/v1/admin/contents/1/files
+ */
+/**
+ * @api                 {get} /admin/contents/:id/files/sync 9. PUT associate files with content
+ * @apiVersion          0.1.0
+ * @apiName             SyncContentFiles
+ * @apiGroup            Content
+ * @apiPermission       admin
+ * @apiDescription      Sync files for specific content
+ * @apiUse              Meta
+ * @apiUse              Params
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/contents/1/files/sync
  */
 
 /**

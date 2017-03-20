@@ -27,7 +27,7 @@ Route::group(
             'blocks/{id}/files',
             'BlockController@indexOfFiles'
         );
-        $router->get(
+        $router->put(
             'blocks/{id}/files/sync',
             'BlockController@syncFiles'
         );
@@ -63,7 +63,7 @@ Route::group(
             'contents/{id}/files',
             'ContentController@indexOfFiles'
         );
-        $router->get(
+        $router->put(
             'contents/{id}/files/sync',
             'ContentController@syncFiles'
         );

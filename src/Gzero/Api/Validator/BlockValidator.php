@@ -62,6 +62,11 @@ class BlockValidator extends AbstractValidator {
             'widget'       => '',
             'is_cacheable' => 'boolean',
             'is_active'    => 'boolean',
+        ],
+        'syncFiles' => [
+            'data'          => 'required',
+            'data.*.id'     => 'numeric',
+            'data.*.weight' => 'numeric',
         ]
     ];
 

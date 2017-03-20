@@ -267,6 +267,41 @@ class BlockController extends ApiController {
         return $this->respondNotFound();
     }
 
+    /**
+     * Sync files with specific content
+     *
+     * @param int $contentId Content id
+     *
+     * @return mixed
+     */
+    public function syncFiles($contentId)
+    {
+        $block = $this->repository->getById($contentId);
+        if (empty($block)) {
+            return $this->respondNotFound();
+        }
+        $this->authorize('readList', $block);
+        $input   = $this->validator->validate('syncFiles');
+        $block = $this->fileRepository->syncWith($block, $this->buildSyncData($input));
+        return $this->respondWithSuccess($block);
+    }
+
+    /**
+     * It builds syncData
+     *
+     * @param array $input Validated input
+     *
+     * @return mixed
+     */
+    protected function buildSyncData(array $input)
+    {
+        $syncData = [];
+        foreach ($input['data'] as $item) {
+            $syncData[$item['id']] = ['weight' => (!isset($item['weight']) ?: 0)];
+        }
+        return $syncData;
+    }
+
 }
 
 /*
@@ -382,6 +417,19 @@ class BlockController extends ApiController {
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/v1/admin/blocks/1/files
+ */
+/**
+ * @api                 {get} /admin/contents/:id/files/sync 9. PUT associate files with block
+ * @apiVersion          0.1.0
+ * @apiName             SyncBlockFiles
+ * @apiGroup            Block
+ * @apiPermission       admin
+ * @apiDescription      Sync files for specific block
+ * @apiUse              Meta
+ * @apiUse              Params
+ *
+ * @apiExample          Example usage:
+ * curl -i http://api.example.com/v1/admin/blocks/1/files/sync
  */
 
 /**
