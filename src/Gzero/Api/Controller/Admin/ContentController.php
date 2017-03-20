@@ -303,7 +303,7 @@ class ContentController extends ApiController {
         if (empty($content)) {
             return $this->respondNotFound();
         }
-        $this->authorize('readList', $content);
+        $this->authorize('update', $content);
         $input   = $this->validator->validate('syncFiles');
         $content = $this->fileRepository->syncWith($content, $this->buildSyncData($input));
         return $this->respondWithSuccess($content);
@@ -460,8 +460,6 @@ class ContentController extends ApiController {
  * @apiGroup            Content
  * @apiPermission       admin
  * @apiDescription      Sync files for specific content
- * @apiUse              Meta
- * @apiUse              Params
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/v1/admin/contents/1/files/sync

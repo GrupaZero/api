@@ -280,7 +280,7 @@ class BlockController extends ApiController {
         if (empty($block)) {
             return $this->respondNotFound();
         }
-        $this->authorize('readList', $block);
+        $this->authorize('update', $block);
         $input   = $this->validator->validate('syncFiles');
         $block = $this->fileRepository->syncWith($block, $this->buildSyncData($input));
         return $this->respondWithSuccess($block);
@@ -425,8 +425,6 @@ class BlockController extends ApiController {
  * @apiGroup            Block
  * @apiPermission       admin
  * @apiDescription      Sync files for specific block
- * @apiUse              Meta
- * @apiUse              Params
  *
  * @apiExample          Example usage:
  * curl -i http://api.example.com/v1/admin/blocks/1/files/sync
