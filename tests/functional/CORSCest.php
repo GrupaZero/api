@@ -81,9 +81,9 @@ class CORSCest {
         $I->haveHttpHeader('Origin', 'http://localhost');
         $I->sendPOST('http://api.localhost/v1/admin/options');
         $I->seeResponseCodeIs(405);
-        // Asserting CORS
-        $I->seeHttpHeader('Access-Control-Allow-Credentials', 'true');
-        $I->seeHttpHeader('Access-Control-Allow-Origin', 'http://localhost');
+        // Asserting CORS headers won't be added
+        $I->dontSeeHttpHeader('Access-Control-Allow-Credentials', 'true');
+        $I->dontSeeHttpHeader('Access-Control-Allow-Origin', 'http://localhost');
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [

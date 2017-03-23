@@ -70,8 +70,6 @@ $Laravel = new class {
         $app['config']->set('gzero.upload.disk', 'local');
         $app['config']->set('filesystems.disks.local.driver', 'nullAdapter');
 
-        // We need to add middleware to handle OPTIONS case
-        app('Illuminate\Contracts\Http\Kernel')->prependMiddleware(HandlePreflight::class);
         app('Illuminate\Contracts\Http\Kernel')->prependMiddleware(Init::class);
         // We want to return Access-Control-Allow-Credentials header as well
         $app['config']->set('cors.supportsCredentials', true);
