@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "barryvdh/laravel-cors": "0.8.2",
+        "barryvdh/laravel-cors": "0.9.*",
         "flow/jsonpath": "^0.3.4",
         "gzero/core": "dev-master",
         "gzero/entity": "dev-master",

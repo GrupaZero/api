@@ -6,7 +6,7 @@ Route::group(
         'domain'     => 'api.' . config('gzero.domain'),
         'prefix'     => 'v1/admin',
         'namespace'  => 'Gzero\Api\Controller\Admin',
-        'middleware' => ['cors', 'auth:api', 'admin.api.access']
+        'middleware' => [Barryvdh\Cors\HandleCors::class, 'auth:api', 'admin.api.access']
     ],
     function ($router) {
         /** @var \Illuminate\Routing\Router $router */
@@ -126,7 +126,7 @@ Route::group(
         'domain'     => 'api.' . config('gzero.domain'),
         'prefix'     => 'v1/user',
         'namespace'  => 'Gzero\Api\Controller\User',
-        'middleware' => ['cors', 'auth:api']
+        'middleware' => [Barryvdh\Cors\HandleCors::class, 'auth:api']
     ],
     function ($router) {
         /** @var \Illuminate\Routing\Router $router */
