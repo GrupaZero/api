@@ -24,7 +24,7 @@ class BlockValidator extends AbstractValidator {
             'lang'      => 'required_with:sort|in:pl,en,de,fr',
             'page'      => 'numeric',
             'per_page'  => 'numeric',
-            'type'      => 'in:basic,menu,slider,content,widget',
+            'type'      => 'in:basic,menu,slider,widget',
             'is_active' => 'boolean',
             'sort'      => '',
             'level'     => '',
@@ -39,7 +39,7 @@ class BlockValidator extends AbstractValidator {
             'is_active' => 'boolean',
         ],
         'create'      => [
-            'type'                      => 'required|in:basic,menu,slider,content,widget',
+            'type'                      => 'required|in:basic,menu,slider,widget',
             'region'                    => '',
             'theme'                     => '',
             'weight'                    => 'numeric',
