@@ -557,6 +557,139 @@ class AdminFileCest {
         );
     }
 
+    public function detachAllFilesFromContent(FunctionalTester $I)
+    {
+        $I->wantTo('detach all files from content as admin user');
+        $I->loginAsAdmin();
+
+        // Setup
+        $content = $I->haveContent();
+        $file1   = $I->haveFile();
+        $file2   = $I->haveFile();
+        $I->sendPUT(
+            $this->url . 'contents/' . $content->id . '/files/sync',
+            [
+                'data' => [
+                    ['id' => $file1->id],
+                    ['id' => $file2->id, 'weight' => 1337]
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [$file1->id, $file2->id],
+                'detached' => [],
+                'updated'  => []
+            ]
+        );
+
+        // Test
+        $I->sendPUT(
+            $this->url . 'contents/' . $content->id . '/files/sync',
+            [
+                'data' => []
+            ]
+        );
+
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [],
+                'detached' => [$file1->id, $file2->id],
+                'updated'  => []
+            ]
+        );
+    }
+
+    public function fileSyncShouldAllowOnlyArray(FunctionalTester $I)
+    {
+        $I->wantTo('check if only array is allowed in files sync endpoints');
+        $I->loginAsAdmin();
+
+        // Setup
+        $content = $I->haveContent();
+        $block   = $I->haveBlock();
+
+        // Test
+        $I->sendPUT(
+            $this->url . 'contents/' . $content->id . '/files/sync',
+            [
+                'data' => 'test'
+            ]
+        );
+        $I->seeResponseCodeIs(422);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => ['data' => ['The data must be an array.']]
+                ],
+            ]
+        );
+
+        $I->sendPUT(
+            $this->url . 'blocks/' . $block->id . '/files/sync',
+            [
+                'data' => 'test'
+            ]
+        );
+        $I->seeResponseCodeIs(422);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => ['data' => ['The data must be an array.']]
+                ],
+            ]
+        );
+    }
+
+    public function shouldDisplayUsefulErrorWhenDataIsMissing(FunctionalTester $I)
+    {
+        $I->wantTo('see useful error when data param is missing in sync request');
+        $I->loginAsAdmin();
+
+        // Setup
+        $content = $I->haveContent();
+        $block   = $I->haveBlock();
+
+        // Test
+        $I->sendPUT(
+            $this->url . 'contents/' . $content->id . '/files/sync',
+            []
+        );
+        $I->seeResponseCodeIs(422);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => ['data' => ['The data field must be present.']]
+                ],
+            ]
+        );
+
+        $I->sendPUT(
+            $this->url . 'blocks/' . $block->id . '/files/sync',
+            []
+        );
+        $I->seeResponseCodeIs(422);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'error' => [
+                    'message' => 'Validation Error',
+                    'errors'  => ['data' => ['The data field must be present.']]
+                ],
+            ]
+        );
+    }
+
     public function syncFilesWithBlock(FunctionalTester $I)
     {
         $I->wantTo('sync file with block as admin user');
@@ -633,6 +766,53 @@ class AdminFileCest {
             [
                 'id'     => $file2->id,
                 'weight' => 1337
+            ]
+        );
+    }
+
+    public function detachAllFilesFromBlock(FunctionalTester $I)
+    {
+        $I->wantTo('detach all files from block as admin user');
+        $I->loginAsAdmin();
+
+        // Setup
+        $block = $I->haveBlock();
+        $file1 = $I->haveFile();
+        $file2 = $I->haveFile();
+        $I->sendPUT(
+            $this->url . 'blocks/' . $block->id . '/files/sync',
+            [
+                'data' => [
+                    ['id' => $file1->id],
+                    ['id' => $file2->id, 'weight' => 1337]
+                ]
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [$file1->id, $file2->id],
+                'detached' => [],
+                'updated'  => []
+            ]
+        );
+
+        // Test
+        $I->sendPUT(
+            $this->url . 'blocks/' . $block->id . '/files/sync',
+            [
+                'data' => []
+            ]
+        );
+
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'attached' => [],
+                'detached' => [$file1->id, $file2->id],
+                'updated'  => []
             ]
         );
     }
