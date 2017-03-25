@@ -75,7 +75,7 @@ class ContentValidator extends AbstractValidator {
             'published_at'       => 'date|date_format:Y-m-d H:i:s',
         ],
         'syncFiles' => [
-            'data'          => 'required',
+            'data'          => 'present|array',
             'data.*.id'     => 'numeric',
             'data.*.weight' => 'numeric',
         ]

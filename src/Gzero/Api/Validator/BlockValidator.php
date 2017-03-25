@@ -64,7 +64,7 @@ class BlockValidator extends AbstractValidator {
             'is_active'    => 'boolean',
         ],
         'syncFiles' => [
-            'data'          => 'required',
+            'data'          => 'present|array',
             'data.*.id'     => 'numeric',
             'data.*.weight' => 'numeric',
         ]
