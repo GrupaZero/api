@@ -1,6 +1,6 @@
 <?php namespace Gzero\Api;
 
-use Gzero\Repository\BaseRepository;
+use Gzero\Repository\QueryBuilder;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -16,13 +16,30 @@ use Gzero\Repository\BaseRepository;
  */
 class UrlParamsProcessor {
 
+    /**
+     * @var int
+     */
     private $page = 1;
 
-    private $perPage = BaseRepository::ITEMS_PER_PAGE; // Default value from repository
+    /**
+     * @var int
+     */
+    private $perPage = QueryBuilder::ITEMS_PER_PAGE;
 
+    /**
+     * @var array
+     */
     private $filter = [];
 
+    /**
+     * @var array
+     */
     private $orderBy = [];
+
+    /**
+     * @var null
+     */
+    private $searchQuery = null;
 
 
     /**
@@ -30,9 +47,9 @@ class UrlParamsProcessor {
      *
      * @return int
      */
-    public function getPage()
+    public function getPage(): int
     {
-        return (int) $this->page;
+        return $this->page;
     }
 
     /**
@@ -40,9 +57,9 @@ class UrlParamsProcessor {
      *
      * @return int
      */
-    public function getPerPage()
+    public function getPerPage(): int
     {
-        return (int) $this->perPage;
+        return $this->perPage;
     }
 
     /**
@@ -50,7 +67,7 @@ class UrlParamsProcessor {
      *
      * @return array
      */
-    public function getOrderByParams()
+    public function getOrderByParams(): array
     {
         return $this->orderBy;
     }
@@ -60,9 +77,19 @@ class UrlParamsProcessor {
      *
      * @return array
      */
-    public function getFilterParams()
+    public function getFilterParams(): array
     {
         return $this->filter;
+    }
+
+    /**
+     *  Returns filter array
+     *
+     * @return string
+     */
+    public function getSearchQuery(): string
+    {
+        return $this->searchQuery;
     }
 
     /**
@@ -76,7 +103,8 @@ class UrlParamsProcessor {
             'page'    => $this->getPage(),
             'perPage' => $this->getPerPage(),
             'filter'  => $this->filter,
-            'orderBy' => $this->orderBy
+            'orderBy' => $this->orderBy,
+            'query'   => $this->searchQuery
         ];
     }
 
@@ -89,6 +117,9 @@ class UrlParamsProcessor {
      */
     public function process(array $input)
     {
+        if (!empty($input['q'])) {
+            $this->searchQuery = $input['q'];
+        }
         if (!empty($input['sort'])) {
             foreach (explode(',', $input['sort']) as $sort) {
                 $this->processOrderByParams($sort);
@@ -96,7 +127,7 @@ class UrlParamsProcessor {
         }
         $input = $this->processPageParams($input);
         foreach ($input as $key => $param) {
-            if (!in_array($key, ['sort', 'page', 'per_page'], true)) {
+            if (!in_array($key, ['sort', 'page', 'per_page', 'q'], true)) {
                 $this->processFilterParams($key, $param);
             }
         }

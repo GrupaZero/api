@@ -646,12 +646,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/core.git",
-                "reference": "a430eab35abde68f917b5ae8bc3f54cc43834ee9"
+                "reference": "7fe2826fb1d95d554d4530c2f6e6a36190f6ae22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/core/zipball/a430eab35abde68f917b5ae8bc3f54cc43834ee9",
-                "reference": "a430eab35abde68f917b5ae8bc3f54cc43834ee9",
+                "url": "https://api.github.com/repos/GrupaZero/core/zipball/7fe2826fb1d95d554d4530c2f6e6a36190f6ae22",
+                "reference": "7fe2826fb1d95d554d4530c2f6e6a36190f6ae22",
                 "shasum": ""
             },
             "require": {
@@ -684,7 +684,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2017-03-22 18:46:11"
+            "time": "2017-03-24 14:14:55"
         },
         {
             "name": "gzero/eloquent-tree",
@@ -741,12 +741,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/entity.git",
-                "reference": "d8d248574d4804ebf10e951c5c1a02a2014843d6"
+                "reference": "002dd4ce59969671107e73bffac89c5a8810e650"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/d8d248574d4804ebf10e951c5c1a02a2014843d6",
-                "reference": "d8d248574d4804ebf10e951c5c1a02a2014843d6",
+                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/002dd4ce59969671107e73bffac89c5a8810e650",
+                "reference": "002dd4ce59969671107e73bffac89c5a8810e650",
                 "shasum": ""
             },
             "require": {
@@ -754,7 +754,7 @@
                 "illuminate/database": "5.3.*",
                 "illuminate/support": "5.3.*",
                 "php": ">=7.1.0",
-                "robclancy/presenter": "1.3.1"
+                "robclancy/presenter": "1.3.2"
             },
             "type": "library",
             "autoload": {
@@ -772,7 +772,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2017-03-22 16:56:10"
+            "time": "2017-03-24 14:14:55"
         },
         {
             "name": "gzero/repository",
@@ -781,12 +781,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/repository.git",
-                "reference": "6a9fc3cc69e90fd7cea431824fd0393c8863daf5"
+                "reference": "7d59ec2ff17487f2ff75c794eaeea0de77bbaa87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/6a9fc3cc69e90fd7cea431824fd0393c8863daf5",
-                "reference": "6a9fc3cc69e90fd7cea431824fd0393c8863daf5",
+                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/7d59ec2ff17487f2ff75c794eaeea0de77bbaa87",
+                "reference": "7d59ec2ff17487f2ff75c794eaeea0de77bbaa87",
                 "shasum": ""
             },
             "require": {
@@ -811,7 +811,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2017-03-19 14:52:08"
+            "time": "2017-03-25 12:51:12"
         },
         {
             "name": "gzero/validator",
@@ -1003,16 +1003,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.3.30",
+            "version": "v5.3.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "2d4e8c95f584b38d2279b552e2868fc447b97578"
+                "reference": "e641e75fc5b26ad0ba8c19b7e83b08cad1d03b89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/2d4e8c95f584b38d2279b552e2868fc447b97578",
-                "reference": "2d4e8c95f584b38d2279b552e2868fc447b97578",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e641e75fc5b26ad0ba8c19b7e83b08cad1d03b89",
+                "reference": "e641e75fc5b26ad0ba8c19b7e83b08cad1d03b89",
                 "shasum": ""
             },
             "require": {
@@ -1127,7 +1127,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-01-26T14:29:55+00:00"
+            "time": "2017-03-24T16:31:06+00:00"
         },
         {
             "name": "laravel/passport",
@@ -2143,32 +2143,25 @@
         },
         {
             "name": "robclancy/presenter",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robclancy/presenter.git",
-                "reference": "ab8a18d69c452688a184a0f8b044d53b0cdc5f2e"
+                "reference": "45b7f97a9e03db6aa052b6070bb2f4704ffec86b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robclancy/presenter/zipball/ab8a18d69c452688a184a0f8b044d53b0cdc5f2e",
-                "reference": "ab8a18d69c452688a184a0f8b044d53b0cdc5f2e",
+                "url": "https://api.github.com/repos/robclancy/presenter/zipball/45b7f97a9e03db6aa052b6070bb2f4704ffec86b",
+                "reference": "45b7f97a9e03db6aa052b6070bb2f4704ffec86b",
                 "shasum": ""
             },
-            "require": {
-                "php": ">=5.4.0"
-            },
             "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.1",
                 "illuminate/view": "4.2.*",
                 "mockery/mockery": "0.7.2",
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.3-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Robbo\\Presenter\\": "src/"
@@ -2181,16 +2174,16 @@
             "authors": [
                 {
                     "name": "Robbo",
-                    "email": "mail@robertclancy.net"
+                    "email": "robbo.clancy@gmail.com"
                 }
             ],
-            "description": "This is a simple library to help make a Presenter for your objects.",
+            "description": "Decorate your objects using presenters. Primarily to keep presentation logic out of your models.",
             "keywords": [
                 "decorator",
                 "laravel",
                 "presenter"
             ],
-            "time": "2015-03-14T08:14:37+00:00"
+            "time": "2017-02-22T07:43:54+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3386,16 +3379,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "2.2.9",
+            "version": "2.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "0204f1362040d3e408404af2545e5fa27e8964e2"
+                "reference": "c32a3f92834db08ceedb4666ea2265c3aa43396e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/0204f1362040d3e408404af2545e5fa27e8964e2",
-                "reference": "0204f1362040d3e408404af2545e5fa27e8964e2",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/c32a3f92834db08ceedb4666ea2265c3aa43396e",
+                "reference": "c32a3f92834db08ceedb4666ea2265c3aa43396e",
                 "shasum": ""
             },
             "require": {
@@ -3410,6 +3403,7 @@
                 "phpunit/phpunit": ">4.8.20 <6.0",
                 "sebastian/comparator": "~1.1",
                 "sebastian/diff": "^1.4",
+                "stecman/symfony-console-completion": "^0.7.0",
                 "symfony/browser-kit": ">=2.7 <4.0",
                 "symfony/console": ">=2.7 <4.0",
                 "symfony/css-selector": ">=2.7 <4.0",
@@ -3474,7 +3468,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2017-02-04T02:04:21+00:00"
+            "time": "2017-03-25T03:19:52+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -5373,6 +5367,51 @@
                 "standards"
             ],
             "time": "2017-03-01T22:17:45+00:00"
+        },
+        {
+            "name": "stecman/symfony-console-completion",
+            "version": "0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stecman/symfony-console-completion.git",
+                "reference": "5461d43e53092b3d3b9dbd9d999f2054730f4bbb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stecman/symfony-console-completion/zipball/5461d43e53092b3d3b9dbd9d999f2054730f4bbb",
+                "reference": "5461d43e53092b3d3b9dbd9d999f2054730f4bbb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/console": "~2.3 || ~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stecman\\Component\\Symfony\\Console\\BashCompletion\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Holdaway",
+                    "email": "stephen@stecman.co.nz"
+                }
+            ],
+            "description": "Automatic BASH completion for Symfony Console Component based applications.",
+            "time": "2016-02-24T05:08:54+00:00"
         },
         {
             "name": "symfony/browser-kit",

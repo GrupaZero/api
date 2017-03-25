@@ -26,7 +26,8 @@ class FileValidator extends AbstractValidator {
             'per_page'  => 'numeric',
             'type'      => 'in:image,document,video,music',
             'is_active' => 'boolean',
-            'sort'      => ''
+            'sort'      => '',
+            'q'         => ''
         ],
         'create' => [
             'type'                     => 'required|in:image,document,video,music',
