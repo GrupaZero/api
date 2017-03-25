@@ -1,6 +1,6 @@
 <?php namespace Gzero\Api;
 
-use Gzero\Repository\BaseRepository;
+use Gzero\Repository\QueryBuilder;
 
 /**
  * This file is part of the GZERO CMS package.
@@ -16,14 +16,29 @@ use Gzero\Repository\BaseRepository;
  */
 class UrlParamsProcessor {
 
+    /**
+     * @var int
+     */
     private $page = 1;
 
-    private $perPage = BaseRepository::ITEMS_PER_PAGE; // Default value from repository
+    /**
+     * @var int
+     */
+    private $perPage = QueryBuilder::ITEMS_PER_PAGE;
 
+    /**
+     * @var array
+     */
     private $filter = [];
 
+    /**
+     * @var array
+     */
     private $orderBy = [];
 
+    /**
+     * @var null
+     */
     private $searchQuery = null;
 
 
