@@ -317,7 +317,7 @@ class ContentController extends ApiController {
     {
         $syncData = [];
         foreach ($input['data'] as $item) {
-            $syncData[$item['id']] = ['weight' => (!isset($item['weight']) ?: 0)];
+            $syncData[$item['id']] = ['weight' => isset($item['weight']) ? $item['weight'] : 0];
         }
         return $syncData;
     }

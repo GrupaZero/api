@@ -503,6 +503,23 @@ class AdminFileCest {
             ]
         );
 
+        // Check if we'll get correct files
+        $I->sendGET($this->url . 'contents/' . $content->id . '/files');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                [
+                    'id'     => $file1->id,
+                    'weight' => 0
+                ],
+                [
+                    'id'     => $file2->id,
+                    'weight' => 1337
+                ],
+            ]
+        );
+
         // Updating weight & detaching
         $I->sendPUT(
             $this->url . 'contents/' . $content->id . '/files/sync',
@@ -519,6 +536,23 @@ class AdminFileCest {
                 'attached' => [],
                 'detached' => [1 => $file2->id], // @TODO Why key starts from 1?
                 'updated'  => [$file1->id]
+            ]
+        );
+
+        // Check if we'll get correct files
+        $I->sendGET($this->url . 'contents/' . $content->id . '/files');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'id'     => $file1->id,
+                'weight' => 13
+            ]
+        );
+        $I->dontSeeResponseContainsJson(
+            [
+                'id'     => $file2->id,
+                'weight' => 1337
             ]
         );
     }
@@ -549,6 +583,23 @@ class AdminFileCest {
             ]
         );
 
+        // Check if we'll get correct files
+        $I->sendGET($this->url . 'blocks/' . $block->id . '/files');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                [
+                    'id'     => $file1->id,
+                    'weight' => 0
+                ],
+                [
+                    'id'     => $file2->id,
+                    'weight' => 1337
+                ],
+            ]
+        );
+
         // Updating weight & detaching
         $I->sendPUT(
             $this->url . 'blocks/' . $block->id . '/files/sync',
@@ -565,6 +616,23 @@ class AdminFileCest {
                 'attached' => [],
                 'detached' => [1 => $file2->id], // @TODO Why key starts from 1?
                 'updated'  => [$file1->id]
+            ]
+        );
+
+        // Check if we'll get correct files
+        $I->sendGET($this->url . 'blocks/' . $block->id . '/files');
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'id'     => $file1->id,
+                'weight' => 13
+            ]
+        );
+        $I->dontSeeResponseContainsJson(
+            [
+                'id'     => $file2->id,
+                'weight' => 1337
             ]
         );
     }
