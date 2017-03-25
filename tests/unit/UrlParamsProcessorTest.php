@@ -54,6 +54,17 @@ class UrlParamsProcessorTest extends \Codeception\Test\Unit {
     /**
      * @test
      */
+    public function can_process_search_query()
+    {
+        $this->assertEquals(
+            $this->processor->getSearchQuery(),
+            'Lore Ipsum'
+        );
+    }
+
+    /**
+     * @test
+     */
     public function is_returning_page_params()
     {
         $this->assertEquals($this->processor->getPage(), 3);
@@ -94,7 +105,8 @@ class UrlParamsProcessorTest extends \Codeception\Test\Unit {
                     ['test1', 'DESC'],
                     ['test2', 'ASC'],
                     ['author.created_at', 'ASC'],
-                ]
+                ],
+                'query'   => 'Lore Ipsum'
             ]
         );
     }
@@ -111,7 +123,8 @@ class UrlParamsProcessorTest extends \Codeception\Test\Unit {
                 'per_page'              => 21,
                 'lang'                  => 'en',
                 'test2'                 => 'test2',
-                'translation.lang_code' => 'en'
+                'translation.lang_code' => 'en',
+                'q'                     => 'Lore Ipsum'
             ]
         );
     }

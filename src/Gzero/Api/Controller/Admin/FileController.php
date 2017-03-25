@@ -5,6 +5,7 @@ use Gzero\Api\Controller\ApiController;
 use Gzero\Api\Transformer\FileTransformer;
 use Gzero\Api\Validator\FileValidator;
 use Gzero\Repository\FileRepository;
+use Gzero\Repository\QueryBuilder;
 use Gzero\Repository\RepositoryValidationException;
 use Gzero\Api\UrlParamsProcessor;
 use Illuminate\Http\Request;
@@ -61,14 +62,11 @@ class FileController extends ApiController {
     public function index()
     {
         $this->authorize('readList', File::class);
-        $input   = $this->validator->validate('list');
-        $params  = $this->processor->process($input)->getProcessedFields();
-        $results = $this->fileRepo->getFiles(
-            $params['filter'],
-            $params['orderBy'],
-            $params['page'],
-            $params['perPage']
-        );
+        $input  = $this->validator->validate('list');
+        $params = $this->processor->process($input)->getProcessedFields();
+        $query  = QueryBuilder::with($params['filter'], $params['orderBy'], $params['query']);
+        $query->setPageSize($params['perPage']);
+        $results = $this->fileRepo->getFiles($query, $params['page']);
         return $this->respondWithSuccess($results, new FileTransformer);
     }
 

@@ -44,6 +44,57 @@ class AdminFileCest {
         );
     }
 
+    public function getFilesUsingSearch(FunctionalTester $I)
+    {
+        $I->wantTo('get list of files as admin user using query param');
+        $I->loginAsAdmin();
+        $I->haveFile(['name' => 'test file name', 'is_active' => true]);
+        $I->haveFile(['name' => 'test2 file name', 'is_active' => false]);
+        $I->sendGET($this->url . 'files', ['q' => 'file n']);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta' => [
+                    'total'       => 2,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $this->url . 'files',
+                ]
+            ]
+        );
+
+        // With filter
+        $I->sendGET($this->url . 'files', ['q' => 'file n', 'is_active' => 1]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta' => [
+                    'total'       => 1,
+                    'currentPage' => 1,
+                    'lastPage'    => 1,
+                    'link'        => $this->url . 'files',
+                ]
+            ]
+        );
+
+        // Not found test
+        $I->sendGET($this->url . 'files', ['q' => 'fsdsdsd']);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'meta' => [
+                    'total'       => 0,
+                    'currentPage' => 1,
+                    'lastPage'    => 0,
+                    'link'        => $this->url . 'files',
+                ]
+            ]
+        );
+    }
+
     public function getContentFiles(FunctionalTester $I)
     {
         $I->wantTo('get list of content files as admin user');
