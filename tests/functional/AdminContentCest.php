@@ -164,6 +164,41 @@ class AdminContentCest {
         );
     }
 
+    public function addThumbnail(FunctionalTester $I)
+    {
+        $I->wantTo('add thumbnail to content as admin user');
+        $I->loginAsAdmin();
+        $user    = $I->haveUser();
+        $content = $I->haveContent(
+            [
+                'type'         => 'content',
+                'is_active'    => 1,
+                'translations' => [
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
+                ]
+            ],
+            $user
+        );
+        $file = $I->haveFile();
+        $I->sendPut($this->url . '/' . $content->id, ['thumb_id' => $file->id]);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'id'       => $content->id,
+                'thumb' => [
+                    'id' => $file->id
+                ],
+            ]
+        );
+    }
+
     public function getDeletedContent(FunctionalTester $I)
     {
         $I->wantTo('get list of soft deleted content as admin user');

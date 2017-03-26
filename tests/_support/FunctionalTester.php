@@ -137,7 +137,7 @@ class FunctionalTester extends \Codeception\Actor {
     public function haveBlock($attributes = false, $user = null)
     {
         $fakeAttributes = [
-            'type'         => ['basic', 'menu', 'slider', 'content'][rand(0, 3)],
+            'type'         => ['basic', 'menu', 'slider'][rand(0, 2)],
             'region'       => ['header', 'sidebarLeft', 'sidebarRight', 'footer'][rand(0, 3)],
             'weight'       => rand(0, 10),
             'filter'       => ['+' => ['1/2/3']],
