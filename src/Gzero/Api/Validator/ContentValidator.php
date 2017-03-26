@@ -63,8 +63,9 @@ class ContentValidator extends AbstractValidator {
             'translations.seo_title'       => '',
             'translations.seo_description' => ''
         ],
-        'update'    => [
+        'update' => [
             'parent_id'          => 'numeric|nullable',
+            'thumb_id'           => 'numeric|nullable',
             'weight'             => 'numeric',
             'theme'              => '',
             'is_active'          => 'boolean',

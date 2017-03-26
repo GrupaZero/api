@@ -23,6 +23,7 @@ class ContentTransformer extends AbstractTransformer {
      */
     protected $defaultIncludes = [
         'route',
+        'thumb',
         'author',
         'children',
         'translations'
@@ -48,7 +49,6 @@ class ContentTransformer extends AbstractTransformer {
         return [
             'id'               => $this->setNullableValue($content['id']),
             'parentId'         => $this->setNullableValue($content['parent_id']),
-            'fileId'           => $this->setNullableValue($content['file_id']),
             'type'             => $content['type'],
             'theme'            => $content['theme'],
             'weight'           => (int) $content['weight'],
@@ -118,6 +118,19 @@ class ContentTransformer extends AbstractTransformer {
     {
         $author = $content->author;
         return (!empty($author)) ? $this->item($author, new UserTransformer()) : null;
+    }
+
+    /**
+     * Include Thumb
+     *
+     * @param Content $content File
+     *
+     * @return \League\Fractal\ItemResource
+     */
+    public function includeThumb(Content $content)
+    {
+        $thumb = $content->thumb;
+        return (!empty($thumb)) ? $this->item($thumb, new FileTransformer()) : null;
     }
 
     /**
