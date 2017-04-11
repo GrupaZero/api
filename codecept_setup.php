@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Barryvdh\Cors\HandlePreflight;
 use Gzero\Api\ServiceProvider as AdminServiceProvider;
 use Gzero\Core\Middleware\Init;
 use Gzero\Core\ServiceProvider as CoreServiceProvider;
