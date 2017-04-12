@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f9d42fb83f1d9e0b2eaf20aa46d204d1",
+    "content-hash": "732ed88459b63ced324b625fd905cd67",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -596,17 +596,17 @@
         },
         {
             "name": "gzero/core",
-            "version": "dev-laravel_5_4_upgrade",
+            "version": "dev-master",
             "target-dir": "Gzero/Core",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/core.git",
-                "reference": "7c72eae84d819371cdb957230db07fe35ee1c927"
+                "reference": "f5720e1e03b5a792b9bc638a73f6e3ba2a3525e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/core/zipball/7c72eae84d819371cdb957230db07fe35ee1c927",
-                "reference": "7c72eae84d819371cdb957230db07fe35ee1c927",
+                "url": "https://api.github.com/repos/GrupaZero/core/zipball/f5720e1e03b5a792b9bc638a73f6e3ba2a3525e4",
+                "reference": "f5720e1e03b5a792b9bc638a73f6e3ba2a3525e4",
                 "shasum": ""
             },
             "require": {
@@ -639,7 +639,7 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2017-04-11 11:53:50"
+            "time": "2017-04-12 10:40:42"
         },
         {
             "name": "gzero/eloquent-tree",
@@ -691,17 +691,17 @@
         },
         {
             "name": "gzero/entity",
-            "version": "dev-laravel_5_4_upgrade",
+            "version": "dev-master",
             "target-dir": "Gzero/Entity",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/entity.git",
-                "reference": "9cd867912e505d3aa97b1ca6d079205760090476"
+                "reference": "e329f20470ac96ad3619c267d647a015768117b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/9cd867912e505d3aa97b1ca6d079205760090476",
-                "reference": "9cd867912e505d3aa97b1ca6d079205760090476",
+                "url": "https://api.github.com/repos/GrupaZero/entity/zipball/e329f20470ac96ad3619c267d647a015768117b8",
+                "reference": "e329f20470ac96ad3619c267d647a015768117b8",
                 "shasum": ""
             },
             "require": {
@@ -727,21 +727,21 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2017-04-11 11:53:50"
+            "time": "2017-04-12 10:40:42"
         },
         {
             "name": "gzero/repository",
-            "version": "dev-laravel_5_4_upgrade",
+            "version": "dev-master",
             "target-dir": "Gzero/Repository",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/repository.git",
-                "reference": "8a31b52946f1d8958fbc49ebb619be52acc31c27"
+                "reference": "47f3dce7b50944f16f839807726b4f176af23f9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/8a31b52946f1d8958fbc49ebb619be52acc31c27",
-                "reference": "8a31b52946f1d8958fbc49ebb619be52acc31c27",
+                "url": "https://api.github.com/repos/GrupaZero/repository/zipball/47f3dce7b50944f16f839807726b4f176af23f9d",
+                "reference": "47f3dce7b50944f16f839807726b4f176af23f9d",
                 "shasum": ""
             },
             "require": {
@@ -766,21 +766,21 @@
                     "email": "adrian.skierniewski@gmail.com"
                 }
             ],
-            "time": "2017-04-11 11:53:50"
+            "time": "2017-04-12 10:40:42"
         },
         {
             "name": "gzero/validator",
-            "version": "dev-laravel_5_4_upgrade",
+            "version": "dev-master",
             "target-dir": "Gzero/Validator",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrupaZero/validator.git",
-                "reference": "1a4b736e9e5d996a157ab386677a2916a122d318"
+                "reference": "1a304b27cf3b54ab9f448e5cd9062dbdf8488ad1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrupaZero/validator/zipball/1a4b736e9e5d996a157ab386677a2916a122d318",
-                "reference": "1a4b736e9e5d996a157ab386677a2916a122d318",
+                "url": "https://api.github.com/repos/GrupaZero/validator/zipball/1a304b27cf3b54ab9f448e5cd9062dbdf8488ad1",
+                "reference": "1a304b27cf3b54ab9f448e5cd9062dbdf8488ad1",
                 "shasum": ""
             },
             "require": {
@@ -809,7 +809,7 @@
                 "laravel",
                 "validator"
             ],
-            "time": "2017-04-11 11:53:50"
+            "time": "2017-04-12 10:40:42"
         },
         {
             "name": "laravel/framework",
