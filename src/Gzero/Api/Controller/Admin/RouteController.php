@@ -67,7 +67,7 @@ class RouteController extends ApiController {
             $this->authorize('update', $content);
             if ($content->type != 'category') {
                 $input = $this->validator->validate('create');
-                $route = $this->repository->createRoute($content, $input['langCode'], $input['url']);
+                $route = $this->repository->createRoute($content, $input['lang_code'], $input['url']);
                 return $this->respondWithSuccess($route, new RouteTransformer);
             } else {
                 // TODO categories children route update
