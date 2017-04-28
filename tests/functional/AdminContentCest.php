@@ -429,5 +429,19 @@ class AdminContentCest {
                 ]
             ]
         );
+
+        // Check title is unchanged
+        $I->sendGET($this->url . '/' . $content->id);
+        $I->seeResponseContainsJson(
+            [
+                'id' => 1,
+                'translations' => [
+                    [
+                        'langCode' => 'en',
+                        'title' => 'Fake title',
+                    ]
+                ]
+            ]
+        );
     }
 }
