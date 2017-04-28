@@ -391,4 +391,31 @@ class AdminContentCest {
             ]
         );
     }
+
+    public function changeUrl(FunctionalTester $I) {
+        $I->wantTo('change Url');
+        $I->loginAsAdmin();
+        $user    = $I->haveUser();
+        $content = $I->haveContent(
+            [
+                'type'         => 'content',
+                'is_active'    => 1,
+                'translations' => [
+                    'lang_code'       => 'en',
+                    'title'           => 'Fake title',
+                    'teaser'          => '<p>Super fake...</p>',
+                    'body'            => '<p>Super fake body of some post!</p>',
+                    'seo_title'       => 'fake-title',
+                    'seo_description' => 'desc-demonstrate-fake',
+                    'is_active'       => 1
+                ]
+            ],
+            $user
+        );
+        $I->sendPost($this->url . '/' . $content->id . '/route', [
+            'langCode' => 'en',
+            'url' => 'updated-url'
+        ]);
+        $I->seeResponseCodeIs(200);
+    }
 }
