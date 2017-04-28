@@ -417,5 +417,17 @@ class AdminContentCest {
             'url' => 'updated-url'
         ]);
         $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'id' => 1,
+                'translations' => [
+                    [
+                        'langCode' => 'en',
+                        'url' => 'updated-url',
+                    ]
+                ]
+            ]
+        );
     }
 }
