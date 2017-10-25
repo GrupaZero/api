@@ -42,7 +42,7 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'google_analytics_id' =>
+                'google_tag_manager_id' =>
                     [
                         'en' => null,
                         'pl' => null,
@@ -84,7 +84,7 @@ class AdminOptionsCest {
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson(
             [
-                'google_analytics_id' =>
+                'google_tag_manager_id' =>
                     [
                         'en' => null,
                         'pl' => null,
