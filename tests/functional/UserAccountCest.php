@@ -141,6 +141,39 @@ class UserAccountCest {
         );
     }
 
+    public function updateAccountWithoutChangingEmail(FunctionalTester $I)
+    {
+        $I->wantTo('update my account without changing email');
+        $user = $I->haveUser(
+            [
+                'nick'      => 'Old Nick',
+                'firstName' => 'Jane',
+                'lastName'  => 'Doe',
+                'email'     => 'email@example.com',
+            ]
+        );
+        $I->loginWithToken($user->email);
+        $I->sendPUT(
+            $this->url,
+            [
+                'nick'      => 'New Nick',
+                'firstName' => 'John',
+                'lastName'  => 'Doe',
+                'email'     => 'email@example.com',
+            ]
+        );
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(
+            [
+                'nick'      => 'New Nick',
+                'firstName' => 'John',
+                'lastName'  => 'Doe',
+                'email'     => 'email@example.com',
+            ]
+        );
+    }
+
     /*
      |--------------------------------------------------------------------------
      | END Account tests
